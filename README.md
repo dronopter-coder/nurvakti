@@ -11,3 +11,9 @@
 
 ## Yerelde derleme
 npm install && npx cap add android && npx cap sync android, sonra Android Studio ile aç (manifest yamalarını workflow'daki gibi uygula).
+
+## Kabir modülü (mezarlık hizmeti)
+- **Kabir** sekmesinden mezar taşının fotoğrafı çekilir/seçilir. Taştaki ad ve tarihler cihazda (Tesseract OCR, `www/ocr/`, internet gerekmez) okunur, form önceden doldurulur; kullanıcı doğrular ve kaydeder. Fotoğraf hiçbir yere gönderilmez.
+- Kayıtlar (bilgi: localStorage, fotoğraf: IndexedDB) yalnızca telefonda tutulur. Mezar konumu (GPS) kaydedilebilir.
+- **Cuma okuması:** Fâtiha ve Yâsîn (Arapça, `www/okuma.js`, Amiri Quran yazı tipi `www/fonts/`) niyet ve dua ile birlikte okunur; okunan kabirler o Cuma için işaretlenir. Cuma 09:00 ve Perşembe 20:00 haftalık hatırlatma bildirimi vardır (Ayarlar'dan kapatılır).
+- OCR taş durumuna göre hatalı olabilir; bu yüzden sonuç her zaman düzenlenebilir.

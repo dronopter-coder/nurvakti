@@ -126,7 +126,7 @@ $('#gear').onclick=()=>{setDraw();$('#setSheet').classList.add('open')};
 $('#setSheet').onclick=e=>{if(e.target.id==='setSheet')e.target.classList.remove('open')};
 $('#stBild').onchange=async e=>{S.bild=e.target.checked;saveS();S.bild?await planNotifs(true):clearNotifs()};
 $('#stTest').onclick=()=>{try{const a=new Audio('ezan.wav');a.play()}catch(e){}};
-async function clearNotifs(){const LN=P.LocalNotifications;if(!LN)return;try{const p=await LN.getPending();if(p.notifications.length)await LN.cancel(p)}catch(e){}}
+async function clearNotifs(){const LN=P.LocalNotifications;if(!LN)return;try{const p=await LN.getPending();const n=p.notifications.filter(x=>x.id<9000);if(n.length)await LN.cancel({notifications:n})}catch(e){}}
 async function planNotifs(ask){
   const LN=P.LocalNotifications;if(!LN||!S.bild)return;
   try{

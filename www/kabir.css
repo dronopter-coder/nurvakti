@@ -1,0 +1,55 @@
+/* Kabir (mezarlık) modülü */
+@font-face{font-family:'Amiri Quran';src:url(fonts/amiri-quran-arabic-400-normal.woff2) format('woff2');font-display:swap}
+#v-kabir .panel{padding:0}
+.kb-top{padding:12px 14px 4px;display:flex;flex-direction:column;gap:10px;flex:none}
+.kb-cuma{border:1px solid var(--altin);background:linear-gradient(135deg,#2a366a,#1C2547);border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.kb-cuma b{font-family:Georgia,serif;font-weight:400;color:var(--altin);font-size:16px}
+.kb-cuma p{font-size:12.5px;color:var(--fildisi);line-height:1.45}
+.kb-cuma.dim{border-color:#33407a;background:var(--lacivert2)}
+.kb-cuma.dim b{color:var(--fildisi)}
+.kb-btns{display:flex;gap:8px}
+.kb-btns .btn{padding:10px;font-size:14px}
+#kbList{flex:1;overflow:auto;padding:6px 14px 14px}
+.kb-empty{text-align:center;color:var(--soluk);line-height:1.6;padding:26px 10px;font-size:13.5px}
+.kb-empty svg{width:54px;height:54px;stroke:var(--altin);fill:none;stroke-width:1.2;opacity:.7;margin-bottom:8px}
+.kb-card{display:flex;gap:12px;align-items:center;padding:10px;margin-top:8px;background:var(--lacivert2);border:1px solid #2c386c;border-radius:14px;width:100%;color:var(--fildisi);text-align:left;font:inherit}
+.kb-th{width:58px;height:58px;border-radius:12px;background:#0b0e1c center/cover no-repeat;flex:none;border:1px solid #33407a;display:flex;align-items:center;justify-content:center;color:var(--soluk);font-size:22px}
+.kb-inf{flex:1;min-width:0}
+.kb-ad{font-family:Georgia,serif;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kb-alt{font-size:12px;color:var(--soluk);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kb-ok{font-size:11px;padding:3px 8px;border-radius:10px;background:#1d3a3a;color:#7fd6c1;white-space:nowrap;flex:none}
+.kb-ok.bekle{background:#3b3320;color:var(--altin)}
+.kb-ov{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;z-index:6}
+.kb-ov.open{display:flex}
+.kb-box{background:var(--lacivert);width:100%;max-height:94dvh;overflow:auto;border-radius:22px 22px 0 0;padding:16px 16px calc(24px + env(safe-area-inset-bottom,0));display:flex;flex-direction:column;gap:11px}
+.kb-box h3{font-family:Georgia,serif;font-weight:400;color:var(--altin);font-size:18px}
+.kb-box label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--soluk)}
+.kb-box input[type=text],.kb-box textarea{width:100%;background:var(--gece);color:var(--fildisi);border:1px solid #3a4788;border-radius:12px;padding:11px;font-size:15px;font-family:inherit}
+.kb-box textarea{resize:vertical;min-height:64px}
+.kb-row{display:flex;gap:8px}.kb-row>*{flex:1;min-width:0}
+.kb-foto{width:100%;max-height:250px;object-fit:contain;background:#0b0e1c;border-radius:14px;border:1px solid #33407a}
+.kb-prog{height:6px;border-radius:4px;background:#0b0e1c;overflow:hidden}
+.kb-prog i{display:block;height:100%;width:0;background:var(--altin);transition:width .2s}
+.kb-durum{font-size:12.5px;color:var(--altin);min-height:16px}
+.kb-uyari{font-size:11.5px;color:var(--soluk);line-height:1.5}
+.kb-danger{background:none;border:1px solid var(--kirmizi);color:#e3a1ad}
+.kb-sec label.kb-chk{flex-direction:row;align-items:center;gap:9px;font-size:14px;color:var(--fildisi);padding:4px 0}
+.kb-chk input{accent-color:#C9A45C;width:18px;height:18px}
+/* Okuma ekranı */
+#kbOku{position:fixed;inset:0;z-index:8;background:radial-gradient(120% 60% at 50% 0%,#222d57 0%,var(--gece) 60%);display:none;flex-direction:column;padding-top:max(env(safe-area-inset-top,0px),var(--safe-area-inset-top,0px))}
+#kbOku.open{display:flex}
+.ok-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;gap:8px;flex:none;border-bottom:1px solid #2c386c}
+.ok-bar button{background:var(--lacivert);border:1px solid #33407a;color:var(--fildisi);border-radius:12px;padding:8px 12px;font-size:14px}
+.ok-steps{display:flex;gap:6px;padding:8px 12px;flex:none}
+.ok-steps button{flex:1;background:none;border:1px solid #33407a;color:var(--soluk);border-radius:12px;padding:7px 0;font-family:Georgia,serif;font-size:13.5px}
+.ok-steps button.on{color:var(--altin);border-color:var(--altin)}
+.ok-steps button.bit::after{content:" ✓";color:#7fd6c1}
+#okBody{flex:1;overflow:auto;padding:8px 20px 24px;scroll-behavior:smooth}
+.ok-niyet{font-family:Georgia,serif;text-align:center;line-height:1.7;font-size:16px;padding:14px 4px}
+.ok-niyet em{display:block;color:var(--altin);font-style:normal;margin:8px 0}
+.ok-baslik{font-family:Georgia,serif;color:var(--altin);text-align:center;font-size:19px;margin:18px 0 6px}
+.ok-ar{direction:rtl;text-align:center;font-family:"Amiri Quran","Amiri","Scheherazade New","Noto Naskh Arabic","Droid Arabic Naskh",serif;line-height:2.25;font-size:var(--arpx,27px);color:var(--fildisi)}
+.ok-ar .no{color:var(--altin);font-size:.62em;margin:0 4px;white-space:nowrap}
+.ok-dua{line-height:1.7;font-size:15px;text-align:center;font-family:Georgia,serif;padding:8px 2px}
+#okAlt{flex:none;padding:10px 14px calc(12px + env(safe-area-inset-bottom,0));border-top:1px solid #2c386c;display:flex;gap:8px}
+#okAlt .btn{padding:12px}
