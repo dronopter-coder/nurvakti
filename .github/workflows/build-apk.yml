@@ -1,39 +1,45 @@
-name: APK derle
+name: APK ve AAB derle
 on:
   push:
     branches: [main]
   workflow_dispatch:
+env:
+  KS_B64: ${{ secrets.KEYSTORE_BASE64 }}
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 20 }
+        with: { node-version: 22 }
       - uses: actions/setup-java@v4
-        with: { distribution: temurin, java-version: 17 }
-      - run: npm install
-      - run: npm install @capacitor/local-notifications@^6.0.0 @capacitor/haptics@^6.0.0
+        with: { distribution: temurin, java-version: 21 }
+      - name: Capacitor 8 paketleri
+        run: |
+          npm install @capacitor/core@8 @capacitor/android@8 @capacitor/geolocation@8 @capacitor/haptics@8 @capacitor/local-notifications@8 @capacitor-community/admob@8
+          npm install -D @capacitor/cli@8
       - run: npx cap add android
-      - name: Manifest, ses ve ikon
+      - name: Manifest, ses, ikon ve sürüm
         run: |
           M=android/app/src/main/AndroidManifest.xml
           sed -i 's#</application>#<meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-3204109869365538~9938336202"/></application>#' $M
           sed -i 's#</manifest>#<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/><uses-permission android:name="android.permission.POST_NOTIFICATIONS"/><uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/><uses-permission android:name="android.permission.VIBRATE"/></manifest>#' $M
+          sed -i -E "s/versionCode[ =]+[0-9]+/versionCode ${{ github.run_number }}/" android/app/build.gradle
           R=android/app/src/main/res
           mkdir -p $R/raw && cp www/ezan.wav $R/raw/ezan.wav
           python3 -m pip install pillow
           python3 - <<'PY'
           from PIL import Image, ImageDraw
+          import os
           R='android/app/src/main/res'
           fg=Image.open('www/icon-fg.png').convert('RGBA'); full=Image.open('www/icon-full.png').convert('RGB')
           for d,a,b in [('mdpi',48,108),('hdpi',72,162),('xhdpi',96,216),('xxhdpi',144,324),('xxxhdpi',192,432)]:
               p=f'{R}/mipmap-{d}/'
+              os.makedirs(p,exist_ok=True)
               full.resize((a,a),Image.LANCZOS).save(p+'ic_launcher.png')
               m=Image.new('L',(a*4,a*4),0); ImageDraw.Draw(m).ellipse([0,0,a*4-1,a*4-1],fill=255)
               r=full.resize((a,a),Image.LANCZOS).convert('RGBA'); r.putalpha(m.resize((a,a),Image.LANCZOS)); r.save(p+'ic_launcher_round.png')
               fg.resize((b,b),Image.LANCZOS).save(p+'ic_launcher_foreground.png')
-          import os
           os.makedirs(R+'/mipmap-anydpi-v26',exist_ok=True); os.makedirs(R+'/values',exist_ok=True)
           x='<?xml version="1.0" encoding="utf-8"?><adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android"><background android:drawable="@color/nur_bg"/><foreground android:drawable="@mipmap/ic_launcher_foreground"/></adaptive-icon>'
           open(R+'/mipmap-anydpi-v26/ic_launcher.xml','w').write(x); open(R+'/mipmap-anydpi-v26/ic_launcher_round.xml','w').write(x)
@@ -41,10 +47,25 @@ jobs:
           PY
           rm -f www/icon-fg.png www/icon-full.png
       - run: npx cap sync android
-      - name: APK derle
+      - name: Debug APK ve release AAB derle
         working-directory: android
-        run: chmod +x gradlew && ./gradlew assembleDebug
+        run: chmod +x gradlew && ./gradlew assembleDebug bundleRelease
       - uses: actions/upload-artifact@v4
         with:
           name: NurVakti-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
+      - name: AAB imzala (KEYSTORE_BASE64 sırrı tanımlıysa)
+        if: ${{ env.KS_B64 != '' }}
+        env:
+          KS_PASS: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_PASS: ${{ secrets.KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        run: |
+          echo "$KS_B64" | base64 -d > upload.jks
+          jarsigner -keystore upload.jks -storepass "$KS_PASS" -keypass "$KEY_PASS" -sigalg SHA256withRSA -digestalg SHA-256 android/app/build/outputs/bundle/release/app-release.aab "$KEY_ALIAS"
+          jarsigner -verify android/app/build/outputs/bundle/release/app-release.aab | head -3
+      - uses: actions/upload-artifact@v4
+        if: ${{ env.KS_B64 != '' }}
+        with:
+          name: NurVakti-AAB
+          path: android/app/build/outputs/bundle/release/app-release.aab
