@@ -54,15 +54,39 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
 .btn.gold{background:var(--altin);color:#241b08;border:0;font-weight:600}
 #toast{position:fixed;left:50%;top:60px;transform:translateX(-50%);background:var(--kirmizi);color:#fff;padding:8px 14px;border-radius:14px;font-size:12.5px;display:none;z-index:9;max-width:90%}
 #adph{position:fixed;left:0;right:0;bottom:0;height:50px;display:none;align-items:center;justify-content:center;background:#0b0e1c;color:#666;font-size:11px}
+.view{display:none;flex:1;min-height:0;flex-direction:column}.view.on{display:flex}
+#nav{display:flex;flex:none;gap:4px;background:var(--lacivert);border-radius:16px;margin-top:8px;padding:4px}
+#nav button{flex:1;background:none;border:0;color:var(--soluk);font-family:Georgia,serif;font-size:14px;padding:9px 0;border-radius:12px}
+#nav button.on{background:var(--lacivert2);color:var(--altin)}
+.mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.kwrap{position:relative;width:min(78vw,300px);aspect-ratio:1}.kwrap svg{width:100%;height:100%;transition:filter .3s}
+.kwrap.ok svg{filter:drop-shadow(0 0 10px #C9A45C)}
+.kpin{position:absolute;left:50%;top:-6px;margin-left:-7px;border:7px solid transparent;border-top:12px solid var(--kirmizi)}
+.ksub{font-family:Georgia,serif;color:var(--altin);font-size:15px;text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.chips button{background:var(--lacivert);border:1px solid #33407a;color:var(--soluk);border-radius:14px;padding:6px 11px;font-size:12.5px}
+.chips button.on{color:var(--altin);border-color:var(--altin)}
+.tsb{position:relative;width:min(58vw,220px);aspect-ratio:1;border:0;background:radial-gradient(circle,#2a366a,#1C2547);border-radius:50%;color:var(--fildisi)}
+.tsb svg{position:absolute;inset:0;width:100%;height:100%}.tsb span{font-family:Georgia,serif;font-size:56px;font-variant-numeric:tabular-nums}
+.tsb:active{transform:scale(.97)}
+.tg{display:flex;gap:18px;font-size:13px;color:var(--soluk)}.tg input,.trow input{accent-color:#C9A45C;width:17px;height:17px;vertical-align:-3px;margin-right:5px}
+.gr{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #2c386c}
+.gn{font-family:Georgia,serif;font-size:16px}.gd{font-size:12.5px;color:var(--soluk);margin-top:2px}
+.gk{color:var(--altin);font-size:13px;white-space:nowrap}
+#setSheet{position:fixed;inset:0;background:#000a;display:none;align-items:flex-end;z-index:5}#setSheet.open{display:flex}
+#setSheet .box{background:var(--lacivert);width:100%;border-radius:22px 22px 0 0;padding:18px 18px calc(26px + env(safe-area-inset-bottom,0));display:flex;flex-direction:column;gap:14px}
+.trow{display:flex;justify-content:space-between;align-items:center;font-size:15px}
+.gr.past{opacity:.4}.gr.nx{border-left:2px solid var(--altin);padding-left:10px}
 </style>
 </head>
 <body>
 <header>
   <button id="locBtn" aria-label="Konum seç"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span id="locName">Konum</span></button>
-  <div id="hijri"></div>
+  <div style="display:flex;gap:10px;align-items:center"><div id="hijri"></div><button id="gear" aria-label="Ayarlar" style="background:none;border:0;color:var(--altin);font-size:20px;padding:2px 4px">⚙</button></div>
 </header>
 <div class="besmele serif" dir="rtl">بسم الله الرحمن الرحيم</div>
 
+<main id="v-vakit" class="view on">
 <div class="ringwrap">
   <svg viewBox="0 0 200 200" aria-hidden="true">
     <g id="star" fill="none" stroke="#C9A45C" stroke-width=".9" opacity=".55">
@@ -92,6 +116,32 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
   <div id="body"></div>
 </div>
 
+</main>
+<section id="v-kible" class="view">
+  <div class="mid"><div id="kWrap" class="kwrap">
+    <svg viewBox="0 0 200 200"><g id="kDial"><circle cx="100" cy="100" r="92" fill="none" stroke="#2c386c" stroke-width="2"/>
+      <circle cx="100" cy="100" r="70" fill="none" stroke="#C9A45C" stroke-width=".6" opacity=".5"/>
+      <g fill="#9AA1BD" font-size="11" text-anchor="middle" font-family="Georgia,serif"><text x="100" y="24" fill="#C9A45C">K</text><text x="180" y="105">D</text><text x="100" y="186">G</text><text x="20" y="105">B</text></g>
+      <g id="kMark"><path d="M100 8 L93 30 L107 30Z" fill="#C9A45C"/><rect x="94" y="32" width="12" height="12" fill="#12162A" stroke="#C9A45C" stroke-width="1.5"/></g></g>
+      <path d="M100 96 L94 108 L106 108Z" fill="none"/><path d="M100 2 L94 -6" stroke="none"/></svg>
+    <div class="kpin"></div></div>
+    <div id="kInfo" class="ksub">Konum alınıyor…</div>
+    <div class="note" style="text-align:center">Telefonu yere paralel tut. Doğru çalışması için manyetik alan sensörü gerekir.</div></div>
+</section>
+<section id="v-tesbih" class="view"><div class="mid">
+  <div id="tsChips" class="chips"></div>
+  <button id="tsBtn" class="tsb" aria-label="Say"><svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="60" fill="none" stroke="#2c386c" stroke-width="4"/><circle id="tsRing" cx="70" cy="70" r="60" fill="none" stroke="#C9A45C" stroke-width="4" stroke-linecap="round" stroke-dasharray="377" stroke-dashoffset="377" transform="rotate(-90 70 70)"/></svg><span id="tsCount">0</span></button>
+  <div id="tsSub" class="ksub"></div>
+  <button id="tsReset" class="more">Sıfırla</button>
+  <div class="tg"><label><input type="checkbox" id="tsSes"> Ses (hayy)</label><label><input type="checkbox" id="tsTit"> Titreşim</label></div>
+</div></section>
+<section id="v-gunler" class="view"><div class="panel"><div class="tabs"><button class="on">Dini gün ve geceler</button></div><div id="gYear" class="chips" style="padding:10px 16px 0;justify-content:flex-start"></div><div id="gList" style="overflow:auto;padding:6px 16px"></div><div class="note" style="padding:0 16px 12px">Tarihler Diyanet takvimine göredir; kandil tarihleri o günün akşamını gösterir. 2028 için Diyanet listesine doğrudan ulaşılamadı; ikinci kaynaklardan ve resmî tatil takviminden derlendi, Diyanet güncellerse tekrar kontrol edilir.</div></div></section>
+<nav id="nav"><button data-v="vakit" class="on">Vakit</button><button data-v="kible">Kıble</button><button data-v="tesbih">Tesbih</button><button data-v="gunler">Günler</button></nav>
+<div id="setSheet"><div class="box">
+  <label class="trow"><span>Vakit bildirimi (ezan tınısı)</span><input type="checkbox" id="stBild"></label>
+  <div id="stVak" class="chips"></div>
+  <button class="btn" id="stTest">Bildirim sesini dinle</button>
+</div></div>
 <div id="sheet"><div class="box">
   <select id="selIl" aria-label="İl"></select>
   <select id="selIlce" aria-label="İlçe"></select>
@@ -101,14 +151,15 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
 <div id="toast"></div>
 <div id="adph">Reklam alanı (banner)</div>
 
+<script src="icerik.js"></script>
 <script>
-/* ===== AdMob ayarları: gerçek kodlarını buraya yaz, testing:false yap ===== */
+/* ===== AdMob (gerçek kimlikler gömülü) ===== */
 const AD = {
-  testing: true,
-  banner: 'ca-app-pub-3940256099942544/6300978111',       // TEST banner
-  interstitial: 'ca-app-pub-3940256099942544/1033173712'   // TEST geçiş reklamı
+  testing: false,
+  appId: 'ca-app-pub-3204109869365538~9938336202',
+  banner: 'ca-app-pub-3204109869365538/8606082397',
+  interstitial: 'ca-app-pub-3204109869365538/2699149590'
 };
-// Uygulama ID (ca-app-pub-...~...) GitHub Actions'ta ADMOB_APP_ID olarak verilir.
 
 /* ===== İçerik ===== */
 const AYET=[
@@ -144,6 +195,8 @@ const ILM=[
 ["Cuma namazı kimlere farzdır?","Akıllı, ergenlik çağına ermiş, hür, mukim ve sağlıklı erkeklere farzdır."],
 ["Boy abdesti (gusül) ne zaman gerekir?","Cünüplük, hayız ve nifas hallerinde gusül almak gerekir."],
 ["Namaz kılınması mekruh olan vakitler hangileridir?","Güneşin doğması, tam tepe noktasında olması ve batmaya yakın kızarması vakitleridir."]];
+AYET.push(...(window.AYET_EK||[]));HADIS.push(...(window.HADIS_EK||[]));ILM.push(...(window.ILM_EK||[]));
+const DAYN=()=>{const n=new Date();return Math.floor(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())/864e5)};
 const IL="Adana Adıyaman Afyonkarahisar Ağrı Aksaray Amasya Ankara Antalya Ardahan Artvin Aydın Balıkesir Bartın Batman Bayburt Bilecik Bingöl Bitlis Bolu Burdur Bursa Çanakkale Çankırı Çorum Denizli Diyarbakır Düzce Edirne Elazığ Erzincan Erzurum Eskişehir Gaziantep Giresun Gümüşhane Hakkari Hatay Iğdır Isparta İstanbul İzmir Kahramanmaraş Karabük Karaman Kars Kastamonu Kayseri Kilis Kırıkkale Kırklareli Kırşehir Kocaeli Konya Kütahya Malatya Manisa Mardin Mersin Muğla Muş Nevşehir Niğde Ordu Osmaniye Rize Sakarya Samsun Şanlıurfa Siirt Sinop Sivas Şırnak Tekirdağ Tokat Trabzon Tunceli Uşak Van Yalova Yozgat Zonguldak".split(" ");
 const AYLAR=["Muharrem","Safer","Rebiülevvel","Rebiülahir","Cemaziyelevvel","Cemaziyelahir","Recep","Şaban","Ramazan","Şevval","Zilkade","Zilhicce"];
 const VAK=[["Fajr","İmsak"],["Sunrise","Güneş"],["Dhuhr","Öğle"],["Asr","İkindi"],["Maghrib","Akşam"],["Isha","Yatsı"]];
@@ -175,7 +228,7 @@ async function fetchDay(d){
   }
   const r=await fetch(url); const j=await r.json();
   if(j.code!==200) throw new Error('API');
-  const out={t:{},h:j.data.date.hijri};
+  const out={t:{},h:j.data.date.hijri,lat:j.data.meta.latitude,lon:j.data.meta.longitude};
   VAK.forEach(([k])=>out.t[k]=j.data.timings[k].slice(0,5));
   ls.set(key,out); return out;
 }
@@ -256,14 +309,14 @@ $('#btnGps').onclick=useGps;
 /* ===== İçerik sekmeleri ===== */
 let tab='ayet', off=0, opens=0;
 function render(){
-  const b=$('#body'); const g=doy();
+  const b=$('#body'); const g=DAYN();
   document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x.dataset.t===tab));
   if(tab==='ayet'||tab==='hadis'){
-    const L=tab==='ayet'?AYET:HADIS, [t,r]=L[(g+off)%L.length];
+    const L=tab==='ayet'?AYET:HADIS, [t,r]=L[((tab==='ayet'?g:g*7+3)+off)%L.length];
     b.innerHTML=`<div class="quote">“${t}”</div><div class="ref">${r}</div><button class="more" id="more">${off?'Günün '+(tab==='ayet'?'ayetine':'hadisine')+' dön':'Bir tane daha'}</button><div class="note">Ayetler anlam olarak özetlenmiştir; ayrıntı için meal ve tefsirlere bakınız.</div>`;
     $('#more').onclick=()=>{off=off?0:1;render()};
   }else{
-    const s=g%ILM.length;
+    const s=(g*11+5)%ILM.length;
     const order=[s,...ILM.map((_,i)=>i).filter(i=>i!==s)];
     b.innerHTML=order.map((i,k)=>`<details${k===0?' open':''}><summary><span>${k===0?'<span class="gun">Günün sorusu</span>':''}${ILM[i][0]}</span></summary><p>${ILM[i][1]}</p></details>`).join('')+'<div class="note">Diyanet ilmihali esas alınmıştır. Özel durumlar için müftülüğe danışın.</div>';
     b.querySelectorAll('details').forEach(d=>d.addEventListener('toggle',()=>{if(d.open&&++opens%5===0)showInter()}));
@@ -291,5 +344,6 @@ async function showInter(){
 render(); load(); initAds();
 if(!ls.get('asked',false)){ ls.set('asked',true); useGps(); }
 </script>
+<script src="ek.js"></script>
 </body>
 </html>
