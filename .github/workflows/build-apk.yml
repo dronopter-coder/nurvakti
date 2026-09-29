@@ -3,9 +3,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-env:
-  # Test ID'si. Gerçek AdMob Uygulama ID'ni GitHub > Settings > Secrets > ADMOB_APP_ID olarak ekle.
-  ADMOB_APP_ID: ${{ secrets.ADMOB_APP_ID || 'ca-app-pub-3940256099942544~3347511713' }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,12 +13,33 @@ jobs:
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 17 }
       - run: npm install
+      - run: npm install @capacitor/local-notifications@^6.0.0 @capacitor/haptics@^6.0.0
       - run: npx cap add android
-      - name: Manifest yamalari (AdMob ID + konum izni)
+      - name: Manifest, ses ve ikon
         run: |
           M=android/app/src/main/AndroidManifest.xml
-          sed -i "s#</application>#<meta-data android:name=\"com.google.android.gms.ads.APPLICATION_ID\" android:value=\"${ADMOB_APP_ID}\"/></application>#" $M
-          sed -i 's#</manifest>#<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/></manifest>#' $M
+          sed -i 's#</application>#<meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-3204109869365538~9938336202"/></application>#' $M
+          sed -i 's#</manifest>#<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/><uses-permission android:name="android.permission.POST_NOTIFICATIONS"/><uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/><uses-permission android:name="android.permission.VIBRATE"/></manifest>#' $M
+          R=android/app/src/main/res
+          mkdir -p $R/raw && cp www/ezan.wav $R/raw/ezan.wav
+          python3 -m pip install pillow
+          python3 - <<'PY'
+          from PIL import Image, ImageDraw
+          R='android/app/src/main/res'
+          fg=Image.open('www/icon-fg.png').convert('RGBA'); full=Image.open('www/icon-full.png').convert('RGB')
+          for d,a,b in [('mdpi',48,108),('hdpi',72,162),('xhdpi',96,216),('xxhdpi',144,324),('xxxhdpi',192,432)]:
+              p=f'{R}/mipmap-{d}/'
+              full.resize((a,a),Image.LANCZOS).save(p+'ic_launcher.png')
+              m=Image.new('L',(a*4,a*4),0); ImageDraw.Draw(m).ellipse([0,0,a*4-1,a*4-1],fill=255)
+              r=full.resize((a,a),Image.LANCZOS).convert('RGBA'); r.putalpha(m.resize((a,a),Image.LANCZOS)); r.save(p+'ic_launcher_round.png')
+              fg.resize((b,b),Image.LANCZOS).save(p+'ic_launcher_foreground.png')
+          import os
+          os.makedirs(R+'/mipmap-anydpi-v26',exist_ok=True); os.makedirs(R+'/values',exist_ok=True)
+          x='<?xml version="1.0" encoding="utf-8"?><adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android"><background android:drawable="@color/nur_bg"/><foreground android:drawable="@mipmap/ic_launcher_foreground"/></adaptive-icon>'
+          open(R+'/mipmap-anydpi-v26/ic_launcher.xml','w').write(x); open(R+'/mipmap-anydpi-v26/ic_launcher_round.xml','w').write(x)
+          open(R+'/values/nur_colors.xml','w').write('<?xml version="1.0" encoding="utf-8"?><resources><color name="nur_bg">#12162A</color></resources>')
+          PY
+          rm -f www/icon-fg.png www/icon-full.png
       - run: npx cap sync android
       - name: APK derle
         working-directory: android
