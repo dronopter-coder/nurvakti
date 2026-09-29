@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#12162A">
+<title>Nûr Vakti</title>
+<style>
+:root{--gece:#12162A;--lacivert:#1C2547;--lacivert2:#242F58;--altin:#C9A45C;--fildisi:#EDE4CF;--soluk:#9AA1BD;--kirmizi:#9A4453;--yesil:#3E8577}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{background:radial-gradient(120% 60% at 50% 0%,#222d57 0%,var(--gece) 60%);color:var(--fildisi);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column;height:100dvh;overflow:hidden;padding:env(safe-area-inset-top,0) 14px 60px;font-size:14px}
+.serif{font-family:Georgia,"Times New Roman",serif}
+header{display:flex;align-items:center;justify-content:space-between;padding:10px 0 2px}
+#locBtn{background:var(--lacivert);border:1px solid #33407a;color:var(--fildisi);border-radius:20px;padding:7px 13px;font-size:13px;display:flex;gap:7px;align-items:center}
+#locBtn svg{width:13px;height:13px;fill:var(--altin)}
+#hijri{font-size:12px;color:var(--soluk);text-align:right;line-height:1.3}
+.besmele{text-align:center;color:var(--altin);font-size:15px;opacity:.75;padding:2px 0 0}
+.ringwrap{position:relative;width:min(64vw,250px);aspect-ratio:1;margin:4px auto 0;flex:none}
+.ringwrap svg{width:100%;height:100%;display:block}
+#star{transform-origin:100px 100px;animation:donus 90s linear infinite}
+@keyframes donus{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){#star{animation:none}}
+.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#nextName{font-family:Georgia,serif;font-size:20px;color:var(--altin);letter-spacing:.5px}
+#count{font-family:Georgia,serif;font-size:35px;font-variant-numeric:tabular-nums;font-weight:400;margin:1px 0}
+#sub{font-size:11.5px;color:var(--soluk)}
+.strip{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;margin:8px 0 10px;flex:none}
+.chip{background:var(--lacivert);border:1px solid transparent;border-radius:12px;padding:7px 0;text-align:center}
+.chip b{display:block;font-weight:400;font-size:10.5px;color:var(--soluk);margin-bottom:2px}
+.chip span{font-size:14px;font-variant-numeric:tabular-nums}
+.chip.cur{background:var(--lacivert2);border-color:var(--altin)}
+.chip.cur b{color:var(--altin)}
+.chip.nxt span{color:var(--altin)}
+.panel{flex:1;min-height:0;display:flex;flex-direction:column;background:var(--lacivert);border-radius:18px;border:1px solid #2c386c;overflow:hidden}
+.tabs{display:flex;border-bottom:1px solid #2c386c;flex:none}
+.tabs button{flex:1;background:none;border:0;color:var(--soluk);padding:11px 0;font-family:Georgia,serif;font-size:15px;border-bottom:2px solid transparent}
+.tabs button.on{color:var(--altin);border-bottom-color:var(--altin)}
+#body{flex:1;overflow:auto;padding:14px 16px}
+.quote{font-family:Georgia,serif;font-size:18px;line-height:1.5}
+.ref{margin-top:10px;color:var(--altin);font-size:13px}
+.more{margin-top:14px;background:none;border:1px solid #3a4788;color:var(--fildisi);border-radius:16px;padding:7px 14px;font-size:12.5px}
+details{border-bottom:1px solid #2c386c;padding:9px 0}
+summary{font-family:Georgia,serif;font-size:15.5px;line-height:1.35;list-style:none;display:flex;gap:8px;justify-content:space-between}
+summary::after{content:"+";color:var(--altin)}
+details[open] summary::after{content:"–"}
+details p{margin-top:7px;color:#d7d0bd;line-height:1.5;font-size:13.5px}
+.gun{color:var(--kirmizi);font-size:11px;font-family:system-ui;background:#f0d9dc;border-radius:8px;padding:1px 6px;margin-right:6px;vertical-align:1px}
+.note{font-size:11px;color:var(--soluk);margin-top:10px}
+#sheet{position:fixed;inset:0;background:#000a;display:none;align-items:flex-end;z-index:5}
+#sheet.open{display:flex}
+#sheet .box{background:var(--lacivert);width:100%;border-radius:22px 22px 0 0;padding:18px 18px calc(26px + env(safe-area-inset-bottom,0));display:flex;flex-direction:column;gap:10px}
+select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px solid #3a4788;border-radius:12px;padding:12px;font-size:15px}
+.btn.gold{background:var(--altin);color:#241b08;border:0;font-weight:600}
+#toast{position:fixed;left:50%;top:60px;transform:translateX(-50%);background:var(--kirmizi);color:#fff;padding:8px 14px;border-radius:14px;font-size:12.5px;display:none;z-index:9;max-width:90%}
+#adph{position:fixed;left:0;right:0;bottom:0;height:50px;display:none;align-items:center;justify-content:center;background:#0b0e1c;color:#666;font-size:11px}
+</style>
+</head>
+<body>
+<header>
+  <button id="locBtn" aria-label="Konum seç"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span id="locName">Konum</span></button>
+  <div id="hijri"></div>
+</header>
+<div class="besmele serif" dir="rtl">بسم الله الرحمن الرحيم</div>
+
+<div class="ringwrap">
+  <svg viewBox="0 0 200 200" aria-hidden="true">
+    <g id="star" fill="none" stroke="#C9A45C" stroke-width=".9" opacity=".55">
+      <rect x="38" y="38" width="124" height="124"/>
+      <rect x="38" y="38" width="124" height="124" transform="rotate(45 100 100)"/>
+      <circle cx="100" cy="100" r="49" opacity=".6"/>
+      <circle cx="100" cy="100" r="12" opacity=".6"/>
+    </g>
+    <circle cx="100" cy="100" r="95" fill="none" stroke="#2c386c" stroke-width="2"/>
+    <circle id="prog" cx="100" cy="100" r="95" fill="none" stroke="#C9A45C" stroke-width="3" stroke-linecap="round" stroke-dasharray="596.9" stroke-dashoffset="596.9" transform="rotate(-90 100 100)"/>
+  </svg>
+  <div class="center">
+    <div id="nextName">—</div>
+    <div id="count">--:--:--</div>
+    <div id="sub">vaktine kalan süre</div>
+  </div>
+</div>
+
+<div class="strip" id="strip"></div>
+
+<div class="panel">
+  <div class="tabs" role="tablist">
+    <button data-t="ayet" class="on">Ayet</button>
+    <button data-t="hadis">Hadis</button>
+    <button data-t="ilmihal">İlmihal</button>
+  </div>
+  <div id="body"></div>
+</div>
+
+<div id="sheet"><div class="box">
+  <select id="selIl" aria-label="İl"></select>
+  <select id="selIlce" aria-label="İlçe"></select>
+  <button class="btn gold" id="btnShow">Vakitleri göster</button>
+  <button class="btn" id="btnGps">Konumumu kullan</button>
+</div></div>
+<div id="toast"></div>
+<div id="adph">Reklam alanı (banner)</div>
+
+<script>
+/* ===== AdMob ayarları: gerçek kodlarını buraya yaz, testing:false yap ===== */
+const AD = {
+  testing: true,
+  banner: 'ca-app-pub-3940256099942544/6300978111',       // TEST banner
+  interstitial: 'ca-app-pub-3940256099942544/1033173712'   // TEST geçiş reklamı
+};
+// Uygulama ID (ca-app-pub-...~...) GitHub Actions'ta ADMOB_APP_ID olarak verilir.
+
+/* ===== İçerik ===== */
+const AYET=[
+["Allah, hiç kimseye gücünün yetmediği bir yükü yüklemez.","Bakara, 286"],
+["Şüphesiz zorluğun yanında bir kolaylık vardır.","İnşirah, 5-6"],
+["Bilin ki kalpler ancak Allah'ı anmakla huzur bulur.","Ra'd, 28"],
+["Beni anın ki ben de sizi anayım.","Bakara, 152"],
+["Kullarım sana beni sorarsa, şüphesiz ben yakınım. Bana dua edenin duasına karşılık veririm.","Bakara, 186"],
+["Kim Allah'a tevekkül ederse, O ona yeter.","Talâk, 3"],
+["Allah'ın rahmetinden ümidinizi kesmeyin.","Zümer, 53"],
+["Allah katında en değerli olanınız, takvâda en ileri olanınızdır.","Hucurât, 13"],
+["Sabırla ve namazla yardım dileyin.","Bakara, 45"],
+["Biz insana şah damarından daha yakınız.","Kâf, 16"]];
+const HADIS=[
+["Ameller niyetlere göredir.","Buhârî, Müslim"],
+["Kolaylaştırın, zorlaştırmayın; müjdeleyin, nefret ettirmeyin.","Buhârî, Müslim"],
+["Sizin en hayırlınız, Kur'an'ı öğrenen ve öğretendir.","Buhârî"],
+["Müslüman, dilinden ve elinden insanların emin olduğu kimsedir.","Buhârî, Müslim"],
+["Sizden biri, kendisi için istediğini kardeşi için de istemedikçe gerçek anlamda iman etmiş olmaz.","Buhârî, Müslim"],
+["Güzel söz sadakadır.","Buhârî, Müslim"],
+["Temizlik imanın yarısıdır.","Müslim"],
+["Kardeşine tebessüm etmen sadakadır.","Tirmizî"],
+["Allah'a ve ahiret gününe inanan, ya hayır söylesin ya da sussun.","Buhârî, Müslim"],
+["İnsanların en hayırlısı, insanlara en faydalı olandır.","Taberânî"]];
+const ILM=[
+["Günde kaç vakit namaz farzdır?","Beş vakit: sabah, öğle, ikindi, akşam ve yatsı."],
+["Abdestin farzları nelerdir?","Yüzü yıkamak, kolları dirseklerle birlikte yıkamak, başın dörtte birini mesh etmek ve ayakları topuklarla birlikte yıkamaktır."],
+["Namazın şartları nelerdir?","Namaz dışındaki şartlar altıdır: hadesten temizlik, necasetten temizlik, setr-i avret, kıbleye yönelmek, vakit ve niyet."],
+["Teyemmüm ne zaman yapılır?","Su bulunamadığında veya suyu kullanmak hastalık gibi bir zarara yol açacağında, temiz toprakla yapılır."],
+["Hangi durumda yolcu sayılırız?","Diyanet'e göre yaklaşık 90 km ve üzeri bir yolculukta seferî sayılır; dört rekâtlı farzlar iki rekât kılınır."],
+["Zekât nisabı nedir?","Temel ihtiyaçlar ve borçlar dışında 80,18 gr altın veya 561 gr gümüş değerinde mala bir yıl sahip olunmuşsa, malın kırkta biri (%2,5) zekât olarak verilir."],
+["Orucu ne bozar?","Kasten yemek, içmek ve cinsel ilişkidir. Unutarak yenip içilmesi orucu bozmaz."],
+["Cuma namazı kimlere farzdır?","Akıllı, ergenlik çağına ermiş, hür, mukim ve sağlıklı erkeklere farzdır."],
+["Boy abdesti (gusül) ne zaman gerekir?","Cünüplük, hayız ve nifas hallerinde gusül almak gerekir."],
+["Namaz kılınması mekruh olan vakitler hangileridir?","Güneşin doğması, tam tepe noktasında olması ve batmaya yakın kızarması vakitleridir."]];
+const IL="Adana Adıyaman Afyonkarahisar Ağrı Aksaray Amasya Ankara Antalya Ardahan Artvin Aydın Balıkesir Bartın Batman Bayburt Bilecik Bingöl Bitlis Bolu Burdur Bursa Çanakkale Çankırı Çorum Denizli Diyarbakır Düzce Edirne Elazığ Erzincan Erzurum Eskişehir Gaziantep Giresun Gümüşhane Hakkari Hatay Iğdır Isparta İstanbul İzmir Kahramanmaraş Karabük Karaman Kars Kastamonu Kayseri Kilis Kırıkkale Kırklareli Kırşehir Kocaeli Konya Kütahya Malatya Manisa Mardin Mersin Muğla Muş Nevşehir Niğde Ordu Osmaniye Rize Sakarya Samsun Şanlıurfa Siirt Sinop Sivas Şırnak Tekirdağ Tokat Trabzon Tunceli Uşak Van Yalova Yozgat Zonguldak".split(" ");
+const AYLAR=["Muharrem","Safer","Rebiülevvel","Rebiülahir","Cemaziyelevvel","Cemaziyelahir","Recep","Şaban","Ramazan","Şevval","Zilkade","Zilhicce"];
+const VAK=[["Fajr","İmsak"],["Sunrise","Güneş"],["Dhuhr","Öğle"],["Asr","İkindi"],["Maghrib","Akşam"],["Isha","Yatsı"]];
+
+/* ===== Yardımcılar ===== */
+const $=s=>document.querySelector(s);
+const P=window.Capacitor&&window.Capacitor.Plugins||{};
+const ls={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const p2=n=>String(n).padStart(2,'0');
+const dstr=d=>p2(d.getDate())+'-'+p2(d.getMonth()+1)+'-'+d.getFullYear();
+const doy=()=>{const n=new Date();return Math.floor((n-new Date(n.getFullYear(),0,0))/864e5)};
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',3200)}
+
+let loc=ls.get('loc',{type:'city',il:'İstanbul',ilce:'Merkez'});
+let days=null, hijri=null, evs=[], lastCur=-2;
+
+const locKey=()=>loc.type==='gps'?'gps'+loc.lat.toFixed(2)+','+loc.lon.toFixed(2):loc.il+'|'+loc.ilce;
+const locLabel=()=>loc.type==='gps'?'Konumum':(loc.ilce==='Merkez'?loc.il:loc.ilce+', '+loc.il);
+
+/* ===== Vakit verisi (Aladhan, yöntem 13 = Diyanet İşleri Başkanlığı) ===== */
+async function fetchDay(d){
+  const key='t|'+locKey()+'|'+dstr(d);
+  const c=ls.get(key,null); if(c) return c;
+  let url;
+  if(loc.type==='gps') url=`https://api.aladhan.com/v1/timings/${dstr(d)}?latitude=${loc.lat}&longitude=${loc.lon}&method=13`;
+  else{
+    const adr=(loc.ilce==='Merkez'?loc.il:loc.ilce+', '+loc.il)+', Turkey';
+    url=`https://api.aladhan.com/v1/timingsByAddress/${dstr(d)}?address=${encodeURIComponent(adr)}&method=13`;
+  }
+  const r=await fetch(url); const j=await r.json();
+  if(j.code!==200) throw new Error('API');
+  const out={t:{},h:j.data.date.hijri};
+  VAK.forEach(([k])=>out.t[k]=j.data.timings[k].slice(0,5));
+  ls.set(key,out); return out;
+}
+const at=(base,hm)=>{const [h,m]=hm.split(':').map(Number);return new Date(base.getFullYear(),base.getMonth(),base.getDate(),h,m,0)};
+
+async function load(){
+  $('#locName').textContent=locLabel();
+  try{
+    const now=new Date(), tm=new Date(now.getTime()+864e5);
+    const [a,b]=await Promise.all([fetchDay(now),fetchDay(tm)]);
+    evs=[];
+    VAK.forEach(([k],i)=>evs.push({i,d:at(now,a.t[k])}));
+    VAK.forEach(([k],i)=>evs.push({i,d:at(tm,b.t[k]),tm:true}));
+    days=a; hijri=a.h;
+    $('#hijri').innerHTML=`${hijri.day} ${AYLAR[(+hijri.month.number)-1]} ${hijri.year}<br>${now.toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'})}`;
+    const s=$('#strip'); s.innerHTML=VAK.map(([k,n],i)=>`<div class="chip" id="c${i}"><b>${n}</b><span>${a.t[k]}</span></div>`).join('');
+    lastCur=-2; tick();
+  }catch(e){ toast('Vakitler alınamadı. İnternet bağlantısını kontrol et.'); }
+}
+
+function tick(){
+  if(!evs.length) return;
+  const now=new Date();
+  let ni=evs.findIndex(e=>e.d>now);
+  if(ni<0){ load(); return; }
+  const next=evs[ni];
+  const prevD = ni>0 ? evs[ni-1].d : new Date(evs[5].d.getTime()-864e5);
+  const left=Math.max(0,Math.floor((next.d-now)/1000));
+  $('#count').textContent=`${p2(Math.floor(left/3600))}:${p2(Math.floor(left%3600/60))}:${p2(left%60)}`;
+  $('#nextName').textContent=VAK[next.i][1];
+  $('#sub').textContent=(next.i===1?'güneş doğmasına':VAK[next.i][1]+' vaktine')+' kalan süre';
+  const frac=(now-prevD)/(next.d-prevD);
+  $('#prog').style.strokeDashoffset=596.9*(1-Math.min(1,Math.max(0,frac)));
+  const cur=ni===0?5:(ni-1)%6;
+  if(cur!==lastCur){
+    lastCur=cur;
+    document.querySelectorAll('.chip').forEach((c,i)=>{c.classList.toggle('cur',i===cur);c.classList.toggle('nxt',i===next.i)});
+  }
+}
+setInterval(tick,1000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){tick()}});
+
+/* ===== Konum ===== */
+async function useGps(){
+  try{
+    let pos;
+    if(P.Geolocation){ await P.Geolocation.requestPermissions().catch(()=>{}); pos=await P.Geolocation.getCurrentPosition({timeout:12000}); }
+    else pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{timeout:12000}));
+    loc={type:'gps',lat:+pos.coords.latitude,lon:+pos.coords.longitude}; ls.set('loc',loc);
+    $('#sheet').classList.remove('open'); load();
+  }catch(e){ toast('Konum alınamadı. İzin ver veya il/ilçe seç.'); }
+}
+let dist=ls.get('dist',{});
+async function loadDistricts(){
+  if(Object.keys(dist).length>40) return;
+  try{
+    const r=await fetch('https://api.turkiyeapi.dev/v1/provinces?fields=name,districts'); const j=await r.json();
+    (j.data||[]).forEach(p=>dist[p.name]=(p.districts||[]).map(d=>d.name||d).sort((a,b)=>a.localeCompare(b,'tr')));
+    ls.set('dist',dist);
+  }catch(e){}
+}
+function fillIlce(){
+  const il=$('#selIl').value;
+  const list=['Merkez',...(dist[il]||[]).filter(n=>n!=='Merkez')];
+  $('#selIlce').innerHTML=list.map(n=>`<option>${n}</option>`).join('');
+  if(loc.type==='city'&&loc.il===il&&list.includes(loc.ilce)) $('#selIlce').value=loc.ilce;
+}
+$('#selIl').innerHTML=IL.map(n=>`<option>${n}</option>`).join('');
+$('#selIl').onchange=fillIlce;
+$('#locBtn').onclick=async()=>{
+  if(loc.type==='city') $('#selIl').value=loc.il;
+  $('#sheet').classList.add('open'); fillIlce(); await loadDistricts(); fillIlce();
+};
+$('#sheet').onclick=e=>{if(e.target.id==='sheet')e.target.classList.remove('open')};
+$('#btnShow').onclick=()=>{loc={type:'city',il:$('#selIl').value,ilce:$('#selIlce').value};ls.set('loc',loc);$('#sheet').classList.remove('open');load()};
+$('#btnGps').onclick=useGps;
+
+/* ===== İçerik sekmeleri ===== */
+let tab='ayet', off=0, opens=0;
+function render(){
+  const b=$('#body'); const g=doy();
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x.dataset.t===tab));
+  if(tab==='ayet'||tab==='hadis'){
+    const L=tab==='ayet'?AYET:HADIS, [t,r]=L[(g+off)%L.length];
+    b.innerHTML=`<div class="quote">“${t}”</div><div class="ref">${r}</div><button class="more" id="more">${off?'Günün '+(tab==='ayet'?'ayetine':'hadisine')+' dön':'Bir tane daha'}</button><div class="note">Ayetler anlam olarak özetlenmiştir; ayrıntı için meal ve tefsirlere bakınız.</div>`;
+    $('#more').onclick=()=>{off=off?0:1;render()};
+  }else{
+    const s=g%ILM.length;
+    const order=[s,...ILM.map((_,i)=>i).filter(i=>i!==s)];
+    b.innerHTML=order.map((i,k)=>`<details${k===0?' open':''}><summary><span>${k===0?'<span class="gun">Günün sorusu</span>':''}${ILM[i][0]}</span></summary><p>${ILM[i][1]}</p></details>`).join('')+'<div class="note">Diyanet ilmihali esas alınmıştır. Özel durumlar için müftülüğe danışın.</div>';
+    b.querySelectorAll('details').forEach(d=>d.addEventListener('toggle',()=>{if(d.open&&++opens%5===0)showInter()}));
+  }
+  b.scrollTop=0;
+}
+document.querySelectorAll('.tabs button').forEach(x=>x.onclick=()=>{tab=x.dataset.t;off=0;render()});
+
+/* ===== AdMob ===== */
+async function initAds(){
+  const A=P.AdMob;
+  if(!A){ $('#adph').style.display='flex'; return; }
+  try{
+    await A.initialize({initializeForTesting:AD.testing});
+    A.addListener('bannerAdSizeChanged',s=>{document.body.style.paddingBottom=(s.height||50)+'px'});
+    await A.showBanner({adId:AD.banner,adSize:'ADAPTIVE_BANNER',position:'BOTTOM_CENTER',margin:0,isTesting:AD.testing});
+  }catch(e){}
+}
+async function showInter(){
+  const A=P.AdMob; if(!A) return;
+  try{ await A.prepareInterstitial({adId:AD.interstitial,isTesting:AD.testing}); await A.showInterstitial(); }catch(e){}
+}
+
+/* ===== Başlat ===== */
+render(); load(); initAds();
+if(!ls.get('asked',false)){ ls.set('asked',true); useGps(); }
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "appId": "com.nurvakti.app",
+  "appName": "Nûr Vakti",
+  "webDir": "www",
+  "backgroundColor": "#12162A",
+  "android": { "backgroundColor": "#12162A" }
+}
