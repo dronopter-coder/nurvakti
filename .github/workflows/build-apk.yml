@@ -47,6 +47,9 @@ jobs:
           PY
           rm -f www/icon-fg.png www/icon-full.png
       - run: npx cap sync android
+      - name: Sabit debug imzası (güncellemenin eskisinin üzerine kurulabilmesi için)
+        run: |
+          mkdir -p ~/.android && cp keystore/debug.keystore ~/.android/debug.keystore
       - name: Debug APK ve release AAB derle
         working-directory: android
         run: chmod +x gradlew && ./gradlew assembleDebug bundleRelease

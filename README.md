@@ -21,3 +21,6 @@ npm install && npx cap add android && npx cap sync android, sonra Android Studio
 - Ana ekran başlığı sûfî üslupta: Aref Ruqaa ve Cinzel Decorative (her ikisi OFL, `www/fonts/`).
 - **Namaz takibi** (`www/takip.js`): vakit ekranında günün 5 namazını işaretleme, son 7 gün özeti, kaza sayacı (yalnızca cihazda).
 - **Kabir:** yakın kabir uyarısı (yalnızca uygulama açıkken, 300 m), Cuma serisi, vefat yıldönümü ve kandil/arefe bildirimleri (Ayarlar'dan kapatılır), "Hayırlı Cumalar" mesajı paylaşımı, okuma hızı (0,8× / 1× / 1,25× / 1,5×).
+
+## APK imzası
+Debug APK her derlemede `keystore/debug.keystore` ile imzalanır (herkese açık, yalnızca test amaçlı bir anahtardır; gizli değildir). Böylece yeni APK, eskisinin üzerine silmeden kurulur. Play Store sürümü (AAB) ise `KEYSTORE_BASE64` sırrıyla ayrıca imzalanır.
