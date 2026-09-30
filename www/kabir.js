@@ -145,7 +145,7 @@ V.innerHTML=`<div class="panel"><div class="tabs"><button class="on">Kabirlerim<
 <div id="kbList"></div></div>`;
 document.querySelector('#nav').before(V);
 const nb=document.createElement('button');nb.dataset.v='kabir';
-nb.innerHTML='<svg viewBox="0 0 24 24"><path d="M6 21V10a6 6 0 0 1 12 0v11"/><path d="M3 21h18"/><path d="M12 8v6M9.5 10.5h5"/></svg><span>Kabir</span>';
+nb.innerHTML='<svg viewBox="0 0 24 24"><path d="M6 21V10a6 6 0 0 1 12 0v11"/><path d="M3 21h18"/><path d="M13.4 9.3A3.4 3.4 0 1 0 13.4 15.7 2.8 2.8 0 0 1 13.4 9.3z"/></svg><span>Kabir</span>';
 $('#nav').appendChild(nb);nb.onclick=()=>go('kabir');
 
 const ov=document.createElement('div');ov.className='kb-ov';ov.id='kbOv';ov.innerHTML='<div class="kb-box" id="kbBox"></div>';document.body.appendChild(ov);
@@ -192,7 +192,7 @@ async function cizKabir(){
     $('#kbOkuBtn').onclick=()=>okuBaslat(bek.length?bek.map(k=>k.id):kayit.map(k=>k.id));
   }
   const L=$('#kbList');
-  if(!n){L.innerHTML=`<div class="kb-empty"><svg viewBox="0 0 24 24"><path d="M6 21V10a6 6 0 0 1 12 0v11"/><path d="M3 21h18"/><path d="M12 8v6M9.5 10.5h5"/></svg><br>Henüz kabir eklenmedi.<br>Mezarlığa gittiğinde mezar taşının fotoğrafını çek; isim ve tarihleri taştan okuyup kaydı oluşturalım.<br>Her Cuma ruhuna Fâtiha ve Yâsîn okuyalım.</div>`;return}
+  if(!n){L.innerHTML=`<div class="kb-empty"><svg viewBox="0 0 24 24"><path d="M6 21V10a6 6 0 0 1 12 0v11"/><path d="M3 21h18"/><path d="M13.4 9.3A3.4 3.4 0 1 0 13.4 15.7 2.8 2.8 0 0 1 13.4 9.3z"/></svg><br>Henüz kabir eklenmedi.<br>Mezarlığa gittiğinde mezar taşının fotoğrafını çek; isim ve tarihleri taştan okuyup kaydı oluşturalım.<br>Her Cuma ruhuna Fâtiha ve Yâsîn okuyalım.</div>`;return}
   L.innerHTML=kayit.map(k=>`<button class="kb-card" data-id="${k.id}"><div class="kb-th" id="th${k.id}">✦</div><div class="kb-inf"><div class="kb-ad">${esc(k.ad||'İsimsiz kayıt')}</div><div class="kb-alt">${esc(ozet(k))}${uzaklik(k)!=null?' · 📍'+mesafeYaz(uzaklik(k)):''}</div></div><span class="kb-ok${okundu(k)?'':' bekle'}">${okundu(k)?'Okundu':'Bekliyor'}</span></button>`).join('');
   L.querySelectorAll('.kb-card').forEach(b=>b.onclick=()=>detay(b.dataset.id));
   kayit.forEach(async k=>{const u=await fotoUrl(k.id,true);const e=document.getElementById('th'+k.id);if(u&&e){e.style.backgroundImage=`url(${u})`;e.textContent=''}});

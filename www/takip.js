@@ -13,10 +13,10 @@ const kaydet=()=>{ // yalnızca son 60 gün tutulur
 const bugun=()=>kilinan[gun(0)]||(kilinan[gun(0)]=[false,false,false,false,false]);
 const sayi=k=>(kilinan[k]||[]).filter(Boolean).length;
 
-/* Vakit ekranındaki şerit */
+/* Vakit ekranındaki şerit (ayet/hadis kutusunun altında) */
 const satir=document.createElement('div');satir.id='npSatir';
 satir.innerHTML='<button id="npAc"><span id="npMetin"></span><b>›</b></button><button id="npHizli" hidden>✓ Kıldım</button>';
-document.querySelector('#strip').after(satir);
+document.querySelector('#v-vakit .panel').after(satir);
 
 /* Şu anki farz vakit: lastCur (0 imsak … 5 yatsı); güneşle öğle arası son kılınan vakit sabahtır */
 function suAnki(){const c=typeof lastCur==='number'?lastCur:-2;if(c<0)return -1;const i=c===1?0:c;return FARZ.findIndex(f=>f[0]===i)}

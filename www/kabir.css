@@ -36,7 +36,7 @@
 .kb-sec label.kb-chk{flex-direction:row;align-items:center;gap:9px;font-size:14px;color:var(--fildisi);padding:4px 0}
 .kb-chk input{accent-color:#C9A45C;width:18px;height:18px}
 /* Okuma ekranı */
-#kbOku{position:fixed;inset:0;z-index:8;background:radial-gradient(120% 60% at 50% 0%,#222d57 0%,var(--gece) 60%);display:none;flex-direction:column;padding-top:max(env(safe-area-inset-top,0px),var(--safe-area-inset-top,0px))}
+#kbOku{position:fixed;inset:0;z-index:8;background:radial-gradient(120% 60% at 50% 0%,#222d57 0%,var(--gece) 60%);display:none;flex-direction:column;padding-top:env(safe-area-inset-top,0px)}
 #kbOku.open{display:flex}
 .ok-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;gap:8px;flex:none;border-bottom:1px solid #2c386c}
 .ok-bar button{background:var(--lacivert);border:1px solid #33407a;color:var(--fildisi);border-radius:12px;padding:8px 12px;font-size:14px}
@@ -58,7 +58,7 @@
 #okAlt #okCal{flex:1 1 38%;white-space:nowrap}#okAlt #okBitti{flex:1 1 62%}
 .kb-seri{font-size:12px;color:var(--altin)}
 /* Namaz takibi */
-#npSatir{display:flex;gap:6px;margin:0 0 8px;flex:none}
+#npSatir{display:flex;gap:6px;margin:8px 0 2px;flex:none}
 #npSatir button{border:1px solid #33407a;background:var(--lacivert);color:var(--fildisi);border-radius:14px;padding:8px 12px;font-size:13px}
 #npAc{flex:1;display:flex;justify-content:space-between;align-items:center;text-align:left}
 #npAc b{color:var(--altin);font-weight:400}
