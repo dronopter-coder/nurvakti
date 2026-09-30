@@ -9,7 +9,7 @@
 :root{--gece:#12162A;--lacivert:#1C2547;--lacivert2:#242F58;--altin:#C9A45C;--fildisi:#EDE4CF;--soluk:#9AA1BD;--kirmizi:#9A4453;--yesil:#3E8577}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{background:radial-gradient(120% 60% at 50% 0%,#222d57 0%,var(--gece) 60%);color:var(--fildisi);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column;height:100dvh;overflow:hidden;padding:env(safe-area-inset-top,0px) 14px calc(var(--adh,60px) + env(safe-area-inset-bottom,0px));font-size:14px}
+body{background:radial-gradient(120% 60% at 50% 0%,#222d57 0%,var(--gece) 60%);color:var(--fildisi);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column;height:100dvh;overflow:hidden;padding:0 14px calc(var(--adh,60px) + 6px);font-size:14px}
 .serif{font-family:Georgia,"Times New Roman",serif}
 header{display:flex;align-items:center;justify-content:space-between;padding:10px 0 2px}
 #locBtn{background:var(--lacivert);border:1px solid #33407a;color:var(--fildisi);border-radius:20px;padding:7px 13px;font-size:13px;display:flex;gap:7px;align-items:center}
@@ -361,8 +361,8 @@ async function initAds(){
   if(!A){ $('#adph').style.display='flex'; return; }
   try{
     await A.initialize({initializeForTesting:AD.testing});
-    A.addListener('bannerAdSizeChanged',s=>{document.documentElement.style.setProperty('--adh',((s.height||50)+8)+'px')});
-    A.addListener('bannerAdLoaded',()=>{$('#adph').style.display='none';document.documentElement.style.removeProperty('--adh')});
+    A.addListener('bannerAdSizeChanged',s=>{window.__adh=((s.height||50)+8)+'px';document.documentElement.style.setProperty('--adh',window.__adh)});
+    A.addListener('bannerAdLoaded',()=>{$('#adph').style.display='none';document.documentElement.style.setProperty('--adh',window.__adh||'60px')});
     A.addListener('bannerAdFailedToLoad',e=>{$('#adph').style.display='none';document.documentElement.style.setProperty('--adh','0px')});
     await A.showBanner({adId:AD.banner,adSize:'ADAPTIVE_BANNER',position:'BOTTOM_CENTER',margin:0,isTesting:AD.testing});
   }catch(e){}
