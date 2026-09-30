@@ -1,0 +1,62 @@
+/* Ana menü düğmeleri, tam ekran sayfalar, Kur'an okuyucu */
+#anaMenu{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 8px;flex:none}
+#anaMenu button{background:var(--lacivert);border:1px solid #33407a;border-radius:14px;color:var(--fildisi);padding:8px 2px 7px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;line-height:1.15}
+#anaMenu button:active{transform:scale(.97)}
+#anaMenu svg{width:25px;height:25px;stroke:var(--altin);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+#v-vakit{overflow-y:auto;overflow-x:hidden}
+#v-vakit .panel{flex:none;min-height:230px}
+.ringwrap{width:min(56vw,225px,30dvh)!important}
+/* Tam ekran sayfa */
+.sf{position:fixed;inset:0;z-index:7;display:flex;flex-direction:column;background:radial-gradient(120% 60% at 50% 0%,#222d57 0%,var(--gece) 60%);padding-top:max(env(safe-area-inset-top,0px),var(--safe-area-inset-top,0px))}
+.sf-bar{display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid #2c386c;flex:none}
+.sf-bar button{background:var(--lacivert);border:1px solid #33407a;color:var(--fildisi);border-radius:12px;padding:8px 12px;font-size:14px}
+.sf-bar b{font-family:Georgia,serif;font-weight:400;color:var(--altin);font-size:18px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sf-govde{flex:1;overflow:auto;padding:12px 14px calc(18px + env(safe-area-inset-bottom,0))}
+.sf-ara{width:100%;background:var(--gece);color:var(--fildisi);border:1px solid #3a4788;border-radius:12px;padding:11px;font-size:15px;margin-bottom:8px}
+.sf-satir{display:flex;align-items:center;gap:12px;width:100%;padding:11px 10px;margin-top:7px;background:var(--lacivert2);border:1px solid #2c386c;border-radius:14px;color:var(--fildisi);text-align:left;font:inherit}
+.sf-no{flex:none;width:36px;height:36px;line-height:36px;text-align:center;border-radius:10px;background:#0b0e1c;border:1px solid #33407a;color:var(--altin);font-size:13px;font-variant-numeric:tabular-nums}
+.sf-ad{flex:1;min-width:0}.sf-ad b{display:block;font-family:Georgia,serif;font-weight:400;font-size:16px}.sf-ad small{color:var(--soluk);font-size:12px}
+.sf-ar{font-family:"Amiri Quran","Noto Naskh Arabic",serif;font-size:21px;color:var(--altin);direction:rtl}
+.sf-oku{border-color:var(--altin)!important;background:linear-gradient(135deg,#2a366a,#1C2547)!important}
+/* Kur'an okuyucu (kabirdeki okuma ekranıyla aynı görünüm) */
+.kr-body{flex:1;overflow:auto;padding:8px 20px 24px;scroll-behavior:smooth;--arpx:27px}
+.kr-alt{flex:none;padding:10px 14px calc(12px + env(safe-area-inset-bottom,0));border-top:1px solid #2c386c;display:flex;gap:8px}
+.kr-alt .btn{padding:12px}.kr-alt .kr-k{flex:0 0 52px}.kr-alt .kr-cal{flex:1}
+.kr-tem{display:flex;gap:6px}
+/* Camiler */
+.cm-kart{display:grid;grid-template-columns:54px 1fr;gap:4px 12px;align-items:center;text-align:left;width:100%;border-radius:18px;padding:14px;border:1px solid;font:inherit}
+.cm-kart svg{grid-row:1/3;width:48px;height:48px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.cm-kart b{font-family:Georgia,serif;font-weight:400;font-size:18px}.cm-kart span{font-size:12.5px;opacity:.85}
+.cm-kart i{grid-column:2;justify-self:end;font-style:normal;font-size:13px;border:1px solid currentColor;border-radius:14px;padding:4px 12px}
+.cm-mavi{background:#203061;color:#9dbcff;border-color:#3a5ba8}.cm-yesil{background:#1c3a38;color:#86d8c2;border-color:#2d6b60}
+.cm-git{flex:none;color:var(--altin);font-size:12.5px;text-decoration:none;border:1px solid var(--altin);border-radius:12px;padding:6px 10px}
+#cmHarita{background:#0b0e1c}
+.cm-alt{display:flex;align-items:center;gap:10px;padding:10px 14px calc(12px + env(safe-area-inset-bottom,0));background:var(--lacivert);border-top:1px solid #2c386c}
+.cm-alt>div{flex:1;min-width:0}.cm-alt b{display:block;font-family:Georgia,serif;font-weight:400;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cm-alt small{color:var(--soluk);font-size:12px}
+.cm-alt .btn{width:auto;padding:10px 14px;text-decoration:none;flex:none}
+/* İbadet */
+.ib-d{border-bottom:1px solid #2c386c;padding:10px 0}
+.ib-d summary{font-size:16px}
+.ib-i{margin-top:8px;color:#e2dbc8;line-height:1.55;font-size:14px}
+.ib-i p{margin:6px 0}.ib-i ul,.ib-i ol{margin:6px 0 6px 20px}.ib-i li{margin:4px 0}
+.ib-tab{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+.ib-tab th,.ib-tab td{border:1px solid #33407a;padding:6px 8px;text-align:left}.ib-tab th{background:var(--lacivert2);color:var(--altin);font-weight:400}
+/* Çocuklar */
+.cc-izgara{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.cc-izgara button{background:var(--c);color:#fff;border:0;border-radius:20px;padding:16px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.cc-izgara button:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.cc-izgara span{font-size:34px;line-height:1.1}.cc-izgara b{font-size:15px;line-height:1.2}.cc-izgara small{font-size:11.5px;opacity:.9}
+.cc-kart{background:var(--lacivert);border:1px solid #2c386c;border-radius:20px;padding:14px;text-align:center}
+.cc-kart h3{font-family:Georgia,serif;font-weight:400;color:var(--altin);font-size:20px;margin:8px 0 4px}.cc-kart p{line-height:1.55;font-size:14.5px;color:var(--fildisi)}
+.cc-fig{width:100%;max-width:340px;display:block;margin:0 auto}
+.cc-nokta{display:flex;justify-content:center;gap:6px;margin:12px 0}.cc-nokta i{width:9px;height:9px;border-radius:50%;background:#33407a}.cc-nokta i.on{background:var(--altin)}
+.cc-abd{display:flex;gap:12px;align-items:center;background:var(--lacivert);border:1px solid #2c386c;border-radius:16px;padding:10px 12px;margin-bottom:8px}
+.cc-em{flex:none;width:52px;height:52px;line-height:52px;text-align:center;font-size:30px;background:#0b0e1c;border-radius:14px}.cc-abd b{font-family:Georgia,serif;font-weight:400;color:var(--altin)}.cc-abd p{font-size:13.5px;margin-top:3px;line-height:1.45}
+.cc-vakit{display:flex;gap:12px;align-items:center;background:var(--lacivert);border:1px solid #2c386c;border-radius:16px;padding:10px;margin-bottom:8px}
+.cc-sky{flex:none;width:112px}.cc-vakit b{font-family:Georgia,serif;font-weight:400;color:var(--altin)}.cc-r{display:inline-block;margin-left:8px;font-size:11.5px;background:#0b0e1c;border-radius:10px;padding:2px 8px}.cc-vakit p{font-size:13px;margin-top:4px;line-height:1.4}
+.cc-isim{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cc-isim button{background:linear-gradient(135deg,#2a366a,#1C2547);border:1px solid #3a4788;border-radius:16px;color:var(--altin);padding:18px 8px;font-size:16px;font-family:Georgia,serif;display:flex;flex-direction:column;gap:6px}
+.cc-isim span{display:none;font-family:system-ui;font-size:13px;color:var(--fildisi)}.cc-isim .ac span{display:block}
+.cc-sec{margin-top:8px}.cc-sec.dogru{background:#2d6b60!important;border-color:#7fd6c1!important}.cc-sec.yanlis{background:#7a3340!important;border-color:#e3a1ad!important}
+.cc-yildiz{font-size:26px;letter-spacing:2px;word-break:break-all}
+.cm-kart b,.cm-kart span{display:block}

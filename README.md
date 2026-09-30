@@ -24,3 +24,10 @@ npm install && npx cap add android && npx cap sync android, sonra Android Studio
 
 ## APK imzası
 Debug APK her derlemede `keystore/debug.keystore` ile imzalanır (herkese açık, yalnızca test amaçlı bir anahtardır; gizli değildir). Böylece yeni APK, eskisinin üzerine silmeden kurulur. Play Store sürümü (AAB) ise `KEYSTORE_BASE64` sırrıyla ayrıca imzalanır.
+
+## Ana ekran menüsü
+Vakitlerin altındaki dört düğme:
+- **Kur'an-ı Kerim** (`kuran.js`, `quran.js`): 114 sûre listesi ve arama, Arapça metin, ayet ayet kâri sesi (everyayah.com, yedek cdn.islamic.network; internet gerekir), hız seçimi, kaldığın yerden devam.
+- **Camiler** (`cami.js`): konuma göre yakın camiler, liste ve harita (Leaflet, `www/lib/`), en yakın camiye yol tarifi. Veri OpenStreetMap'ten (Overpass API) gelir; Diyanet verisi değildir.
+- **İbadet** (`ibadet.js`): namaz, abdest, gusül-teyemmüm, oruç, zekât, hac-umre ve kurban ilmihal özetleri (Hanefî/Diyanet yaygın görüşü).
+- **Çocuklar** (`cocuk.js`): çizimli namaz anlatımı, abdest adımları, beş vakit, ezber köşesi (kısa sûreler sesli), Allah'ın güzel isimleri ve mini test.
