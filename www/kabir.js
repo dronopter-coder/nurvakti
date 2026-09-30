@@ -334,7 +334,7 @@ const au=new Audio(),onAu=new Audio();au.preload='auto';onAu.preload='auto';
 let kuyruk=[],ki=0,caliyor=false,duaKonus=false,kilit=null,hiz=+ls.get('okHiz',1);
 au.defaultPlaybackRate=hiz;au.playbackRate=hiz;
 $('#okHiz').textContent=String(hiz).replace('.',',')+'×';
-$('#okHiz').onclick=()=>{const L=[.8,1,1.25];hiz=L[(L.indexOf(hiz)+1)%L.length];ls.set('okHiz',hiz);au.defaultPlaybackRate=hiz;au.playbackRate=hiz;$('#okHiz').textContent=String(hiz).replace('.',',')+'×'};
+$('#okHiz').onclick=()=>{const L=[.8,1,1.25,1.5];hiz=L[(L.indexOf(hiz)+1)%L.length];ls.set('okHiz',hiz);au.defaultPlaybackRate=hiz;au.playbackRate=hiz;$('#okHiz').textContent=String(hiz).replace('.',',')+'×'};
 function kuyrukYap(){
   const q=[];
   OKUMA.fatiha.forEach((_,i)=>q.push({k:'f'+(i+1),u:[SES_A+'001'+p3(i+1)+'.mp3',SES_B(i+1)],ad:'Fâtiha',no:i+1,top:OKUMA.fatiha.length}));
