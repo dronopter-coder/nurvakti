@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nûr Vakti – Gizlilik Politikası</title>
+<style>
+:root{--bg:#fbf9f3;--fg:#1d2233;--muted:#5a6075;--gold:#8a6a1f;--line:#e3dcc8;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#12162a;--fg:#ede4cf;--muted:#9aa1bd;--gold:#c9a45c;--line:#2c386c;--card:#1c2547}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:28px 18px 60px}
+h1{font-family:Georgia,serif;font-weight:400;color:var(--gold);font-size:30px;margin:0 0 4px}
+h2{font-family:Georgia,serif;font-weight:400;color:var(--gold);font-size:21px;margin:30px 0 6px;border-top:1px solid var(--line);padding-top:18px}
+p,li{color:var(--fg)}small,.m{color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin:10px 0;background:var(--card)}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{color:var(--gold);font-weight:600}
+.not{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+a{color:var(--gold)}
+</style>
+</head>
+<body>
+<main>
+<h1>Nûr Vakti – Gizlilik Politikası</h1>
+<p class="m">Son güncelleme: 30 Eylül 2026</p>
+
+<p>Bu politika, <b>Nûr Vakti</b> Android uygulamasının (“Uygulama”) hangi bilgileri nasıl kullandığını açıklar. Uygulamanın geliştiricisi: <b>[GELİŞTİRİCİ ADI / UNVANI]</b>. İletişim: <b>[E-POSTA ADRESİ]</b>.</p>
+
+<div class="not"><b>Kısaca:</b> Uygulamada hesap açılmaz, bir üyelik yoktur ve geliştiricinin kişisel verilerinizi topladığı bir sunucusu yoktur. Kabir kayıtlarınız, fotoğraflarınız ve namaz takibiniz yalnızca telefonunuzda durur. Uygulama; namaz vakitlerini, cami aramasını, haritayı, Kur’an sesini ve reklamları getirmek için aşağıda sayılan üçüncü taraf hizmetlerle internet üzerinden iletişim kurar.</div>
+
+<h2>1. Telefonunuzda saklanan bilgiler</h2>
+<p>Aşağıdaki bilgiler yalnızca cihazınızda (uygulamanın özel depolama alanında) tutulur; geliştiriciye veya başka birine gönderilmez:</p>
+<ul>
+<li><b>Kabir kayıtları:</b> yakınlarınız için girdiğiniz ad, doğum/vefat tarihi, mezarlık, şehir, not ve isteğe bağlı olarak kaydettiğiniz mezar konumu; mezar taşı fotoğrafı.</li>
+<li><b>Okuma ve namaz kayıtları:</b> Cuma okuma geçmişi ve serisi, namaz takibi, kaza sayacı, ayarlar, son okunan sûre, çocuk testi puanı.</li>
+<li><b>Önbellek:</b> seçtiğiniz konum, son cami araması ve vakit bilgileri.</li>
+</ul>
+<p><b>Fotoğraf ve yazı okuma:</b> Mezar taşı fotoğrafındaki yazı, cihazın içinde çalışan bir metin tanıma motoruyla (Tesseract) okunur. Fotoğraf hiçbir sunucuya gönderilmez. Bir kaydı veya fotoğrafı sildiğinizde ya da uygulamayı kaldırdığınızda bu bilgiler cihazdan silinir. Uygulamanın kendi yedekleme veya hesaplar arası eşitleme özelliği yoktur; telefon değiştirirseniz kayıtlar kendiliğinden taşınmayabilir. Android’in cihaz yedeği açıksa, uygulama verileri Google hesabınıza cihaz yedeği kapsamında yedeklenebilir; bu, Google’ın kendi yedekleme hizmetidir.</p>
+
+<h2>2. Konum</h2>
+<p>Konum izni isteğe bağlıdır; vermezseniz il/ilçe seçerek uygulamayı kullanabilirsiniz. Konumunuz şu amaçlarla kullanılır: namaz vakitleri, kıble yönü, yakındaki camilerin bulunması, kayıtlı mezara yakınken bilgi verme. Konum, geliştiriciye gönderilmez; ancak aşağıdaki hizmetlere, ilgili işlevi yerine getirmek için gönderilir (bkz. Bölüm 3).</p>
+
+<h2>3. Üçüncü taraf hizmetler</h2>
+<p>Bu hizmetler internet üzerinden çağrılır ve isteğin yapıldığı anda IP adresinizi görürler. Her hizmetin kendi gizlilik politikası geçerlidir.</p>
+<table>
+<tr><th>Hizmet</th><th>Ne için</th><th>Gönderilen bilgi</th></tr>
+<tr><td>Aladhan (api.aladhan.com)</td><td>Namaz vakitleri</td><td>Seçtiğiniz il/ilçe adı veya konum koordinatları, tarih</td></tr>
+<tr><td>OpenStreetMap Nominatim, BigDataCloud</td><td>Koordinattan yer adı bulma</td><td>Konum koordinatları</td></tr>
+<tr><td>TürkiyeAPI (api.turkiyeapi.dev)</td><td>İl ve ilçe listesi</td><td>Yalnızca liste isteği</td></tr>
+<tr><td>Overpass API (OpenStreetMap verisi)</td><td>Yakındaki camileri bulma</td><td>Konum koordinatları ve arama yarıçapı</td></tr>
+<tr><td>OpenStreetMap harita karoları</td><td>Harita görünümü</td><td>Görüntülenen harita bölgesi (karo istekleri)</td></tr>
+<tr><td>EveryAyah (everyayah.com), Islamic Network (cdn.islamic.network)</td><td>Kur’an-ı Kerim ses kaydı</td><td>Dinlenen sûre/ayet dosyası isteği</td></tr>
+<tr><td>Google AdMob</td><td>Reklam gösterimi</td><td>Reklam kimliği, IP adresi, cihaz ve uygulama bilgileri, yaklaşık konum. Ayrıntı: <a href="https://policies.google.com/privacy">Google Gizlilik Politikası</a></td></tr>
+<tr><td>WhatsApp / Google Haritalar (bağlantı)</td><td>“Hayırlı Cumalar” mesajını paylaşma, yol tarifi</td><td>Yalnızca siz bağlantıya dokunursanız ilgili uygulama açılır</td></tr>
+</table>
+<p>Geliştirici bu hizmetlerden kişisel veri almaz ve sizi tanımlamaya çalışmaz.</p>
+
+<h2>4. Reklamlar</h2>
+<p>Uygulama Google AdMob ile reklam gösterir. AdMob, reklam kimliği gibi cihaz tanımlayıcılarını reklamları sunmak ve ölçmek için kullanabilir. Reklam kimliğinizi sıfırlamak veya kişiselleştirilmiş reklamları kapatmak için telefonunuzun <i>Ayarlar → Google → Reklamlar</i> bölümünü kullanabilirsiniz. Reklam içeriğini geliştirici seçmez; dinî hassasiyetinize uymayan bir reklam görürseniz iletişim adresine bildirin.</p>
+
+<h2>5. İstenen izinler</h2>
+<table>
+<tr><th>İzin</th><th>Neden</th></tr>
+<tr><td>Konum (yaklaşık / hassas)</td><td>Vakitler, kıble, yakın camiler, kayıtlı mezara yakınlık, mezar konumu kaydı</td></tr>
+<tr><td>Kamera / fotoğraf seçme</td><td>Mezar taşı fotoğrafı çekmek veya seçmek</td></tr>
+<tr><td>Bildirim</td><td>Vakit, Cuma, vefat yıldönümü ve önemli gece hatırlatmaları (yerel bildirimlerdir)</td></tr>
+<tr><td>Kesin alarm</td><td>Bildirimlerin vaktinde gelmesi</td></tr>
+<tr><td>Titreşim</td><td>Tesbih ve bildirim titreşimi</td></tr>
+<tr><td>İnternet</td><td>Bölüm 3’teki hizmetler</td></tr>
+</table>
+<p>İzinleri istediğiniz zaman telefon ayarlarından kapatabilirsiniz; ilgili özellik çalışmaz, uygulamanın geri kalanı çalışmaya devam eder.</p>
+
+<h2>6. Çocuklar</h2>
+<p>Uygulama genel kullanıma yöneliktir; 13 yaşın altındaki çocuklardan bilerek kişisel veri toplamaz. Hesap oluşturma olmadığı için zaten ad, e-posta gibi bilgi istenmez. “Çocuklar” bölümü, ebeveynlerin çocuklarıyla birlikte kullanması için hazırlanmış eğitici içeriktir. Reklamlar bu bölümde de Google’ın kurallarına tabidir.</p>
+
+<h2>7. Verilerin saklanması, silinmesi ve haklarınız</h2>
+<p>Geliştirici kişisel verilerinizi saklamadığı için silinecek sunucu verisi yoktur. Cihazdaki verileri uygulama içinden (kayıtları silerek) veya uygulamayı kaldırarak silebilirsiniz. Üçüncü taraf hizmetlerdeki istek kayıtları için ilgili hizmetin politikasına bakınız. 6698 sayılı KVKK ve ilgili mevzuat kapsamındaki haklarınız (bilgi alma, düzeltme, silme vb.) için <b>[E-POSTA ADRESİ]</b> adresine yazabilirsiniz.</p>
+
+<h2>8. Güvenlik</h2>
+<p>Uygulamanın internet istekleri şifreli bağlantı (HTTPS) ile yapılır. Cihazdaki veriler telefonunuzun kendi koruma mekanizmaları (ekran kilidi, şifreleme) ile korunur.</p>
+
+<h2>9. Dinî içerik hakkında</h2>
+<p>Uygulamadaki ilmihal bilgileri genel bilgi amaçlıdır ve Diyanet İşleri Başkanlığı’nın yaygın görüşüne göre özetlenmiştir; uygulama Diyanet İşleri Başkanlığı ile bağlantılı değildir. Özel durumlar için müftülüğe veya yetkili bir din görevlisine danışınız.</p>
+
+<h2>10. Değişiklikler</h2>
+<p>Bu politika güncellenirse yeni hali bu adreste yayımlanır ve yukarıdaki tarih değişir.</p>
+</main>
+</body>
+</html>

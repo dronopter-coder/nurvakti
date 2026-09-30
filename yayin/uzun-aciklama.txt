@@ -1,0 +1,47 @@
+Nûr Vakti; namaz vakitlerinizi, Kur’an-ı Kerim’i, yakınlarınızın kabirlerini ve dinî bilgilerinizi tek bir sade uygulamada bir araya getirir.
+
+🕌 NAMAZ VAKİTLERİ
+• İl/ilçe seçerek veya konumunuzla günlük vakitler, sıradaki vakte kalan süre
+• Diyanet hesaplama yöntemine göre vakit bilgisi
+• Vakit girdiğinde hatırlatma bildirimi (istediğiniz vakitleri seçebilirsiniz)
+• Kıble pusulası
+• Dijital tesbih (sesli ve titreşimli)
+• Gün içinde kıldığınız namazları işaretleme ve kaza sayacı
+• Kandiller, bayramlar ve dinî günler takvimi
+
+📖 KUR’AN-I KERİM
+• 114 sûrenin tamamı, Arapça metinle
+• Ayet ayet kâri sesiyle dinleme; okunan ayet ekranda vurgulanır
+• 0,8×, 1×, 1,25× ve 1,5× dinleme hızı
+• Bir ayete dokunup oradan dinlemeye başlama
+• Kaldığınız yerden devam etme
+(Dinleme için internet bağlantısı gerekir.)
+
+🪦 KABİR KAYDI VE CUMA OKUMASI
+• Mezarlığa gittiğinizde mezar taşının fotoğrafını çekin; isim ve tarihler cihazda okunup kayıt formunu doldurur, siz doğrulayıp kaydedersiniz
+• Fotoğraflar ve kayıtlar yalnızca telefonunuzda kalır
+• İsterseniz mezar konumunu kaydedip yol tarifi alabilirsiniz
+• Her Cuma ruhlarına Fâtiha ve Yâsîn okuma: niyet, Arapça metin, kâri sesi ve dua
+• Hafta hafta okuma takibi, Cuma hatırlatması, vefat yıldönümü ve kandil geceleri hatırlatmaları
+• “Hayırlı Cumalar” mesajını sevdiklerinizle paylaşma
+
+📍 YAKINIMDAKİ CAMİLER
+• Konumunuza göre yakındaki camileri liste veya harita üzerinde görün
+• En yakın camiye yol tarifi alın
+(Cami bilgileri OpenStreetMap katkıcılarından gelir; eksik veya güncel olmayan kayıtlar olabilir.)
+
+📚 İBADET
+Namaz, abdest, gusül ve teyemmüm, oruç, zekât, hac ve umre, kurban konularında başlık başlık, sade bir dille ilmihal özetleri.
+
+🧒 ÇOCUKLAR
+Çocuklara namazı ve dini sevdirmek için hazırlanmış bölüm: resimlerle adım adım namaz, abdest adımları, beş vakit, ezber köşesi (kısa sûreleri dinleyerek), Allah’ın güzel isimleri ve küçük bir bilgi testi.
+
+🔒 GİZLİLİK
+• Hesap açmanız gerekmez
+• Kabir kayıtlarınız, fotoğraflarınız ve namaz takibiniz yalnızca cihazınızda durur
+• Konum iznini vermeden de il/ilçe seçerek kullanabilirsiniz
+
+ℹ️ BİLGİLENDİRME
+Uygulamadaki dinî bilgiler genel bilgi amaçlıdır ve Diyanet İşleri Başkanlığı’nın yaygın görüşüne göre özetlenmiştir. Uygulama Diyanet İşleri Başkanlığı ile bağlantılı değildir. Özel durumlar için müftülüğe veya yetkili bir din görevlisine danışınız. Uygulama reklam içerir.
+
+Allah kabul etsin.
