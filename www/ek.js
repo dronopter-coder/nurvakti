@@ -59,15 +59,26 @@ function kDraw(){
 
 /* ---- Tesbih ---- */
 let AC=null;
+function hayyKur(ctx,t,out){ // "hayy": nefesli "h", ağızdan "a"dan "i"ye geçen yumuşak ünlü (formantlı, alçak perdeli)
+  const g=ctx.createGain(),lp=ctx.createBiquadFilter(),o=ctx.createOscillator();
+  lp.type='lowpass';lp.frequency.value=2200;lp.Q.value=.3;
+  o.type='sawtooth';o.frequency.setValueAtTime(150,t);o.frequency.linearRampToValueAtTime(122,t+.55);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.42,t+.1);g.gain.exponentialRampToValueAtTime(.001,t+.62);
+  [[720,340,3.5],[1150,2200,5]].forEach(([a,b,q])=>{const f=ctx.createBiquadFilter();f.type='bandpass';f.Q.value=q;f.frequency.setValueAtTime(a,t);f.frequency.linearRampToValueAtTime(b,t+.5);o.connect(f);f.connect(g)});
+  g.connect(lp);lp.connect(out);o.start(t);o.stop(t+.66);
+  // "h" nefesi
+  const n=ctx.createBufferSource(),len=Math.floor(ctx.sampleRate*.14),buf=ctx.createBuffer(1,len,ctx.sampleRate),d=buf.getChannelData(0);
+  for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*(1-i/len);
+  n.buffer=buf;const nf=ctx.createBiquadFilter(),ng=ctx.createGain();nf.type='bandpass';nf.frequency.value=1400;nf.Q.value=.7;ng.gain.value=.14;
+  n.connect(nf);nf.connect(ng);ng.connect(out);n.start(t);
+}
+window.hayyKur=hayyKur;
 function hayy(){
   if(!S.tsSes)return;
   try{
     AC=AC||new (window.AudioContext||window.webkitAudioContext)();
-    const t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();
-    o.type='sawtooth';o.frequency.setValueAtTime(190,t);o.frequency.linearRampToValueAtTime(150,t+.32);
-    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.16,t+.05);g.gain.exponentialRampToValueAtTime(.001,t+.36);
-    [[750,330,6],[1250,2300,9]].forEach(([a,b,q])=>{const f=AC.createBiquadFilter();f.type='bandpass';f.Q.value=q;f.frequency.setValueAtTime(a,t);f.frequency.linearRampToValueAtTime(b,t+.3);o.connect(f);f.connect(g)});
-    g.connect(AC.destination);o.start(t);o.stop(t+.4);
+    if(AC.state==='suspended')AC.resume();
+    hayyKur(AC,AC.currentTime+.02,AC.destination);
   }catch(e){}
 }
 const ZIKIR=[['Sübhanallah',33],['Elhamdülillah',33],['Allahu ekber',33],['Serbest',0]];
@@ -126,14 +137,14 @@ $('#gear').onclick=()=>{setDraw();$('#setSheet').classList.add('open')};
 $('#setSheet').onclick=e=>{if(e.target.id==='setSheet')e.target.classList.remove('open')};
 $('#stBild').onchange=async e=>{S.bild=e.target.checked;saveS();S.bild?await planNotifs(true):clearNotifs()};
 $('#stTest').onclick=()=>{try{const a=new Audio('ezan.wav');a.play()}catch(e){}};
-async function clearNotifs(){const LN=P.LocalNotifications;if(!LN)return;try{const p=await LN.getPending();if(p.notifications.length)await LN.cancel(p)}catch(e){}}
+async function clearNotifs(){const LN=P.LocalNotifications;if(!LN)return;try{const p=await LN.getPending();const n=p.notifications.filter(x=>x.id<9000);if(n.length)await LN.cancel({notifications:n})}catch(e){}}
 async function planNotifs(ask){
   const LN=P.LocalNotifications;if(!LN||!S.bild)return;
   try{
     let pr=await LN.checkPermissions();
     if(pr.display!=='granted'){if(!ask&&ls.get('nasked',false))return;ls.set('nasked',true);pr=await LN.requestPermissions();if(pr.display!=='granted'){toast('Bildirim izni verilmedi');return}}
     try{const ex=await LN.checkExactNotificationSetting();if(ex.exact_alarm!=='granted'&&ask)await LN.changeExactNotificationSetting()}catch(e){}
-    await LN.createChannel({id:'vakit',name:'Vakit bildirimleri',description:'Namaz vakitleri',importance:5,sound:'ezan.wav',vibration:true,visibility:1});
+    await LN.createChannel({id:'vakit3',name:'Vakit bildirimleri',description:'Namaz vakitleri',importance:5,sound:'ezan.wav',vibration:true,visibility:1});
     await clearNotifs();
     const list=[],now=new Date();
     for(let k=0;k<7;k++){
@@ -141,7 +152,7 @@ async function planNotifs(ask){
       VAK.forEach(([key,name],i)=>{
         if(!S.vk.includes(i))return;
         const w=at(d,x.t[key]);
-        if(w>now)list.push({id:100+k*10+i,title:name+' vakti',body:locLabel()+' için '+name+' vakti girdi',schedule:{at:w,allowWhileIdle:true},channelId:'vakit',sound:'ezan.wav'});
+        if(w>now)list.push({id:100+k*10+i,title:name+' vakti',body:locLabel()+' için '+name+' vakti girdi',schedule:{at:w,allowWhileIdle:true},channelId:'vakit3',sound:'ezan.wav'});
       });
     }
     if(list.length)await LN.schedule({notifications:list});
