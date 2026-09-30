@@ -259,12 +259,12 @@ async function detay(id){
 
 /* --- Okuma ekranı --- */
 const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
-const ayetler=a=>a.map((t,i)=>`${t}<span class="no">﴿${AR(i+1)}﴾</span>`).join(' ');
+const ayetler=(a,p)=>a.map((t,i)=>`<span class="ay" data-k="${p}${i+1}">${t}<span class="no">﴿${AR(i+1)}﴾</span></span>`).join(' ');
 const BESMELE='بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ';
 const O=document.createElement('div');O.id='kbOku';
 O.innerHTML=`<div class="ok-bar"><button id="okKapat">✕ Kapat</button><div style="display:flex;gap:6px"><button id="okKucuk">A−</button><button id="okBuyuk">A+</button></div></div>
 <div class="ok-steps"><button data-s="niyet" class="on">Niyet</button><button data-s="fatiha">Fâtiha</button><button data-s="yasin">Yâsîn</button><button data-s="dua">Dua</button></div>
-<div id="okBody"></div><div id="okAlt"><button class="btn gold" id="okBitti">Okudum, Allah kabul etsin</button></div>`;
+<div id="okBody"></div><div id="okAlt"><button class="btn" id="okCal">▶ Dinle</button><button class="btn gold" id="okBitti">Okudum, Allah kabul etsin</button></div>`;
 document.body.appendChild(O);
 let okuIds=[],arpx=+ls.get('arpx',27);
 function okuBaslat(ids){
@@ -275,11 +275,11 @@ function okuBaslat(ids){
   O.style.setProperty('--arpx',arpx+'px');
   $('#okBody').innerHTML=`
   <div id="s-niyet" class="ok-niyet">Niyet ederim; okuyacağım Fâtiha-i Şerîf ve Yâsîn-i Şerîf'in sevabını Allah rızası için şu ruhlara hediye etmek üzere:<em>${liste}</em>Allah hepsine rahmet eylesin.<br><small style="color:var(--soluk)">Sıra ile: Besmele, Fâtiha, Yâsîn ve dua.</small></div>
-  <div id="s-fatiha"><div class="ok-baslik">Fâtiha Sûresi</div><div class="ok-ar">${ayetler(OKUMA.fatiha)}</div></div>
-  <div id="s-yasin"><div class="ok-baslik">Yâsîn Sûresi</div><div class="ok-ar">${BESMELE}</div><div class="ok-ar">${ayetler(OKUMA.yasin)}</div></div>
+  <div id="s-fatiha"><div class="ok-baslik">Fâtiha Sûresi</div><div class="ok-ar">${ayetler(OKUMA.fatiha,'f')}</div></div>
+  <div id="s-yasin"><div class="ok-baslik">Yâsîn Sûresi</div><div class="ok-ar"><span class="ay" data-k="yb">${BESMELE}</span></div><div class="ok-ar">${ayetler(OKUMA.yasin,'y')}</div></div>
   <div id="s-dua"><div class="ok-baslik">Dua</div><div class="ok-dua">Allah'ım! Okuduğumuz Fâtiha ve Yâsîn-i Şerîf'in sevabını Nebîn Muhammed Mustafa'nın (s.a.v.) ruhuna, ardından ${liste} ve bütün mü'min kardeşlerimizin ruhlarına ulaştır.<br><br>Allah'ım! Onlara rahmetinle muamele et, kusurlarını bağışla, kabirlerini genişlet ve nurlandır, onları cennetinle şereflendir. Bizleri de imanla yaşat, imanla vefat ettir ve onlarla cennette buluştur.<br><br>Âmin.</div></div>`;
   O.querySelectorAll('.ok-steps button').forEach(b=>b.classList.remove('bit'));
-  O.classList.add('open');$('#okBody').scrollTop=0;stepOn('niyet');
+  sesDur(true);O.classList.add('open');$('#okBody').scrollTop=0;stepOn('niyet');
 }
 function stepOn(s){O.querySelectorAll('.ok-steps button').forEach(b=>b.classList.toggle('on',b.dataset.s===s))}
 O.querySelectorAll('.ok-steps button').forEach(b=>b.onclick=()=>{const e=$('#s-'+b.dataset.s);if(e)e.scrollIntoView({block:'start'});stepOn(b.dataset.s)});
@@ -290,14 +290,81 @@ $('#okBody').addEventListener('scroll',()=>{
   stepOn(cur);
   ['niyet','fatiha','yasin'].forEach(s=>{const e=$('#s-'+s),b=O.querySelector(`.ok-steps [data-s=${s}]`);if(e&&b)b.classList.toggle('bit',e.getBoundingClientRect().bottom-top<40)});
 },{passive:true});
-$('#okKapat').onclick=()=>O.classList.remove('open');
+$('#okKapat').onclick=()=>{sesDur(true);O.classList.remove('open')};
 const boyut=d=>{arpx=Math.max(20,Math.min(48,arpx+d));ls.set('arpx',arpx);O.style.setProperty('--arpx',arpx+'px')};
 $('#okKucuk').onclick=()=>boyut(-3);$('#okBuyuk').onclick=()=>boyut(3);
 $('#okBitti').onclick=()=>{
   const key=cumaAnahtar();
   kayit.forEach(k=>{if(okuIds.includes(k.id)){k.okunan=k.okunan||[];if(!k.okunan.includes(key))k.okunan.push(key)}});
-  kaydet();O.classList.remove('open');cizKabir();toast('Okumanız kaydedildi. Allah kabul etsin.');
+  sesDur(true);kaydet();O.classList.remove('open');cizKabir();toast('Okumanız kaydedildi. Allah kabul etsin.');
 };
+
+
+/* --- Sesli okuma: Mişari Raşid el-Afasi kaydı ayet ayet internetten çalınır, dua Türkçe sesli okunur --- */
+const SES_A='https://everyayah.com/data/Alafasy_128kbps/',SES_B=n=>`https://cdn.islamic.network/quran/audio/128/ar.alafasy/${n}.mp3`;
+const p3=n=>String(n).padStart(3,'0');
+const au=new Audio(),onAu=new Audio();au.preload='auto';onAu.preload='auto';
+let kuyruk=[],ki=0,caliyor=false,duaKonus=false,kilit=null;
+function kuyrukYap(){
+  const q=[];
+  OKUMA.fatiha.forEach((_,i)=>q.push({k:'f'+(i+1),u:[SES_A+'001'+p3(i+1)+'.mp3',SES_B(i+1)],ad:'Fâtiha',no:i+1,top:OKUMA.fatiha.length}));
+  q.push({k:'yb',u:[SES_A+'001001.mp3',SES_B(1)],ad:'Yâsîn',no:0,top:OKUMA.yasin.length});
+  OKUMA.yasin.forEach((_,i)=>q.push({k:'y'+(i+1),u:[SES_A+'036'+p3(i+1)+'.mp3',SES_B(3705+i+1)],ad:'Yâsîn',no:i+1,top:OKUMA.yasin.length}));
+  return q;
+}
+function calDurum(){
+  const b=$('#okCal'),it=kuyruk[ki];
+  if(duaKonus)b.textContent='⏸ Dua';
+  else b.textContent=caliyor?('⏸ '+(it?it.ad+(it.no?' '+it.no+'/'+it.top:''):'')):'▶ '+(it?'Devam':'Dinle');
+}
+function vurgu(k){
+  O.querySelectorAll('.ay.cal').forEach(e=>e.classList.remove('cal'));
+  const e=O.querySelector(`.ay[data-k="${k}"]`);if(!e)return;
+  e.classList.add('cal');e.scrollIntoView({block:'center',behavior:'smooth'});
+  stepOn(k[0]==='f'?'fatiha':'yasin');
+}
+function ayetCal(i,hata){
+  const it=kuyruk[i];
+  if(!it){return duaOku()}
+  ki=i;vurgu(it.k);
+  au.onended=()=>ayetCal(i+1);
+  au.onerror=()=>{ // ilk kaynak olmadıysa yedek kaynağı dene
+    if(!hata&&it.u[1]){au.src=it.u[1];au.onerror=()=>sesHata();au.play().catch(()=>sesHata())}else sesHata();
+  };
+  au.src=it.u[0];caliyor=true;calDurum();
+  au.play().catch(e=>{if(e&&e.name==='NotAllowedError')sesDur(false);else au.onerror()});
+  const nx=kuyruk[i+1];if(nx){onAu.src=nx.u[0]}
+}
+function sesHata(){sesDur(false);toast('Ses yüklenemedi. İnternet bağlantısını kontrol edin.')}
+function duaOku(){
+  const d=$('#s-dua'),ss=window.speechSynthesis;
+  O.querySelectorAll('.ay.cal').forEach(e=>e.classList.remove('cal'));
+  stepOn('dua');if(d)d.scrollIntoView({block:'start',behavior:'smooth'});
+  if(!ss||!window.SpeechSynthesisUtterance){sesBitti();return}
+  const u=new SpeechSynthesisUtterance(d.querySelector('.ok-dua').innerText.replace(/\s+/g,' '));
+  u.lang='tr-TR';u.rate=.85;u.onend=u.onerror=()=>{if(duaKonus)sesBitti()};
+  duaKonus=true;caliyor=true;calDurum();ss.cancel();ss.speak(u);
+}
+function sesBitti(){kuyruk=[];ki=0;duaKonus=false;caliyor=false;calDurum();kilitBirak();toast('Okuma bitti. Dilerseniz "Okudum" ile kaydedin.')}
+async function kilitAl(){try{if(navigator.wakeLock)kilit=await navigator.wakeLock.request('screen')}catch(e){}}
+function kilitBirak(){try{kilit&&kilit.release();kilit=null}catch(e){}}
+function sesDur(sifirla){ // sifirla: tamamen bırak, yoksa duraklat
+  au.onended=au.onerror=null;au.pause();
+  try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}
+  caliyor=false;duaKonus=false;kilitBirak();
+  if(sifirla){kuyruk=[];ki=0;O.querySelectorAll('.ay.cal').forEach(e=>e.classList.remove('cal'))}
+  calDurum();
+}
+function sesBaslat(i){
+  if(!kuyruk.length)kuyruk=kuyrukYap();
+  kilitAl();ayetCal(i==null?ki:i);
+}
+$('#okCal').onclick=()=>{ if(caliyor)sesDur(false); else sesBaslat() };
+$('#okBody').addEventListener('click',e=>{ // bir ayete dokununca oradan dinlet
+  const a=e.target.closest('.ay');if(!a)return;
+  if(!kuyruk.length)kuyruk=kuyrukYap();
+  const i=kuyruk.findIndex(x=>x.k===a.dataset.k);if(i>=0){sesDur(false);sesBaslat(i)}
+});
 
 /* --- Ekle düğmesi --- */
 $('#kbEkle').onclick=ekleBasla;

@@ -1,0 +1,11 @@
+/* Ana ekran markası: sûfî üslup */
+@font-face{font-family:'Aref Ruqaa';src:url(fonts/aref-ruqaa-arabic-400-normal.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'Cinzel Decorative';font-weight:700;src:url(fonts/cinzel-decorative-latin-700-normal.woff2) format('woff2');font-display:swap}
+.marka{text-align:center;padding:0 0 2px;flex:none;line-height:1}
+.marka .mk-ar{font-family:'Aref Ruqaa',serif;font-size:17px;color:var(--altin);opacity:.8;direction:rtl}
+.marka .mk-ad{font-family:'Cinzel Decorative',Georgia,serif;font-weight:700;font-size:25px;letter-spacing:.09em;color:var(--altin);text-shadow:0 0 18px rgba(201,164,92,.45);display:flex;align-items:center;justify-content:center;gap:10px;margin-top:1px}
+.marka .mk-ad i{font-style:normal;font-size:11px;opacity:.7;letter-spacing:0}
+.marka .mk-ad::before,.marka .mk-ad::after{content:"";height:1px;width:clamp(14px,8vw,36px);background:linear-gradient(90deg,transparent,var(--altin))}
+.marka .mk-ad::after{transform:scaleX(-1)}
+.marka .mk-bs{font-family:'Aref Ruqaa',serif;font-size:13px;color:var(--soluk);margin-top:4px;direction:rtl}
+.ringwrap{width:min(56vw,225px)}

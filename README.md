@@ -17,3 +17,5 @@ npm install && npx cap add android && npx cap sync android, sonra Android Studio
 - Kayıtlar (bilgi: localStorage, fotoğraf: IndexedDB) yalnızca telefonda tutulur. Mezar konumu (GPS) kaydedilebilir.
 - **Cuma okuması:** Fâtiha ve Yâsîn (Arapça, `www/okuma.js`, Amiri Quran yazı tipi `www/fonts/`) niyet ve dua ile birlikte okunur; okunan kabirler o Cuma için işaretlenir. Cuma 09:00 ve Perşembe 20:00 haftalık hatırlatma bildirimi vardır (Ayarlar'dan kapatılır).
 - OCR taş durumuna göre hatalı olabilir; bu yüzden sonuç her zaman düzenlenebilir.
+- **Sesli okuma:** Okuma ekranındaki "Dinle" düğmesi Fâtiha ve Yâsîn'i Mişari Raşid el-Afasi kaydıyla ayet ayet çalar (everyayah.com, yedek: cdn.islamic.network; internet gerekir), okunan ayet vurgulanır, bir ayete dokunulunca oradan devam eder. Dua telefonun Türkçe sesiyle okunur.
+- Ana ekran başlığı sûfî üslupta: Aref Ruqaa ve Cinzel Decorative (her ikisi OFL, `www/fonts/`).
