@@ -31,3 +31,6 @@ Vakitlerin altındaki dört düğme:
 - **Camiler** (`cami.js`): konuma göre yakın camiler, liste ve harita (Leaflet, `www/lib/`), en yakın camiye yol tarifi. Veri OpenStreetMap'ten (Overpass API) gelir; Diyanet verisi değildir.
 - **İbadet** (`ibadet.js`): namaz, abdest, gusül-teyemmüm, oruç, zekât, hac-umre ve kurban ilmihal özetleri (Hanefî/Diyanet yaygın görüşü).
 - **Çocuklar** (`cocuk.js`): çizimli namaz anlatımı, abdest adımları, beş vakit, ezber köşesi (kısa sûreler sesli), Allah'ın güzel isimleri ve mini test.
+
+## Yayın
+Play Store hazırlığı için `yayin/` klasörüne (mağaza metinleri, görseller, sabah listesi) ve gizlilik politikası için `docs/gizlilik.html` dosyasına bakın.

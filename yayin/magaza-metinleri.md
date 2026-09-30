@@ -40,7 +40,7 @@ Namaz vakitleri, kıble, Kur'an dinle, yakın cami, kabir kaydı ve Cuma okumas�
 | Telefon ekran görüntüleri | en az 2, en fazla 8; kısa kenar 320–3840 px |
 
 Önerilen ekran görüntüleri: 1) Ana ekran (vakit halkası ve menü) · 2) Kur’an sûre listesi · 3) Kur’an okuma ve ses · 4) Kabir kaydı formu (mezar taşı fotoğrafı) · 5) Cuma okuma ekranı · 6) Yakın camiler (harita) · 7) İbadet konuları · 8) Çocuklar bölümü.
-Görsellerde Diyanet İşleri Başkanlığı adı, amblemi veya başka bir kurumun logosu **kullanılmamalı**.
+Görseller `yayin/gorseller/` klasöründedir (8 ekran görüntüsü 1080×2160, tanıtım görseli 1024×500, simge 512×512). Görsellerde Diyanet İşleri Başkanlığı adı, amblemi veya başka bir kurumun logosu **kullanılmamalı**.
 
 ## 7. İçerik derecelendirme anketi (IARC) – beklenen cevaplar
 - Kategori: Referans / bilgilendirme veya yardımcı program (dinî içerik)
@@ -79,11 +79,16 @@ Not: Kabir kayıtlarındaki ad/not bilgileri cihazdan çıkmadığı için “to
 - **Kesin alarm (SCHEDULE_EXACT_ALARM):** Namaz vakti hatırlatma bildirimlerinin vaktinde gelmesi için. Play bu izin için bir beyan formu isteyebilir; gerekçe: “Uygulamanın temel işlevi dinî vakit hatırlatmalarıdır; bildirim vaktin girdiği dakikada gelmelidir.”
 - **Bildirim:** Vakit, Cuma ve önemli gün hatırlatmaları (yerel bildirim).
 
-## 11. Yayından önce çözülmesi gereken açık konular
-1. **AB/Birleşik Krallık kullanıcıları ve reklam onayı:** Bu bölgelerde kişiselleştirilmiş reklam göstermek için Google’ın onay (UMP/CMP) penceresi gerekir; uygulamada şu an yok. Çözüm: yayın ülkelerini AB/BK dışı bırakmak veya onay penceresini eklemek (ben ekleyebilirim).
-2. **Kur’an ses kaynağı:** Sesler everyayah.com ve islamic.network üzerinden, sitelerin ve kâri kaydının kullanım şartlarına bağlı olarak çalınıyor. Ticari (reklamlı) bir uygulamada kullanımın izinli olduğundan emin olun; aksi halde kendi lisanslı kaynağınıza geçmek gerekir.
-3. **Kur’an metni atfı:** Metin Tanzil projesi tabanlı bir veri setinden alındı; Tanzil lisansı atıf ve metni değiştirmeme şartı istiyor. Uygulamaya bir “Kaynaklar” ekranı eklemeliyiz (OpenStreetMap, Tanzil, Leaflet, Tesseract, yazı tipleri).
-4. **İbadet içeriği:** Yayından önce bir din görevlisi/ilahiyatçı tarafından gözden geçirilmeli.
-5. **Marka/isim:** “Nûr Vakti” adının başka bir uygulamada/markada kullanılıp kullanılmadığını Play’de ve Türk Patent’te kontrol edin.
-6. **Test şartı:** Yeni kişisel geliştirici hesaplarında herkese açık yayın öncesi kapalı test şartı olabilir; Play Console’da güncel kurala bakın.
-7. **Yükleme anahtarı:** Play’e yüklenen AAB, `KEYSTORE_BASE64` ile imzalanıyor. Bu anahtarı ve şifrelerini güvenli yerde yedekleyin; kaybolursa Play’de anahtar sıfırlama sürecine girmeniz gerekir.
+## 11. Durum ve açık konular
+Yapıldı:
+- **Reklam onayı (UMP):** Uygulamaya Google’ın onay penceresi eklendi. Penceresinin görünmesi için AdMob’da mesaj tanımlamanız gerekir (bkz. `SABAH-LISTESI.md`, adım 5). Ayrıca Ayarlar → *Hakkında ve kaynaklar* içinde “Reklam gizlilik seçenekleri” düğmesi var.
+- **Kaynaklar ekranı:** Ayarlar → *Hakkında ve kaynaklar* (Tanzil, OpenStreetMap, Leaflet, Tesseract, yazı tipleri, ses kaynağı; dinî bilgi uyarısı; gizlilik politikası bağlantısı).
+- Görseller `yayin/gorseller/` klasöründe hazır.
+
+Sizin karar vermeniz / kontrol etmeniz gerekenler:
+1. **Kur’an ses kaynağı:** Sesler everyayah.com ve islamic.network üzerinden çalınıyor. Reklamlı bir uygulamada kullanımın o sitelerin şartlarına uygun olduğundan emin olun; emin değilseniz kendi lisanslı kaynağınıza geçilmeli.
+2. **İbadet içeriği:** Yayından önce bir din görevlisi/ilahiyatçı gözden geçirmeli.
+3. **Marka/isim:** “Nûr Vakti” adını Play’de ve Türk Patent’te kontrol edin.
+4. **Test şartı:** Yeni kişisel geliştirici hesaplarında herkese açık yayın öncesi kapalı test şartı olabilir; Play Console’da güncel kurala bakın.
+5. **Yükleme anahtarı:** AAB, `KEYSTORE_BASE64` ile imzalanıyor. Anahtarı ve şifrelerini güvenli yerde yedekleyin.
+6. **Çocuklar bölümü:** Hedef kitleyi “genel” seçmeniz önerilir (bkz. bölüm 8).

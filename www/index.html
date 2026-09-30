@@ -360,6 +360,12 @@ async function initAds(){
   const A=P.AdMob;
   if(!A){ $('#adph').style.display='flex'; return; }
   try{
+    // AB/BK kullanıcıları için Google UMP onay penceresi (mesaj AdMob > Gizlilik ve mesajlaşma bölümünden tanımlanır)
+    try{
+      let ci=await A.requestConsentInfo();
+      if(ci&&ci.status==='REQUIRED'&&ci.isConsentFormAvailable)ci=await A.showConsentForm();
+      if(ci&&ci.canRequestAds===false){window.__canAds=false;$('#adph').style.display='none';document.documentElement.style.setProperty('--adh','0px');return}
+    }catch(e){}
     await A.initialize({initializeForTesting:AD.testing});
     A.addListener('bannerAdSizeChanged',s=>{window.__adh=((s.height||50)+8)+'px';document.documentElement.style.setProperty('--adh',window.__adh)});
     A.addListener('bannerAdLoaded',()=>{$('#adph').style.display='none';document.documentElement.style.setProperty('--adh',window.__adh||'60px')});
@@ -368,7 +374,7 @@ async function initAds(){
   }catch(e){}
 }
 async function showInter(){
-  const A=P.AdMob; if(!A) return;
+  const A=P.AdMob; if(!A||window.__canAds===false) return;
   try{ await A.prepareInterstitial({adId:AD.interstitial,isTesting:AD.testing}); await A.showInterstitial(); }catch(e){}
 }
 
@@ -385,5 +391,6 @@ if(!ls.get('asked',false)){ ls.set('asked',true); useGps(); }
 <script src="cami.js"></script>
 <script src="ibadet.js"></script>
 <script src="cocuk.js"></script>
+<script src="hakkinda.js"></script>
 </body>
 </html>
