@@ -63,11 +63,11 @@ function hayy(){
   if(!S.tsSes)return;
   try{
     AC=AC||new (window.AudioContext||window.webkitAudioContext)();
-    const t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();
-    o.type='sawtooth';o.frequency.setValueAtTime(190,t);o.frequency.linearRampToValueAtTime(150,t+.32);
-    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.16,t+.05);g.gain.exponentialRampToValueAtTime(.001,t+.36);
-    [[750,330,6],[1250,2300,9]].forEach(([a,b,q])=>{const f=AC.createBiquadFilter();f.type='bandpass';f.Q.value=q;f.frequency.setValueAtTime(a,t);f.frequency.linearRampToValueAtTime(b,t+.3);o.connect(f);f.connect(g)});
-    g.connect(AC.destination);o.start(t);o.stop(t+.4);
+    const t=AC.currentTime,g=AC.createGain(),lp=AC.createBiquadFilter();
+    lp.type='lowpass';lp.frequency.value=700;lp.Q.value=.4;
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.11,t+.09);g.gain.exponentialRampToValueAtTime(.0008,t+.75);
+    [[262,247,1],[524,494,.22]].forEach(([a,b,v])=>{const o=AC.createOscillator(),og=AC.createGain();o.type='sine';og.gain.value=v;o.frequency.setValueAtTime(a,t);o.frequency.exponentialRampToValueAtTime(b,t+.6);o.connect(og);og.connect(lp);o.start(t);o.stop(t+.8)});
+    lp.connect(g);g.connect(AC.destination);
   }catch(e){}
 }
 const ZIKIR=[['Sübhanallah',33],['Elhamdülillah',33],['Allahu ekber',33],['Serbest',0]];
@@ -125,7 +125,7 @@ function setDraw(){
 $('#gear').onclick=()=>{setDraw();$('#setSheet').classList.add('open')};
 $('#setSheet').onclick=e=>{if(e.target.id==='setSheet')e.target.classList.remove('open')};
 $('#stBild').onchange=async e=>{S.bild=e.target.checked;saveS();S.bild?await planNotifs(true):clearNotifs()};
-$('#stTest').onclick=()=>{try{const a=new Audio('ezan.wav');a.play()}catch(e){}};
+$('#stTest').onclick=()=>{try{const a=new Audio('huzur.wav');a.play()}catch(e){}};
 async function clearNotifs(){const LN=P.LocalNotifications;if(!LN)return;try{const p=await LN.getPending();const n=p.notifications.filter(x=>x.id<9000);if(n.length)await LN.cancel({notifications:n})}catch(e){}}
 async function planNotifs(ask){
   const LN=P.LocalNotifications;if(!LN||!S.bild)return;
@@ -133,7 +133,7 @@ async function planNotifs(ask){
     let pr=await LN.checkPermissions();
     if(pr.display!=='granted'){if(!ask&&ls.get('nasked',false))return;ls.set('nasked',true);pr=await LN.requestPermissions();if(pr.display!=='granted'){toast('Bildirim izni verilmedi');return}}
     try{const ex=await LN.checkExactNotificationSetting();if(ex.exact_alarm!=='granted'&&ask)await LN.changeExactNotificationSetting()}catch(e){}
-    await LN.createChannel({id:'vakit',name:'Vakit bildirimleri',description:'Namaz vakitleri',importance:5,sound:'ezan.wav',vibration:true,visibility:1});
+    await LN.createChannel({id:'vakit2',name:'Vakit bildirimleri',description:'Namaz vakitleri',importance:5,sound:'huzur.wav',vibration:true,visibility:1});
     await clearNotifs();
     const list=[],now=new Date();
     for(let k=0;k<7;k++){
@@ -141,7 +141,7 @@ async function planNotifs(ask){
       VAK.forEach(([key,name],i)=>{
         if(!S.vk.includes(i))return;
         const w=at(d,x.t[key]);
-        if(w>now)list.push({id:100+k*10+i,title:name+' vakti',body:locLabel()+' için '+name+' vakti girdi',schedule:{at:w,allowWhileIdle:true},channelId:'vakit',sound:'ezan.wav'});
+        if(w>now)list.push({id:100+k*10+i,title:name+' vakti',body:locLabel()+' için '+name+' vakti girdi',schedule:{at:w,allowWhileIdle:true},channelId:'vakit2',sound:'huzur.wav'});
       });
     }
     if(list.length)await LN.schedule({notifications:list});
