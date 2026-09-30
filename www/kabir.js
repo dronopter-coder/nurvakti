@@ -36,6 +36,12 @@ const bugunCuma=()=>new Date().getDay()===5;
 const cumaGecesi=()=>new Date().getDay()===4&&new Date().getHours()>=17;
 const okundu=k=>(k.okunan||[]).includes(cumaAnahtar());
 const bekleyen=()=>kayit.filter(k=>!okundu(k));
+const cumaEkle=(key,n)=>{const d=new Date(key+'T12:00');d.setDate(d.getDate()+n);return d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())};
+function cumaSeri(){ // ardışık kaç Cuma okuma yapıldı (bu Cuma henüz okunmadıysa seri bozulmaz)
+  const set=new Set(ls.get('kabirCumalar',[]));let k=cumaAnahtar();if(!set.has(k))k=cumaEkle(k,-7);
+  let n=0;while(set.has(k)){n++;k=cumaEkle(k,-7)}return n;
+}
+const rozet=n=>n>=52?'Bir yıl':n>=26?'Altı ay':n>=13?'Üç ay':n>=4?'Bir ay':'';
 
 /* ---------- Taş yazısı ayrıştırma ---------- */
 const fold=s=>s.toLocaleUpperCase('tr').replace(/İ/g,'I').replace(/Ğ/g,'G').replace(/Ü/g,'U').replace(/Ş/g,'S').replace(/Ö/g,'O').replace(/Ç/g,'C').replace(/[ÂÎÛ]/g,m=>({'Â':'A','Î':'I','Û':'U'}[m]));
@@ -135,7 +141,7 @@ async function kucult(blob,maks,kalite){
 /* ---------- Arayüz ---------- */
 const V=document.createElement('section');V.id='v-kabir';V.className='view';
 V.innerHTML=`<div class="panel"><div class="tabs"><button class="on">Kabirlerim</button></div>
-<div class="kb-top"><div id="kbCuma"></div><div class="kb-btns"><button class="btn gold" id="kbEkle">＋ Kabir ekle (fotoğraf)</button></div></div>
+<div class="kb-top"><div id="kbCuma"></div><div class="kb-btns"><button class="btn gold" id="kbEkle">＋ Kabir ekle (fotoğraf)</button></div><button class="btn" id="kbMesaj" style="padding:10px;font-size:14px">🌙 Hayırlı Cumalar mesajı paylaş</button></div>
 <div id="kbList"></div></div>`;
 document.querySelector('#nav').before(V);
 const nb=document.createElement('button');nb.dataset.v='kabir';
@@ -148,10 +154,29 @@ const kapat=()=>{ov.classList.remove('open');delete ov.dataset.kilit;$('#kbBox')
 const ac=h=>{$('#kbBox').innerHTML=h;ov.classList.add('open');$('#kbBox').scrollTop=0};
 
 const _go=go;
-go=function(v){_go(v);if(v==='kabir')cizKabir()};
+go=function(v){_go(v);if(v==='kabir'){cizKabir();konumYokla()}};
 
+let konum=null; // son bilinen konum (yalnızca uygulama açıkken alınır)
+const mesafe=(a,b,c,d)=>{const R=6371e3,r=x=>x*Math.PI/180,h=Math.sin(r(c-a)/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(d-b)/2)**2;return 2*R*Math.asin(Math.sqrt(h))};
+const mesafeYaz=m=>m<1000?Math.round(m/10)*10+' m':(m/1000).toFixed(1).replace('.',',')+' km';
+function uzaklik(k){return konum&&k.lat!=null?mesafe(konum.lat,konum.lon,k.lat,k.lon):null}
+async function konumYokla(){
+  if(!kayit.some(k=>k.lat!=null))return;
+  try{
+    let pos;
+    if(P.Geolocation){const pr=await P.Geolocation.checkPermissions();if(pr.location!=='granted'&&pr.coarseLocation!=='granted')return;pos=await P.Geolocation.getCurrentPosition({timeout:8000,maximumAge:120000})}
+    else pos=await new Promise((r,j)=>navigator.geolocation.getCurrentPosition(r,j,{timeout:8000,maximumAge:120000}));
+    konum={lat:pos.coords.latitude,lon:pos.coords.longitude};
+  }catch(e){return}
+  const yak=kayit.map(k=>({k,m:uzaklik(k)})).filter(x=>x.m!=null&&x.m<=300).sort((a,b)=>a.m-b.m);
+  if(yak.length&&Date.now()-ls.get('yakinZaman',0)>3*3600e3){
+    ls.set('yakinZaman',Date.now());
+    toast('Yakınınızda kayıtlı kabir var: '+(yak[0].k.ad||'İsimsiz')+'. Kabir sekmesinden Fâtiha okuyabilirsiniz.');
+  }
+  cizKabir();
+}
 function ozet(k){
-  const y=(k.dogum.match(/\d{4}/)||[])[0],z=(k.vefat.match(/\d{4}/)||[])[0];
+  const y=((k.dogum||'').match(/\d{4}/)||[])[0],z=((k.vefat||'').match(/\d{4}/)||[])[0];
   const yil=y&&z?`${y} – ${z}`:(z?`† ${z}`:(y?`D. ${y}`:''));
   return [yil,k.mezarlik,k.sehir].filter(Boolean).join(' · ')||'Bilgi eklenmedi';
 }
@@ -162,12 +187,13 @@ async function cizKabir(){
   else{
     const bas=bugunCuma()?'Bugün Cuma – hayırlı Cumalar':cumaGecesi()?'Cuma gecesi':'Cumaya hazırlık';
     const alt=bek.length?`${bek.length} kişi için bu Cuma Fâtiha ve Yâsîn okunmayı bekliyor.`:'Bu Cuma tüm kabirler için okundu. Allah kabul etsin.';
-    cm.innerHTML=`<div class="kb-cuma${bek.length?'':' dim'}"><b>${bas}</b><p>${alt}</p><div class="kb-btns"><button class="btn gold" id="kbOkuBtn">Fâtiha ve Yâsîn oku</button></div></div>`;
+    const sr=cumaSeri(),srt=sr?`<p class="kb-seri">🌙 ${sr} Cumadır aksatmadınız${rozet(sr)?' · '+rozet(sr):''}</p>`:'';
+    cm.innerHTML=`<div class="kb-cuma${bek.length?'':' dim'}"><b>${bas}</b><p>${alt}</p>${srt}<div class="kb-btns"><button class="btn gold" id="kbOkuBtn">Fâtiha ve Yâsîn oku</button></div></div>`;
     $('#kbOkuBtn').onclick=()=>okuBaslat(bek.length?bek.map(k=>k.id):kayit.map(k=>k.id));
   }
   const L=$('#kbList');
   if(!n){L.innerHTML=`<div class="kb-empty"><svg viewBox="0 0 24 24"><path d="M6 21V10a6 6 0 0 1 12 0v11"/><path d="M3 21h18"/><path d="M12 8v6M9.5 10.5h5"/></svg><br>Henüz kabir eklenmedi.<br>Mezarlığa gittiğinde mezar taşının fotoğrafını çek; isim ve tarihleri taştan okuyup kaydı oluşturalım.<br>Her Cuma ruhuna Fâtiha ve Yâsîn okuyalım.</div>`;return}
-  L.innerHTML=kayit.map(k=>`<button class="kb-card" data-id="${k.id}"><div class="kb-th" id="th${k.id}">✦</div><div class="kb-inf"><div class="kb-ad">${esc(k.ad||'İsimsiz kayıt')}</div><div class="kb-alt">${esc(ozet(k))}</div></div><span class="kb-ok${okundu(k)?'':' bekle'}">${okundu(k)?'Okundu':'Bekliyor'}</span></button>`).join('');
+  L.innerHTML=kayit.map(k=>`<button class="kb-card" data-id="${k.id}"><div class="kb-th" id="th${k.id}">✦</div><div class="kb-inf"><div class="kb-ad">${esc(k.ad||'İsimsiz kayıt')}</div><div class="kb-alt">${esc(ozet(k))}${uzaklik(k)!=null?' · 📍'+mesafeYaz(uzaklik(k)):''}</div></div><span class="kb-ok${okundu(k)?'':' bekle'}">${okundu(k)?'Okundu':'Bekliyor'}</span></button>`).join('');
   L.querySelectorAll('.kb-card').forEach(b=>b.onclick=()=>detay(b.dataset.id));
   kayit.forEach(async k=>{const u=await fotoUrl(k.id,true);const e=document.getElementById('th'+k.id);if(u&&e){e.style.backgroundImage=`url(${u})`;e.textContent=''}});
 }
@@ -262,7 +288,7 @@ const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
 const ayetler=(a,p)=>a.map((t,i)=>`<span class="ay" data-k="${p}${i+1}">${t}<span class="no">﴿${AR(i+1)}﴾</span></span>`).join(' ');
 const BESMELE='بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ';
 const O=document.createElement('div');O.id='kbOku';
-O.innerHTML=`<div class="ok-bar"><button id="okKapat">✕ Kapat</button><div style="display:flex;gap:6px"><button id="okKucuk">A−</button><button id="okBuyuk">A+</button></div></div>
+O.innerHTML=`<div class="ok-bar"><button id="okKapat">✕ Kapat</button><div style="display:flex;gap:6px"><button id="okHiz" title="Okuma hızı">1×</button><button id="okKucuk">A−</button><button id="okBuyuk">A+</button></div></div>
 <div class="ok-steps"><button data-s="niyet" class="on">Niyet</button><button data-s="fatiha">Fâtiha</button><button data-s="yasin">Yâsîn</button><button data-s="dua">Dua</button></div>
 <div id="okBody"></div><div id="okAlt"><button class="btn" id="okCal">▶ Dinle</button><button class="btn gold" id="okBitti">Okudum, Allah kabul etsin</button></div>`;
 document.body.appendChild(O);
@@ -296,6 +322,7 @@ $('#okKucuk').onclick=()=>boyut(-3);$('#okBuyuk').onclick=()=>boyut(3);
 $('#okBitti').onclick=()=>{
   const key=cumaAnahtar();
   kayit.forEach(k=>{if(okuIds.includes(k.id)){k.okunan=k.okunan||[];if(!k.okunan.includes(key))k.okunan.push(key)}});
+  const cl=ls.get('kabirCumalar',[]);if(!cl.includes(key)){cl.push(key);ls.set('kabirCumalar',cl.slice(-120))}
   sesDur(true);kaydet();O.classList.remove('open');cizKabir();toast('Okumanız kaydedildi. Allah kabul etsin.');
 };
 
@@ -304,7 +331,10 @@ $('#okBitti').onclick=()=>{
 const SES_A='https://everyayah.com/data/Alafasy_128kbps/',SES_B=n=>`https://cdn.islamic.network/quran/audio/128/ar.alafasy/${n}.mp3`;
 const p3=n=>String(n).padStart(3,'0');
 const au=new Audio(),onAu=new Audio();au.preload='auto';onAu.preload='auto';
-let kuyruk=[],ki=0,caliyor=false,duaKonus=false,kilit=null;
+let kuyruk=[],ki=0,caliyor=false,duaKonus=false,kilit=null,hiz=+ls.get('okHiz',1);
+au.defaultPlaybackRate=hiz;au.playbackRate=hiz;
+$('#okHiz').textContent=String(hiz).replace('.',',')+'×';
+$('#okHiz').onclick=()=>{const L=[.8,1,1.25];hiz=L[(L.indexOf(hiz)+1)%L.length];ls.set('okHiz',hiz);au.defaultPlaybackRate=hiz;au.playbackRate=hiz;$('#okHiz').textContent=String(hiz).replace('.',',')+'×'};
 function kuyrukYap(){
   const q=[];
   OKUMA.fatiha.forEach((_,i)=>q.push({k:'f'+(i+1),u:[SES_A+'001'+p3(i+1)+'.mp3',SES_B(i+1)],ad:'Fâtiha',no:i+1,top:OKUMA.fatiha.length}));
@@ -331,7 +361,7 @@ function ayetCal(i,hata){
   au.onerror=()=>{ // ilk kaynak olmadıysa yedek kaynağı dene
     if(!hata&&it.u[1]){au.src=it.u[1];au.onerror=()=>sesHata();au.play().catch(()=>sesHata())}else sesHata();
   };
-  au.src=it.u[0];caliyor=true;calDurum();
+  au.src=it.u[0];au.playbackRate=hiz;caliyor=true;calDurum();
   au.play().catch(e=>{if(e&&e.name==='NotAllowedError')sesDur(false);else au.onerror()});
   const nx=kuyruk[i+1];if(nx){onAu.src=nx.u[0]}
 }
@@ -366,29 +396,64 @@ $('#okBody').addEventListener('click',e=>{ // bir ayete dokununca oradan dinlet
   const i=kuyruk.findIndex(x=>x.k===a.dataset.k);if(i>=0){sesDur(false);sesBaslat(i)}
 });
 
+/* --- Hayırlı Cumalar mesajı --- */
+function cumaMesaji(){
+  const a=AYET[(DAYN()*7)%AYET.length]||AYET[0];
+  return `Hayırlı Cumalar 🌙\n\n“${a[0]}”\n(${a[1]})\n\nAllah dualarımızı kabul etsin, vefat edenlerimize rahmet eylesin.\n— Nûr Vakti`;
+}
+$('#kbMesaj').onclick=()=>{
+  ac(`<h3>Hayırlı Cumalar mesajı</h3><textarea id="msMetin" style="min-height:170px">${esc(cumaMesaji())}</textarea>
+  <div class="kb-btns"><button class="btn gold" id="msPaylas">Paylaş</button><button class="btn" id="msWa">WhatsApp</button></div>
+  <div class="kb-btns"><button class="btn" id="msKopya">Kopyala</button><button class="btn" id="msKapat">Kapat</button></div>`);
+  const txt=()=>$('#msMetin').value;
+  $('#msKapat').onclick=kapat;
+  $('#msWa').onclick=()=>window.open('https://wa.me/?text='+encodeURIComponent(txt()),'_blank');
+  const kopya=async()=>{try{await navigator.clipboard.writeText(txt());toast('Mesaj kopyalandı')}catch(e){$('#msMetin').select();toast('Metni seçip kopyalayabilirsiniz')}};
+  $('#msKopya').onclick=kopya;
+  $('#msPaylas').onclick=async()=>{if(navigator.share){try{await navigator.share({text:txt()});return}catch(e){if(e&&e.name==='AbortError')return}}kopya()};
+};
+
 /* --- Ekle düğmesi --- */
 $('#kbEkle').onclick=ekleBasla;
 
 /* --- Cuma hatırlatması (haftalık yerel bildirim; ezan bildirimleriyle karışmaması için id ≥ 9000) --- */
-const CS=Object.assign({on:true},ls.get('kabirS',{}));
+const CS=Object.assign({on:true,yil:true},ls.get('kabirS',{}));
 async function planKabirNotif(ask){
   const LN=P.LocalNotifications;if(!LN)return;
   try{
     const p=await LN.getPending();
     const eski=p.notifications.filter(x=>x.id>=9000);
     if(eski.length)await LN.cancel({notifications:eski});
-    if(!CS.on||!kayit.length)return;
+    if((!CS.on&&!CS.yil)||!kayit.length)return;
     let pr=await LN.checkPermissions();
     if(pr.display!=='granted'){if(!ask)return;pr=await LN.requestPermissions();if(pr.display!=='granted')return}
     await LN.createChannel({id:'kabir',name:'Cuma hatırlatması',description:'Kabirler için Cuma okuması',importance:4,vibration:true,visibility:1}).catch(()=>{});
-    await LN.schedule({notifications:[
+    const liste=[];
+    if(CS.yil){
+      kayit.slice(0,90).forEach((k,i)=>{
+        const m=(k.vefat||'').match(/^(\d{1,2})\.(\d{1,2})\.(?:18|19|20)\d{2}$/);if(!m)return;
+        liste.push({id:9100+i,title:'Vefat yıldönümü',body:(k.ad||'Sevdiğiniz kişi')+' için bugün vefat yıldönümü. Ruhuna Fâtiha okumayı unutmayın.',schedule:{on:{month:+m[2],day:+m[1],hour:9,minute:30},allowWhileIdle:true},channelId:'kabir'});
+      });
+      const simdi=new Date(),son=new Date(simdi.getTime()+400*864e5);let j=0;
+      GUN.forEach(e=>{
+        if(!(e[3]||/arefesi/.test(e[0]))||j>=30)return;
+        const d=new Date(e[1]+'T15:00');if(d<=simdi||d>son)return;
+        liste.push({id:9200+j++,title:e[0],body:'Sevdiklerinize Fâtiha ve Yâsîn hediye etmek için hayırlı bir vakit.',schedule:{at:d,allowWhileIdle:true},channelId:'kabir'});
+      });
+    }
+    if(CS.on)liste.push(
       {id:9001,title:'Hayırlı Cumalar',body:'Merhumlarınız için Fâtiha ve Yâsîn okuma zamanı.',schedule:{on:{weekday:6,hour:9,minute:0},allowWhileIdle:true},channelId:'kabir'},
-      {id:9002,title:'Cuma gecesi',body:'Yarın Cuma. Sevdiklerinize Fâtiha ve Yâsîn hediye etmeyi unutmayın.',schedule:{on:{weekday:5,hour:20,minute:0},allowWhileIdle:true},channelId:'kabir'}]});
+      {id:9002,title:'Cuma gecesi',body:'Yarın Cuma. Sevdiklerinize Fâtiha ve Yâsîn hediye etmeyi unutmayın.',schedule:{on:{weekday:5,hour:20,minute:0},allowWhileIdle:true},channelId:'kabir'});
+    if(liste.length)await LN.schedule({notifications:liste});
   }catch(e){}
 }
 const row=document.createElement('label');row.className='trow';
 row.innerHTML='<span>Cuma günü kabir hatırlatması</span><input type="checkbox" id="stCuma">';
-const sb=document.querySelector('#setSheet .box');sb.insertBefore(row,sb.firstChild);
+const row2=document.createElement('label');row2.className='trow';
+row2.innerHTML='<span>Vefat yıldönümü ve önemli geceler</span><input type="checkbox" id="stYil">';
+const sb=document.querySelector('#setSheet .box');sb.insertBefore(row2,sb.firstChild);sb.insertBefore(row,sb.firstChild);
+$('#stYil').checked=CS.yil;
+$('#stYil').onchange=e=>{CS.yil=e.target.checked;ls.set('kabirS',CS);planKabirNotif(true)};
 $('#stCuma').checked=CS.on;
 $('#stCuma').onchange=e=>{CS.on=e.target.checked;ls.set('kabirS',CS);planKabirNotif(true)};
 
