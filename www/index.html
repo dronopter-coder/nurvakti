@@ -163,7 +163,13 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
 <script src="okuma.js"></script>
 <script>
 /* ===== AdMob (gerçek kimlikler gömülü) ===== */
-const AD = {
+const PLAT=(window.Capacitor&&Capacitor.getPlatform&&Capacitor.getPlatform())||'web';
+// iOS için AdMob'da ayrı bir uygulama ve reklam birimleri açılana kadar Google'ın test kimlikleri kullanılır
+const AD = PLAT==='ios' ? {
+  testing: true,
+  banner: 'ca-app-pub-3940256099942544/2934735716',
+  interstitial: 'ca-app-pub-3940256099942544/4411468910'
+} : {
   testing: false,
   appId: 'ca-app-pub-3204109869365538~9938336202',
   banner: 'ca-app-pub-3204109869365538/8606082397',
@@ -360,6 +366,8 @@ async function initAds(){
   const A=P.AdMob;
   if(!A){ $('#adph').style.display='flex'; return; }
   try{
+    // iOS: izleme izni (App Tracking Transparency)
+    if(PLAT==='ios'){try{const t=await A.trackingAuthorizationStatus();if(t&&t.status==='notDetermined')await A.requestTrackingAuthorization()}catch(e){}}
     // AB/BK kullanıcıları için Google UMP onay penceresi (mesaj AdMob > Gizlilik ve mesajlaşma bölümünden tanımlanır)
     try{
       let ci=await A.requestConsentInfo();

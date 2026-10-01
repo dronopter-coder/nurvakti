@@ -1,0 +1,113 @@
+name: iOS derle
+# Elle çalıştırılır (macOS dakikaları pahalıdır). Apple gizli anahtarları tanımlı değilse yalnızca
+# imzasız simülatör derlemesi yapılır (kodun iOS'ta derlendiğini doğrular). Anahtarlar tanımlıysa
+# imzalı IPA üretilir ve TestFlight'a yüklenir. Ayrıntı: yayin/IOS-REHBERI.md
+on:
+  workflow_dispatch:
+env:
+  P12_B64: ${{ secrets.IOS_CERT_P12_BASE64 }}
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Capacitor 8 paketleri
+        run: |
+          npm install @capacitor/core@8 @capacitor/ios@8 @capacitor/geolocation@8 @capacitor/haptics@8 @capacitor/local-notifications@8 @capacitor/status-bar@8 @capacitor-community/admob@8
+          npm install -D @capacitor/cli@8
+      - run: npx cap add ios
+      - name: Info.plist, simge, ses, sürüm
+        run: |
+          PL=ios/App/App/Info.plist
+          B=/usr/libexec/PlistBuddy
+          ekle() { $B -c "Add :$1 $2 $3" "$PL" 2>/dev/null || $B -c "Set :$1 $3" "$PL"; }
+          ekle NSLocationWhenInUseUsageDescription string "Namaz vakitleri, kıble, yakındaki camiler ve kayıtlı mezara yakınlık için konumunuz kullanılır."
+          ekle NSCameraUsageDescription string "Mezar taşının fotoğrafını çekmek için kamera kullanılır."
+          ekle NSPhotoLibraryUsageDescription string "Mezar taşı fotoğrafını galeriden seçmek için fotoğraflarınıza erişilir."
+          ekle NSMotionUsageDescription string "Kıble pusulası için hareket ve yön sensörleri kullanılır."
+          ekle NSUserTrackingUsageDescription string "Size daha uygun reklamlar gösterebilmek için kullanılır."
+          ekle GADApplicationIdentifier string "ca-app-pub-3940256099942544~1458002511"
+          ekle ITSAppUsesNonExemptEncryption bool false
+          $B -c "Add :SKAdNetworkItems array" "$PL" || true
+          $B -c "Add :SKAdNetworkItems:0 dict" "$PL" || true
+          $B -c "Add :SKAdNetworkItems:0:SKAdNetworkIdentifier string cstr6suwn9.skadnetwork" "$PL" || true
+          # Yalnızca iPhone, dikey
+          $B -c "Set :UIRequiredDeviceCapabilities:0 arm64" "$PL" || true
+          $B -c "Delete :UISupportedInterfaceOrientations:2" "$PL" || true
+          $B -c "Delete :UISupportedInterfaceOrientations:1" "$PL" || true
+          PBX=ios/App/App.xcodeproj/project.pbxproj
+          sed -i '' 's/TARGETED_DEVICE_FAMILY = "1,2";/TARGETED_DEVICE_FAMILY = 1;/' "$PBX"
+          sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9]*;/CURRENT_PROJECT_VERSION = ${{ github.run_number }};/" "$PBX"
+          # Uygulama simgesi (1024x1024, saydamlık yok)
+          cp www/icon-full.png ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png
+          # Bildirim sesi: paket köküne kopyalanıp projeye kaynak olarak eklenir
+          cp www/ezan.wav ios/App/App/ezan.wav
+          ruby -e 'require "xcodeproj"; pr=Xcodeproj::Project.open("ios/App/App.xcodeproj"); t=pr.targets.find{|x| x.name=="App"}; g=pr.main_group["App"]; r=g.new_file("ezan.wav"); t.add_resources([r]); pr.save' || echo "UYARI: ezan.wav projeye eklenemedi"
+          rm -f www/icon-fg.png www/icon-full.png
+          grep -n "TARGETED_DEVICE_FAMILY\|CURRENT_PROJECT_VERSION\|MARKETING_VERSION" "$PBX" | head -8
+      - run: npx cap sync ios
+      - name: İmzasız simülatör derlemesi (kod derleniyor mu?)
+        run: |
+          xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build CODE_SIGNING_ALLOWED=NO build | tail -40
+          ls build/Build/Products/Release-iphonesimulator/
+      - name: Anahtarlar ve profil
+        if: ${{ env.P12_B64 != '' }}
+        env:
+          P12_PASS: ${{ secrets.IOS_CERT_PASSWORD }}
+          PROFILE_B64: ${{ secrets.IOS_PROVISION_PROFILE_BASE64 }}
+        run: |
+          KC="$RUNNER_TEMP/build.keychain-db"; KCPASS="$(uuidgen)"
+          security create-keychain -p "$KCPASS" "$KC"
+          security set-keychain-settings -lut 21600 "$KC"
+          security unlock-keychain -p "$KCPASS" "$KC"
+          echo "$P12_B64" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -k "$KC" -P "$P12_PASS" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$KCPASS" "$KC"
+          security list-keychains -d user -s "$KC" login.keychain-db
+          echo "$PROFILE_B64" | base64 --decode > "$RUNNER_TEMP/profile.mobileprovision"
+          security cms -D -i "$RUNNER_TEMP/profile.mobileprovision" > "$RUNNER_TEMP/profile.plist"
+          PUUID=$(/usr/libexec/PlistBuddy -c 'Print :UUID' "$RUNNER_TEMP/profile.plist")
+          PNAME=$(/usr/libexec/PlistBuddy -c 'Print :Name' "$RUNNER_TEMP/profile.plist")
+          mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
+          cp "$RUNNER_TEMP/profile.mobileprovision" "$HOME/Library/MobileDevice/Provisioning Profiles/$PUUID.mobileprovision"
+          echo "PROFIL_ADI=$PNAME" >> "$GITHUB_ENV"
+      - name: İmzalı arşiv ve IPA
+        if: ${{ env.P12_B64 != '' }}
+        env:
+          TEAM: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          xcodebuild archive -project ios/App/App.xcodeproj -scheme App -configuration Release \
+            -destination 'generic/platform=iOS' -archivePath build/App.xcarchive \
+            CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="$TEAM" CODE_SIGN_IDENTITY="Apple Distribution" \
+            PROVISIONING_PROFILE_SPECIFIER="$PROFIL_ADI" | tail -30
+          cat > build/ExportOptions.plist <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>teamID</key><string>$TEAM</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>provisioningProfiles</key><dict><key>com.nurvakti.app</key><string>$PROFIL_ADI</string></dict>
+          </dict></plist>
+          PLIST
+          xcodebuild -exportArchive -archivePath build/App.xcarchive -exportPath build/export -exportOptionsPlist build/ExportOptions.plist | tail -20
+          ls build/export
+      - uses: actions/upload-artifact@v4
+        if: ${{ env.P12_B64 != '' }}
+        with:
+          name: NurVakti-IPA
+          path: build/export/*.ipa
+      - name: TestFlight'a yükle
+        if: ${{ env.P12_B64 != '' }}
+        env:
+          KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ISSUER: ${{ secrets.ASC_ISSUER_ID }}
+          KEY_B64: ${{ secrets.ASC_KEY_P8_BASE64 }}
+        run: |
+          mkdir -p ~/.appstoreconnect/private_keys
+          echo "$KEY_B64" | base64 --decode > ~/.appstoreconnect/private_keys/AuthKey_$KEY_ID.p8
+          xcrun altool --upload-app -f build/export/*.ipa -t ios --apiKey "$KEY_ID" --apiIssuer "$ISSUER"

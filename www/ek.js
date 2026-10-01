@@ -29,6 +29,8 @@ function onOri(e){
 }
 async function kStart(){
   kOn=true;
+  // iOS 13+: hareket/yön sensörü için kullanıcı izni (dokunuş sırasında istenmeli)
+  try{if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==='function'){const r=await DeviceOrientationEvent.requestPermission();if(r!=='granted')$('#kInfo').textContent='Pusula için hareket sensörü izni gerekli (Ayarlar > Nûr Vakti).'}}catch(e){}
   addEventListener('deviceorientationabsolute',onOri,true);addEventListener('deviceorientation',onOri,true);
   try{
     let lat,lon;
@@ -144,7 +146,7 @@ async function planNotifs(ask){
     let pr=await LN.checkPermissions();
     if(pr.display!=='granted'){if(!ask&&ls.get('nasked',false))return;ls.set('nasked',true);pr=await LN.requestPermissions();if(pr.display!=='granted'){toast('Bildirim izni verilmedi');return}}
     try{const ex=await LN.checkExactNotificationSetting();if(ex.exact_alarm!=='granted'&&ask)await LN.changeExactNotificationSetting()}catch(e){}
-    await LN.createChannel({id:'vakit3',name:'Vakit bildirimleri',description:'Namaz vakitleri',importance:5,sound:'ezan.wav',vibration:true,visibility:1});
+    if(PLAT==='android')await LN.createChannel({id:'vakit3',name:'Vakit bildirimleri',description:'Namaz vakitleri',importance:5,sound:'ezan.wav',vibration:true,visibility:1});
     await clearNotifs();
     const list=[],now=new Date();
     for(let k=0;k<7;k++){
@@ -155,6 +157,7 @@ async function planNotifs(ask){
         if(w>now)list.push({id:100+k*10+i,title:name+' vakti',body:locLabel()+' için '+name+' vakti girdi',schedule:{at:w,allowWhileIdle:true},channelId:'vakit3',sound:'ezan.wav'});
       });
     }
+    if(PLAT==='ios')list.splice(40); // iOS en çok 64 bekleyen yerel bildirime izin verir
     if(list.length)await LN.schedule({notifications:list});
   }catch(e){}
 }

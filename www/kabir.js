@@ -430,13 +430,13 @@ async function planKabirNotif(ask){
     await LN.createChannel({id:'kabir',name:'Cuma hatırlatması',description:'Kabirler için Cuma okuması',importance:4,vibration:true,visibility:1}).catch(()=>{});
     const liste=[];
     if(CS.yil){
-      kayit.slice(0,90).forEach((k,i)=>{
+      kayit.slice(0,PLAT==='ios'?12:90).forEach((k,i)=>{
         const m=(k.vefat||'').match(/^(\d{1,2})\.(\d{1,2})\.(?:18|19|20)\d{2}$/);if(!m)return;
         liste.push({id:9100+i,title:'Vefat yıldönümü',body:(k.ad||'Sevdiğiniz kişi')+' için bugün vefat yıldönümü. Ruhuna Fâtiha okumayı unutmayın.',schedule:{on:{month:+m[2],day:+m[1],hour:9,minute:30},allowWhileIdle:true},channelId:'kabir'});
       });
       const simdi=new Date(),son=new Date(simdi.getTime()+400*864e5);let j=0;
       GUN.forEach(e=>{
-        if(!(e[3]||/arefesi/.test(e[0]))||j>=30)return;
+        if(!(e[3]||/arefesi/.test(e[0]))||j>=(PLAT==='ios'?8:30))return;
         const d=new Date(e[1]+'T15:00');if(d<=simdi||d>son)return;
         liste.push({id:9200+j++,title:e[0],body:'Sevdiklerinize Fâtiha ve Yâsîn hediye etmek için hayırlı bir vakit.',schedule:{at:d,allowWhileIdle:true},channelId:'kabir'});
       });

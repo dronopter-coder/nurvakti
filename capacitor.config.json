@@ -3,5 +3,16 @@
   "appName": "Nûr Vakti",
   "webDir": "www",
   "backgroundColor": "#12162A",
-  "android": { "backgroundColor": "#12162A" }
+  "android": {
+    "backgroundColor": "#12162A"
+  },
+  "ios": {
+    "backgroundColor": "#12162A",
+    "contentInset": "never"
+  },
+  "plugins": {
+    "StatusBar": {
+      "style": "DARK"
+    }
+  }
 }
