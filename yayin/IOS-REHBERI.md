@@ -4,8 +4,8 @@ Uygulamanın iOS sürümü, Android ile **aynı kod tabanından** (Capacitor) ü
 
 ## 1. Sizin yapmanız gerekenler (Apple hesabı zorunlu)
 1. **Apple Developer Program** üyeliği: yıllık 99 USD, kimlik doğrulaması (bireysel için birkaç gün sürebilir). developer.apple.com/programs
-2. **Bundle ID** oluşturun: Certificates, Identifiers & Profiles → Identifiers → `com.nurvakti.app` (Capabilities: *Push Notifications gerekmez*; yerel bildirim için ek yetki gerekmez).
-3. **App Store Connect’te uygulamayı oluşturun**: appstoreconnect.apple.com → Apps → + → Yeni uygulama (Ad: *Nûr Vakti: Namaz ve Kur'an*, Dil: Türkçe, Bundle ID: `com.nurvakti.app`, SKU: `nurvakti`).
+2. **Bundle ID** oluşturun: Certificates, Identifiers & Profiles → Identifiers → `com.nurvakti.namazvekuran` (Capabilities: *Push Notifications gerekmez*; yerel bildirim için ek yetki gerekmez).
+3. **App Store Connect’te uygulamayı oluşturun**: appstoreconnect.apple.com → Apps → + → Yeni uygulama (Ad: *Nûr Vakti: Namaz ve Kur'an*, Dil: Türkçe, Bundle ID: `com.nurvakti.namazvekuran`, SKU: `nurvakti`).
 4. **Dağıtım sertifikası (Apple Distribution)**: Mac olmadan da üretilebilir (aşağıda “Mac’siz sertifika”).
 5. **Provisioning profile**: Profiles → + → *App Store Connect* → Bundle ID’yi seçin → sertifikayı seçin → indirin (`.mobileprovision`).
 6. **App Store Connect API anahtarı**: Users and Access → Integrations → App Store Connect API → anahtar oluşturun (rol: *App Manager*). `.p8` dosyasını, *Key ID*’yi ve *Issuer ID*’yi kaydedin.
