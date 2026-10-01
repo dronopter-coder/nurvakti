@@ -91,7 +91,7 @@ jobs:
             <key>method</key><string>app-store-connect</string>
             <key>teamID</key><string>$TEAM</string>
             <key>signingStyle</key><string>manual</string>
-            <key>provisioningProfiles</key><dict><key>com.nurvakti.app</key><string>$PROFIL_ADI</string></dict>
+            <key>provisioningProfiles</key><dict><key>com.nurvakti.namazvekuran</key><string>$PROFIL_ADI</string></dict>
           </dict></plist>
           PLIST
           xcodebuild -exportArchive -archivePath build/App.xcarchive -exportPath build/export -exportOptionsPlist build/ExportOptions.plist | tail -20
