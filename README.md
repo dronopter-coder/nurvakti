@@ -34,3 +34,6 @@ Vakitlerin altındaki dört düğme:
 
 ## Yayın
 Play Store hazırlığı için `yayin/` klasörüne (mağaza metinleri, görseller, sabah listesi) ve gizlilik politikası için `docs/gizlilik.html` dosyasına bakın.
+
+## iOS
+iOS sürümü aynı koddan üretilir; derleme akışı `.github/workflows/build-ios.yml`, adımlar `yayin/IOS-REHBERI.md` içinde.
