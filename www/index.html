@@ -39,6 +39,9 @@ header{display:flex;align-items:center;justify-content:space-between;padding:10p
 #body{flex:1;overflow:auto;padding:14px 16px}
 .quote{font-family:Georgia,serif;font-size:18px;line-height:1.5}
 .ref{margin-top:10px;color:var(--altin);font-size:13px}
+.refrow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}.refrow .ref{margin:0;font-size:14px}
+.refrow .more{margin:0;flex:none;background:linear-gradient(180deg,rgba(201,164,92,.22),rgba(201,164,92,.08));border:1px solid var(--altin);color:var(--altin);border-radius:18px;padding:8px 15px;font-size:13px;font-weight:600;box-shadow:0 2px 0 rgba(0,0,0,.28)}
+.refrow .more:active{transform:translateY(1px);box-shadow:none}
 .more{margin-top:14px;background:none;border:1px solid #3a4788;color:var(--fildisi);border-radius:16px;padding:7px 14px;font-size:12.5px}
 details{border-bottom:1px solid #2c386c;padding:9px 0}
 summary{font-family:Georgia,serif;font-size:15.5px;line-height:1.35;list-style:none;display:flex;gap:8px;justify-content:space-between}
@@ -349,7 +352,7 @@ function render(){
   document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x.dataset.t===tab));
   if(tab==='ayet'||tab==='hadis'){
     const L=tab==='ayet'?AYET:HADIS, [t,r]=L[((tab==='ayet'?g:g*7+3)+off)%L.length];
-    b.innerHTML=`<div class="quote">“${t}”</div><div class="ref">${r}</div><button class="more" id="more">${off?'Günün '+(tab==='ayet'?'ayetine':'hadisine')+' dön':'Bir tane daha'}</button><div class="note">Ayetler anlam olarak özetlenmiştir; ayrıntı için meal ve tefsirlere bakınız.</div>`;
+    b.innerHTML=`<div class="quote">“${t}”</div><div class="refrow"><span class="ref">${r}</span><button class="more" id="more">${off?'↩ Günün '+(tab==='ayet'?'ayeti':'hadisi'):'↻ Bir tane daha'}</button></div>`;
     $('#more').onclick=()=>{off=off?0:1;render()};
   }else{
     const s=(g*11+5)%ILM.length;
