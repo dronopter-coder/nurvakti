@@ -1,4 +1,4 @@
-/* Nûr Vakti – Namaz takibi ve kaza sayacı (yalnızca cihazda tutulur) */
+/* Nur Vakti – Namaz takibi ve kaza sayacı (yalnızca cihazda tutulur) */
 (function(){
 const FARZ=[[0,'Sabah'],[2,'Öğle'],[3,'İkindi'],[4,'Akşam'],[5,'Yatsı']]; // VAK dizinindeki karşılıkları
 const KAZA=['Sabah','Öğle','İkindi','Akşam','Yatsı','Vitir'];

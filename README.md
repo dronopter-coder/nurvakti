@@ -1,4 +1,4 @@
-# Nûr Vakti
+# Nur Vakti
 
 1. Bu klasörü yeni bir GitHub deposuna yükle (branch: main).
 2. Actions sekmesi > "APK derle" iş akışı otomatik çalışır (yaklaşık 5-8 dk).

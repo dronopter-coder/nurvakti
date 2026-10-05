@@ -13,7 +13,7 @@ GitHub → **Actions** → en üstteki yeşil “APK ve AAB derle” çalıştı
    (Uygulamadaki “Gizlilik politikası” düğmesi de bu adrese gider. Kullanıcı adınız farklıysa `www/hakkinda.js` içindeki adresi değiştirin.)
 
 ## 3. Play Console’da uygulamayı oluşturun
-- Yeni uygulama → Ad: `Nûr Vakti: Namaz ve Kur'an` · Dil: Türkçe · Uygulama · Ücretsiz.
+- Yeni uygulama → Ad: `Nur Vakti: Namaz ve Kur'an` · Dil: Türkçe · Uygulama · Ücretsiz.
 - Metinler: `yayin/magaza-metinleri.md` ve `yayin/uzun-aciklama.txt`.
 - Görseller: `yayin/gorseller/` (simge, tanıtım görseli, ekran görüntüleri).
 - Formlar: “Uygulama içeriği” bölümünde gizlilik politikası URL’si, reklamlar (Evet), hedef kitle, veri güvenliği, içerik derecelendirme, hassas izinler — cevaplar `magaza-metinleri.md` içinde.

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#12162A">
-<title>Nûr Vakti</title>
+<title>Nur Vakti</title>
 <style>
 :root{--gece:#12162A;--lacivert:#1C2547;--lacivert2:#242F58;--altin:#C9A45C;--fildisi:#EDE4CF;--soluk:#9AA1BD;--kirmizi:#9A4453;--yesil:#3E8577}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -52,7 +52,7 @@ details p{margin-top:7px;color:#d7d0bd;line-height:1.5;font-size:13.5px}
 .note{font-size:11px;color:var(--soluk);margin-top:10px}
 #sheet{position:fixed;inset:0;background:#000a;display:none;align-items:flex-end;z-index:5}
 #sheet.open{display:flex}
-#sheet .box{background:var(--lacivert);width:100%;border-radius:22px 22px 0 0;padding:18px 18px calc(26px + env(safe-area-inset-bottom,0));display:flex;flex-direction:column;gap:10px}
+#sheet .box{background:var(--lacivert);width:100%;border-radius:22px 22px 0 0;padding:18px 18px calc(26px + var(--altbos));display:flex;flex-direction:column;gap:10px}
 select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px solid #3a4788;border-radius:12px;padding:12px;font-size:15px}
 .btn.gold{background:var(--altin);color:#241b08;border:0;font-weight:600}
 #toast{position:fixed;left:50%;top:60px;transform:translateX(-50%);background:var(--kirmizi);color:#fff;padding:8px 14px;border-radius:14px;font-size:12.5px;display:none;z-index:9;max-width:90%}
@@ -77,13 +77,16 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
 .gn{font-family:Georgia,serif;font-size:16px}.gd{font-size:12.5px;color:var(--soluk);margin-top:2px}
 .gk{color:var(--altin);font-size:13px;white-space:nowrap}
 #setSheet{position:fixed;inset:0;background:#000a;display:none;align-items:flex-end;z-index:5}#setSheet.open{display:flex}
-#setSheet .box{background:var(--lacivert);width:100%;border-radius:22px 22px 0 0;padding:18px 18px calc(26px + env(safe-area-inset-bottom,0));display:flex;flex-direction:column;gap:14px}
+#setSheet .box{background:var(--lacivert);width:100%;border-radius:22px 22px 0 0;padding:18px 18px calc(26px + var(--altbos));display:flex;flex-direction:column;gap:14px}
 .trow{display:flex;justify-content:space-between;align-items:center;font-size:15px}
 .gr.past{opacity:.4}.gr.nx{border-left:2px solid var(--altin);padding-left:10px}
 #nav button{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11.5px;padding:7px 0 6px}
 #nav svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 #nav button.on{box-shadow:inset 0 -2px 0 var(--altin)}
 .panel{background-color:var(--lacivert);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cg fill='none' stroke='%23C9A45C' stroke-opacity='.08'%3E%3Crect x='9' y='9' width='26' height='26'/%3E%3Crect x='9' y='9' width='26' height='26' transform='rotate(45 22 22)'/%3E%3C/g%3E%3C/svg%3E")}
+.cuma-bas{font-family:'Cinzel Decorative',Georgia,serif;color:var(--altin);font-size:15px;letter-spacing:.06em;margin-bottom:8px}
+.cuma-dua{margin-top:10px;color:#d7d0bd;line-height:1.55;font-size:14.5px}
+.tabs button{font-size:14.5px}
 .quote::before{content:"✦";display:inline-block;color:var(--altin);font-size:.62em;margin-right:9px;vertical-align:.18em;opacity:.8}
 </style>
 <link rel="stylesheet" href="kabir.css">
@@ -93,9 +96,9 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
 <body>
 <header>
   <button id="locBtn" aria-label="Konum seç"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span id="locName">Konum</span></button>
-  <div style="display:flex;gap:10px;align-items:center"><div id="hijri"></div><button id="gear" aria-label="Ayarlar" style="background:none;border:0;color:var(--altin);font-size:20px;padding:2px 4px">⚙</button></div>
+  <div style="display:flex;gap:6px;align-items:center"><div id="hijri"></div><button id="paylasBtn" aria-label="Uygulamayı paylaş" style="background:none;border:0;color:var(--altin);padding:2px 4px;display:flex"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg></button><button id="gear" aria-label="Ayarlar" style="background:none;border:0;color:var(--altin);font-size:20px;padding:2px 4px">⚙</button></div>
 </header>
-<div class="marka"><div class="mk-ar" lang="ar">نور</div><div class="mk-ad" aria-label="Nûr Vakti"><i>✦</i>Nûr Vakti<i>✦</i></div><div class="mk-bs" lang="ar" dir="rtl">بسم الله الرحمن الرحيم</div></div>
+<div class="marka"><div class="mk-ar" lang="ar">نور</div><div class="mk-ad" aria-label="Nur Vakti"><i>✦</i>Nur Vakti<i>✦</i></div><div class="mk-bs" lang="ar" dir="rtl">بسم الله الرحمن الرحيم</div></div>
 
 <main id="v-vakit" class="view on">
 <div class="ringwrap">
@@ -123,6 +126,7 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
     <button data-t="ayet" class="on">Ayet</button>
     <button data-t="hadis">Hadis</button>
     <button data-t="ilmihal">İlmihal</button>
+    <button data-t="cuma">Cuma</button>
   </div>
   <div id="body"></div>
 </div>
@@ -137,7 +141,7 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
       <path d="M100 96 L94 108 L106 108Z" fill="none"/><path d="M100 2 L94 -6" stroke="none"/></svg>
     <div class="kpin"></div></div>
     <div id="kInfo" class="ksub">Konum alınıyor…</div>
-    <div class="note" style="text-align:center">Telefonu yere paralel tut. Doğru çalışması için manyetik alan sensörü gerekir.</div></div>
+    <div class="note" style="text-align:center">Telefonu yere paralel tut; metal eşyalardan ve mıknatıslı kılıflardan uzak dur. Yön şaşarsa telefonu havada 8 çizerek birkaç kez salla.</div></div>
 </section>
 <section id="v-tesbih" class="view"><div class="mid">
   <div id="tsChips" class="chips"></div>
@@ -163,6 +167,7 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
 <div id="adph">Reklam alanı (banner)</div>
 
 <script src="icerik.js"></script>
+<script src="cuma.js"></script>
 <script src="okuma.js"></script>
 <script>
 /* ===== AdMob (gerçek kimlikler gömülü) ===== */
@@ -234,9 +239,52 @@ let days=null, hijri=null, evs=[], lastCur=-2;
 const locKey=()=>loc.type==='gps'?'gps'+loc.lat.toFixed(2)+','+loc.lon.toFixed(2):loc.il+'|'+loc.ilce;
 const locLabel=()=>loc.type==='gps'?(loc.name||'Konumum'):(loc.ilce==='Merkez'?loc.il:loc.ilce+', '+loc.il);
 
-/* ===== Vakit verisi (Aladhan, yöntem 13 = Diyanet İşleri Başkanlığı) ===== */
-async function fetchDay(d){
-  const key='t|'+locKey()+'|'+dstr(d);
+/* ===== Vakit verisi =====
+   1) Diyanet İşleri Başkanlığı'nın ilçe bazında yayınladığı vakitler (ezanvakti.emushaf.net aracılığıyla, 30 günlük alınıp saklanır)
+   2) Ulaşılamazsa Aladhan API, yöntem 13 (Diyanet hesabı; birkaç dakikalık fark olabilir) */
+const DY='https://ezanvakti.emushaf.net';
+const nrm=t=>String(t||'').toLocaleUpperCase('tr').replace(/İ/g,'I').replace(/Ş/g,'S').replace(/Ğ/g,'G').replace(/Ü/g,'U').replace(/Ö/g,'O').replace(/Ç/g,'C').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^A-Z0-9]/g,'');
+const MERKEZ={KOCAELI:'IZMIT',SAKARYA:'ADAPAZARI',HATAY:'ANTAKYA'};
+async function jget(url){
+  const H=P.CapacitorHttp; // yerli istek: tarayıcının çapraz kaynak (CORS) kısıtına takılmaz
+  if(H&&H.get){const r=await H.get({url,headers:{Accept:'application/json'},connectTimeout:10000,readTimeout:15000});if(r.status!==200)throw new Error('HTTP '+r.status);return typeof r.data==='string'?JSON.parse(r.data):r.data}
+  const r=await fetch(url);if(!r.ok)throw new Error('HTTP '+r.status);return r.json();
+}
+const bul=(L,ad,k)=>{const n=nrm(ad);return n&&(L||[]).find(x=>nrm(x[k])===n||nrm(x[k+'En'])===n)};
+let dyHata=0;
+async function dyIlceId(){
+  const il=loc.il,ilce=loc.ilce;
+  if(!il)throw new Error('il yok');
+  const ck='dyId|'+il+'|'+(ilce||'');
+  const c=ls.get(ck,null);if(c)return c;
+  let S=ls.get('dySehir',null);
+  if(!(S&&S.length)){S=await jget(DY+'/sehirler/2');ls.set('dySehir',S)}
+  const se=bul(S,il,'SehirAdi');if(!se)throw new Error('il bulunamadı');
+  const L=await jget(DY+'/ilceler/'+se.SehirID);
+  let x=ilce&&ilce!=='Merkez'?bul(L,ilce,'IlceAdi'):null;
+  if(!x&&(!ilce||ilce==='Merkez'||loc.type==='gps'))x=bul(L,il,'IlceAdi')||bul(L,MERKEZ[nrm(il)],'IlceAdi');
+  if(!x)throw new Error('ilçe bulunamadı');
+  ls.set(ck,x.IlceID);return x.IlceID;
+}
+const dnok=d=>p2(d.getDate())+'.'+p2(d.getMonth()+1)+'.'+d.getFullYear();
+async function fetchDy(d){
+  const id=await dyIlceId(),key='dy|'+id;
+  let c=ls.get(key,null);
+  if(!(c&&c[dnok(d)])){
+    if(Date.now()-dyHata<10*60e3)throw new Error('Diyanet erişilemedi');
+    let L;try{L=await jget(DY+'/vakitler/'+id)}catch(e){dyHata=Date.now();throw e}
+    c={};(L||[]).forEach(v=>{if(v&&v.MiladiTarihKisa&&v.Imsak)c[v.MiladiTarihKisa]=v});
+    if(!c[dnok(d)])throw new Error('tarih yok');
+    ls.set(key,c);
+    Object.keys(localStorage).filter(k=>k.startsWith('t|')).forEach(k=>localStorage.removeItem(k)); // eski Aladhan önbelleği
+  }
+  const v=c[dnok(d)],hm=x=>String(x).trim().slice(0,5);
+  const hk=String(v.HicriTarihKisa||'').split('.').map(Number);
+  return{t:{Fajr:hm(v.Imsak),Sunrise:hm(v.Gunes),Dhuhr:hm(v.Ogle),Asr:hm(v.Ikindi),Maghrib:hm(v.Aksam),Isha:hm(v.Yatsi)},
+    h:hk.length===3&&hk[2]?{day:hk[0],month:{number:hk[1]},year:hk[2]}:null,kaynak:'diyanet'};
+}
+async function fetchAl(d){
+  const key='ta|'+locKey()+'|'+dstr(d);
   const c=ls.get(key,null); if(c) return c;
   let url;
   if(loc.type==='gps') url=`https://api.aladhan.com/v1/timings/${dstr(d)}?latitude=${loc.lat}&longitude=${loc.lon}&method=13`;
@@ -246,9 +294,19 @@ async function fetchDay(d){
   }
   const r=await fetch(url); const j=await r.json();
   if(j.code!==200) throw new Error('API');
-  const out={t:{},h:j.data.date.hijri,lat:j.data.meta.latitude,lon:j.data.meta.longitude};
+  const out={t:{},h:j.data.date.hijri,lat:j.data.meta.latitude,lon:j.data.meta.longitude,kaynak:'aladhan'};
   VAK.forEach(([k])=>out.t[k]=j.data.timings[k].slice(0,5));
+  if(loc.type!=='gps')ls.set('koord|'+locKey(),{lat:+out.lat,lon:+out.lon});
   ls.set(key,out); return out;
+}
+async function fetchDay(d){
+  try{return await fetchDy(d)}catch(e){return fetchAl(d)}
+}
+/* Kıble için konumun koordinatı */
+async function koord(){
+  if(loc.type==='gps')return{lat:loc.lat,lon:loc.lon};
+  const c=ls.get('koord|'+locKey(),null);if(c&&c.lat)return c;
+  const x=await fetchAl(new Date());return{lat:+x.lat,lon:+x.lon};
 }
 const at=(base,hm)=>{const [h,m]=hm.split(':').map(Number);return new Date(base.getFullYear(),base.getMonth(),base.getDate(),h,m,0)};
 
@@ -261,10 +319,10 @@ async function load(){
     VAK.forEach(([k],i)=>evs.push({i,d:at(now,a.t[k])}));
     VAK.forEach(([k],i)=>evs.push({i,d:at(tm,b.t[k]),tm:true}));
     days=a; hijri=a.h;
-    $('#hijri').innerHTML=`${hijri.day} ${AYLAR[(+hijri.month.number)-1]} ${hijri.year}<br>${now.toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'})}`;
+    $('#hijri').innerHTML=(hijri&&AYLAR[(+hijri.month.number)-1]?`${hijri.day} ${AYLAR[(+hijri.month.number)-1]} ${hijri.year}<br>`:'')+now.toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'});
     const s=$('#strip'); s.innerHTML=VAK.map(([k,n],i)=>`<div class="chip" id="c${i}"><b>${n}</b><span>${a.t[k]}</span></div>`).join('');
     lastCur=-2; tick();
-    if(loc.type==='gps'&&!loc.name)geoName();
+    if(loc.type==='gps'&&(!loc.name||!loc.il))geoName();
   }catch(e){ toast('Vakitler alınamadı. İnternet bağlantısını kontrol et.'); }
 }
 
@@ -294,22 +352,23 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden){tick()}})
 async function geoName(){
   if(loc.type!=='gps')return;
   const clean=t=>(t||'').replace(/\s*(İli|Province|Belediyesi)$/i,'').trim();
-  let name=null;
+  let name=null,gIl=null,gIlce=null;
   try{
     const r=await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${loc.lat}&longitude=${loc.lon}&localityLanguage=tr`);
     const j=await r.json();
-    const il=clean(j.principalSubdivision),ilce=clean(j.locality||j.city);
+    const a6=((j.localityInfo&&j.localityInfo.administrative)||[]).find(x=>x.adminLevel===6);
+    const il=clean(j.principalSubdivision),ilce=clean(a6&&a6.name||j.locality||j.city);gIl=il;gIlce=ilce;
     name=ilce&&il&&ilce!==il?`${ilce}, ${il}`:(il||ilce);
   }catch(e){}
   if(!name){
     try{
       const r=await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=10&accept-language=tr&lat=${loc.lat}&lon=${loc.lon}`);
       const a=(await r.json()).address||{};
-      const il=clean(a.province||a.state),ilce=clean(a.town||a.county||a.city_district||a.suburb||a.city);
+      const il=clean(a.province||a.state),ilce=clean(a.town||a.county||a.city_district||a.suburb||a.city);gIl=il;gIlce=ilce;
       name=ilce&&il&&ilce!==il?`${ilce}, ${il}`:(il||ilce);
     }catch(e){}
   }
-  if(name){loc.name=name;ls.set('loc',loc);$('#locName').textContent=name}
+  if(name){loc.name=name;loc.il=gIl;loc.ilce=gIlce;ls.set('loc',loc);$('#locName').textContent=name;if(gIl&&!(days&&days.kaynak==='diyanet'))load()}
 }
 async function useGps(){
   try{
@@ -346,7 +405,7 @@ $('#btnShow').onclick=()=>{loc={type:'city',il:$('#selIl').value,ilce:$('#selIlc
 $('#btnGps').onclick=useGps;
 
 /* ===== İçerik sekmeleri ===== */
-let tab='ayet', off=0, opens=0;
+let tab=new Date().getDay()===5?'cuma':'ayet', off=0, opens=0;
 function render(){
   const b=$('#body'); const g=DAYN();
   document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x.dataset.t===tab));
@@ -354,6 +413,10 @@ function render(){
     const L=tab==='ayet'?AYET:HADIS, [t,r]=L[((tab==='ayet'?g:g*7+3)+off)%L.length];
     b.innerHTML=`<div class="quote">“${t}”</div><div class="refrow"><span class="ref">${r}</span><button class="more" id="more">${off?'↩ Günün '+(tab==='ayet'?'ayeti':'hadisi'):'↻ Bir tane daha'}</button></div>`;
     $('#more').onclick=()=>{off=off?0:1;render()};
+  }else if(tab==='cuma'){
+    const [q,...d]=cumaMesaji().split('\n');
+    b.innerHTML=`<div class="cuma-bas">Hayırlı Cumalar</div><div class="quote cuma-q">${q}</div>${d.length?`<p class="cuma-dua">${d.join(' ')}</p>`:''}<div class="refrow"><span class="ref">${new Date().getDay()===5?'Bugün Cuma':'Bu haftanın mesajı'}</span><button class="more" id="cumaPaylas">➦ Paylaş</button></div>`;
+    $('#cumaPaylas').onclick=()=>paylas(cumaMesaji()+'\n\n— Nur Vakti','Hayırlı Cumalar');
   }else{
     const s=(g*11+5)%ILM.length;
     const order=[s,...ILM.map((_,i)=>i).filter(i=>i!==s)];
@@ -394,6 +457,7 @@ render(); load(); initAds();
 if(!ls.get('asked',false)){ ls.set('asked',true); useGps(); }
 </script>
 <script src="ek.js"></script>
+<script src="geri.js"></script>
 <script src="kabir.js"></script>
 <script src="takip.js"></script>
 <script src="ses.js"></script>
@@ -401,6 +465,8 @@ if(!ls.get('asked',false)){ ls.set('asked',true); useGps(); }
 <script src="kuran.js"></script>
 <script src="cami.js"></script>
 <script src="ibadet.js"></script>
+<script src="cocuk-sorular.js"></script>
+<script src="esma.js"></script>
 <script src="cocuk.js"></script>
 <script src="hakkinda.js"></script>
 <script src="kubbe.js"></script>

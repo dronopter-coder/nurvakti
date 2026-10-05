@@ -1,4 +1,4 @@
-/* Nûr Vakti ek modüller: gezinme, kıble, tesbih, dini günler, ayarlar, bildirim */
+/* Nur Vakti ek modüller: gezinme, kıble, tesbih, dini günler, ayarlar, bildirim */
 const S=Object.assign({bild:true,vk:[0,2,3,4,5],tsSes:true,tsTit:true,tsHedef:33,tsSay:0,tsTur:0,tsZikir:'Sübhanallah'},ls.get('S',{}));
 const saveS=()=>ls.set('S',S);
 const hap=(k)=>{try{if(P.Haptics)k==='ok'?P.Haptics.vibrate({duration:250}):P.Haptics.impact({style:'LIGHT'});else navigator.vibrate&&navigator.vibrate(k==='ok'?250:12)}catch(e){}};
@@ -14,41 +14,49 @@ function go(v){
 }
 document.querySelectorAll('#nav button').forEach(b=>b.onclick=()=>go(b.dataset.v));
 
-/* ---- Kıble ---- */
-let head=null,qb=null,kOn=false,aligned=false;
+/* ---- Kıble ----
+   Android'de yerli pusula eklentisi (Pusula: dönme vektörü sensörü + manyetik sapma düzeltmesi, gerçek kuzeye göre) kullanılır.
+   Eklenti yoksa (web, iOS) tarayıcının mutlak yön olayına düşülür. */
+let head=null,qb=null,kOn=false,aligned=false,kKoord=null,pusulaH=null,kDog=3;
 const rad=x=>x*Math.PI/180;
 function qibla(lat,lon){const a=rad(lat),b=rad(21.4225),dl=rad(39.8262-lon);
   return (Math.atan2(Math.sin(dl)*Math.cos(b),Math.cos(a)*Math.sin(b)-Math.sin(a)*Math.cos(b)*Math.cos(dl))*180/Math.PI+360)%360}
+const yumusat=h=>{if(head==null)head=h;else{let d=((h-head+540)%360)-180;head=(head+d*0.3+360)%360}};
 function onOri(e){
+  if(pusulaH)return; // yerli pusula çalışıyorsa tarayıcı olaylarını yok say
   let h=null;
-  if(e.webkitCompassHeading!=null)h=e.webkitCompassHeading;
-  else if(e.alpha!=null&&(e.absolute||e.type==='deviceorientationabsolute'))h=(360-e.alpha)%360;
+  if(e.webkitCompassHeading!=null)h=e.webkitCompassHeading; // iOS: gerçek pusula yönü
+  else if(e.type==='deviceorientationabsolute'&&e.alpha!=null)h=(360-e.alpha)%360; // Android tarayıcı: mutlak (kuzeye göre) alfa
   if(h==null)return;
-  if(head==null)head=h;else{let d=((h-head+540)%360)-180;head=(head+d*0.25+360)%360}
-  kDraw();
+  // Ekran yatay çevrildiyse düzelt
+  const so=(screen.orientation&&screen.orientation.angle)||window.orientation||0;
+  yumusat((h+so+360)%360);kDraw();
 }
 async function kStart(){
   kOn=true;
-  // iOS 13+: hareket/yön sensörü için kullanıcı izni (dokunuş sırasında istenmeli)
-  try{if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==='function'){const r=await DeviceOrientationEvent.requestPermission();if(r!=='granted')$('#kInfo').textContent='Pusula için hareket sensörü izni gerekli (Ayarlar > Nûr Vakti).'}}catch(e){}
-  addEventListener('deviceorientationabsolute',onOri,true);addEventListener('deviceorientation',onOri,true);
-  try{
-    let lat,lon;
-    if(loc.type==='gps'){lat=loc.lat;lon=loc.lon}
-    else{
-      if(!(days&&days.lat)){ls.set('t|'+locKey()+'|'+dstr(new Date()),null);days=await fetchDay(new Date())}
-      lat=+days.lat;lon=+days.lon;
-    }
-    qb=qibla(lat,lon);
-  }catch(e){$('#kInfo').textContent='Kıble için konum gerekli. Konumu seçip tekrar dene.'}
+  try{if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==='function'){const r=await DeviceOrientationEvent.requestPermission();if(r!=='granted')$('#kInfo').textContent='Pusula için hareket sensörü izni gerekli (Ayarlar > Nur Vakti).'}}catch(e){}
+  try{kKoord=await koord();qb=qibla(+kKoord.lat,+kKoord.lon)}catch(e){$('#kInfo').textContent='Kıble için konum gerekli. Konumu seçip tekrar dene.'}
+  if(!kOn)return;
+  const Pu=P.Pusula;
+  if(Pu&&!pusulaH){
+    try{
+      pusulaH=await Pu.addListener('yon',d=>{if(d&&d.dogruluk!=null)kDog=d.dogruluk;yumusat(+d.yon);kDraw()});
+      await Pu.baslat(kKoord?{lat:+kKoord.lat,lon:+kKoord.lon}:{});
+    }catch(e){try{pusulaH&&pusulaH.remove()}catch(_){}pusulaH=null}
+  }
+  if(!pusulaH){addEventListener('deviceorientationabsolute',onOri,true);addEventListener('deviceorientation',onOri,true)}
   kDraw();
 }
-function kStop(){kOn=false;removeEventListener('deviceorientationabsolute',onOri,true);removeEventListener('deviceorientation',onOri,true)}
+function kStop(){
+  kOn=false;head=null;
+  removeEventListener('deviceorientationabsolute',onOri,true);removeEventListener('deviceorientation',onOri,true);
+  if(pusulaH){try{pusulaH.remove();P.Pusula.durdur()}catch(e){}pusulaH=null}
+}
 function kDraw(){
   if(!kOn)return;
   const dial=$('#kDial'),mark=$('#kMark');
   if(qb!=null)mark.setAttribute('transform',`rotate(${qb} 100 100)`);
-  if(head==null){$('#kInfo').textContent=qb!=null?`Kıble yönü: ${Math.round(qb)}° (kuzeyden saat yönünde). Pusula sensörü bekleniyor…`:'Konum alınıyor…';return}
+  if(head==null){$('#kInfo').textContent=qb!=null?`Kıble açısı ${Math.round(qb)}° (kuzeyden saat yönünde). Pusula sensörü bekleniyor…`:'Konum alınıyor…';return}
   dial.setAttribute('transform',`rotate(${-head} 100 100)`);
   if(qb==null)return;
   const diff=Math.abs(((qb-head+540)%360)-180);
@@ -56,7 +64,7 @@ function kDraw(){
   $('#kWrap').classList.toggle('ok',ok);
   if(ok&&!aligned)hap('l');
   aligned=ok;
-  $('#kInfo').textContent=ok?'Kıbleye dönüksün':`Kıble ${Math.round(qb)}° · Yönün ${Math.round(head)}°`;
+  $('#kInfo').textContent=(ok?'Kıbleye dönüksün':`Kıble ${Math.round(qb)}° · Yönün ${Math.round(head)}°`)+(kDog<2?' · Pusulayı ayarlamak için telefonu havada 8 çizerek sallayın':'');
 }
 
 /* ---- Tesbih ---- */

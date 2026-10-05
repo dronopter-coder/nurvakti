@@ -21,7 +21,7 @@
 .kb-ok.bekle{background:#3b3320;color:var(--altin)}
 .kb-ov{position:fixed;inset:0;background:#000b;display:none;align-items:flex-end;z-index:6}
 .kb-ov.open{display:flex}
-.kb-box{background:var(--lacivert);width:100%;max-height:94dvh;overflow:auto;border-radius:22px 22px 0 0;padding:16px 16px calc(24px + env(safe-area-inset-bottom,0));display:flex;flex-direction:column;gap:11px}
+.kb-box{background:var(--lacivert);width:100%;max-height:94dvh;overflow:auto;border-radius:22px 22px 0 0;padding:16px 16px calc(24px + var(--altbos));display:flex;flex-direction:column;gap:11px}
 .kb-box h3{font-family:Georgia,serif;font-weight:400;color:var(--altin);font-size:18px}
 .kb-box label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--soluk)}
 .kb-box input[type=text],.kb-box textarea{width:100%;background:var(--gece);color:var(--fildisi);border:1px solid #3a4788;border-radius:12px;padding:11px;font-size:15px;font-family:inherit}
@@ -36,7 +36,7 @@
 .kb-sec label.kb-chk{flex-direction:row;align-items:center;gap:9px;font-size:14px;color:var(--fildisi);padding:4px 0}
 .kb-chk input{accent-color:#C9A45C;width:18px;height:18px}
 /* Okuma ekranı */
-#kbOku{position:fixed;inset:0;z-index:8;background:radial-gradient(120% 60% at 50% 0%,#222d57 0%,var(--gece) 60%);display:none;flex-direction:column;padding-top:max(env(safe-area-inset-top,0px),var(--safe-area-inset-top,0px))}
+#kbOku{position:fixed;inset:0;z-index:8;padding-bottom:var(--altbos);background:radial-gradient(120% 60% at 50% 0%,#222d57 0%,var(--gece) 60%);display:none;flex-direction:column;padding-top:max(env(safe-area-inset-top,0px),var(--safe-area-inset-top,0px))}
 #kbOku.open{display:flex}
 .ok-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;gap:8px;flex:none;border-bottom:1px solid #2c386c}
 .ok-bar button{background:var(--lacivert);border:1px solid #33407a;color:var(--fildisi);border-radius:12px;padding:8px 12px;font-size:14px}
@@ -51,7 +51,7 @@
 .ok-ar{direction:rtl;text-align:center;font-family:"Amiri Quran","Amiri","Scheherazade New","Noto Naskh Arabic","Droid Arabic Naskh",serif;line-height:2.25;font-size:var(--arpx,27px);color:var(--fildisi)}
 .ok-ar .no{color:var(--altin);font-size:.62em;margin:0 4px;white-space:nowrap}
 .ok-dua{line-height:1.7;font-size:15px;text-align:center;font-family:Georgia,serif;padding:8px 2px}
-#okAlt{flex:none;padding:10px 14px calc(12px + env(safe-area-inset-bottom,0));border-top:1px solid #2c386c;display:flex;gap:8px}
+#okAlt{flex:none;padding:10px 14px 12px;border-top:1px solid #2c386c;display:flex;gap:8px}
 #okAlt .btn{padding:12px}
 .ok-ar .ay{border-radius:10px;padding:1px 2px;transition:background .25s}
 .ok-ar .ay.cal{background:rgba(201,164,92,.2);color:#f3dfa8;-webkit-box-decoration-break:clone;box-decoration-break:clone}
