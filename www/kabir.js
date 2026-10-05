@@ -1,4 +1,4 @@
-/* Nûr Vakti – Kabir modülü: mezar fotoğrafı, taştan bilgi okuma (OCR), kayıtlar, Cuma Fâtiha/Yâsîn okuması */
+/* Nur Vakti – Kabir modülü: mezar fotoğrafı, taştan bilgi okuma (OCR), kayıtlar, Cuma Fâtiha/Yâsîn okuması */
 (function(){
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $$=s=>document.querySelectorAll(s);
@@ -398,8 +398,7 @@ $('#okBody').addEventListener('click',e=>{ // bir ayete dokununca oradan dinlet
 
 /* --- Hayırlı Cumalar mesajı --- */
 function cumaMesaji(){
-  const a=AYET[(DAYN()*7)%AYET.length]||AYET[0];
-  return `Hayırlı Cumalar 🌙\n\n“${a[0]}”\n(${a[1]})\n\nAllah dualarımızı kabul etsin, vefat edenlerimize rahmet eylesin.\n— Nûr Vakti`;
+  return `Hayırlı Cumalar 🌙\n\n${window.cumaMesaji?cumaMesaji():''}\n\nAllah vefat edenlerimize rahmet eylesin.\n— Nur Vakti`;
 }
 $('#kbMesaj').onclick=()=>{
   ac(`<h3>Hayırlı Cumalar mesajı</h3><textarea id="msMetin" style="min-height:170px">${esc(cumaMesaji())}</textarea>
@@ -410,7 +409,7 @@ $('#kbMesaj').onclick=()=>{
   $('#msWa').onclick=()=>window.open('https://wa.me/?text='+encodeURIComponent(txt()),'_blank');
   const kopya=async()=>{try{await navigator.clipboard.writeText(txt());toast('Mesaj kopyalandı')}catch(e){$('#msMetin').select();toast('Metni seçip kopyalayabilirsiniz')}};
   $('#msKopya').onclick=kopya;
-  $('#msPaylas').onclick=async()=>{if(navigator.share){try{await navigator.share({text:txt()});return}catch(e){if(e&&e.name==='AbortError')return}}kopya()};
+  $('#msPaylas').onclick=()=>paylas(txt(),'Hayırlı Cumalar');
 };
 
 /* --- Ekle düğmesi --- */

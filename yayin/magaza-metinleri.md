@@ -1,13 +1,13 @@
-# Nûr Vakti – Google Play yayın hazırlığı
+# Nur Vakti – Google Play yayın hazırlığı
 
 Bu dosya Play Console’u doldururken kopyalayıp yapıştıracağınız metinleri ve form cevaplarını içerir.
 `[KÖŞELİ]` yerleri sizin doldurmanız gereken bilgilerdir. Play Console’daki sorular zamanla değişebilir; buradaki cevapları son soru metniyle karşılaştırarak girin.
 
 ## 1. Uygulama adı (en çok 30 karakter)
 Seçenekler:
-1. `Nûr Vakti` (9) – en sade, marka adı
-2. `Nûr Vakti: Namaz ve Kur'an` (26)
-3. `Nûr Vakti – Vakit, Kur'an` (25)
+1. `Nur Vakti` (9) – en sade, marka adı
+2. `Nur Vakti: Namaz ve Kur'an` (26)
+3. `Nur Vakti – Vakit, Kur'an` (25)
 
 Öneri: 2. seçenek (arama görünürlüğü için “Namaz” ve “Kur'an” kelimeleri var).
 
@@ -88,7 +88,7 @@ Yapıldı:
 Sizin karar vermeniz / kontrol etmeniz gerekenler:
 1. **Kur’an ses kaynağı:** Sesler everyayah.com ve islamic.network üzerinden çalınıyor. Reklamlı bir uygulamada kullanımın o sitelerin şartlarına uygun olduğundan emin olun; emin değilseniz kendi lisanslı kaynağınıza geçilmeli.
 2. **İbadet içeriği:** Yayından önce bir din görevlisi/ilahiyatçı gözden geçirmeli.
-3. **Marka/isim:** “Nûr Vakti” adını Play’de ve Türk Patent’te kontrol edin.
+3. **Marka/isim:** “Nur Vakti” adını Play’de ve Türk Patent’te kontrol edin.
 4. **Test şartı:** Yeni kişisel geliştirici hesaplarında herkese açık yayın öncesi kapalı test şartı olabilir; Play Console’da güncel kurala bakın.
 5. **Yükleme anahtarı:** AAB, `KEYSTORE_BASE64` ile imzalanıyor. Anahtarı ve şifrelerini güvenli yerde yedekleyin.
 6. **Çocuklar bölümü:** Hedef kitleyi “genel” seçmeniz önerilir (bkz. bölüm 8).

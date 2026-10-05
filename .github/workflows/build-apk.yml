@@ -16,7 +16,7 @@ jobs:
         with: { distribution: temurin, java-version: 21 }
       - name: Capacitor 8 paketleri
         run: |
-          npm install @capacitor/core@8 @capacitor/android@8 @capacitor/geolocation@8 @capacitor/haptics@8 @capacitor/local-notifications@8 @capacitor-community/admob@8
+          npm install @capacitor/core@8 @capacitor/android@8 @capacitor/geolocation@8 @capacitor/haptics@8 @capacitor/local-notifications@8 @capacitor/app@8 @capacitor/share@8 @capacitor-community/admob@8
           npm install -D @capacitor/cli@8
       - run: npx cap add android
       - name: Manifest, ses, ikon ve sürüm
@@ -46,6 +46,13 @@ jobs:
           open(R+'/values/nur_colors.xml','w').write('<?xml version="1.0" encoding="utf-8"?><resources><color name="nur_bg">#12162A</color></resources>')
           PY
           rm -f www/icon-fg.png www/icon-full.png
+      - name: Yerli kodlar (kıble pusulası eklentisi)
+        run: |
+          J=android/app/src/main/java/com/nurvakti/namazvekuran
+          test -f $J/MainActivity.java || { echo "MainActivity bulunamadi"; find android/app/src/main/java; exit 1; }
+          cp android-ek/MainActivity.java android-ek/PusulaPlugin.java $J/
+          sed -i -E 's/versionName "[^"]*"/versionName "1.1"/' android/app/build.gradle
+          grep -n "versionName" android/app/build.gradle
       - run: npx cap sync android
       - name: Sabit debug imzası (güncellemenin eskisinin üzerine kurulabilmesi için)
         run: |
