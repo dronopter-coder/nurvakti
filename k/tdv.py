@@ -19,7 +19,7 @@ def al(u,t=45):
     return ''
 def isle(n):
     k='allah' if n=='Allah' else asc(re.sub(r'^(el|er|es|ez|en|ed|et|eş)-','',n,flags=re.I))
-    taban=k[:-1] if k.endswith(('yy','vv','zz','ll')) else k
+    taban={'berr':'ber','ganiyy':'gani','aliyy':'ali','kaviyy':'kavi','veliyy':'veli'}.get(k,k[:-1] if k.endswith(('vv','zz','ll')) else k)
     if k=='zul-celali-vel-ikram': taban='zul'
     if k=='malikul-mulk': taban='malik'
     if k=='muntekim': taban='munt'
