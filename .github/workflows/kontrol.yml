@@ -7,16 +7,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Diyanet vakit kaynagi
+      - name: Vakit kaynaklari
+        continue-on-error: true
         run: |
-          set -x
-          curl -sS -D - https://ezanvakti.emushaf.net/sehirler/2 -o s.json | grep -i "^HTTP\|access-control\|content-type"
-          python3 -c "import json;d=json.load(open('s.json'));print(len(d));print([x for x in d if 'KOCAEL' in x.get('SehirAdiEn','').upper()])"
-          ID=$(python3 -c "import json;d=json.load(open('s.json'));print([x for x in d if 'KOCAEL' in x.get('SehirAdiEn','').upper()][0]['SehirID'])")
-          curl -sS https://ezanvakti.emushaf.net/ilceler/$ID -o i.json; python3 -c "import json;d=json.load(open('i.json'));print(d)"
-          IL=$(python3 -c "import json;d=json.load(open('i.json'));print([x for x in d if 'BASISKELE' in x.get('IlceAdiEn','').upper()][0]['IlceID'])")
-          curl -sS https://ezanvakti.emushaf.net/vakitler/$IL -o v.json; python3 -c "import json;d=json.load(open('v.json'));print(len(d));print(json.dumps(d[:3],ensure_ascii=False,indent=1))"
-          curl -sS https://ezanvakti.emushaf.net/sehirler/2 -o /dev/null -w "%{http_code}\n"
-          python3 -c "import json;d=json.load(open('s.json'));print(json.dumps(d,ensure_ascii=False))"
+          UA="Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
+          for u in https://ezanvakti.emushaf.net/sehirler/2 https://ezanvakti.emushaf.net/vakitler/9654 "https://namazvakitleri.diyanet.gov.tr/tr-TR/9654/kocaeli-icin-namaz-vakti" "https://vakit.vercel.app/api/countries" "https://prayertimes.api.abdus.dev/api/diyanet/search?q=Basiskele" "https://ezanvakti.herokuapp.com/sehirler/2" "https://api.aladhan.com/v1/timingsByAddress/16-10-2026?address=Ba%C5%9Fiskele%2C%20Kocaeli%2C%20Turkey&method=13"; do
+            echo "=================== $u"
+            curl -sS -m 25 -A "$UA" -H "Accept: application/json, text/html" -D h.txt -o b.txt "$u"; grep -i "^HTTP\|access-control-allow-origin\|content-type\|server:\|cf-ray" h.txt; head -c 1500 b.txt; echo
+          done
+          echo "=================== WebView UA'siz"
+          curl -sS -m 25 -D - -o b.txt https://ezanvakti.emushaf.net/sehirler/2 | head -3; head -c 300 b.txt
       - name: TDV esma maddeleri
+        continue-on-error: true
         run: python3 k/tdv.py
