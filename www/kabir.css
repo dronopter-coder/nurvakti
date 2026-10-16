@@ -73,3 +73,7 @@
 .np-kz button{width:38px;height:34px;border-radius:10px;border:1px solid #3a4788;background:var(--gece);color:var(--fildisi);font-size:18px}
 .np-kz b{min-width:34px;text-align:center;font-weight:400;font-variant-numeric:tabular-nums;font-size:17px}
 .kb-box label.kb-chk{flex-direction:row;align-items:center;gap:9px;font-size:15px;color:var(--fildisi)}
+.np-sayfa h3{font-family:Georgia,serif;font-weight:400;color:var(--altin);font-size:18px;margin:4px 0 6px}
+.np-sayfa .np-hafta{margin:14px 0}.np-sayfa>.btn{margin:4px 0 10px}
+.np-sayfa label.kb-chk{display:flex;flex-direction:row;align-items:center;gap:9px;font-size:15px;color:var(--fildisi)}
+.np-sayfa .kb-uyari{margin-top:10px}

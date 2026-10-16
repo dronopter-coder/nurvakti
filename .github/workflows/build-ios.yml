@@ -42,9 +42,7 @@ jobs:
           sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9]*;/CURRENT_PROJECT_VERSION = ${{ github.run_number }};/" "$PBX"
           # Uygulama simgesi (1024x1024, saydamlık yok)
           cp www/icon-full.png ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png
-          # Bildirim sesi: paket köküne kopyalanıp projeye kaynak olarak eklenir
-          cp www/ezan.wav ios/App/App/ezan.wav
-          ruby -e 'require "xcodeproj"; pr=Xcodeproj::Project.open("ios/App/App.xcodeproj"); t=pr.targets.find{|x| x.name=="App"}; g=pr.main_group["App"]; r=g.new_file("ezan.wav"); t.add_resources([r]); pr.save' || echo "UYARI: ezan.wav projeye eklenemedi"
+          # Bildirim sesi: iOS mp3 bildirim sesini desteklemez; varsayılan ses kullanılır
           rm -f www/icon-fg.png www/icon-full.png
           grep -n "TARGETED_DEVICE_FAMILY\|CURRENT_PROJECT_VERSION\|MARKETING_VERSION" "$PBX" | head -8
       - run: npx cap sync ios

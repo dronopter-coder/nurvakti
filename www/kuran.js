@@ -33,28 +33,28 @@ function ac(n,opt={}){
   return yukle().then(()=>okuyucu(n,opt));
 }
 function okuyucu(n,opt){
-  const S=KURAN[n-1],ay=S[2],besmele=n!==1&&n!==9;
+  const S=KURAN[n-1],ay=S[2],bas=Math.max(1,opt.bas||1),son=Math.min(ay.length,opt.son||ay.length),kisim=bas>1||son<ay.length,besmele=n!==1&&n!==9&&bas===1;
   if(opt.hiz)hiz=opt.hiz;
   const el=document.createElement('div');el.className='sf';el.style.zIndex=8;
   el.innerHTML=`<div class="ok-bar"><button class="kr-kapat">✕ Kapat</button><div class="kr-tem"><button class="kr-hiz" title="Okuma hızı"></button><button class="kr-k1">A−</button><button class="kr-k2">A+</button></div></div>
   <div class="kr-body" style="--arpx:${arpx}px">
-    <div class="ok-baslik">${esc(AD[n-1])} Sûresi</div>
+    <div class="ok-baslik">${esc(AD[n-1])} Sûresi${kisim?` <small style="display:block;font-size:13px;color:var(--soluk)">${bas}–${son}. ayetler</small>`:''}</div>
     ${besmele?'<div class="ok-ar"><span class="ay" data-k="b">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</span></div>':''}
-    <div class="ok-ar">${ay.map((t,i)=>`<span class="ay" data-k="a${i+1}">${t}<span class="no">﴿${AR(i+1)}﴾</span></span>`).join(' ')}</div>
+    <div class="ok-ar">${ay.map((t,i)=>i+1<bas||i+1>son?'':`<span class="ay" data-k="a${i+1}">${t}<span class="no">﴿${AR(i+1)}﴾</span></span>`).join(' ')}</div>
     <p class="note" style="text-align:center;margin-top:18px">Bir ayete dokunursanız dinleme oradan başlar. Ses, Mişari Raşid el-Afasi kaydıdır ve internet gerektirir.</p>
   </div>
-  <div class="kr-alt"><button class="btn kr-k kr-on" ${n===1?'disabled':''} aria-label="Önceki sûre">‹</button><button class="btn gold kr-cal">▶ Dinle</button><button class="btn kr-k kr-sn" ${n===114?'disabled':''} aria-label="Sonraki sûre">›</button></div>`;
+  <div class="kr-alt"><button class="btn kr-k kr-on" ${n===1||kisim?'disabled':''} aria-label="Önceki sûre">‹</button><button class="btn gold kr-cal">▶ Dinle</button><button class="btn kr-k kr-sn" ${n===114||kisim?'disabled':''} aria-label="Sonraki sûre">›</button></div>`;
   document.body.appendChild(el);
   const body=el.querySelector('.kr-body'),btn=el.querySelector('.kr-cal'),hb=el.querySelector('.kr-hiz');
   const kuyruk=[];
   if(besmele)kuyruk.push({k:'b',u:[SES_A+'001001.mp3',SES_B(1)]});
-  ay.forEach((_,i)=>kuyruk.push({k:'a'+(i+1),u:[SES_A+p3(n)+p3(i+1)+'.mp3',SES_B(genel(n,i+1))]}));
-  const kaydet=a=>ls.set('kuranSon',{n,a:Math.max(1,a)});
+  ay.forEach((_,i)=>{if(i+1>=bas&&i+1<=son)kuyruk.push({k:'a'+(i+1),u:[SES_A+p3(n)+p3(i+1)+'.mp3',SES_B(genel(n,i+1))]})});
+  const kaydet=a=>{if(!kisim)ls.set('kuranSon',{n,a:Math.max(1,a)})};
   const ilkGorunen=()=>{const t=body.getBoundingClientRect().top;const e=[...body.querySelectorAll('.ay[data-k^=a]')].find(x=>x.getBoundingClientRect().bottom>t+10);return e?+e.dataset.k.slice(1):1};
   const ses=AyetSes({kuyruk,hiz,
     vurgu:k=>{body.querySelectorAll('.ay.cal').forEach(x=>x.classList.remove('cal'));const e=body.querySelector(`.ay[data-k="${k}"]`);if(e){e.classList.add('cal');e.scrollIntoView({block:'center',behavior:'smooth'});if(k[0]==='a')kaydet(+k.slice(1))}},
-    durum:(c,i)=>{const it=kuyruk[i];btn.textContent=c?'⏸ '+(it&&it.k[0]==='a'?it.k.slice(1)+'/'+ay.length:'Besmele'):'▶ '+(i?'Devam':'Dinle')},
-    bitti:()=>{body.querySelectorAll('.ay.cal').forEach(x=>x.classList.remove('cal'));toast(AD[n-1]+' sûresi bitti. Allah kabul etsin.')},
+    durum:(c,i)=>{const it=kuyruk[i];btn.textContent=c?'⏸ '+(it&&it.k[0]==='a'?it.k.slice(1)+'/'+son:'Besmele'):'▶ '+(i?'Devam':'Dinle')},
+    bitti:()=>{body.querySelectorAll('.ay.cal').forEach(x=>x.classList.remove('cal'));toast(AD[n-1]+(kisim?` sûresinin ${bas}–${son}. ayetleri`:' sûresi')+' bitti. Allah kabul etsin.')},
     hata:()=>toast('Ses yüklenemedi. İnternet bağlantısını kontrol edin.')});
   const hizYaz=()=>{hb.textContent=String(hiz).replace('.',',')+'×';ses.hiz(hiz)};hizYaz();
   hb.onclick=()=>{const L=[.8,1,1.25,1.5];hiz=L[(L.indexOf(hiz)+1)%L.length];ls.set('okHiz',hiz);hizYaz()};

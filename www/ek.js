@@ -68,29 +68,24 @@ function kDraw(){
 }
 
 /* ---- Tesbih ---- */
-let AC=null;
-function hayyKur(ctx,t,out){ // "hayy": nefesli "h", ağızdan "a"dan "i"ye geçen yumuşak ünlü (formantlı, alçak perdeli)
-  const g=ctx.createGain(),lp=ctx.createBiquadFilter(),o=ctx.createOscillator();
-  lp.type='lowpass';lp.frequency.value=2200;lp.Q.value=.3;
-  o.type='sawtooth';o.frequency.setValueAtTime(150,t);o.frequency.linearRampToValueAtTime(122,t+.55);
-  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.42,t+.1);g.gain.exponentialRampToValueAtTime(.001,t+.62);
-  [[720,340,3.5],[1150,2200,5]].forEach(([a,b,q])=>{const f=ctx.createBiquadFilter();f.type='bandpass';f.Q.value=q;f.frequency.setValueAtTime(a,t);f.frequency.linearRampToValueAtTime(b,t+.5);o.connect(f);f.connect(g)});
-  g.connect(lp);lp.connect(out);o.start(t);o.stop(t+.66);
-  // "h" nefesi
-  const n=ctx.createBufferSource(),len=Math.floor(ctx.sampleRate*.14),buf=ctx.createBuffer(1,len,ctx.sampleRate),d=buf.getChannelData(0);
-  for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*(1-i/len);
-  n.buffer=buf;const nf=ctx.createBiquadFilter(),ng=ctx.createGain();nf.type='bandpass';nf.frequency.value=1400;nf.Q.value=.7;ng.gain.value=.14;
-  n.connect(nf);nf.connect(ng);ng.connect(out);n.start(t);
+/* "Hayy" sesi: kayıtlı ses dosyası (hayy.mp3); hızlı art arda dokunuşlarda gecikmesin diye Web Audio ile önceden çözülür */
+let AC=null,hayyTampon=null,hayyYukleniyor=null;
+function hayyHazirla(){
+  if(hayyTampon||hayyYukleniyor)return hayyYukleniyor;
+  try{AC=AC||new (window.AudioContext||window.webkitAudioContext)()}catch(e){return null}
+  hayyYukleniyor=fetch('hayy.mp3').then(r=>r.arrayBuffer()).then(b=>new Promise((ok,no)=>AC.decodeAudioData(b,ok,no))).then(t=>{hayyTampon=t}).catch(()=>{hayyYukleniyor=null});
+  return hayyYukleniyor;
 }
-window.hayyKur=hayyKur;
 function hayy(){
   if(!S.tsSes)return;
   try{
-    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
-    if(AC.state==='suspended')AC.resume();
-    hayyKur(AC,AC.currentTime+.02,AC.destination);
+    hayyHazirla();
+    if(AC&&AC.state==='suspended')AC.resume();
+    if(hayyTampon){const k=AC.createBufferSource();k.buffer=hayyTampon;k.connect(AC.destination);k.start(0)}
+    else{const a=new Audio('hayy.mp3');a.play().catch(()=>{})}
   }catch(e){}
 }
+setTimeout(hayyHazirla,3000);
 const ZIKIR=[['Sübhanallah',33],['Elhamdülillah',33],['Allahu ekber',33],['Serbest',0]];
 function tsDraw(){
   $('#tsCount').textContent=S.tsSay;
@@ -133,8 +128,9 @@ function drawGunler(){
   $('#gList').innerHTML=GUN.filter(e=>e[1].startsWith(gy)).map(e=>{
     const s=new Date(e[1]+'T00:00'),en=e[2]?new Date(e[2]+'T00:00'):s,past=en<today,n=Math.round((s-today)/864e5);
     const nxt=!past&&!nx;if(nxt)nx=true;
-    const dt=e[2]?`${s.getDate()}–${en.toLocaleDateString('tr-TR',{day:'numeric',month:'long'})}`:s.toLocaleDateString('tr-TR',{day:'numeric',month:'long',weekday:'long'})+(e[3]?' akşamı':'');
-    return `<div class="gr${past?' past':''}${nxt?' nx':''}"><div><div class="gn">${e[0]}</div><div class="gd">${dt}</div></div><div class="gk">${past?'Geçti':n<=0?'Şimdi':n+' gün'}</div></div>`}).join('');
+    const dt=e[2]?`${s.getDate()}–${en.toLocaleDateString('tr-TR',{day:'numeric',month:'long'})} · ${Math.round((en-s)/864e5)+1} gün`:s.toLocaleDateString('tr-TR',{day:'numeric',month:'long',weekday:'long'})+(e[3]?' akşamı':'');
+    const ay=s.toLocaleDateString('tr-TR',{month:'short'}).replace('.','');
+    return `<div class="gr${past?' past':''}${nxt?' nx':''}"><div class="gtar"><b>${s.getDate()}</b><small>${ay}</small></div><div class="gbil"><div class="gn">${e[0]}</div><div class="gd">${dt}</div></div><div class="gk">${past?'Geçti':n<=0?'Şimdi':n===1?'Yarın':n+' gün'}</div></div>`}).join('');
 }
 
 /* ---- Ayarlar ve bildirimler ---- */
@@ -143,10 +139,28 @@ function setDraw(){
   $('#stVak').innerHTML=VAK.map(([k,n],i)=>`<button data-i="${i}" class="${S.vk.includes(i)?'on':''}">${n}</button>`).join('');
   document.querySelectorAll('#stVak button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;S.vk=S.vk.includes(i)?S.vk.filter(x=>x!==i):[...S.vk,i];saveS();setDraw();planNotifs()});
 }
-$('#gear').onclick=()=>{setDraw();$('#setSheet').classList.add('open')};
+$('#gear').onclick=()=>{setDraw();sistemDurum();$('#setSheet').classList.add('open')};
+/* Konum ayarlardan da değiştirilebilir */
+$('#stKonum').onclick=()=>{$('#setSheet').classList.remove('open');$('#locBtn').click()};
+/* Uygulama bildirimleri: telefonun bu uygulamaya ait bildirim ayarları ekranını açar */
+async function sistemDurum(){
+  $('#stKonumAd').textContent='Konum: '+locLabel()+(loc.type==='gps'?' (otomatik)':'');
+  $('#stKaynak').textContent=!days?'':days.kaynak==='diyanet'?'Vakit kaynağı: Diyanet İşleri Başkanlığı ilçe vakitleri ✓':'Vakit kaynağı: hesaplama (Diyanet yöntemi). Diyanet verisine şu an ulaşılamadı; 1-2 dakika fark olabilir.';
+  let acik=null;
+  try{if(P.NurYerli)acik=(await P.NurYerli.bildirimDurumu()).acik;else if(P.LocalNotifications)acik=(await P.LocalNotifications.checkPermissions()).display==='granted'}catch(e){}
+  $('#stSistem').checked=!!acik;
+  $('#stSisDurum').textContent=acik==null?'':acik?'Açık · kapatmak için telefon ayarlarına gider':'Kapalı · açmak için telefon ayarlarına gider';
+}
+$('#stSistem').onclick=async e=>{
+  e.preventDefault();
+  try{if(P.NurYerli){await P.NurYerli.bildirimAyari();return}}catch(_){}
+  try{if(P.LocalNotifications){const r=await P.LocalNotifications.requestPermissions();if(r.display==='granted')toast('Bildirimler açık');sistemDurum();return}}catch(_){}
+  toast('Telefon Ayarlar > Uygulamalar > Nur Vakti > Bildirimler bölümünden değiştirebilirsiniz');
+};
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('#setSheet').classList.contains('open'))sistemDurum()});
 $('#setSheet').onclick=e=>{if(e.target.id==='setSheet')e.target.classList.remove('open')};
 $('#stBild').onchange=async e=>{S.bild=e.target.checked;saveS();S.bild?await planNotifs(true):clearNotifs()};
-$('#stTest').onclick=()=>{try{const a=new Audio('ezan.wav');a.play()}catch(e){}};
+$('#stTest').onclick=()=>{try{const a=new Audio('vakit.mp3');a.play()}catch(e){}};
 async function clearNotifs(){const LN=P.LocalNotifications;if(!LN)return;try{const p=await LN.getPending();const n=p.notifications.filter(x=>x.id<9000);if(n.length)await LN.cancel({notifications:n})}catch(e){}}
 async function planNotifs(ask){
   const LN=P.LocalNotifications;if(!LN||!S.bild)return;
@@ -154,7 +168,7 @@ async function planNotifs(ask){
     let pr=await LN.checkPermissions();
     if(pr.display!=='granted'){if(!ask&&ls.get('nasked',false))return;ls.set('nasked',true);pr=await LN.requestPermissions();if(pr.display!=='granted'){toast('Bildirim izni verilmedi');return}}
     try{const ex=await LN.checkExactNotificationSetting();if(ex.exact_alarm!=='granted'&&ask)await LN.changeExactNotificationSetting()}catch(e){}
-    if(PLAT==='android')await LN.createChannel({id:'vakit3',name:'Vakit bildirimleri',description:'Namaz vakitleri',importance:5,sound:'ezan.wav',vibration:true,visibility:1});
+    if(PLAT==='android'){await LN.createChannel({id:'vakit4',name:'Vakit bildirimleri',description:'Namaz vakitleri',importance:5,sound:'vakit.mp3',vibration:true,visibility:1});LN.deleteChannel&&LN.deleteChannel({id:'vakit3'}).catch(()=>{})} // kanal sesi sonradan değiştirilemediği için yeni kanal
     await clearNotifs();
     const list=[],now=new Date();
     for(let k=0;k<7;k++){
@@ -162,15 +176,28 @@ async function planNotifs(ask){
       VAK.forEach(([key,name],i)=>{
         if(!S.vk.includes(i))return;
         const w=at(d,x.t[key]);
-        if(w>now)list.push({id:100+k*10+i,title:name+' vakti',body:locLabel()+' için '+name+' vakti girdi',schedule:{at:w,allowWhileIdle:true},channelId:'vakit3',sound:'ezan.wav'});
+        if(w>now)list.push({id:100+k*10+i,title:name+' vakti',body:locLabel()+' için '+name+' vakti girdi',schedule:{at:w,allowWhileIdle:true},channelId:'vakit4',sound:PLAT==='ios'?undefined:'vakit.mp3',extra:{hedef:'vakit'}});
       });
     }
     if(PLAT==='ios')list.splice(40); // iOS en çok 64 bekleyen yerel bildirime izin verir
     if(list.length)await LN.schedule({notifications:list});
   }catch(e){}
 }
+/* Ana ekran widget'ı: önümüzdeki 7 günün vakitleri yerli tarafa gönderilir (widget kendi kendine geri sayar) */
+async function vidjetGuncelle(){
+  const Y=P.NurYerli;if(!Y||!Y.vidjetKaydet)return;
+  try{
+    const now=new Date(),L=[];
+    for(let k=0;k<7;k++){
+      const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+k,12);let x;
+      try{x=await fetchDay(d)}catch(e){break}
+      VAK.forEach(([key,name])=>L.push({a:name,t:at(d,x.t[key]).getTime()}));
+    }
+    if(L.length)await Y.vidjetKaydet({veri:JSON.stringify({yer:locLabel(),v:L})});
+  }catch(e){}
+}
 const _load=load;
-load=async function(){await _load();planNotifs(false)};
+load=async function(){await _load();await planNotifs(false);vidjetGuncelle()};
 
 tsDraw();
-setTimeout(()=>planNotifs(false),4000);
+setTimeout(()=>planNotifs(false).then(vidjetGuncelle),4000);
