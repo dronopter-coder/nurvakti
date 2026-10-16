@@ -1,0 +1,22 @@
+name: Gecici kontrol
+on:
+  push:
+    branches: [gecici-kontrol]
+jobs:
+  k:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Diyanet vakit kaynagi
+        run: |
+          set -x
+          curl -sS -D - https://ezanvakti.emushaf.net/sehirler/2 -o s.json | grep -i "^HTTP\|access-control\|content-type"
+          python3 -c "import json;d=json.load(open('s.json'));print(len(d));print([x for x in d if 'KOCAEL' in x.get('SehirAdiEn','').upper()])"
+          ID=$(python3 -c "import json;d=json.load(open('s.json'));print([x for x in d if 'KOCAEL' in x.get('SehirAdiEn','').upper()][0]['SehirID'])")
+          curl -sS https://ezanvakti.emushaf.net/ilceler/$ID -o i.json; python3 -c "import json;d=json.load(open('i.json'));print(d)"
+          IL=$(python3 -c "import json;d=json.load(open('i.json'));print([x for x in d if 'BASISKELE' in x.get('IlceAdiEn','').upper()][0]['IlceID'])")
+          curl -sS https://ezanvakti.emushaf.net/vakitler/$IL -o v.json; python3 -c "import json;d=json.load(open('v.json'));print(len(d));print(json.dumps(d[:3],ensure_ascii=False,indent=1))"
+          curl -sS https://ezanvakti.emushaf.net/sehirler/2 -o /dev/null -w "%{http_code}\n"
+          python3 -c "import json;d=json.load(open('s.json'));print(json.dumps(d,ensure_ascii=False))"
+      - name: TDV esma maddeleri
+        run: python3 k/tdv.py
