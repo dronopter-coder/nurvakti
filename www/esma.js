@@ -1,5 +1,5 @@
 /* Esmâ-i Hüsnâ: Tirmizî rivayetindeki 99 isim ("Allah" lafzıyla birlikte), kısa anlamları ve (doğrulananlar için) TDV İslâm Ansiklopedisi madde adresi.
-   Adresi verilmeyenler TDV'nin bütün isimleri anlamlarıyla birlikte ele alan "Esmâ-i Hüsnâ" maddesine gider. */
+   Madde adresleri internet arşivi kayıtlarıyla doğrulanmıştır; adresi verilmeyen (Ed-Dârr) "Esmâ-i Hüsnâ" maddesine gider. */
 window.ESMA=[
 ['Allah','Bütün güzel isimlerin sahibi, tek ilah olan Yüce Yaratıcı\'nın özel adı','allah'],
 ['Er-Rahmân','Dünyada bütün yaratılmışlara merhamet eden','rahman'],
@@ -37,7 +37,7 @@ window.ESMA=[
 ['El-Azîm','Büyüklüğü akla sığmayan','azim--esma-i-husna'],
 ['El-Gafûr','Bağışlaması bol olan','gafur'],
 ['Eş-Şekûr','Az amele çok karşılık veren','sekur'],
-['El-Aliyy','Yüceler yücesi'],
+['El-Aliyy','Yüceler yücesi','ali--esma-i-husna'],
 ['El-Kebîr','Pek büyük olan','kebir--esma-i-husna'],
 ['El-Hafîz','Her şeyi koruyup gözeten','hafiz--esma-i-husna'],
 ['El-Mukît','Her canlının azığını yaratan, gözeten','mukit'],
@@ -54,9 +54,9 @@ window.ESMA=[
 ['Eş-Şehîd','Her şeye şahit olan','sehid--esma-i-husna'],
 ['El-Hak','Varlığı hiç değişmeden duran, gerçek olan','hak--esma-i-husna'],
 ['El-Vekîl','Kendine güvenilip dayanılan','vekil--esma-i-husna'],
-['El-Kaviyy','Kuvvetli, güçlü olan'],
+['El-Kaviyy','Kuvvetli, güçlü olan','kavi'],
 ['El-Metîn','Çok sağlam, sarsılmaz olan','metin--esma-i-husna'],
-['El-Veliyy','İnananların dostu ve yardımcısı'],
+['El-Veliyy','İnananların dostu ve yardımcısı','veli--esma-i-husna'],
 ['El-Hamîd','Her türlü övgüye layık olan','hamid'],
 ['El-Muhsî','Her şeyin sayısını bilen','muhsi'],
 ['El-Mübdi\'','Maddesiz, örneksiz yaratan','mubdi'],
@@ -79,27 +79,27 @@ window.ESMA=[
 ['El-Bâtın','Akılların idrak edemeyeceği, gizli olan','batin--esma-i-husna'],
 ['El-Vâlî','Bütün kâinatı idare eden','vali--esma-i-husna'],
 ['El-Müteâlî','Son derece yüce olan','muteali'],
-['El-Berr','İyiliği bol olan'],
+['El-Berr','İyiliği bol olan','ber--esma-i-husna'],
 ['Et-Tevvâb','Tövbeleri kabul eden','tevvab'],
 ['El-Müntekim','Suçluları hak ettikleri şekilde cezalandıran','muntakim'],
 ['El-Afüvv','Affı çok olan, günahları silen','afuv'],
 ['Er-Raûf','Çok şefkatli olan','rauf'],
 ['Mâlikü\'l-Mülk','Mülkün ebedî sahibi','malikul-mulk'],
 ['Zü\'l-Celâli ve\'l-İkrâm','Azamet ve ikram sahibi','zul-celal-vel-ikram'],
-['El-Muksit','Bütün işlerini denk ve yerinde yapan'],
-['El-Câmi\'','İstediğini istediği zaman bir araya getiren'],
-['El-Ganiyy','Zengin, hiçbir şeye muhtaç olmayan'],
-['El-Muğnî','Dilediğini zengin eden'],
-['El-Mâni\'','Dilemediği şeye engel olan'],
+['El-Muksit','Bütün işlerini denk ve yerinde yapan','muksit'],
+['El-Câmi\'','İstediğini istediği zaman bir araya getiren','cami--esma-i-husna'],
+['El-Ganiyy','Zengin, hiçbir şeye muhtaç olmayan','gani'],
+['El-Muğnî','Dilediğini zengin eden','mugni'],
+['El-Mâni\'','Dilemediği şeye engel olan','mani--esma-i-husna'],
 ['Ed-Dârr','Elem ve zarar verecek şeyleri de yaratan'],
-['En-Nâfi\'','Fayda veren şeyleri yaratan'],
+['En-Nâfi\'','Fayda veren şeyleri yaratan','nafi--esma-i-husna'],
 ['En-Nûr','Âlemleri nurlandıran, aydınlatan','nur-esma-i-husna'],
-['El-Hâdî','Doğru yolu gösteren'],
-['El-Bedî\'','Eşi ve benzeri olmayan güzellikte yaratan'],
-['El-Bâkî','Varlığının sonu olmayan, ebedî olan'],
-['El-Vâris','Her şeyin asıl sahibi olan, varlıkların sonunda kalan'],
-['Er-Reşîd','Doğru yolu gösteren, her işi isabetli olan'],
-['Es-Sabûr','Çok sabırlı olan']
+['El-Hâdî','Doğru yolu gösteren','hadi'],
+['El-Bedî\'','Eşi ve benzeri olmayan güzellikte yaratan','bedi--esma-i-husna'],
+['El-Bâkî','Varlığının sonu olmayan, ebedî olan','baki--esma-i-husna'],
+['El-Vâris','Her şeyin asıl sahibi olan, varlıkların sonunda kalan','varis'],
+['Er-Reşîd','Doğru yolu gösteren, her işi isabetli olan','resid--esma-i-husna'],
+['Es-Sabûr','Çok sabırlı olan','sabur']
 ];
 /* Arapça yazılışlar (ESMA ile aynı sırada) */
 window.ESMA_AR='الله،الرحمن،الرحيم،الملك،القدوس،السلام،المؤمن،المهيمن،العزيز،الجبار،المتكبر،الخالق،البارئ،المصور،الغفار،القهار،الوهاب،الرزاق،الفتاح،العليم،القابض،الباسط،الخافض،الرافع،المعز،المذل،السميع،البصير،الحكم،العدل،اللطيف،الخبير،الحليم،العظيم،الغفور،الشكور،العلي،الكبير،الحفيظ،المقيت،الحسيب،الجليل،الكريم،الرقيب،المجيب،الواسع،الحكيم،الودود،المجيد،الباعث،الشهيد،الحق،الوكيل،القوي،المتين،الولي،الحميد،المحصي،المبدئ،المعيد،المحيي،المميت،الحي،القيوم،الواجد،الماجد،الواحد،الصمد،القادر،المقتدر،المقدم،المؤخر،الأول،الآخر،الظاهر،الباطن،الوالي،المتعالي،البر،التواب،المنتقم،العفو،الرؤوف،مالك الملك،ذو الجلال والإكرام،المقسط،الجامع،الغني،المغني،المانع،الضار،النافع،النور،الهادي،البديع،الباقي،الوارث،الرشيد،الصبور'.split('،');
