@@ -1,36 +1,54 @@
-import json,re,time,urllib.request,unicodedata,sys
+import json,re,time,urllib.request,unicodedata
 ad=json.load(open('k/isimler.json'))
 def asc(t):
     t=t.replace('İ','i').replace('I','ı').lower()
     for a,b in [('ı','i'),('ş','s'),('ğ','g'),('ü','u'),('ö','o'),('ç','c'),('â','a'),('î','i'),('û','u'),("'",''),('’','')]: t=t.replace(a,b)
     t=unicodedata.normalize('NFD',t); t=''.join(c for c in t if unicodedata.category(c)!='Mn')
     return re.sub(r'[^a-z0-9]+','-',t).strip('-')
-def al(u):
+def al(u,t=40):
+    for k in range(3):
+        try:
+            r=urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'Mozilla/5.0 (nurvakti link check)'}),timeout=t)
+            return r.status,r.read().decode('utf-8','ignore')
+        except Exception as e:
+            c=getattr(e,'code',0)
+            if c in (404,):return c,''
+            time.sleep(3)
+    return 0,''
+# 1) Arşivlenmiş Esmâ-i Hüsnâ maddesindeki bağlantılar
+st,h=al('https://web.archive.org/web/2025id_/https://islamansiklopedisi.org.tr/esma-i-husna',60)
+print('esma sayfa',st,len(h))
+linkler=sorted(set(re.findall(r'islamansiklopedisi\.org\.tr/([a-z0-9\-]+)',h)))
+print('LINKLER',linkler)
+def var(slug):
+    st,h=al('https://archive.org/wayback/available?url=islamansiklopedisi.org.tr/'+slug)
+    time.sleep(.4)
     try:
-        r=urllib.request.urlopen(urllib.request.Request(u,headers={'User-Agent':'Mozilla/5.0'}),timeout=20)
-        return r.status,r.geturl(),r.read().decode('utf-8','ignore')
-    except Exception as e: return getattr(e,'code',0),u,''
+        c=json.loads(h)['archived_snapshots'].get('closest')
+        return c if c and c.get('status')=='200' else None
+    except Exception: return None
 sonuc={}
 for n in ad:
-    k=asc(re.sub(r'^(el|er|es|ez|en|ed|et|eş|es)-','',n,flags=re.I)) if n!='Allah' else 'allah'
-    adaylar=[k]
-    if k.endswith(('yy','vv','zz','ll')): adaylar.append(k[:-1])
-    if k=='muntekim': adaylar.append('muntakim')
-    if k=='malikul-mulk': adaylar+=['malikulmulk']
-    if k=='zul-celali-vel-ikram': adaylar+=['zulcelali-vel-ikram','zulcelal-vel-ikram']
+    k='allah' if n=='Allah' else asc(re.sub(r'^(el|er|es|ez|en|ed|et|eş)-','',n,flags=re.I))
+    ad_=[k]
+    if k.endswith(('yy','vv','zz','ll')): ad_.append(k[:-1])
+    if k=='muntekim': ad_.append('muntakim')
+    if k=='zul-celali-vel-ikram': ad_+=['zulcelali-vel-ikram','zul-celal-vel-ikram']
+    if k=='malikul-mulk': ad_+=['malikulmulk']
     bul=None
-    for b in adaylar:
+    for b in ad_:
         for son in ['--esma-i-husna','-esma-i-husna','--allah','']:
-            u='https://islamansiklopedisi.org.tr/'+b+son
-            st,son_u,h=al(u); time.sleep(.25)
-            if st!=200 or not h: continue
-            ti=re.search(r'<title>(.*?)</title>',h,re.S); ti=ti.group(1).strip() if ti else ''
-            esma=bool(re.search(r'esm[âa]-?[iı]\s*h[üu]sn[âa]|Allah[’\']?[ıi]n isim|ilâhî isim|ilahi isim|esmâ-i hüsnâ',h,re.I))
-            if 'arama' in son_u or not ti: continue
-            print(n,'->',u,'|',ti,'| esma:',esma,flush=True)
-            if esma: bul=b+son; break
-        if bul: break
+            s=b+son
+            if linkler and s in linkler: bul=s;break
+            c=var(s)
+            if c:
+                st,h=al('https://web.archive.org/web/'+c['timestamp']+'id_/https://islamansiklopedisi.org.tr/'+s,60)
+                ti=(re.search(r'<title>(.*?)</title>',h,re.S) or [None,''])[1].strip() if h else ''
+                esma=bool(re.search(r'esm[âa]-?[iı] h[üu]sn[âa]|Allah[’\']?[ıi]n isim|ilâhî isim|ilahi isim',h,re.I))
+                print(n,'->',s,'|',ti,'| esma:',esma,flush=True)
+                if esma or not h: bul=s;break
+        if bul:break
     sonuc[n]=bul
-json.dump(sonuc,open('tdv-sonuc.json','w'),ensure_ascii=False,indent=0)
+    print('#',n,bul,flush=True)
 print('BULUNAN',sum(1 for v in sonuc.values() if v),'/',len(sonuc))
 print('SONUC_JSON',json.dumps(sonuc,ensure_ascii=False))
