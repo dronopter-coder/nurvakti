@@ -30,26 +30,27 @@ $('#npHizli').onclick=e=>{const i=+e.target.dataset.i;bugun()[i]=true;kaydet();s
 setInterval(satirCiz,15000);setTimeout(satirCiz,1500);
 
 /* Ayrıntı sayfası */
-const ov=document.createElement('div');ov.className='kb-ov';ov.id='npOv';ov.innerHTML='<div class="kb-box" id="npBox"></div>';document.body.appendChild(ov);
-ov.onclick=e=>{if(e.target===ov)ov.classList.remove('open')};
-$('#npAc').onclick=()=>{npCiz();ov.classList.add('open')};
+/* Ayrıntı sayfası tam ekran açılır (üstte "‹ Geri"; telefonun geri tuşu da kapatır) */
+let sf=null;
+const kutu=()=>sf&&sf.govde;
+$('#npAc').onclick=()=>{sf=Sayfa.ac('Namaz takibi ve kaza',{kapaninca:()=>{sf=null}});sf.govde.classList.add('np-sayfa');npCiz()};
 function dunBekleyen(){ // dünden kılınmayanlar kazaya eklenebilir (en az bir vakit işaretlenmişse)
   const k=gun(1),d=kilinan[k];if(!d||aktarilan[k]||!d.some(Boolean))return 0;return d.filter(x=>!x).length}
 function npCiz(){
   const b=bugun(),son7=[6,5,4,3,2,1,0].map(n=>{const k=gun(n);return{k,n:sayi(k),g:new Date(k+'T12:00').toLocaleDateString('tr-TR',{weekday:'short'})}});
   const dun=dunBekleyen();
-  $('#npBox').innerHTML=`<h3>Namaz takibi</h3>
+  const B=kutu();if(!B)return;
+  B.innerHTML=`<h3>Bugün</h3>
   <div>${FARZ.map((f,i)=>`<label class="kb-chk np-r"><input type="checkbox" data-i="${i}" ${b[i]?'checked':''}> ${f[1]} namazı</label>`).join('')}</div>
   <div class="np-hafta">${son7.map(x=>`<div><span class="np-n n${x.n}">${x.n}</span><small>${x.g}</small></div>`).join('')}</div>
   ${dun?`<button class="btn" id="npAktar">Dünden kılınmayan ${dun} vakti kazaya ekle</button>`:''}
   <h3 style="margin-top:6px">Kaza borcum</h3>
   <div>${KAZA.map((n,i)=>`<div class="np-kz"><span>${n}</span><button data-i="${i}" data-d="-1" aria-label="Bir kaza kıldım">−</button><b>${kaza[i]}</b><button data-i="${i}" data-d="1" aria-label="Bir kaza ekle">+</button></div>`).join('')}</div>
   <p class="kb-uyari">Eksi düğmesi, bir kaza namazı kıldığınızı düşer. Sayılar yalnızca sizin tuttuğunuz kayıttır; kaza hesabı için bir âlime veya müftülüğe danışabilirsiniz.</p>
-  <button class="btn" id="npKapat">Kapat</button>`;
-  $('#npBox').querySelectorAll('.np-r input').forEach(c=>c.onchange=()=>{bugun()[+c.dataset.i]=c.checked;kaydet();satirCiz();npCiz()});
-  $('#npBox').querySelectorAll('.np-kz button').forEach(x=>x.onclick=()=>{const i=+x.dataset.i;kaza[i]=Math.max(0,kaza[i]+(+x.dataset.d));kaydet();npCiz()});
-  const ak=$('#npAktar');if(ak)ak.onclick=()=>{const k=gun(1);kilinan[k].forEach((v,i)=>{if(!v)kaza[i]++});aktarilan[k]=1;kaydet();npCiz()};
-  $('#npKapat').onclick=()=>ov.classList.remove('open');
+`;
+  B.querySelectorAll('.np-r input').forEach(c=>c.onchange=()=>{bugun()[+c.dataset.i]=c.checked;kaydet();satirCiz();npCiz()});
+  B.querySelectorAll('.np-kz button').forEach(x=>x.onclick=()=>{const i=+x.dataset.i;kaza[i]=Math.max(0,kaza[i]+(+x.dataset.d));kaydet();npCiz()});
+  const ak=B.querySelector('#npAktar');if(ak)ak.onclick=()=>{const k=gun(1);kilinan[k].forEach((v,i)=>{if(!v)kaza[i]++});aktarilan[k]=1;kaydet();npCiz()};
 }
 window.NAMAZ={satirCiz};
 })();

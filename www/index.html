@@ -79,14 +79,23 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
 #setSheet{position:fixed;inset:0;background:#000a;display:none;align-items:flex-end;z-index:5}#setSheet.open{display:flex}
 #setSheet .box{background:var(--lacivert);width:100%;border-radius:22px 22px 0 0;padding:18px 18px calc(26px + var(--altbos));display:flex;flex-direction:column;gap:14px}
 .trow{display:flex;justify-content:space-between;align-items:center;font-size:15px}
-.gr.past{opacity:.4}.gr.nx{border-left:2px solid var(--altin);padding-left:10px}
+.gr.past{opacity:.4}
+#gList .gr{gap:12px;padding:8px 10px;margin:8px 0;border:1px solid #2c386c;border-radius:16px;background:var(--lacivert2)}
+#gList .gr.nx{border-color:var(--altin);box-shadow:0 0 0 1px rgba(201,164,92,.25) inset}
+.gtar{flex:none;width:54px;align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid #33407a;padding-right:10px;margin-right:2px}
+.gtar b{font-family:Georgia,serif;font-weight:400;font-size:27px;line-height:1;color:var(--altin)}.gtar small{font-size:12px;color:var(--soluk);margin-top:4px}
+.gbil{flex:1;min-width:0}.gr .gk{background:#0b0e1c;border:1px solid #33407a;border-radius:12px;padding:4px 10px}.gr.nx .gk{border-color:var(--altin)}
 #nav button{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11.5px;padding:7px 0 6px}
 #nav svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 #nav button.on{box-shadow:inset 0 -2px 0 var(--altin)}
 .panel{background-color:var(--lacivert);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cg fill='none' stroke='%23C9A45C' stroke-opacity='.08'%3E%3Crect x='9' y='9' width='26' height='26'/%3E%3Crect x='9' y='9' width='26' height='26' transform='rotate(45 22 22)'/%3E%3C/g%3E%3C/svg%3E")}
+.refrow .rbtn{display:flex;gap:6px;flex:none}.refrow .more.pay{padding:7px 10px;display:flex;align-items:center}
 .cuma-bas{font-family:'Cinzel Decorative',Georgia,serif;color:var(--altin);font-size:15px;letter-spacing:.06em;margin-bottom:8px}
 .cuma-dua{margin-top:10px;color:#d7d0bd;line-height:1.55;font-size:14.5px}
 .tabs button{font-size:14.5px}
+.st-konum{display:flex;align-items:center;gap:8px;text-align:left}.st-konum span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.st-konum b{font-weight:400;color:var(--altin);font-size:13px}
+.st-alt{display:block;font-size:11.5px;color:var(--soluk);margin-top:2px}
+.trow input[type=checkbox]{accent-color:#C9A45C;width:20px;height:20px}
 .quote::before{content:"✦";display:inline-block;color:var(--altin);font-size:.62em;margin-right:9px;vertical-align:.18em;opacity:.8}
 </style>
 <link rel="stylesheet" href="kabir.css">
@@ -153,7 +162,10 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
 <section id="v-gunler" class="view"><div class="panel"><div class="tabs"><button class="on">Dini gün ve geceler</button></div><div id="gYear" class="chips" style="padding:10px 16px 0;justify-content:flex-start"></div><div id="gList" style="overflow:auto;padding:6px 16px"></div><div class="note" style="padding:0 16px 12px">Tarihler Diyanet takvimine göredir; kandil tarihleri o günün akşamını gösterir. 2028 için Diyanet listesine doğrudan ulaşılamadı; ikinci kaynaklardan ve resmî tatil takviminden derlendi, Diyanet güncellerse tekrar kontrol edilir.</div></div></section>
 <nav id="nav"><button data-v="vakit" class="on"><svg viewBox="0 0 24 24"><path d="M3 17h18"/><path d="M7 17a5 5 0 0 1 10 0"/><path d="M12 5.5v3M5 9l2 2M19 9l-2 2M2.5 13.5h2M19.5 13.5h2"/><path d="M7 20.5h10" opacity=".5"/></svg><span>Vakit</span></button><button data-v="kible"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8.5"/><path d="M12 6.8l2.4 6.2-2.4 6.2-2.4-6.2z"/><circle cx="12" cy="13" r="1" fill="currentColor"/><rect x="10.6" y="1.2" width="2.8" height="2.8" fill="currentColor"/></svg><span>Kıble</span></button><button data-v="tesbih"><svg viewBox="0 0 24 24"><circle cx="20" cy="12" r="1.5" fill="currentColor"/><circle cx="17.7" cy="17.7" r="1.5" fill="currentColor"/><circle cx="12" cy="20" r="1.5" fill="currentColor"/><circle cx="6.3" cy="17.7" r="1.5" fill="currentColor"/><circle cx="4" cy="12" r="1.5" fill="currentColor"/><circle cx="6.3" cy="6.3" r="1.5" fill="currentColor"/><circle cx="12" cy="4" r="1.5" fill="currentColor"/><circle cx="17.7" cy="6.3" r="1.5" fill="currentColor"/><path d="M12 21.6v2"/></svg><span>Tesbih</span></button><button data-v="gunler"><svg viewBox="0 0 24 24"><path d="M20 14.2A8.4 8.4 0 1 1 10 4a6.6 6.6 0 0 0 10 10.2z"/><path d="M17.5 3.5l.7 1.7 1.7.7-1.7.7-.7 1.7-.7-1.7-1.7-.7 1.7-.7z" fill="currentColor"/></svg><span>Dini Günler</span></button></nav>
 <div id="setSheet"><div class="box">
-  <label class="trow"><span>Vakit bildirimi (ezan tınısı)</span><input type="checkbox" id="stBild"></label>
+  <button class="btn st-konum" id="stKonum"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="#C9A45C" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span id="stKonumAd">Konum</span><b>Değiştir ›</b></button>
+  <label class="trow"><span>Uygulama bildirimleri<small id="stSisDurum" class="st-alt"></small></span><input type="checkbox" id="stSistem"></label>
+  <label class="trow"><span>Vakit bildirimi (vakit sesi)</span><input type="checkbox" id="stBild"></label>
+  <div class="st-alt" id="stKaynak" style="margin-top:-6px"></div>
   <div id="stVak" class="chips"></div>
   <button class="btn" id="stTest">Bildirim sesini dinle</button>
 </div></div>
@@ -247,7 +259,7 @@ const nrm=t=>String(t||'').toLocaleUpperCase('tr').replace(/İ/g,'I').replace(/�
 const MERKEZ={KOCAELI:'IZMIT',SAKARYA:'ADAPAZARI',HATAY:'ANTAKYA'};
 async function jget(url){
   const H=P.CapacitorHttp; // yerli istek: tarayıcının çapraz kaynak (CORS) kısıtına takılmaz
-  if(H&&H.get){const r=await H.get({url,headers:{Accept:'application/json'},connectTimeout:10000,readTimeout:15000});if(r.status!==200)throw new Error('HTTP '+r.status);return typeof r.data==='string'?JSON.parse(r.data):r.data}
+  if(H&&H.get){const r=await H.get({url,headers:{Accept:'application/json','User-Agent':navigator.userAgent},connectTimeout:10000,readTimeout:15000});if(r.status!==200)throw new Error('HTTP '+r.status);return typeof r.data==='string'?JSON.parse(r.data):r.data}
   const r=await fetch(url);if(!r.ok)throw new Error('HTTP '+r.status);return r.json();
 }
 const bul=(L,ad,k)=>{const n=nrm(ad);return n&&(L||[]).find(x=>nrm(x[k])===n||nrm(x[k+'En'])===n)};
@@ -375,10 +387,32 @@ async function useGps(){
     let pos;
     if(P.Geolocation){ await P.Geolocation.requestPermissions().catch(()=>{}); pos=await P.Geolocation.getCurrentPosition({timeout:12000}); }
     else pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{timeout:12000}));
-    loc={type:'gps',lat:+pos.coords.latitude,lon:+pos.coords.longitude}; ls.set('loc',loc); geoName();
+    loc={type:'gps',lat:+pos.coords.latitude,lon:+pos.coords.longitude}; ls.set('loc',loc); ls.set('gpsSon',Date.now()); geoName();
     $('#sheet').classList.remove('open'); load();
   }catch(e){ toast('Konum alınamadı. İzin ver veya il/ilçe seç.'); }
 }
+/* "Konumumu kullan" seçildiyse konum 2,5 saatte bir (uygulama açıkken ya da açılınca) sessizce yenilenir;
+   başka bir şehre/ilçeye geçilmişse vakitler oradaki vakitlere göre güncellenir. İl/ilçe elle seçildiyse dokunulmaz. */
+async function gpsTazele(zorla){
+  if(loc.type!=='gps'||document.hidden)return;
+  if(!zorla&&Date.now()-ls.get('gpsSon',0)<2.5*3600e3)return;
+  ls.set('gpsSon',Date.now());
+  try{
+    let pos;
+    if(P.Geolocation){const pr=await P.Geolocation.checkPermissions();if(pr.location!=='granted'&&pr.coarseLocation!=='granted')return;pos=await P.Geolocation.getCurrentPosition({timeout:15000,maximumAge:600000})}
+    else pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{timeout:15000,maximumAge:600000}));
+    const la=+pos.coords.latitude,lo=+pos.coords.longitude,R=6371,r=x=>x*Math.PI/180;
+    const km=2*R*Math.asin(Math.sqrt(Math.sin(r(la-loc.lat)/2)**2+Math.cos(r(loc.lat))*Math.cos(r(la))*Math.sin(r(lo-loc.lon)/2)**2));
+    if(km<3)return;
+    loc={type:'gps',lat:la,lon:lo};ls.set('loc',loc);
+    $('#locName').textContent='Konumum';
+    await geoName();if(loc.il)toast('Konum güncellendi: '+(loc.name||''));
+    load();
+  }catch(e){}
+}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)gpsTazele()});
+setInterval(()=>gpsTazele(),30*60e3);
+setTimeout(()=>gpsTazele(),8000);
 let dist=ls.get('dist',{});
 async function loadDistricts(){
   if(Object.keys(dist).length>40) return;
@@ -411,12 +445,13 @@ function render(){
   document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x.dataset.t===tab));
   if(tab==='ayet'||tab==='hadis'){
     const L=tab==='ayet'?AYET:HADIS, [t,r]=L[((tab==='ayet'?g:g*7+3)+off)%L.length];
-    b.innerHTML=`<div class="quote">“${t}”</div><div class="refrow"><span class="ref">${r}</span><button class="more" id="more">${off?'↩ Günün '+(tab==='ayet'?'ayeti':'hadisi'):'↻ Bir tane daha'}</button></div>`;
+    b.innerHTML=`<div class="quote">“${t}”</div><div class="refrow"><span class="ref">${r}</span><span class="rbtn"><button class="more" id="more">${off?'↩ Günün '+(tab==='ayet'?'ayeti':'hadisi'):'↻ Bir tane daha'}</button><button class="more pay" id="qPaylas" aria-label="Paylaş"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg></button></span></div>`;
     $('#more').onclick=()=>{off=off?0:1;render()};
+    $('#qPaylas').onclick=()=>paylas(`${tab==='ayet'?'Günün ayeti':'Günün hadisi'} 🌙\n\n“${t}”\n(${r})`+IMZA,tab==='ayet'?'Ayet paylaş':'Hadis paylaş');
   }else if(tab==='cuma'){
     const [q,...d]=cumaMesaji().split('\n');
     b.innerHTML=`<div class="cuma-bas">Hayırlı Cumalar</div><div class="quote cuma-q">${q}</div>${d.length?`<p class="cuma-dua">${d.join(' ')}</p>`:''}<div class="refrow"><span class="ref">${new Date().getDay()===5?'Bugün Cuma':'Bu haftanın mesajı'}</span><button class="more" id="cumaPaylas">➦ Paylaş</button></div>`;
-    $('#cumaPaylas').onclick=()=>paylas(cumaMesaji()+'\n\n— Nur Vakti','Hayırlı Cumalar');
+    $('#cumaPaylas').onclick=()=>paylas('Hayırlı Cumalar 🌙\n\n'+cumaMesaji()+IMZA,'Hayırlı Cumalar');
   }else{
     const s=(g*11+5)%ILM.length;
     const order=[s,...ILM.map((_,i)=>i).filter(i=>i!==s)];
@@ -467,6 +502,7 @@ if(!ls.get('asked',false)){ ls.set('asked',true); useGps(); }
 <script src="ibadet.js"></script>
 <script src="cocuk-sorular.js"></script>
 <script src="esma.js"></script>
+<script src="dualar.js"></script>
 <script src="cocuk.js"></script>
 <script src="hakkinda.js"></script>
 <script src="kubbe.js"></script>

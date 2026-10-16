@@ -141,7 +141,7 @@ async function kucult(blob,maks,kalite){
 /* ---------- Arayüz ---------- */
 const V=document.createElement('section');V.id='v-kabir';V.className='view';
 V.innerHTML=`<div class="panel"><div class="tabs"><button class="on">Kabirlerim</button></div>
-<div class="kb-top"><div id="kbCuma"></div><div class="kb-btns"><button class="btn gold" id="kbEkle">＋ Kabir ekle (fotoğraf)</button></div><button class="btn" id="kbMesaj" style="padding:10px;font-size:14px">🌙 Hayırlı Cumalar mesajı paylaş</button></div>
+<div class="kb-top"><div id="kbCuma"></div><div class="kb-btns"><button class="btn gold" id="kbEkle">＋ Kabir ekle (fotoğraf)</button></div></div>
 <div id="kbList"></div></div>`;
 document.querySelector('#nav').before(V);
 const nb=document.createElement('button');nb.dataset.v='kabir';
@@ -396,21 +396,16 @@ $('#okBody').addEventListener('click',e=>{ // bir ayete dokununca oradan dinlet
   const i=kuyruk.findIndex(x=>x.k===a.dataset.k);if(i>=0){sesDur(false);sesBaslat(i)}
 });
 
-/* --- Hayırlı Cumalar mesajı --- */
-function cumaMesaji(){
-  return `Hayırlı Cumalar 🌙\n\n${window.cumaMesaji?cumaMesaji():''}\n\nAllah vefat edenlerimize rahmet eylesin.\n— Nur Vakti`;
+/* --- Kabir bildirimine dokununca doğrudan Kabir sekmesi ve Fâtiha–Yâsîn okuma ekranı açılır --- */
+function bildirimdenAc(){
+  document.querySelectorAll('body > .sf').forEach(e=>e.remove());
+  document.querySelectorAll('.kb-ov.open,#sheet.open,#setSheet.open').forEach(e=>e.classList.remove('open'));
+  go('kabir');
+  setTimeout(()=>{if(!kayit.length)return;const bek=bekleyen();okuBaslat((bek.length?bek:kayit).map(k=>k.id))},400);
 }
-$('#kbMesaj').onclick=()=>{
-  ac(`<h3>Hayırlı Cumalar mesajı</h3><textarea id="msMetin" style="min-height:170px">${esc(cumaMesaji())}</textarea>
-  <div class="kb-btns"><button class="btn gold" id="msPaylas">Paylaş</button><button class="btn" id="msWa">WhatsApp</button></div>
-  <div class="kb-btns"><button class="btn" id="msKopya">Kopyala</button><button class="btn" id="msKapat">Kapat</button></div>`);
-  const txt=()=>$('#msMetin').value;
-  $('#msKapat').onclick=kapat;
-  $('#msWa').onclick=()=>window.open('https://wa.me/?text='+encodeURIComponent(txt()),'_blank');
-  const kopya=async()=>{try{await navigator.clipboard.writeText(txt());toast('Mesaj kopyalandı')}catch(e){$('#msMetin').select();toast('Metni seçip kopyalayabilirsiniz')}};
-  $('#msKopya').onclick=kopya;
-  $('#msPaylas').onclick=()=>paylas(txt(),'Hayırlı Cumalar');
-};
+if(P.LocalNotifications&&P.LocalNotifications.addListener)P.LocalNotifications.addListener('localNotificationActionPerformed',e=>{
+  const n=e&&e.notification;if(n&&(+n.id>=9000||(n.extra&&n.extra.hedef==='kabir')))bildirimdenAc();
+});
 
 /* --- Ekle düğmesi --- */
 $('#kbEkle').onclick=ekleBasla;
@@ -431,18 +426,18 @@ async function planKabirNotif(ask){
     if(CS.yil){
       kayit.slice(0,PLAT==='ios'?12:90).forEach((k,i)=>{
         const m=(k.vefat||'').match(/^(\d{1,2})\.(\d{1,2})\.(?:18|19|20)\d{2}$/);if(!m)return;
-        liste.push({id:9100+i,title:'Vefat yıldönümü',body:(k.ad||'Sevdiğiniz kişi')+' için bugün vefat yıldönümü. Ruhuna Fâtiha okumayı unutmayın.',schedule:{on:{month:+m[2],day:+m[1],hour:9,minute:30},allowWhileIdle:true},channelId:'kabir'});
+        liste.push({id:9100+i,title:'Vefat yıldönümü',body:(k.ad||'Sevdiğiniz kişi')+' için bugün vefat yıldönümü. Ruhuna Fâtiha okumayı unutmayın.',schedule:{on:{month:+m[2],day:+m[1],hour:9,minute:30},allowWhileIdle:true},channelId:'kabir',extra:{hedef:'kabir'}});
       });
       const simdi=new Date(),son=new Date(simdi.getTime()+400*864e5);let j=0;
       GUN.forEach(e=>{
         if(!(e[3]||/arefesi/.test(e[0]))||j>=(PLAT==='ios'?8:30))return;
         const d=new Date(e[1]+'T15:00');if(d<=simdi||d>son)return;
-        liste.push({id:9200+j++,title:e[0],body:'Sevdiklerinize Fâtiha ve Yâsîn hediye etmek için hayırlı bir vakit.',schedule:{at:d,allowWhileIdle:true},channelId:'kabir'});
+        liste.push({id:9200+j++,title:e[0],body:'Sevdiklerinize Fâtiha ve Yâsîn hediye etmek için hayırlı bir vakit.',schedule:{at:d,allowWhileIdle:true},channelId:'kabir',extra:{hedef:'kabir'}});
       });
     }
     if(CS.on)liste.push(
-      {id:9001,title:'Hayırlı Cumalar',body:'Merhumlarınız için Fâtiha ve Yâsîn okuma zamanı.',schedule:{on:{weekday:6,hour:9,minute:0},allowWhileIdle:true},channelId:'kabir'},
-      {id:9002,title:'Cuma gecesi',body:'Yarın Cuma. Sevdiklerinize Fâtiha ve Yâsîn hediye etmeyi unutmayın.',schedule:{on:{weekday:5,hour:20,minute:0},allowWhileIdle:true},channelId:'kabir'});
+      {id:9001,title:'Hayırlı Cumalar',body:'Merhumlarınız için Fâtiha ve Yâsîn okuma zamanı.',schedule:{on:{weekday:6,hour:9,minute:0},allowWhileIdle:true},channelId:'kabir',extra:{hedef:'kabir'}},
+      {id:9002,title:'Cuma gecesi',body:'Yarın Cuma. Sevdiklerinize Fâtiha ve Yâsîn hediye etmeyi unutmayın.',schedule:{on:{weekday:5,hour:20,minute:0},allowWhileIdle:true},channelId:'kabir',extra:{hedef:'kabir'}});
     if(liste.length)await LN.schedule({notifications:liste});
   }catch(e){}
 }

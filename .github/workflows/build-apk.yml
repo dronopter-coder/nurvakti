@@ -26,7 +26,7 @@ jobs:
           sed -i 's#</manifest>#<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/><uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/><uses-permission android:name="android.permission.POST_NOTIFICATIONS"/><uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/><uses-permission android:name="android.permission.VIBRATE"/><uses-permission android:name="android.permission.CAMERA"/><uses-feature android:name="android.hardware.camera" android:required="false"/></manifest>#' $M
           sed -i -E "s/versionCode[ =]+[0-9]+/versionCode ${{ github.run_number }}/" android/app/build.gradle
           R=android/app/src/main/res
-          mkdir -p $R/raw && cp www/ezan.wav $R/raw/ezan.wav
+          mkdir -p $R/raw && cp www/vakit.mp3 $R/raw/vakit.mp3
           python3 -m pip install pillow
           python3 - <<'PY'
           from PIL import Image, ImageDraw
@@ -46,12 +46,17 @@ jobs:
           open(R+'/values/nur_colors.xml','w').write('<?xml version="1.0" encoding="utf-8"?><resources><color name="nur_bg">#12162A</color></resources>')
           PY
           rm -f www/icon-fg.png www/icon-full.png
-      - name: Yerli kodlar (kıble pusulası eklentisi)
+      - name: Yerli kodlar (kıble pusulası, bildirim ayarı, ana ekran widget'ı)
         run: |
           J=android/app/src/main/java/com/nurvakti/namazvekuran
           test -f $J/MainActivity.java || { echo "MainActivity bulunamadi"; find android/app/src/main/java; exit 1; }
-          cp android-ek/MainActivity.java android-ek/PusulaPlugin.java $J/
-          sed -i -E 's/versionName "[^"]*"/versionName "1.1"/' android/app/build.gradle
+          cp android-ek/*.java $J/
+          cp -r android-ek/res/. android/app/src/main/res/
+          M=android/app/src/main/AndroidManifest.xml
+          sed -i 's#</application>#<receiver android:name=".VakitWidget" android:exported="false" android:label="Nur Vakti – Sıradaki vakit"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE"/><action android:name="com.nurvakti.namazvekuran.VIDJET_TAZELE"/><action android:name="android.intent.action.BOOT_COMPLETED"/><action android:name="android.intent.action.MY_PACKAGE_REPLACED"/><action android:name="android.intent.action.TIME_SET"/><action android:name="android.intent.action.TIMEZONE_CHANGED"/></intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@xml/vakit_widget_info"/></receiver></application>#' $M
+          grep -q '<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"' $M || sed -i 's#</manifest>#<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/></manifest>#' $M
+          grep -c VakitWidget $M
+          sed -i -E 's/versionName "[^"]*"/versionName "1.2"/' android/app/build.gradle
           grep -n "versionName" android/app/build.gradle
       - run: npx cap sync android
       - name: Sabit debug imzası (güncellemenin eskisinin üzerine kurulabilmesi için)

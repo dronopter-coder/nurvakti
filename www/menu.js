@@ -21,6 +21,8 @@ window.paylas=async(text,baslik)=>{
   window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
 };
 const PLAY='https://play.google.com/store/apps/details?id=com.nurvakti.namazvekuran';
+/* Paylaşılan her metnin sonuna eklenen imza */
+window.IMZA=`\n\n— Nur Vakti Namaz Vakitleri\nUygulamayı ücretsiz olarak indirip kullanabilirsiniz:\n${PLAY}`;
 window.uygulamayiPaylas=()=>paylas(`Namaz vakitleri ve ezan bildirimi, kıble pusulası, sesli Kur'an-ı Kerim, yakındaki camiler, ibadet bilgileri, çocuklar için eğitici bölüm ve Cuma günü vefat eden yakınlarımız için Fâtiha–Yâsîn hatırlatması… Hepsi tek uygulamada: Nur Vakti 🌙\n\nÜcretsiz indir:\n${PLAY}`,'Nur Vakti uygulamasını paylaş');
 document.querySelector('#paylasBtn').onclick=uygulamayiPaylas;
 {const b=document.createElement('button');b.className='btn';b.textContent='Uygulamayı paylaş';b.onclick=()=>{document.querySelector('#setSheet').classList.remove('open');uygulamayiPaylas()};document.querySelector('#setSheet .box').appendChild(b)}
