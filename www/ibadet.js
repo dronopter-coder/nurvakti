@@ -115,8 +115,9 @@ if(window.DV&&DV.IBADET)DV.IBADET.forEach((t,i)=>{const k=K[i];if(k&&t.b.length=
 const UYARI='<p class="note" style="margin-top:14px">Bilgiler Diyanet İşleri Başkanlığı\'nın yaygın görüşüne göre (Hanefî mezhebi) özetlenmiştir. Özel durumlar için müftülüğe veya Diyanet Alo 190 Dinî Bilgi Hattı\'na danışınız.</p>';
 function ac(){
   const s=Sayfa.ac('İbadet');
-  s.govde.innerHTML=K.map((k,i)=>`<button class="sf-satir" data-i="${i}"><div class="sf-no" style="font-size:19px">${k.s}</div><div class="sf-ad"><b>${k.ad}</b><small>${k.ozet}</small></div></button>`).join('')+UYARI;
-  s.govde.querySelectorAll('.sf-satir').forEach(b=>b.onclick=()=>konu(+b.dataset.i));
+  const zk=window.ZekatHesap?`<button class="sf-satir" data-zk="1"><div class="sf-no" style="font-size:19px">🧮</div><div class="sf-ad"><b>Zekât hesaplama aracı</b><small>Altın, para, ticari mal ve borçlarınızı girin; ödeyeceğiniz zekât hesaplansın</small></div></button>`:'';
+  s.govde.innerHTML=K.map((k,i)=>`<button class="sf-satir" data-i="${i}"><div class="sf-no" style="font-size:19px">${k.s}</div><div class="sf-ad"><b>${k.ad}</b><small>${k.ozet}</small></div></button>`+(k.s==='🤲'?zk:'')).join('')+UYARI;
+  s.govde.querySelectorAll('.sf-satir').forEach(b=>b.onclick=()=>b.dataset.zk?ZekatHesap.ac():konu(+b.dataset.i));
 }
 function konu(i){
   const k=K[i],s=Sayfa.ac(k.ad);
