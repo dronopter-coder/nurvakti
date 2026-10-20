@@ -119,8 +119,9 @@ function ac(){
 }
 function konu(i){
   const k=K[i],s=Sayfa.ac(k.ad);
-  s.govde.innerHTML=`<p class="note" style="margin:0 0 4px">${k.b.length} başlık · Okumak istediğiniz soruya dokunun.</p>`+k.b.map((x,j)=>`<details class="ib-d"${j===0?' open':''}><summary>${x[0]}</summary><div class="ib-i">${x[1]}</div></details>`).join('')+UYARI;
+  s.govde.innerHTML=(k.ad==='Zekât'&&window.ZekatHesap?`<button class="sf-satir sf-oku" id="zkAc"><div class="sf-no" style="font-size:19px">🧮</div><div class="sf-ad"><b>Zekât hesapla</b><small>Altın, para, ticari mal ve borçlarınızı girin; ödeyeceğiniz zekât hesaplansın</small></div></button>`:'')+`<p class="note" style="margin:6px 0 4px">${k.b.length} başlık · Okumak istediğiniz soruya dokunun.</p>`+k.b.map((x,j)=>`<details class="ib-d"${j===0?' open':''}><summary>${x[0]}</summary><div class="ib-i">${x[1]}</div></details>`).join('')+UYARI;
   s.govde.querySelectorAll('details').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)reklamSay()}));
+  const zk=s.govde.querySelector('#zkAc');if(zk)zk.onclick=()=>ZekatHesap.ac();
 }
 /* Her 4 kutu açılışında bir geçiş reklamı; iki reklam arasında en az 2 dakika */
 let acilan=0,sonReklam=0;
