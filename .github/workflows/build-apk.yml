@@ -84,6 +84,14 @@ jobs:
           echo "Beklenen SHA-256: $BEKLENEN"
           grep -qi "SHA-256 digest: $BEKLENEN" cert.txt || { echo "IMZA UYUSMUYOR"; exit 1; }
           echo "Imza dogru."
+      - name: Simge kontrolü (APK içindeki uygulama simgesi kaynakları)
+        run: |
+          AAPT2=$(ls $ANDROID_HOME/build-tools/*/aapt2 | sort -V | tail -1)
+          APK=android/app/build/outputs/apk/debug/app-debug.apk
+          unzip -l $APK | grep -i "mipmap\|launcher" || true
+          $AAPT2 dump badging $APK | grep -i "icon" || true
+          $AAPT2 dump resources $APK | grep -B1 -A8 "mipmap/ic_launcher" || true
+          for f in $(unzip -Z1 $APK | grep "anydpi"); do echo "== $f"; $AAPT2 dump xmltree --file $f $APK || true; done
       - uses: actions/upload-artifact@v4
         with:
           name: NurVakti-APK

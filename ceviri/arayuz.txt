@@ -218,3 +218,4 @@ Bu ülkenin şehir listesi alınamadı. İnternet bağlantısını kontrol edin.
 Lütfen bir şehir seçin.|Please choose a city.|يرجى اختيار مدينة.|Bitte wähle eine Stadt.
 Zekât hesaplama aracı|Zakat calculator|حاسبة الزكاة|Zakat-Rechner
 Hesapla|Calculate|احسب|Berechnen
+Temizle|Clear|مسح|Leeren

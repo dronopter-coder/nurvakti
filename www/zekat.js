@@ -40,7 +40,22 @@ function bicimle(inp){
   let say=0,pos=0;while(pos<yeni.length&&say<once){if(yeni[pos]!==BIN)say++;pos++}
   try{inp.setSelectionRange(pos,pos)}catch(e){}
 }
-let hesapSay=0; // ikinci hesaplamadan itibaren geçiş reklamı
+let hesapSay=0; // ilk iki hesaplama reklamsız, üçüncüden itibaren geçiş reklamı
+/* "Şıkır şıkır" altın sesi: Web Audio ile üretilen, rastgele aralıklı madeni para çınlamaları (dosya gerekmez) */
+let SAC=null;
+function altinSesi(){
+  try{
+    SAC=SAC||new (window.AudioContext||window.webkitAudioContext)();if(SAC.state==='suspended')SAC.resume();
+    const t0=SAC.currentTime+.02,cikis=SAC.createGain();cikis.gain.value=.5;cikis.connect(SAC.destination);
+    const cin=(t,f,v)=>{ // bir paranın çınlaması: birbirine uyumsuz birkaç yüksek frekans, hızlı sönüm
+      [1,2.76,5.4,8.93].forEach((k,i)=>{const o=SAC.createOscillator(),g=SAC.createGain();o.type='sine';o.frequency.value=f*k;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v/(i+1),t+.003);g.gain.exponentialRampToValueAtTime(.0005,t+.12+.25/(i+1));
+        o.connect(g);g.connect(cikis);o.start(t);o.stop(t+.45)});
+    };
+    let t=t0;for(let i=0;i<11;i++){t+=.035+Math.random()*.07;cin(t,1700+Math.random()*1500,.16+Math.random()*.1)}
+    cin(t+.12,2600,.22); // son, parlak bir çınlama
+  }catch(e){}
+}
 function koyunZekat(n){if(n<40)return 0;if(n<=120)return 1;if(n<=200)return 2;if(n<=399)return 3;return Math.floor(n/100)}
 function sigirZekat(n){ // 30'da bir "tebî" (1 yaşında), 40'ta bir "müsinne" (2 yaşında)
   const [TB,MS,TB1,MS1]=tl({tr:['tebî','müsinne','1 tebî (1 yaşında dana)','1 müsinne (2 yaşında)'],en:['tabi\'','musinnah','1 tabi\' (1-year-old calf)','1 musinnah (2-year-old)'],ar:['تبيع','مسنّة','تبيع واحد (عجل ابن سنة)','مسنّة واحدة (بنت سنتين)'],de:['Tabi\'','Musinna','1 Tabi\' (einjähriges Kalb)','1 Musinna (zweijährig)']});
@@ -65,7 +80,7 @@ function ac(){
     if(b!==bol){if(bol)html+='</div>';html+=`<div class="zk-bolum"><h4>${BOL[b]}</h4>`;bol=b}
     html+=`<label class="zk-satir"><span>${esc(ad)}${ip?`<small>${esc(ip)}</small>`:''}</span><input inputmode="decimal" data-k="${k}" value="${esc(kayit[k]||'')}" placeholder="0"></label>`;
   });
-  html+='</div><button class="btn gold zk-hesapla" id="zkHesapla">Hesapla</button><div id="zkSonuc" class="zk-sonuc"></div>'+
+  html+='</div><button class="btn gold zk-hesapla" id="zkHesapla">Hesapla</button><button class="btn zk-temizle" id="zkTemizle">Temizle</button><div id="zkSonuc" class="zk-sonuc"></div>'+
    `<details class="ib-d"><summary>Hesaplamada nelere dikkat edildi?</summary><div class="ib-i">${'<ul>'+[
     'Nisap, 24 ayar 80,18 gram altın (20 miskal) değeridir. Temel ihtiyaçlar ve bu yılın borçları çıktıktan sonra bu değere ulaşan ve üzerinden bir kamerî (hicri) yıl geçen mal zekâta tabidir.',
     'Oturulan ev, binilen araba, ev eşyası, meslekte kullanılan alet ve makineler zekâta tabi değildir.',
@@ -93,10 +108,14 @@ function ac(){
      (r.koyun||r.sigir?`<div class="zk-tablo" style="margin-top:8px">${r.koyun?`<div><span>Koyun-keçi zekâtı</span><b>${r.koyun} ${ceviri('koyun/keçi')}</b></div>`:''}${r.sigir?`<div><span>Sığır zekâtı</span><b>${esc(r.sigir)}</b></div>`:''}</div>`:'');
   };
   s.govde.querySelectorAll('input[data-k]').forEach(i=>{bicimle(i);i.addEventListener('input',()=>{bicimle(i);$('#zkSonuc').innerHTML=''})});
+  $('#zkTemizle').onclick=()=>{
+    s.govde.querySelectorAll('input[data-k]').forEach(i=>{i.value='';kayit[i.dataset.k]=''});ls.set('zekatGirdi',kayit);
+    $('#zkSonuc').innerHTML='';s.govde.scrollTo({top:0,behavior:'smooth'});
+  };
   $('#zkHesapla').onclick=async()=>{
     const b=$('#zkHesapla');
-    if(++hesapSay>1&&typeof showInter==='function'){b.disabled=true;try{await showInter()}catch(e){}b.disabled=false}
-    yaz();const o=$('#zkSonuc');if(o.firstChild)o.scrollIntoView({behavior:'smooth',block:'start'});
+    if(++hesapSay>2&&typeof showInter==='function'){b.disabled=true;try{await showInter()}catch(e){}b.disabled=false}
+    yaz();if(!$('#zkSonuc .zk-uyari'))altinSesi();const o=$('#zkSonuc');if(o.firstChild)o.scrollIntoView({behavior:'smooth',block:'start'});
   };
 }
 window.ZekatHesap={ac,hesapla};

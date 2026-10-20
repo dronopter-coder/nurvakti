@@ -1,28 +1,29 @@
 /* Yakındaki camiler: liste ve harita görünümü. Veri: OpenStreetMap (Overpass). */
 (function(){
 const esc=Sayfa.esc;
-const OVP=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter'];
+const OVP=['https://overpass-api.de/api/interpreter','https://overpass.private.coffee/api/interpreter','https://overpass.kumi.systems/api/interpreter','https://maps.mail.ru/osm/tools/overpass/api/interpreter'];
 const mesafe=(a,b,c,d)=>{const R=6371e3,r=x=>x*Math.PI/180,h=Math.sin(r(c-a)/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(d-b)/2)**2;return 2*R*Math.asin(Math.sqrt(h))};
 const mYaz=m=>m<1000?Math.round(m/10)*10+' m':(m/1000).toFixed(1).replace('.',',')+' km';
 const tarif=c=>`https://www.google.com/maps/dir/?api=1&destination=${c.lat},${c.lon}&travelmode=walking`;
 
+/* Konum: önce hızlı (son bilinen / düşük hassasiyet), olmazsa hassas; o da olmazsa uygulamada seçili konum */
 async function konumAl(){
-  let pos;
-  if(P.Geolocation){await P.Geolocation.requestPermissions().catch(()=>{});pos=await P.Geolocation.getCurrentPosition({timeout:12000,enableHighAccuracy:true})}
-  else pos=await new Promise((r,j)=>navigator.geolocation.getCurrentPosition(r,j,{timeout:12000,enableHighAccuracy:true}));
-  return{lat:pos.coords.latitude,lon:pos.coords.longitude};
+  const al=o=>P.Geolocation?P.Geolocation.getCurrentPosition(o):new Promise((r,j)=>navigator.geolocation.getCurrentPosition(r,j,o));
+  if(P.Geolocation)await P.Geolocation.requestPermissions().catch(()=>{});
+  let pos,hata;
+  try{pos=await al({timeout:7000,maximumAge:600000,enableHighAccuracy:false})}catch(e){hata=e}
+  if(!pos)try{pos=await al({timeout:12000,enableHighAccuracy:true})}catch(e){hata=e}
+  if(pos)return{lat:pos.coords.latitude,lon:pos.coords.longitude};
+  try{const k=await window.koord();if(k&&k.lat)return{lat:+k.lat,lon:+k.lon,yaklasik:true}}catch(e){}
+  throw hata||new Error('konum');
 }
+/* Overpass: dört sunucuya aynı anda sorulur, ilk gelen yanıt kullanılır (yoğun sunucuyu beklemez) */
 async function overpass(q){
-  let son;
-  for(const u of OVP){
-    const ac=new AbortController(),t=setTimeout(()=>ac.abort(),22000);
-    try{
-      const r=await fetch(u,{method:'POST',body:'data='+encodeURIComponent(q),headers:{'Content-Type':'application/x-www-form-urlencoded'},signal:ac.signal});
-      if(!r.ok)throw new Error(r.status);
-      return await r.json();
-    }catch(e){son=e}finally{clearTimeout(t)}
-  }
-  throw son;
+  const ac=new AbortController(),t=setTimeout(()=>ac.abort(),16000);
+  try{
+    return await Promise.any(OVP.map(u=>fetch(u,{method:'POST',body:'data='+encodeURIComponent(q),headers:{'Content-Type':'application/x-www-form-urlencoded'},signal:ac.signal})
+      .then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(j=>{if(!j||!Array.isArray(j.elements))throw new Error('yanıt');return j})));
+  }catch(e){throw (e&&e.errors&&e.errors[0])||e}finally{clearTimeout(t);ac.abort()}
 }
 function ayikla(j,k){
   const liste=[];
@@ -39,8 +40,8 @@ async function getir(zorla){
   const k=await konumAl(),on=ls.get('camiOn',null);
   if(!zorla&&on&&Date.now()-on.t<25*60e3&&mesafe(on.k.lat,on.k.lon,k.lat,k.lon)<300)return{k,liste:on.liste.map(c=>({...c,m:mesafe(k.lat,k.lon,c.lat,c.lon)})).sort((a,b)=>a.m-b.m)};
   let liste=[];
-  for(const r of [1500,4000,10000]){
-    const j=await overpass(`[out:json][timeout:20];nwr["amenity"="place_of_worship"]["religion"="muslim"](around:${r},${k.lat},${k.lon});out center tags 120;`);
+  for(const r of [3000,10000]){
+    const j=await overpass(`[out:json][timeout:14];nwr["amenity"="place_of_worship"]["religion"="muslim"](around:${r},${k.lat},${k.lon});out center tags 150;`);
     liste=ayikla(j,k);if(liste.length>=3)break;
   }
   ls.set('camiOn',{k,t:Date.now(),liste});
