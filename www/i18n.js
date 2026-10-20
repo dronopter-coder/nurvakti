@@ -5,7 +5,7 @@
 (function(){
 const DILLER={tr:'Türkçe',en:'English',ar:'العربية',de:'Deutsch'};
 let dil;try{dil=JSON.parse(localStorage.getItem('dil'))}catch(e){}
-if(!DILLER[dil]){const n=(navigator.language||'tr').slice(0,2).toLowerCase();dil=DILLER[n]?n:'tr'}
+if(!DILLER[dil])dil='tr'; // varsayılan her zaman Türkçe; diğer diller yalnızca ayarlardan seçilince
 window.DIL=dil;window.DILLER=DILLER;
 const LOC={tr:'tr-TR',en:'en-GB',ar:'ar',de:'de-DE'}[dil];
 document.documentElement.lang=dil;
