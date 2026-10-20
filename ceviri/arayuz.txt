@@ -213,3 +213,6 @@ Allah razı olsun! 🌙|May Allah reward you! 🌙|جزاك الله خيرًا!
 Türkçe|Türkçe|Türkçe|Türkçe
 Başlık|Title|العنوان|Titel
 Kunut|Qunut|القنوت|Qunut
+Ülke|Country|الدولة|Land
+Bu ülkenin şehir listesi alınamadı. İnternet bağlantısını kontrol edin.|Could not load the city list for this country. Check your internet connection.|تعذّر جلب قائمة مدن هذه الدولة. تحقق من الاتصال بالإنترنت.|Die Städteliste dieses Landes konnte nicht geladen werden. Internetverbindung prüfen.
+Lütfen bir şehir seçin.|Please choose a city.|يرجى اختيار مدينة.|Bitte wähle eine Stadt.

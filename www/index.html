@@ -173,6 +173,7 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
   <div class="st-alt" id="stDilNot" style="margin-top:-8px"></div>
 </div></div>
 <div id="sheet"><div class="box">
+  <select id="selUlke" aria-label="Ülke"></select>
   <select id="selIl" aria-label="İl"></select>
   <select id="selIlce" aria-label="İlçe"></select>
   <button class="btn gold" id="btnShow">Vakitleri göster</button>
@@ -253,7 +254,8 @@ let loc=ls.get('loc',{type:'city',il:'İstanbul',ilce:'Merkez'});
 let days=null, hijri=null, evs=[], lastCur=-2;
 
 const locKey=()=>loc.type==='gps'?'gps'+loc.lat.toFixed(2)+','+loc.lon.toFixed(2):loc.il+'|'+loc.ilce;
-const locLabel=()=>loc.type==='gps'?(loc.name||'Konumum'):(loc.ilce==='Merkez'?loc.il:loc.ilce+', '+loc.il);
+const locLabel=()=>loc.type==='gps'?(loc.name||'Konumum'):(loc.ilce==='Merkez'||!loc.ilce||nrmA(loc.ilce)===nrmA(loc.il)?loc.il:loc.ilce+', '+loc.il)+(loc.ulke?', '+loc.ulke.ad:'');
+const nrmA=t=>String(t||'').toLocaleLowerCase('tr');
 
 /* ===== Vakit verisi =====
    1) Diyanet İşleri Başkanlığı'nın ilçe bazında yayınladığı vakitler (ezanvakti.emushaf.net aracılığıyla, 30 günlük alınıp saklanır)
@@ -269,6 +271,7 @@ async function jget(url){
 const bul=(L,ad,k)=>{const n=nrm(ad);return n&&(L||[]).find(x=>nrm(x[k])===n||nrm(x[k+'En'])===n)};
 let dyHata=0;
 async function dyIlceId(){
+  if(loc.ilceId)return loc.ilceId; // yurt dışı (veya listeden seçilmiş) ilçe
   const il=loc.il,ilce=loc.ilce;
   if(!il)throw new Error('il yok');
   const ck='dyId|'+il+'|'+(ilce||'');
@@ -305,7 +308,7 @@ async function fetchAl(d){
   let url;
   if(loc.type==='gps') url=`https://api.aladhan.com/v1/timings/${dstr(d)}?latitude=${loc.lat}&longitude=${loc.lon}&method=13`;
   else{
-    const adr=(loc.ilce==='Merkez'?loc.il:loc.ilce+', '+loc.il)+', Turkey';
+    const adr=(loc.ilce==='Merkez'||loc.ilce===loc.il?loc.il:loc.ilce+', '+loc.il)+', '+(loc.ulke?loc.ulke.en||loc.ulke.ad:'Turkey');
     url=`https://api.aladhan.com/v1/timingsByAddress/${dstr(d)}?address=${encodeURIComponent(adr)}&method=13`;
   }
   const r=await fetch(url); const j=await r.json();
@@ -426,20 +429,68 @@ async function loadDistricts(){
     ls.set('dist',dist);
   }catch(e){}
 }
-function fillIlce(){
-  const il=$('#selIl').value;
-  const list=['Merkez',...(dist[il]||[]).filter(n=>n!=='Merkez')];
-  $('#selIlce').innerHTML=list.map(n=>`<option>${n}</option>`).join('');
-  if(loc.type==='city'&&loc.il===il&&list.includes(loc.ilce)) $('#selIlce').value=loc.ilce;
+/* Ülke seçimi: Türkiye için il/ilçe listesi uygulamada; diğer ülkeler için Diyanet'in yurt dışı şehir/ilçe listeleri (ezanvakti) */
+const TR_ID='2';
+const alan=(x,k)=>{const o={};Object.keys(x||{}).forEach(n=>{const l=n.toLowerCase();if(l===k+'adi')o.ad=x[n];else if(l===k+'adien')o.en=x[n];else if(l===k+'id')o.id=String(x[n])});return o};
+const yerAd=o=>{const t=DIL!=='tr'&&o.en?o.en:o.ad;return String(t||'').toLocaleLowerCase(DIL==='tr'?'tr':'en').replace(/(^|[\s\-(\/])(\S)/g,(m,a,b)=>a+b.toLocaleUpperCase(DIL==='tr'?'tr':'en'))};
+let ULKE=ls.get('dyUlke',null),yurtdisi=null; // yurtdisi: {sehir:[...], ilce:{id:[...]}}
+const opt=(v,t)=>`<option value="${String(v).replace(/"/g,'&quot;')}">${t}</option>`;
+async function ulkeleriYukle(){
+  if(!(ULKE&&ULKE.length)){try{const L=await jget(DY+'/ulkeler');ULKE=(L||[]).map(x=>alan(x,'ulke')).filter(u=>u.id&&u.ad);if(ULKE.length)ls.set('dyUlke',ULKE)}catch(e){}}
+  const L=(ULKE||[]).filter(u=>u.id!==TR_ID).map(u=>({...u,g:yerAd(u)})).sort((a,b)=>a.g.localeCompare(b.g,DIL));
+  const sec=loc.ulke?loc.ulke.id:TR_ID;
+  $('#selUlke').innerHTML=opt(TR_ID,DIL==='tr'?'Türkiye':'Türkiye (Turkey)')+L.map(u=>opt(u.id,u.g)).join('');
+  $('#selUlke').value=sec;if($('#selUlke').value!==sec)$('#selUlke').value=TR_ID;
 }
-$('#selIl').innerHTML=IL.map(n=>`<option>${n}</option>`).join('');
+async function fillIl(){
+  const u=$('#selUlke').value;
+  if(u===TR_ID){yurtdisi=null;$('#selIl').innerHTML=IL.map(n=>opt(n,n)).join('');if(loc.type==='city'&&!loc.ulke)$('#selIl').value=loc.il;fillIlce();loadDistricts().then(fillIlce);return}
+  $('#selIl').innerHTML=opt('','…');$('#selIlce').innerHTML='';
+  try{
+    const ck='dySehir|'+u;let S=ls.get(ck,null);
+    if(!(S&&S.length)){S=(await jget(DY+'/sehirler/'+u)).map(x=>alan(x,'sehir')).filter(x=>x.id);ls.set(ck,S)}
+    if($('#selUlke').value!==u)return;
+    yurtdisi={sehir:S.map(x=>({...x,g:yerAd(x)})).sort((a,b)=>a.g.localeCompare(b.g,DIL)),ilce:{}};
+    $('#selIl').innerHTML=yurtdisi.sehir.map(x=>opt(x.id,x.g)).join('');
+    if(loc.ulke&&loc.ulke.id===u&&loc.sehirId)$('#selIl').value=loc.sehirId;
+    await fillIlce();
+  }catch(e){$('#selIl').innerHTML='';toast(ceviri('Bu ülkenin şehir listesi alınamadı. İnternet bağlantısını kontrol edin.'))}
+}
+async function fillIlce(){
+  if(!yurtdisi){
+    const il=$('#selIl').value;
+    const list=['Merkez',...(dist[il]||[]).filter(n=>n!=='Merkez')];
+    $('#selIlce').innerHTML=list.map(n=>opt(n,n)).join('');
+    if(loc.type==='city'&&!loc.ulke&&loc.il===il&&list.includes(loc.ilce)) $('#selIlce').value=loc.ilce;
+    return;
+  }
+  const sid=$('#selIl').value;if(!sid)return;
+  try{
+    const ck='dyIlce|'+sid;let L=ls.get(ck,null);
+    if(!(L&&L.length)){L=(await jget(DY+'/ilceler/'+sid)).map(x=>alan(x,'ilce')).filter(x=>x.id);ls.set(ck,L)}
+    if($('#selIl').value!==sid)return;
+    yurtdisi.ilce[sid]=L.map(x=>({...x,g:yerAd(x)})).sort((a,b)=>a.g.localeCompare(b.g,DIL));
+    $('#selIlce').innerHTML=yurtdisi.ilce[sid].map(x=>opt(x.id,x.g)).join('');
+    $('#selIlce').style.display=L.length>1?'':'none';
+    if(loc.ilceId)$('#selIlce').value=loc.ilceId;
+  }catch(e){$('#selIlce').innerHTML=''}
+}
+$('#selUlke').onchange=()=>{$('#selIlce').style.display='';fillIl()};
 $('#selIl').onchange=fillIlce;
 $('#locBtn').onclick=async()=>{
-  if(loc.type==='city') $('#selIl').value=loc.il;
-  $('#sheet').classList.add('open'); fillIlce(); await loadDistricts(); fillIlce();
+  $('#sheet').classList.add('open');$('#selIlce').style.display='';
+  await ulkeleriYukle();await fillIl();
 };
 $('#sheet').onclick=e=>{if(e.target.id==='sheet')e.target.classList.remove('open')};
-$('#btnShow').onclick=()=>{loc={type:'city',il:$('#selIl').value,ilce:$('#selIlce').value};ls.set('loc',loc);$('#sheet').classList.remove('open');load()};
+$('#btnShow').onclick=()=>{
+  if(yurtdisi){
+    const u=(ULKE||[]).find(x=>x.id===$('#selUlke').value),se=yurtdisi.sehir.find(x=>x.id===$('#selIl').value);
+    const ic=(yurtdisi.ilce[se&&se.id]||[]).find(x=>x.id===$('#selIlce').value);
+    if(!u||!se||!ic){toast(ceviri('Lütfen bir şehir seçin.'));return}
+    loc={type:'city',ulke:{id:u.id,ad:yerAd(u),en:u.en},il:yerAd(se),sehirId:se.id,ilce:yerAd(ic),ilceId:ic.id};
+  }else loc={type:'city',il:$('#selIl').value,ilce:$('#selIlce').value};
+  ls.set('loc',loc);$('#sheet').classList.remove('open');load();
+};
 $('#btnGps').onclick=useGps;
 
 /* ===== İçerik sekmeleri ===== */
