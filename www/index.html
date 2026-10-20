@@ -68,6 +68,7 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
 .ksub{font-family:Georgia,serif;color:var(--altin);font-size:15px;text-align:center}
 .chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
 .chips button{background:var(--lacivert);border:1px solid #33407a;color:var(--soluk);border-radius:14px;padding:6px 11px;font-size:12.5px}
+.chips button{flex:none;white-space:nowrap}
 .chips button.on{color:var(--altin);border-color:var(--altin)}
 .tsb{position:relative;width:min(58vw,220px);aspect-ratio:1;border:0;background:radial-gradient(circle,#2a366a,#1C2547);border-radius:50%;color:var(--fildisi)}
 .tsb svg{position:absolute;inset:0;width:100%;height:100%}.tsb span{font-family:Georgia,serif;font-size:56px;font-variant-numeric:tabular-nums}
@@ -160,7 +161,7 @@ select,.btn{width:100%;background:var(--gece);color:var(--fildisi);border:1px so
   <button id="tsReset" class="more">Sıfırla</button>
   <div class="tg"><label><input type="checkbox" id="tsSes"> Ses (hayy)</label><label><input type="checkbox" id="tsTit"> Titreşim</label></div>
 </div></section>
-<section id="v-gunler" class="view"><div class="panel"><div class="tabs"><button class="on">Dini gün ve geceler</button></div><div id="gYear" class="chips" style="padding:10px 16px 0;justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto"></div><div id="gList" style="overflow:auto;padding:6px 16px"></div><div class="note" style="padding:0 16px 12px">Tarihler Diyanet İşleri Başkanlığı'nın yayımladığı dini günler listesine göredir (vakithesaplama.diyanet.gov.tr). Kandil tarihleri o günün akşamını gösterir.</div></div></section>
+<section id="v-gunler" class="view"><div class="panel"><div class="tabs"><button class="on">Dini gün ve geceler</button></div><div id="gYear" class="chips" style="padding:10px 16px 4px;justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;flex:none"></div><div id="gList" style="overflow:auto;padding:6px 16px"></div><div class="note" style="padding:0 16px 12px">Tarihler Diyanet İşleri Başkanlığı'nın yayımladığı dini günler listesine göredir (vakithesaplama.diyanet.gov.tr). Kandil tarihleri o günün akşamını gösterir.</div></div></section>
 <nav id="nav"><button data-v="vakit" class="on"><svg viewBox="0 0 24 24"><path d="M3 17h18"/><path d="M7 17a5 5 0 0 1 10 0"/><path d="M12 5.5v3M5 9l2 2M19 9l-2 2M2.5 13.5h2M19.5 13.5h2"/><path d="M7 20.5h10" opacity=".5"/></svg><span>Vakit</span></button><button data-v="kible"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8.5"/><path d="M12 6.8l2.4 6.2-2.4 6.2-2.4-6.2z"/><circle cx="12" cy="13" r="1" fill="currentColor"/><rect x="10.6" y="1.2" width="2.8" height="2.8" fill="currentColor"/></svg><span>Kıble</span></button><button data-v="tesbih"><svg viewBox="0 0 24 24"><circle cx="20" cy="12" r="1.5" fill="currentColor"/><circle cx="17.7" cy="17.7" r="1.5" fill="currentColor"/><circle cx="12" cy="20" r="1.5" fill="currentColor"/><circle cx="6.3" cy="17.7" r="1.5" fill="currentColor"/><circle cx="4" cy="12" r="1.5" fill="currentColor"/><circle cx="6.3" cy="6.3" r="1.5" fill="currentColor"/><circle cx="12" cy="4" r="1.5" fill="currentColor"/><circle cx="17.7" cy="6.3" r="1.5" fill="currentColor"/><path d="M12 21.6v2"/></svg><span>Tesbih</span></button><button data-v="gunler"><svg viewBox="0 0 24 24"><path d="M20 14.2A8.4 8.4 0 1 1 10 4a6.6 6.6 0 0 0 10 10.2z"/><path d="M17.5 3.5l.7 1.7 1.7.7-1.7.7-.7 1.7-.7-1.7-1.7-.7 1.7-.7z" fill="currentColor"/></svg><span>Dini Günler</span></button></nav>
 <div id="setSheet"><div class="box">
   <button class="btn st-konum" id="stKonum"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="#C9A45C" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span id="stKonumAd">Konum</span><b>Değiştir ›</b></button>
@@ -261,6 +262,9 @@ const nrmA=t=>String(t||'').toLocaleLowerCase('tr');
    1) Diyanet İşleri Başkanlığı'nın ilçe bazında yayınladığı vakitler (ezanvakti.emushaf.net aracılığıyla, 30 günlük alınıp saklanır)
    2) Ulaşılamazsa Aladhan API, yöntem 13 (Diyanet hesabı; birkaç dakikalık fark olabilir) */
 const DY='https://ezanvakti.emushaf.net';
+const yerAd=o=>{const t=String((DIL!=='tr'&&o.en?o.en:o.ad)||''),l=/[İŞĞ]/.test(t)?'tr':'en'; // yabancı adlar (BERLIN) İngilizce kuralla: "Berlin", "Berlın" değil
+  return t.toLocaleLowerCase(l).replace(/(^|[\s\-(\/])(\S)/g,(m,a,b)=>a+b.toLocaleUpperCase(l))};
+const alan=(x,k)=>{const o={};Object.keys(x||{}).forEach(n=>{const l=n.toLowerCase();if(l===k+'adi')o.ad=x[n];else if(l===k+'adien')o.en=x[n];else if(l===k+'id')o.id=String(x[n])});return o};
 const nrm=t=>String(t||'').toLocaleUpperCase('tr').replace(/İ/g,'I').replace(/Ş/g,'S').replace(/Ğ/g,'G').replace(/Ü/g,'U').replace(/Ö/g,'O').replace(/Ç/g,'C').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^A-Z0-9]/g,'');
 const MERKEZ={KOCAELI:'IZMIT',SAKARYA:'ADAPAZARI',HATAY:'ANTAKYA'};
 async function jget(url){
@@ -272,6 +276,11 @@ const bul=(L,ad,k)=>{const n=nrm(ad);return n&&(L||[]).find(x=>nrm(x[k])===n||nr
 let dyHata=0;
 async function dyIlceId(){
   if(loc.ilceId)return loc.ilceId; // yurt dışı (veya listeden seçilmiş) ilçe
+  if(loc.ulke){ // yurt dışı, ilçe henüz bilinmiyor: şehrin ilçelerinden adı eşleşeni ya da ilkini al
+    const L=(await jget(DY+'/ilceler/'+loc.sehirId)||[]).map(x=>alan(x,'ilce')).filter(x=>x.id);
+    const x=L.find(i=>nrm(yerAd(i))===nrm(loc.il))||L[0];if(!x)throw new Error('ilçe yok');
+    loc.ilceId=x.id;ls.set('loc',loc);return x.id;
+  }
   const il=loc.il,ilce=loc.ilce;
   if(!il)throw new Error('il yok');
   const ck='dyId|'+il+'|'+(ilce||'');
@@ -431,8 +440,6 @@ async function loadDistricts(){
 }
 /* Ülke seçimi: Türkiye için il/ilçe listesi uygulamada; diğer ülkeler için Diyanet'in yurt dışı şehir/ilçe listeleri (ezanvakti) */
 const TR_ID='2';
-const alan=(x,k)=>{const o={};Object.keys(x||{}).forEach(n=>{const l=n.toLowerCase();if(l===k+'adi')o.ad=x[n];else if(l===k+'adien')o.en=x[n];else if(l===k+'id')o.id=String(x[n])});return o};
-const yerAd=o=>{const t=DIL!=='tr'&&o.en?o.en:o.ad;return String(t||'').toLocaleLowerCase(DIL==='tr'?'tr':'en').replace(/(^|[\s\-(\/])(\S)/g,(m,a,b)=>a+b.toLocaleUpperCase(DIL==='tr'?'tr':'en'))};
 let ULKE=ls.get('dyUlke',null),yurtdisi=null; // yurtdisi: {sehir:[...], ilce:{id:[...]}}
 const opt=(v,t)=>`<option value="${String(v).replace(/"/g,'&quot;')}">${t}</option>`;
 async function ulkeleriYukle(){
@@ -467,13 +474,17 @@ async function fillIlce(){
   const sid=$('#selIl').value;if(!sid)return;
   try{
     const ck='dyIlce|'+sid;let L=ls.get(ck,null);
-    if(!(L&&L.length)){L=(await jget(DY+'/ilceler/'+sid)).map(x=>alan(x,'ilce')).filter(x=>x.id);ls.set(ck,L)}
+    if(!(L&&L.length)){
+      const getir=async()=>(await jget(DY+'/ilceler/'+sid)||[]).map(x=>alan(x,'ilce')).filter(x=>x.id);
+      try{L=await getir()}catch(e){await new Promise(r=>setTimeout(r,1200));try{L=await getir()}catch(e2){L=[]}}
+      if(L.length)ls.set(ck,L);
+    }
     if($('#selIl').value!==sid)return;
     yurtdisi.ilce[sid]=L.map(x=>({...x,g:yerAd(x)})).sort((a,b)=>a.g.localeCompare(b.g,DIL));
     $('#selIlce').innerHTML=yurtdisi.ilce[sid].map(x=>opt(x.id,x.g)).join('');
     $('#selIlce').style.display=L.length>1?'':'none';
     if(loc.ilceId)$('#selIlce').value=loc.ilceId;
-  }catch(e){$('#selIlce').innerHTML=''}
+  }catch(e){$('#selIlce').innerHTML='';$('#selIlce').style.display='none'}
 }
 $('#selUlke').onchange=()=>{$('#selIlce').style.display='';fillIl()};
 $('#selIl').onchange=fillIlce;
@@ -486,8 +497,9 @@ $('#btnShow').onclick=()=>{
   if(yurtdisi){
     const u=(ULKE||[]).find(x=>x.id===$('#selUlke').value),se=yurtdisi.sehir.find(x=>x.id===$('#selIl').value);
     const ic=(yurtdisi.ilce[se&&se.id]||[]).find(x=>x.id===$('#selIlce').value);
-    if(!u||!se||!ic){toast(ceviri('Lütfen bir şehir seçin.'));return}
-    loc={type:'city',ulke:{id:u.id,ad:yerAd(u),en:u.en},il:yerAd(se),sehirId:se.id,ilce:yerAd(ic),ilceId:ic.id};
+    if(!u||!se){toast(ceviri('Lütfen bir şehir seçin.'));return}
+    // ilçe listesi gelmediyse şehrin kendisi kullanılır; vakitler yüklenirken ilçe yeniden aranır
+    loc={type:'city',ulke:{id:u.id,ad:yerAd(u),en:u.en},il:yerAd(se),sehirId:se.id,ilce:ic?yerAd(ic):yerAd(se),ilceId:ic?ic.id:null};
   }else loc={type:'city',il:$('#selIl').value,ilce:$('#selIlce').value};
   ls.set('loc',loc);$('#sheet').classList.remove('open');load();
 };

@@ -4,7 +4,7 @@
     android:initialLayout="@layout/vakit_widget"
     android:minWidth="180dp"
     android:minHeight="110dp"
-    android:minResizeWidth="180dp"
+    android:minResizeWidth="100dp"
     android:minResizeHeight="40dp"
     android:previewImage="@mipmap/ic_launcher"
     android:previewLayout="@layout/vakit_widget"

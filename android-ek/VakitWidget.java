@@ -120,8 +120,10 @@ public class VakitWidget extends AppWidgetProvider {
     private static void ciz(Context c, AppWidgetManager m, int id) {
         Bundle op = m.getAppWidgetOptions(id);
         int yuk = op == null ? 0 : op.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 0);
-        boolean kucuk = yuk > 0 && yuk < 100;
-        RemoteViews r = new RemoteViews(c.getPackageName(), kucuk ? R.layout.vakit_widget_kucuk : R.layout.vakit_widget);
+        int gen = op == null ? 0 : op.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH, 0);
+        boolean dar = gen > 0 && gen < 150;           // 2 sütun: alt alta yazı
+        boolean kucuk = !dar && yuk > 0 && yuk < 100; // tek satır, geniş
+        RemoteViews r = new RemoteViews(c.getPackageName(), dar ? R.layout.vakit_widget_dar : kucuk ? R.layout.vakit_widget_kucuk : R.layout.vakit_widget);
         Object[] s = siradaki(c);
         long simdi = System.currentTimeMillis();
         float aci = (simdi / 10000L) % 360;          // dakikada 6 derece döner
@@ -135,11 +137,11 @@ public class VakitWidget extends AppWidgetProvider {
             String ad = (String) s[0];
             long t = (Long) s[1], once = (Long) s[5];
             String bas = (String) s[6];
-            r.setTextViewText(R.id.vw_baslik, bas.isEmpty() ? ("Güneş".equals(ad) ? "Güneşin doğmasına" : ad + " vaktine") : bas);
+            r.setTextViewText(R.id.vw_baslik, dar ? ad + " " + saat(t) : bas.isEmpty() ? ("Güneş".equals(ad) ? "Güneşin doğmasına" : ad + " vaktine") : bas);
             long taban = SystemClock.elapsedRealtime() + (t - simdi);
             r.setChronometer(R.id.vw_sayac, taban, null, true);
             r.setChronometerCountDown(R.id.vw_sayac, true);
-            String alt = kucuk ? saat(t) : ad + " " + saat(t) + (s[2] != null ? "  ·  " + s[2] + " " + saat((Long) s[3]) : "");
+            String alt = dar ? "" : kucuk ? saat(t) : ad + " " + saat(t) + (s[2] != null ? "  ·  " + s[2] + " " + saat((Long) s[3]) : "");
             r.setTextViewText(R.id.vw_alt, alt);
             r.setTextViewText(R.id.vw_yer, (String) s[4]);
             float oran = t > once ? (float) (simdi - once) / (float) (t - once) : 0f;
