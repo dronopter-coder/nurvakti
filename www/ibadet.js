@@ -130,5 +130,5 @@ function reklamSay(){
   acilan=0;sonReklam=Date.now();
   if(typeof showInter==='function')showInter();
 }
-window.Ibadet={ac};
+window.Ibadet={ac,K};
 })();
