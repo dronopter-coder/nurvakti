@@ -26,9 +26,21 @@ const A=[
 const BOL={alt:'Altın',gum:'Gümüş',para:'Para ve ticari varlıklar',borc:'Düşülecek borçlar',hay:'Hayvanlar (isteğe bağlı)'};
 const SAYI={tr:'tr-TR',de:'de-DE'}[DIL]||'en-US';
 const tlYaz=x=>(Math.round(x*100)/100).toLocaleString(SAYI,{minimumFractionDigits:2,maximumFractionDigits:2})+(DIL==='tr'?' ₺':'');
-const sayi=v=>{v=String(v||'').replace(/\s/g,''); // 1.234,5 (Türkçe) veya 1234.5 / 1,234.5 (İngilizce) yazımı
-  if(/,\d{1,2}$/.test(v)||(/,/.test(v)&&!/\.\d{1,2}$/.test(v)&&DIL!=='en'))v=v.replace(/\./g,'').replace(',','.');else if(/^\d{1,3}(\.\d{3})+$/.test(v))v=v.replace(/\./g,'');else v=v.replace(/,/g,'');
-  const n=parseFloat(v);return isFinite(n)&&n>0?n:0};
+const [OND,BIN]=SAYI==='en-US'?['.',',']:[',','.']; // ondalık ve binlik ayırıcı (Türkçe/Almanca: 1.250.000,50; İngilizce: 1,250,000.50)
+const sayi=v=>{const n=parseFloat(String(v||'').split(BIN).join('').replace(OND,'.').replace(/[^\d.]/g,''));return isFinite(n)&&n>0?n:0};
+/* Yazarken basamakları gruplar: 1250000 → 1.250.000; ondalık en çok 2 hane. İmleç aynı rakamın yanında kalır. */
+function bicimle(inp){
+  const ham=inp.value,imlec=inp.selectionStart==null?ham.length:inp.selectionStart;
+  const once=ham.slice(0,imlec).replace(new RegExp('[^\\d'+(OND==='.'?'\\.':OND)+']','g'),'').length;
+  let t=ham.replace(OND==='.'?/[^\d.]/g:/[^\d,]/g,'');
+  const k=t.indexOf(OND);let tam=k<0?t:t.slice(0,k),ond=k<0?null:t.slice(k+1).replace(/\D/g,'').slice(0,2);
+  tam=tam.replace(/^0+(?=\d)/,'');
+  const yeni=tam.replace(/\B(?=(\d{3})+(?!\d))/g,BIN)+(ond!=null?OND+ond:'');
+  if(yeni===ham)return;inp.value=yeni;
+  let say=0,pos=0;while(pos<yeni.length&&say<once){if(yeni[pos]!==BIN)say++;pos++}
+  try{inp.setSelectionRange(pos,pos)}catch(e){}
+}
+let hesapSay=0; // ikinci hesaplamadan itibaren geçiş reklamı
 function koyunZekat(n){if(n<40)return 0;if(n<=120)return 1;if(n<=200)return 2;if(n<=399)return 3;return Math.floor(n/100)}
 function sigirZekat(n){ // 30'da bir "tebî" (1 yaşında), 40'ta bir "müsinne" (2 yaşında)
   const [TB,MS,TB1,MS1]=tl({tr:['tebî','müsinne','1 tebî (1 yaşında dana)','1 müsinne (2 yaşında)'],en:['tabi\'','musinnah','1 tabi\' (1-year-old calf)','1 musinnah (2-year-old)'],ar:['تبيع','مسنّة','تبيع واحد (عجل ابن سنة)','مسنّة واحدة (بنت سنتين)'],de:['Tabi\'','Musinna','1 Tabi\' (einjähriges Kalb)','1 Musinna (zweijährig)']});
@@ -53,7 +65,7 @@ function ac(){
     if(b!==bol){if(bol)html+='</div>';html+=`<div class="zk-bolum"><h4>${BOL[b]}</h4>`;bol=b}
     html+=`<label class="zk-satir"><span>${esc(ad)}${ip?`<small>${esc(ip)}</small>`:''}</span><input inputmode="decimal" data-k="${k}" value="${esc(kayit[k]||'')}" placeholder="0"></label>`;
   });
-  html+='</div><div id="zkSonuc" class="zk-sonuc"></div>'+
+  html+='</div><button class="btn gold zk-hesapla" id="zkHesapla">Hesapla</button><div id="zkSonuc" class="zk-sonuc"></div>'+
    `<details class="ib-d"><summary>Hesaplamada nelere dikkat edildi?</summary><div class="ib-i">${'<ul>'+[
     'Nisap, 24 ayar 80,18 gram altın (20 miskal) değeridir. Temel ihtiyaçlar ve bu yılın borçları çıktıktan sonra bu değere ulaşan ve üzerinden bir kamerî (hicri) yıl geçen mal zekâta tabidir.',
     'Oturulan ev, binilen araba, ev eşyası, meslekte kullanılan alet ve makineler zekâta tabi değildir.',
@@ -80,8 +92,12 @@ function ac(){
             :`<div class="zk-kutu zk-yok"><small>Sonuç</small><strong>Zekât gerekmiyor</strong><small>Net varlığınız nisap miktarının altında</small></div>`)+
      (r.koyun||r.sigir?`<div class="zk-tablo" style="margin-top:8px">${r.koyun?`<div><span>Koyun-keçi zekâtı</span><b>${r.koyun} ${ceviri('koyun/keçi')}</b></div>`:''}${r.sigir?`<div><span>Sığır zekâtı</span><b>${esc(r.sigir)}</b></div>`:''}</div>`:'');
   };
-  s.govde.querySelectorAll('input[data-k]').forEach(i=>i.addEventListener('input',yaz));
-  yaz();
+  s.govde.querySelectorAll('input[data-k]').forEach(i=>{bicimle(i);i.addEventListener('input',()=>{bicimle(i);$('#zkSonuc').innerHTML=''})});
+  $('#zkHesapla').onclick=async()=>{
+    const b=$('#zkHesapla');
+    if(++hesapSay>1&&typeof showInter==='function'){b.disabled=true;try{await showInter()}catch(e){}b.disabled=false}
+    yaz();const o=$('#zkSonuc');if(o.firstChild)o.scrollIntoView({behavior:'smooth',block:'start'});
+  };
 }
 window.ZekatHesap={ac,hesapla};
 })();
