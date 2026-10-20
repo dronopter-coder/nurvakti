@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Temalı (tek renkli) uygulama simgesi katmanı: hilal ve sekiz köşeli yıldız. Rengi sistem verir. -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
-    <path android:fillColor="#FFFFFFFF" android:pathData="M48.37,33.06 A23,23 0 1,0 70.55,66.33 A20,20 0 1,1 48.37,33.06 Z"/>
-    <path android:fillColor="#FFFFFFFF" android:pathData="M67.00,39.50 L68.99,44.20 L73.72,42.28 L71.80,47.01 L76.50,49.00 L71.80,50.99 L73.72,55.72 L68.99,53.80 L67.00,58.50 L65.01,53.80 L60.28,55.72 L62.20,50.99 L57.50,49.00 L62.20,47.01 L60.28,42.28 L65.01,44.20 Z"/>
-</vector>
