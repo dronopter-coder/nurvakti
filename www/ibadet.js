@@ -111,6 +111,7 @@ const EK={
  ['Kurban Bayramı\'nda teşrik tekbirleri',`<p>Arefe günü sabah namazından başlayarak bayramın dördüncü günü ikindi namazına kadar, toplam 23 vakit farz namazın ardından teşrik tekbiri getirmek vaciptir:</p><p style="text-align:center"><i>"Allâhu ekber Allâhu ekber, lâ ilâhe illallâhu vallâhu ekber, Allâhu ekber ve lillâhi\'l-hamd."</i></p>`]]
 };
 K.forEach(k=>{if(EK[k.ad])k.b.push(...EK[k.ad])});
+if(window.DV&&DV.IBADET)DV.IBADET.forEach((t,i)=>{const k=K[i];if(k&&t.b.length===k.b.length){k.ad=t.ad;k.ozet=t.ozet;k.b=t.b}});
 const UYARI='<p class="note" style="margin-top:14px">Bilgiler Diyanet İşleri Başkanlığı\'nın yaygın görüşüne göre (Hanefî mezhebi) özetlenmiştir. Özel durumlar için müftülüğe veya Diyanet Alo 190 Dinî Bilgi Hattı\'na danışınız.</p>';
 function ac(){
   const s=Sayfa.ac('İbadet');
@@ -119,7 +120,7 @@ function ac(){
 }
 function konu(i){
   const k=K[i],s=Sayfa.ac(k.ad);
-  s.govde.innerHTML=(k.ad==='Zekât'&&window.ZekatHesap?`<button class="sf-satir sf-oku" id="zkAc"><div class="sf-no" style="font-size:19px">🧮</div><div class="sf-ad"><b>Zekât hesapla</b><small>Altın, para, ticari mal ve borçlarınızı girin; ödeyeceğiniz zekât hesaplansın</small></div></button>`:'')+`<p class="note" style="margin:6px 0 4px">${k.b.length} başlık · Okumak istediğiniz soruya dokunun.</p>`+k.b.map((x,j)=>`<details class="ib-d"${j===0?' open':''}><summary>${x[0]}</summary><div class="ib-i">${x[1]}</div></details>`).join('')+UYARI;
+  s.govde.innerHTML=(k.s==='🤲'&&window.ZekatHesap?`<button class="sf-satir sf-oku" id="zkAc"><div class="sf-no" style="font-size:19px">🧮</div><div class="sf-ad"><b>Zekât hesapla</b><small>Altın, para, ticari mal ve borçlarınızı girin; ödeyeceğiniz zekât hesaplansın</small></div></button>`:'')+`<p class="note" style="margin:6px 0 4px">${k.b.length} başlık · Okumak istediğiniz soruya dokunun.</p>`+k.b.map((x,j)=>`<details class="ib-d"${j===0?' open':''}><summary>${x[0]}</summary><div class="ib-i">${x[1]}</div></details>`).join('')+UYARI;
   s.govde.querySelectorAll('details').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)reklamSay()}));
   const zk=s.govde.querySelector('#zkAc');if(zk)zk.onclick=()=>ZekatHesap.ac();
 }
@@ -130,5 +131,5 @@ function reklamSay(){
   acilan=0;sonReklam=Date.now();
   if(typeof showInter==='function')showInter();
 }
-window.Ibadet={ac};
+window.Ibadet={ac,K};
 })();

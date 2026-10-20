@@ -151,7 +151,7 @@ $('#gear').onclick=()=>{setDraw();sistemDurum();$('#setSheet').classList.add('op
 /* Dil seçimi: seçilince uygulama yeni dille yeniden yüklenir */
 {const d=$('#stDil');d.innerHTML=Object.entries(window.DILLER||{tr:'Türkçe'}).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');d.value=window.DIL||'tr';
  d.setAttribute('data-cevirme','');
- $('#stDilNot').textContent={en:'Verses, hadiths and fiqh texts are currently in Turkish.',ar:'نصوص الآيات والأحاديث والفقه باللغة التركية حاليًا.',de:'Verse, Hadithe und Fiqh-Texte sind derzeit auf Türkisch.'}[window.DIL]||'';
+ $('#stDilNot').textContent='';
  d.onchange=()=>{ls.set('dil',d.value);location.reload()}}
 $('#stKonum').onclick=()=>{$('#setSheet').classList.remove('open');$('#locBtn').click()};
 /* Uygulama bildirimleri: telefonun bu uygulamaya ait bildirim ayarları ekranını açar */

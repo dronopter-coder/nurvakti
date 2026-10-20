@@ -234,6 +234,7 @@ const ILM=[
 ["Boy abdesti (gusül) ne zaman gerekir?","Cünüplük, hayız ve nifas hallerinde gusül almak gerekir."],
 ["Namaz kılınması mekruh olan vakitler hangileridir?","Güneşin doğması, tam tepe noktasında olması ve batmaya yakın kızarması vakitleridir."]];
 AYET.push(...(window.AYET_EK||[]));HADIS.push(...(window.HADIS_EK||[]));ILM.push(...(window.ILM_EK||[]));
+if(window.DV){const r=(a,b)=>{if(b&&b.length===a.length)a.splice(0,a.length,...b)};r(AYET,DV.AYET);r(HADIS,DV.HADIS);r(ILM,DV.ILM)} // seçili dilin içeriği
 const DAYN=()=>{const n=new Date();return Math.floor(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())/864e5)};
 const IL="Adana Adıyaman Afyonkarahisar Ağrı Aksaray Amasya Ankara Antalya Ardahan Artvin Aydın Balıkesir Bartın Batman Bayburt Bilecik Bingöl Bitlis Bolu Burdur Bursa Çanakkale Çankırı Çorum Denizli Diyarbakır Düzce Edirne Elazığ Erzincan Erzurum Eskişehir Gaziantep Giresun Gümüşhane Hakkari Hatay Iğdır Isparta İstanbul İzmir Kahramanmaraş Karabük Karaman Kars Kastamonu Kayseri Kilis Kırıkkale Kırklareli Kırşehir Kocaeli Konya Kütahya Malatya Manisa Mardin Mersin Muğla Muş Nevşehir Niğde Ordu Osmaniye Rize Sakarya Samsun Şanlıurfa Siirt Sinop Sivas Şırnak Tekirdağ Tokat Trabzon Tunceli Uşak Van Yalova Yozgat Zonguldak".split(" ");
 const AYLAR=["Muharrem","Safer","Rebiülevvel","Rebiülahir","Cemaziyelevvel","Cemaziyelahir","Recep","Şaban","Ramazan","Şevval","Zilkade","Zilhicce"];
@@ -450,11 +451,11 @@ function render(){
     const L=tab==='ayet'?AYET:HADIS, [t,r]=L[((tab==='ayet'?g:g*7+3)+off)%L.length];
     b.innerHTML=`<div class="quote">“${t}”</div><div class="refrow"><span class="ref">${r}</span><span class="rbtn"><button class="more" id="more">${off?'↩ Günün '+(tab==='ayet'?'ayeti':'hadisi'):'↻ Bir tane daha'}</button><button class="more pay" id="qPaylas" aria-label="Paylaş"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg></button></span></div>`;
     $('#more').onclick=()=>{off=off?0:1;render()};
-    $('#qPaylas').onclick=()=>paylas(`${tab==='ayet'?'Günün ayeti':'Günün hadisi'} 🌙\n\n“${t}”\n(${r})`+IMZA,tab==='ayet'?'Ayet paylaş':'Hadis paylaş');
+    $('#qPaylas').onclick=()=>paylas(`${ceviri(tab==='ayet'?'Günün ayeti':'Günün hadisi')} 🌙\n\n“${t}”\n(${r})`+IMZA,ceviri(tab==='ayet'?'Ayet paylaş':'Hadis paylaş'));
   }else if(tab==='cuma'){
     const [q,...d]=cumaMesaji().split('\n');
     b.innerHTML=`<div class="cuma-bas">Hayırlı Cumalar</div><div class="quote cuma-q">${q}</div>${d.length?`<p class="cuma-dua">${d.join(' ')}</p>`:''}<div class="refrow"><span class="ref">${new Date().getDay()===5?'Bugün Cuma':'Bu haftanın mesajı'}</span><button class="more" id="cumaPaylas">➦ Paylaş</button></div>`;
-    $('#cumaPaylas').onclick=()=>paylas('Hayırlı Cumalar 🌙\n\n'+cumaMesaji()+IMZA,'Hayırlı Cumalar');
+    $('#cumaPaylas').onclick=()=>paylas(ceviri('Hayırlı Cumalar')+' 🌙\n\n'+cumaMesaji()+IMZA,ceviri('Hayırlı Cumalar'));
   }else{
     const s=(g*11+5)%ILM.length;
     const order=[s,...ILM.map((_,i)=>i).filter(i=>i!==s)];

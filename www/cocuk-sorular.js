@@ -301,3 +301,4 @@ Peygamberimizin süt kardeşi olan ve Halîme'nin kızı kimdir?|Şeyma|Fâtıma
 Peygamberimize ilk iman eden kadın kimdir?|Hz. Hatice|Hz. Âişe|Hz. Fâtıma
 Peygamberimize ilk iman eden çocuk kimdir?|Hz. Ali|Hz. Hasan|Hz. Hüseyin
 Kur'an'ın ilk emri nedir?|Oku|Uyu|Koş`.trim().split('\n').map(x=>x.split('|'));
+if(window.DV&&DV.SORU)window.COCUK_SORU=DV.SORU;

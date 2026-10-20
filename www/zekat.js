@@ -24,13 +24,17 @@ const A=[
  ['borc','Bu yıl ödenecek borçlar (₺)','Birikmiş borçlar ve bu yıl vadesi dolan taksitler','borc'],
  ['koyun','Koyun ve keçi (adet)','Yılın çoğunda merada otlayan','hay'],['sigir','Sığır, manda (adet)','Yılın çoğunda merada otlayan','hay']];
 const BOL={alt:'Altın',gum:'Gümüş',para:'Para ve ticari varlıklar',borc:'Düşülecek borçlar',hay:'Hayvanlar (isteğe bağlı)'};
-const tl=x=>(Math.round(x*100)/100).toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})+' ₺';
-const sayi=v=>{v=String(v||'').replace(/\s/g,'').replace(/\./g,'').replace(',','.');const n=parseFloat(v);return isFinite(n)&&n>0?n:0};
+const SAYI={tr:'tr-TR',de:'de-DE'}[DIL]||'en-US';
+const tlYaz=x=>(Math.round(x*100)/100).toLocaleString(SAYI,{minimumFractionDigits:2,maximumFractionDigits:2})+(DIL==='tr'?' ₺':'');
+const sayi=v=>{v=String(v||'').replace(/\s/g,''); // 1.234,5 (Türkçe) veya 1234.5 / 1,234.5 (İngilizce) yazımı
+  if(/,\d{1,2}$/.test(v)||(/,/.test(v)&&!/\.\d{1,2}$/.test(v)&&DIL!=='en'))v=v.replace(/\./g,'').replace(',','.');else if(/^\d{1,3}(\.\d{3})+$/.test(v))v=v.replace(/\./g,'');else v=v.replace(/,/g,'');
+  const n=parseFloat(v);return isFinite(n)&&n>0?n:0};
 function koyunZekat(n){if(n<40)return 0;if(n<=120)return 1;if(n<=200)return 2;if(n<=399)return 3;return Math.floor(n/100)}
 function sigirZekat(n){ // 30'da bir "tebî" (1 yaşında), 40'ta bir "müsinne" (2 yaşında)
-  if(n<30)return '';if(n<40)return '1 tebî (1 yaşında dana)';if(n<60)return '1 müsinne (2 yaşında)';
+  const [TB,MS,TB1,MS1]=tl({tr:['tebî','müsinne','1 tebî (1 yaşında dana)','1 müsinne (2 yaşında)'],en:['tabi\'','musinnah','1 tabi\' (1-year-old calf)','1 musinnah (2-year-old)'],ar:['تبيع','مسنّة','تبيع واحد (عجل ابن سنة)','مسنّة واحدة (بنت سنتين)'],de:['Tabi\'','Musinna','1 Tabi\' (einjähriges Kalb)','1 Musinna (zweijährig)']});
+  if(n<30)return '';if(n<40)return TB1;if(n<60)return MS1;
   let best=null;for(let m=0;m*40<=n;m++){const t=Math.floor((n-m*40)/30),kalan=n-m*40-t*30;if(!best||kalan<=best[2])best=[t,m,kalan]}
-  return [best[0]?best[0]+' tebî':'',best[1]?best[1]+' müsinne':''].filter(Boolean).join(' + ');
+  return [best[0]?best[0]+' '+TB:'',best[1]?best[1]+' '+MS:''].filter(Boolean).join(' + ');
 }
 function hesapla(v){
   const f=v.fiyat,grSaf=v.g24+v.g22*22/24+v.g14*14/24+(v.ceyrek*SIKKE.ceyrek+v.yarim*SIKKE.yarim+v.tam*SIKKE.tam+v.ata*SIKKE.ata)*22/24;
@@ -64,17 +68,17 @@ function ac(){
   const oku=()=>{const v={};s.govde.querySelectorAll('input[data-k]').forEach(i=>{v[i.dataset.k]=sayi(i.value);kayit[i.dataset.k]=i.value});ls.set('zekatGirdi',kayit);return v};
   const yaz=()=>{
     const v=oku(),r=hesapla(v),o=$('#zkSonuc');
-    if(!v.fiyat){o.innerHTML='<p class="zk-uyari">Hesaplama için önce <b>gram altın fiyatını</b> girin.</p>';return}
+    if(!v.fiyat){o.innerHTML='<p class="zk-uyari">'+ceviri('Hesaplama için önce gram altın fiyatını girin.')+'</p>';return}
     o.innerHTML=`<div class="zk-tablo">
-      <div><span>Altın değeri (${r.grToplam.toLocaleString('tr-TR',{maximumFractionDigits:2})} gr)</span><b>${tl(r.altin)}</b></div>
-      ${r.gumus?`<div><span>Gümüş değeri</span><b>${tl(r.gumus)}</b></div>`:''}
-      <div><span>Para ve ticari varlıklar</span><b>${tl(r.para)}</b></div>
-      <div><span>Düşülen borçlar</span><b>− ${tl(v.borc)}</b></div>
-      <div class="zk-ana"><span>Zekâta tabi net varlık</span><b>${tl(Math.max(0,r.net))}</b></div>
-      <div><span>Nisap (80,18 gr altın)</span><b>${tl(r.nisap)}</b></div></div>`+
-     (r.tabi?`<div class="zk-kutu"><small>Vermeniz gereken zekât</small><strong>${tl(r.zekat)}</strong><small>Net varlığın kırkta biri (%2,5)</small></div><p class="note">Bu miktar, malınız nisaba ulaştığı günden itibaren üzerinden bir kamerî yıl geçmişse farzdır. Yıl dolmadan önce de verilebilir.</p>`
+      <div><span>${ceviri('Altın değeri')} (${r.grToplam.toLocaleString(SAYI,{maximumFractionDigits:2})} g)</span><b>${tlYaz(r.altin)}</b></div>
+      ${r.gumus?`<div><span>Gümüş değeri</span><b>${tlYaz(r.gumus)}</b></div>`:''}
+      <div><span>Para ve ticari varlıklar</span><b>${tlYaz(r.para)}</b></div>
+      <div><span>Düşülen borçlar</span><b>− ${tlYaz(v.borc)}</b></div>
+      <div class="zk-ana"><span>Zekâta tabi net varlık</span><b>${tlYaz(Math.max(0,r.net))}</b></div>
+      <div><span>Nisap (80,18 gr altın)</span><b>${tlYaz(r.nisap)}</b></div></div>`+
+     (r.tabi?`<div class="zk-kutu"><small>Vermeniz gereken zekât</small><strong>${tlYaz(r.zekat)}</strong><small>Net varlığın kırkta biri (%2,5)</small></div><p class="note">Bu miktar, malınız nisaba ulaştığı günden itibaren üzerinden bir kamerî yıl geçmişse farzdır. Yıl dolmadan önce de verilebilir.</p>`
             :`<div class="zk-kutu zk-yok"><small>Sonuç</small><strong>Zekât gerekmiyor</strong><small>Net varlığınız nisap miktarının altında</small></div>`)+
-     (r.koyun||r.sigir?`<div class="zk-tablo" style="margin-top:8px">${r.koyun?`<div><span>Koyun-keçi zekâtı</span><b>${r.koyun} koyun/keçi</b></div>`:''}${r.sigir?`<div><span>Sığır zekâtı</span><b>${esc(r.sigir)}</b></div>`:''}</div>`:'');
+     (r.koyun||r.sigir?`<div class="zk-tablo" style="margin-top:8px">${r.koyun?`<div><span>Koyun-keçi zekâtı</span><b>${r.koyun} ${ceviri('koyun/keçi')}</b></div>`:''}${r.sigir?`<div><span>Sığır zekâtı</span><b>${esc(r.sigir)}</b></div>`:''}</div>`:'');
   };
   s.govde.querySelectorAll('input[data-k]').forEach(i=>i.addEventListener('input',yaz));
   yaz();

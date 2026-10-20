@@ -1,0 +1,302 @@
+Wie oft am Tag beten wir?	5	3	7
+Was sagen wir zu Beginn des Gebets?	Allahu Akbar	Guten Morgen	Tschüss
+In welche Richtung wenden wir uns beim Gebet?	Zur Qibla (Kaaba)	Zur Sonne	Zur Tür
+Was waschen wir beim Wudu zuerst?	Unsere Hände	Unsere Füße	Unsere Haare
+Wo berührt unsere Stirn beim Sudschud?	Den Boden	Die Wand	Den Tisch
+Wie beenden wir das Gebet?	Mit dem Salam nach rechts und links	Indem wir aufstehen	Mit Klatschen
+Welchen Gottesdienst verrichten wir im Ramadan?	Wir fasten	Wir opfern	Wir pilgern
+In welcher Sprache wurde der Koran offenbart?	Arabisch	Türkisch	Persisch
+Wie heißt unser Prophet?	Muhammad (Friede sei mit ihm)	Musa (Friede sei mit ihm)	Isa (Friede sei mit ihm)
+Wie viele Pflicht-Rakat hat das Fadschr-Gebet?	2	4	3
+Wie viele Pflicht-Rakat hat das Zuhr-Gebet?	4	2	3
+Wie viele Pflicht-Rakat hat das Asr-Gebet?	4	3	2
+Wie viele Pflicht-Rakat hat das Maghrib-Gebet?	3	4	2
+Wie viele Pflicht-Rakat hat das Ischa-Gebet?	4	3	2
+Wie viele Rakat hat das Witr-Gebet?	3	2	4
+Wie viele Rakat hat die Sunna des Fadschr?	2	4	3
+Was ist die erste Sure des Korans?	Al-Fatiha	Al-Baqara	An-Nas
+Was ist die letzte Sure des Korans?	An-Nas	Al-Falaq	Al-Ichlas
+Wie viele Suren hat der Koran?	114	99	40
+Was ist die längste Sure des Korans?	Al-Baqara	Ya-Sin	Al-Kauthar
+Was ist die kürzeste Sure des Korans?	Al-Kauthar	Al-Baqara	Ya-Sin
+In welcher Stadt wurde unser Prophet geboren?	Mekka	Medina	Jerusalem
+In welche Stadt wanderte unser Prophet aus?	Medina	Damaskus	Kairo
+Wie hieß die Mutter unseres Propheten?	Amina	Chadidscha	Fatima
+Wie hieß der Vater unseres Propheten?	Abdullah	Abu Talib	Abd al-Muttalib
+Wer stillte unseren Propheten als Baby?	Halima	Aischa	Maryam
+Wie hieß der Großvater unseres Propheten?	Abd al-Muttalib	Abu Lahab	Ali
+Wer zog unseren Propheten nach seinem Großvater auf?	Sein Onkel Abu Talib	Sein Nachbar	Sein Lehrer
+Wer war die erste Frau unseres Propheten?	Chadidscha	Aischa	Zainab
+Wer ist eine der Töchter unseres Propheten?	Fatima	Maryam	Hadschar
+In welcher Höhle kam die erste Offenbarung?	Höhle Hira	Höhle Thaur	Höhle Uhud
+In welcher Höhle versteckte sich unser Prophet während der Hidschra?	Höhle Thaur	Höhle Hira	Höhle Kahf
+Wer war der Reisegefährte unseres Propheten bei der Hidschra?	Abu Bakr	Umar	Uthman
+Welcher Engel brachte die erste Offenbarung?	Dschibril (Gabriel)	Mika'il (Michael)	Israfil
+Mit welchem Wort beginnen die ersten offenbarten Verse?	Lies (Iqra)	Schreib	Lauf
+Mit wie vielen Jahren wurde unser Prophet Prophet?	40	20	60
+Wie nannte man unseren Propheten, weil er vertrauenswürdig war?	Muhammad al-Amin	Muhammad al-Qawi	Muhammad al-Ghani
+In welcher Stadt steht die Kaaba?	Mekka	Medina	Istanbul
+Wer baute die Kaaba neu auf?	Ibrahim und sein Sohn Isma'il	Nuh	Yunus
+In welcher Stadt ist die Prophetenmoschee?	Medina	Mekka	Jerusalem
+In welcher Stadt ist die Al-Aqsa-Moschee?	Jerusalem	Mekka	Bagdad
+Welcher Prophet baute eine Arche und wurde vor der Flut gerettet?	Nuh (Noah)	Musa (Mose)	Adam
+Welcher Prophet war im Bauch eines Fisches?	Yunus (Jona)	Yusuf (Josef)	Salih
+Welcher Prophet wurde vom Feuer nicht verbrannt?	Ibrahim (Abraham)	Idris	Hud
+Wer ist der erste Mensch und der erste Prophet?	Adam	Nuh (Noah)	Schith (Set)
+Wer ist der letzte Prophet?	Muhammad (Friede sei mit ihm)	Isa (Jesus)	Musa (Mose)
+Welcher Prophet wurde von seinen Brüdern in einen Brunnen geworfen?	Yusuf (Josef)	Ya'qub (Jakob)	Ayyub (Hiob)
+Welcher Prophet war sehr geduldig mit seinen Krankheiten?	Ayyub (Hiob)	Dawud (David)	Lut
+Wessen Stab verwandelte sich in eine Schlange?	Musa (Mose)	Harun (Aaron)	Zakariyya
+Welches Buch wurde Musa (Mose) offenbart?	Die Tora	Das Evangelium	Die Psalmen (Zabur)
+Welches Buch wurde Dawud (David) offenbart?	Die Psalmen (Zabur)	Die Tora	Der Koran
+Welches Buch wurde Isa (Jesus) offenbart?	Das Evangelium (Indschil)	Die Psalmen (Zabur)	Die Tora
+Welches Buch wurde unserem Propheten offenbart?	Der edle Koran	Das Evangelium	Die Psalmen
+Wer ist die Mutter von Isa (Jesus)?	Maryam (Maria)	Asiya	Hadschar
+Wer ist die Mutter von Isma'il?	Hadschar	Sara	Chadidscha
+In welcher Stadt ist das Zamzam-Wasser?	Mekka	Medina	Jerusalem
+Welcher Prophet konnte mit Vögeln und Tieren sprechen?	Sulaiman (Salomo)	Nuh (Noah)	Yunus (Jona)
+Welcher Prophet konnte Eisen mit seinen Händen erweichen?	Dawud (David)	Musa (Mose)	Adam
+Wie viele Propheten werden im Koran namentlich erwähnt?	25	10	50
+Welcher Engel wird am Jüngsten Tag in die Posaune blasen?	Israfil	Azra'il	Dschibril
+Welcher Engel ist für das Nehmen der Seelen zuständig?	Azra'il	Mika'il	Israfil
+Welcher Engel ist für Regen und Versorgung zuständig?	Mika'il	Dschibril	Azra'il
+Wie heißen die Engel, die unsere guten und schlechten Taten aufschreiben?	Kiraman Katibin	Hafaza	Die Träger des Throns
+Wie heißen die Engel, die im Grab Fragen stellen?	Munkar und Nakir	Harut und Marut	Dschibril und Mika'il
+Wie viele Glaubensartikel gibt es?	6	5	4
+Wie viele Säulen des Islam gibt es?	5	6	7
+Welche ist eine Säule des Islam?	Beten	Lernen	Sport treiben
+Welcher ist ein Glaubensartikel?	An die Engel glauben	Früh aufstehen	Bücher lesen
+Die wievielte Säule des Islam ist das Glaubensbekenntnis?	Die erste	Die fünfte	Die dritte
+Für wen ist die Zakat Pflicht?	Für wohlhabende Muslime	Für Kinder	Für alle
+Wo wird der Hadsch verrichtet?	In und um Mekka	In Istanbul	In Kairo
+Wie oft im Leben sollen diejenigen, die es können, pilgern?	Einmal	Jedes Jahr	Nie
+An welchem Fest wird geopfert?	Opferfest	Ramadanfest	In einer gesegneten Nacht
+Wie viele Tage dauert das Ramadanfest?	3	4	1
+Wie viele Tage dauert das Opferfest?	4	3	2
+Welches Fest folgt auf den Monat Ramadan?	Ramadanfest	Opferfest	Nouruz
+Wie heißt die Mahlzeit vor Fastenbeginn?	Sahur	Iftar	Frühstück
+Wie heißt die Mahlzeit zum Fastenbrechen?	Iftar	Sahur	Mittagessen
+Wann wird das Fasten gebrochen?	Wenn der Maghrib-Gebetsruf ertönt	Wenn der Zuhr-Gebetsruf ertönt	Am Morgen
+Wann beginnt das Fasten?	Zur Imsak-Zeit	Am Mittag	Am Abend
+Bricht vergessliches Essen das Fasten?	Nein, es bricht es nicht	Ja, es bricht es	Nur montags
+In welcher Nacht wurde der Koran offenbart?	Lailat al-Qadr	Lailat al-Bara'a	Lailat ar-Ragha'ib
+In welchem Monat ist die Lailat al-Qadr?	Ramadan	Radschab	Scha'ban
+Die Lailat al-Qadr ist besser als wie viele Monate?	Tausend Monate	Zehn Monate	Hundert Monate
+In welcher Nacht wurde unser Prophet geboren?	Maulid-Nacht	Mi'radsch-Nacht	Bara'a-Nacht
+Welcher ist der erste der drei heiligen Monate?	Radschab	Scha'ban	Ramadan
+Welche sind die drei heiligen Monate?	Radschab, Scha'ban, Ramadan	Muharram, Safar, Radschab	Schawwal, Dhu l-Qa'da, Dhu l-Hiddscha
+In welcher Nacht stieg unser Prophet in den Himmel auf?	Mi'radsch-Nacht	Lailat al-Qadr	Maulid-Nacht
+Welcher Gottesdienst wurde den Muslimen in der Mi'radsch-Nacht geschenkt?	Die fünf täglichen Gebete	Das Fasten	Die Zakat
+Welcher ist der erste Monat des Hidschri-Jahres?	Muharram	Ramadan	Radschab
+Der Aschura-Tag ist der 10. Tag welches Monats?	Muharram	Ramadan	Dhu l-Hiddscha
+In welchem Monat ist das Opferfest?	Dhu l-Hiddscha	Ramadan	Schawwal
+Wie heißt der Ort, an dem Muslime beten?	Moschee	Bibliothek	Markt
+Wie heißt der hohe Turm, von dem der Gebetsruf ertönt?	Minarett	Kuppel	Innenhof
+Wie heißt der Ort in der Moschee, an dem der Imam das Gebet leitet?	Mihrab	Minbar	Kanzelpult
+Wie heißt die Treppenkanzel, von der die Freitagspredigt gehalten wird?	Minbar	Mihrab	Waschbrunnen
+Wie heißt der Brunnen für das Wudu an der Moschee?	Waschbrunnen (Schadirwan)	Minarett	Empore
+Wie heißt die Person, die das Gemeinschaftsgebet leitet?	Imam	Muezzin	Hafiz
+Wie heißt die Person, die zum Gebet ruft?	Muezzin	Imam	Prediger
+Wie heißt jemand, der den Koran auswendig kann?	Hafiz	Muezzin	Hausmeister
+An welchem Wochentag wird das Freitagsgebet in Gemeinschaft verrichtet?	Freitag	Montag	Sonntag
+Wie viele Pflicht-Rakat hat das Freitagsgebet?	2	4	3
+Wann wird das Festgebet verrichtet?	Morgens, nach Sonnenaufgang	Um Mitternacht	Nach Maghrib
+Wie oft am Tag ertönt der Gebetsruf?	5	3	7
+Was verkündet der Gebetsruf?	Dass die Gebetszeit begonnen hat	Dass es regnen wird	Dass die Schule geöffnet hat
+Welcher Satz wird im Fadschr-Gebetsruf zusätzlich gesagt?	Das Gebet ist besser als der Schlaf	Guten Morgen	Auf zum Frühstück
+Waschen wir beim Wudu zuerst rechts oder links?	Rechts	Links	Egal, immer links
+Wie oft spülen wir beim Wudu den Mund?	3	1	5
+Bis wohin waschen wir die Arme beim Wudu?	Mit den Ellenbogen	Bis zu den Handgelenken	Bis zu den Schultern
+Bis wohin waschen wir die Füße beim Wudu?	Mit den Knöcheln	Bis zu den Zehenspitzen	Bis zu den Knien
+Was machen wir beim Wudu mit dem Kopf?	Wir bestreichen ihn mit nasser Hand	Wir waschen ihn mit Shampoo	Nichts
+Wie viele Pflichtbestandteile hat das Wudu?	4	6	10
+Was tut man statt Wudu, wenn kein Wasser da ist?	Tayammum	Ghusl	Nichts
+Womit wird Tayammum vollzogen?	Mit reiner Erde	Mit Sandspielen	Mit Öl
+Bricht Schlafen das Wudu?	Ja, angelehntes Schlafen bricht es	Nein, niemals	Nur tagsüber
+Wie heißt das Stehen im Gebet?	Qiyam	Ruku'	Sudschud
+Wie heißt das Verbeugen im Gebet?	Ruku'	Qiyam	Dschalsa
+Wie heißt das Sitzen zwischen den zwei Niederwerfungen?	Dschalsa	Qauma	Qiyam
+Was sagt man beim Ruku'?	Subhana rabbiyal azim	Subhana rabbiyal a'la	Allahu Akbar
+Was sagt man beim Sudschud?	Subhana rabbiyal a'la	Subhana rabbiyal azim	Alhamdulillah
+Welche Sure wird in jeder Rak'a rezitiert?	Al-Fatiha	Ya-Sin	Al-Mulk
+Welches Gebet wird im letzten Sitzen zuerst gesprochen?	At-Tahiyyat	Qunut	Subhanaka
+Welche besonderen Bittgebete werden im Witr-Gebet gesprochen?	Die Qunut-Gebete	Ya-Sin	Ayat al-Kursi
+Was tun wir im Herzen, bevor wir das Gebet beginnen?	Wir fassen die Absicht	Wir singen	Wir schlafen
+Bricht Sprechen das Gebet?	Ja, es bricht es	Nein, es bricht es nicht	Nur leise nicht
+Was sagen wir vor dem Essen?	Bismillah	Lebewohl	Masha'Allah
+Was sagen wir nach dem Essen?	Alhamdulillah	Bismillah	Tschüss
+Was sagen wir, wenn jemand niest und „Alhamdulillah“ sagt?	Yarhamukallah	Guten Appetit	Tschüss
+Was sagen wir, wenn wir etwas Schönes sehen?	Masha'Allah	Oh nein	Igitt
+Was sagen wir, wenn wir etwas beginnen?	Bismillah	Lebewohl	Oh nein
+Was fügen wir hinzu, wenn wir sagen, dass wir etwas tun werden?	In scha' Allah	Masha'Allah	Yarhamukallah
+Was sagen Muslime, wenn sie sich begegnen?	As-salamu alaikum	Tschüss	Sei still
+Wie antworten wir auf „As-salamu alaikum“?	Wa alaikum as-salam	Bismillah	Amin
+Was sagen wir am Ende eines Bittgebets?	Amin	Bismillah	Masha'Allah
+Wie heißen die schönen Namen Allahs?	Asma al-Husna	Adhan	Qunut
+Was bedeutet Ar-Rahman?	Der Allerbarmer	Der sehr Zornige	Der sehr Ferne
+Was bedeutet Ar-Razzaq?	Der Versorger	Der Schlafende	Der Ermüdende
+Was bedeutet Al-Chaliq?	Der Schöpfer	Der Vergessende	Der Ermüdende
+Was bedeutet As-Sami'?	Der Allhörende	Der nie Hörende	Der nur nicht Sehende
+Was bedeutet Al-Basir?	Der Allsehende	Der manchmal Sehende	Der nie Sehende
+Was bedeutet Al-Alim?	Der Allwissende	Der wenig Wissende	Der Vergessende
+Was bedeutet Al-Ghaffar?	Der viel Vergebende	Der nie Vergebende	Der sehr Zornige
+Wie viele ist Allah?	Einer	Zwei	Drei
+Welche Sure sagt, dass Allah Einer ist?	Al-Ichlas	Al-Fil	Al-Kauthar
+Welche sind die letzten zwei Suren, in denen wir bei Allah Zuflucht vor dem Bösen suchen?	Al-Falaq und An-Nas	Al-Fatiha und Al-Baqara	Al-Fil und Quraisch
+Welche Sure erzählt vom Heer Abrahas?	Al-Fil	Quraisch	Al-Asr
+Welche kurze Sure erzählt von der Bedeutung der Zeit?	Al-Asr	An-Nasr	Al-Masad
+Welche Sure erzählt von der reichen Gabe an unseren Propheten?	Al-Kauthar	Al-Ma'un	Al-Kafirun
+Welche Sure gilt als Herz des Korans?	Ya-Sin	Al-Fatiha	An-Nas
+Welche Sure wird am Freitag zu lesen empfohlen?	Al-Kahf	Al-Fil	An-Nasr
+Welche Sure tadelt die schlechte Behandlung von Waisen und die Missachtung des Gebets?	Al-Ma'un	Al-Kauthar	Al-Ichlas
+In welcher Sure steht Ayat al-Kursi?	Al-Baqara	Ya-Sin	Al-Mulk
+Wie viele Teile (Dschuz') hat der Koran?	30	10	114
+Wie heißt das Lesen des Korans vom Anfang bis zum Ende?	Chatm	Maulid	Niederwerfung der Rezitation
+Was sagen wir vor dem Koranlesen?	A'udhu billah und Bismillah	Lebewohl	Yarhamukallah
+Wie heißen die Regeln der schönen Koranrezitation?	Tadschwid	Tafsir	Übersetzung
+Wie heißt die Bedeutungsübersetzung des Korans?	Bedeutungsübersetzung (Meal)	Chatm	Qira'a
+Wie heißt die Erklärung des Korans?	Tafsir	Chatm	Adhan
+Wie heißen die Aussprüche unseres Propheten?	Hadith	Aya	Sure
+Wie heißt jeder Satz im Koran?	Aya (Vers)	Hadith	Dschuz'
+Wie heißt die Lebensweise und Praxis unseres Propheten?	Sunna	Fard	Haram
+Wie heißen die Dinge, die Allah eindeutig geboten hat?	Fard	Makruh	Mubah
+Wie heißen die Dinge, die Allah eindeutig verboten hat?	Haram	Halal	Sunna
+Wie heißen die Dinge, die unsere Religion erlaubt?	Halal	Haram	Makruh
+Was für ein Verhalten ist Lügen?	Es ist eine Sünde	Es ist eine gute Tat	Es ist unwichtig
+Was für ein Verhalten ist Ehrlichkeit?	Es ist guter Charakter	Es ist unnötig	Es ist schlecht
+Wie sollen wir unsere Eltern behandeln?	Respektvoll und liebevoll	Grob	Gleichgültig
+Was sagte unser Prophet über das Lächeln?	Ein Lächeln ist eine Spende	Lachen ist verboten	Lacht nur am Fest
+Gehen wir satt ins Bett, während unser Nachbar hungert?	Nein, wir helfen ihm	Ja, das geht uns nichts an	Wir schließen die Tür
+Wie sollen wir Tiere behandeln?	Barmherzig	Indem wir sie quälen	Indem wir sie erschrecken
+Wie nennt man es, sein Wort zu halten?	Treue (Wafa)	Eifersucht	Faulheit
+Wie nennt man es, hinter dem Rücken schlecht über jemanden zu reden?	Üble Nachrede (Ghiba)	Spende	Gruß
+Wie nennt man einen vertrauenswürdigen Menschen, der nichts Anvertrautes veruntreut?	Amin (vertrauenswürdig)	Verräter	Geizhals
+Wie heißt die freiwillige Hilfe für Arme?	Sadaqa (Spende)	Zins	Schuld
+Wie heißt die Spende vor dem Ramadanfest?	Fitra (Sadaqat al-Fitr)	Opfer	Geschenk
+Was sagte unser Prophet über Sauberkeit?	Sauberkeit gehört zum Glauben	Sauberkeit ist unnötig	Wascht euch einmal pro Woche
+Wen liebt Allah?	Die Gutes tun	Die Neidischen	Die Lügner
+Wer ist ein Muslim?	Einer, vor dessen Hand und Zunge die Menschen sicher sind	Einer, der mit allen streitet	Einer, der sein Wort nicht hält
+Mit welchem Beinamen ist Abu Bakr bekannt?	As-Siddiq	Al-Faruq	Dhun-Nurain
+Mit welchem Beinamen ist Umar bekannt?	Al-Faruq	As-Siddiq	Saifullah
+Mit welchem Beinamen ist Uthman bekannt?	Dhun-Nurain	Al-Faruq	Asadullah
+Wer ist der erste Kalif?	Abu Bakr	Ali	Umar
+Wer ist der vierte Kalif?	Ali	Uthman	Umar
+Wer ist der erste Muezzin?	Bilal al-Habaschi	Hamza	Ali
+Wer ist einer der Enkel unseres Propheten?	Hasan	Musa	Yahya
+Wer sammelte den Koran zuerst als Buch?	Er wurde zur Zeit Abu Bakrs gesammelt	Nuh	Adam
+In welcher Stadt verstarb unser Prophet?	Medina	Mekka	Ta'if
+Wo ist das Grab unseres Propheten?	In der Prophetenmoschee in Medina	In Jerusalem	In Istanbul
+In welchem Jahr war die Eroberung Mekkas?	630	1453	1071
+Welcher Sultan eroberte Istanbul?	Mehmed der Eroberer	Süleyman der Prächtige	Selim I.
+Was war die erste Qibla der Muslime?	Al-Aqsa-Moschee (Jerusalem)	Die Kaaba	Medina
+Mit welchem Ereignis beginnt der Hidschri-Kalender?	Mit der Hidschra (Auswanderung)	Mit der Geburt unseres Propheten	Mit der Eroberung Mekkas
+Wie heißt das Umrunden der Kaaba durch die Pilger?	Tawaf	Sa'y	Wuquf
+Wie heißt das Gehen zwischen Safa und Marwa beim Hadsch?	Sa'y	Tawaf	Ruku'
+Auf welchem Berg findet das Stehen (Wuquf) des Hadsch statt?	Arafat	Uhud	Berg Nur
+Wie heißt das weiße Gewand der Pilger?	Ihram	Robe	Kappe
+Wem wird ein Teil des Opferfleisches gegeben?	Den Armen, Verwandten und Nachbarn	Niemandem	Nur Gästen
+Welches Tier darf geopfert werden?	Schaf	Katze	Huhn
+Wie viel des Vermögens ist die Zakat?	Ein Vierzigstel	Die Hälfte	Alles
+Welches gehört nicht zu den fünf täglichen Gebeten?	Duha	Asr	Ischa
+Welches Gebet wird vor Sonnenaufgang verrichtet?	Fadschr	Zuhr	Maghrib
+Welches Gebet wird bei Sonnenuntergang verrichtet?	Maghrib	Asr	Fadschr
+Welches Gebet wird in der Tagesmitte verrichtet?	Zuhr	Ischa	Fadschr
+Welches ist das letzte tägliche Gebet vor dem Schlafen?	Ischa	Asr	Zuhr
+Wie viele Sunna-Rakat werden nach Maghrib gebetet?	2	4	3
+Wie viele Rakat hat die erste Sunna des Zuhr?	4	2	3
+Wie viele Rakat hat die letzte Sunna des Ischa?	2	4	3
+Wie viele Rakat hat die Sunna des Asr?	4	2	3
+Wie viele Rakat hat das Festgebet?	2	4	3
+Wie heißt das Gebet für einen verstorbenen Muslim?	Totengebet	Tarawih-Gebet	Festgebet
+Welches Gebet wird in Ramadannächten nach Ischa verrichtet?	Tarawih	Witr	Duha
+Gibt es beim Totengebet Ruku' und Sudschud?	Nein, gibt es nicht	Ja, gibt es	Nur Sudschud
+Womit können wir die Qibla finden?	Mit einem Kompass	Mit einer Uhr	Mit einem Thermometer
+Wie heißt der Teppich, auf dem wir beten?	Gebetsteppich	Bettlaken	Fußmatte
+Wie heißt die Perlenkette für den Dhikr?	Tasbih (Gebetskette)	Halskette	Armband
+Wie oft sagen wir bei den Tasbihat „Subhanallah“?	33	10	100
+Was bedeutet „Alhamdulillah“?	Alles Lob gebührt Allah	Allah ist der Größte	Ich suche Zuflucht bei Allah
+Was bedeutet „Allahu Akbar“?	Allah ist der Größte	Allah weiß alles	Allah ist Einer
+Was bedeutet „Subhanallah“?	Allah ist frei von jedem Makel	Allah ist sehr nah	Dank sei Allah
+Was bedeutet „Bismillah“?	Im Namen Allahs	Lob sei Allah	Allah ist groß
+Was bedeutet „In scha' Allah“?	So Allah will	Allah bewahre	Möge Allah zufrieden sein
+Was bedeutet „Masha'Allah“?	Allah hat es gewollt, wie schön	Möge Allah vergeben	Möge Allah annehmen
+Was bedeutet „Astaghfirullah“?	Ich bitte Allah um Vergebung	Allah ist groß	So Allah will
+Was bedeutet „Amin“?	O Allah, nimm es an	Tschüss	Danke
+Welches ist das Wort des Tauhid?	La ilaha illallah	Bismillah	Alhamdulillah
+Über wen wird Salawat gesprochen?	Über unseren Propheten	Über die Engel	Über uns selbst
+Wie beginnt die Salawat?	Allahumma salli ala Muhammad	Subhanaka	At-Tahiyyat
+Welcher Name sagt, dass Allah ewig existiert?	Al-Baqi	Al-Hadi	Al-Mudschib
+Welcher Name bedeutet „der die Gebete erhört“?	Al-Mudschib	Al-Qahhar	Al-Batin
+Welcher Name bedeutet „der zum rechten Weg führt“?	Al-Hadi	Al-Mani'	Ad-Darr
+Welcher Name bedeutet „der sehr Liebende“?	Al-Wadud	Al-Qabid	Al-Muntaqim
+Welcher Name bedeutet „der Frieden und Heil gibt“?	As-Salam	Al-Dschabbar	Al-Qahhar
+Wer ist die Frau Adams?	Hawwa (Eva)	Sara	Hadschar
+Wer ist der erste Mensch, vor dem sich die Engel auf Allahs Befehl niederwarfen?	Adam	Nuh	Ibrahim
+Woraus wurden die Engel erschaffen?	Aus Licht	Aus Erde	Aus Wasser
+Woraus wurde der Mensch erschaffen?	Aus Erde	Aus Licht	Aus Feuer
+Woraus wurden die Dschinn erschaffen?	Aus rauchlosem Feuer	Aus Licht	Aus Erde
+Wie heißt die Auferstehung nach dem Tod?	Jenseits (Achira)	Diesseits	Traum
+Wie heißt das Ende der Welt?	Jüngster Tag (Qiyama)	Fest	Morgen
+Wie heißt der schöne Ort, an den die Guten kommen?	Paradies (Dschanna)	Hölle	Barzach
+Was ist Qadar (Vorherbestimmung)?	Dass Allah alles im Voraus weiß und bestimmt	Ein Glücksspiel	Die Wettervorhersage
+Warum ist Geduld schön?	Allah ist mit den Geduldigen	Weil sie langweilig ist	Weil sie Pflicht ist
+Wie viele Jahre lebte unser Prophet?	63	40	100
+In welchem Jahr wurde unser Prophet geboren?	571	1071	1453
+Wie heißt das Geburtsjahr unseres Propheten?	Das Jahr des Elefanten	Das Jahr der Trauer	Das Jahr der Eroberung
+Wie heißt das Jahr, in dem der Onkel unseres Propheten und seine Frau Chadidscha starben?	Das Jahr der Trauer	Das Jahr des Elefanten	Das Jahr der Eroberung
+Wie heißen die Muslime Medinas, die unserem Propheten halfen?	Ansar	Muhadschir	Munafiq
+Wie heißen die Muslime, die von Mekka nach Medina auswanderten?	Muhadschirun	Ansar	Mudschahid
+Wie heißen die Gefährten unseres Propheten?	Sahaba	Tabi'un	Engel
+Wie heißen die zehn Gefährten, denen das Paradies verkündet wurde?	Al-Aschara al-Mubaschschara	Ansar	Ahl al-Bait
+Wie heißt die Familie unseres Propheten?	Ahl al-Bait	Ansar	Muhadschir
+In welcher Schlacht fiel Hamza als Märtyrer?	Schlacht von Uhud	Schlacht von Badr	Manzikert
+Was war der erste große Sieg der Muslime?	Schlacht von Badr	Schlacht von Uhud	Grabenschlacht
+In welcher Schlacht wurde ein Graben um Medina gezogen?	Grabenschlacht	Schlacht von Badr	Schlacht von Uhud
+Wie heißt der schwarze Stein an der Ecke der Kaaba?	Al-Hadschar al-Aswad	Maqam Ibrahim	Zamzam
+Wie heißt die Verhüllung der Kaaba?	Kiswa (Verhüllung)	Gebetsteppich	Teppich
+Wie viele Tage wird im Ramadan gefastet?	29 oder 30	10	40
+Was macht ein Kranker mit den versäumten Ramadan-Fastentagen?	Er holt sie nach der Genesung nach	Er fastet nie	Er fastet doppelt so viel
+In welchem Alter sollen Kinder nach dem Rat unseres Propheten das Beten lernen?	7	2	20
+Wird Spende nur mit Geld gegeben?	Nein, auch ein gutes Wort und ein Lächeln sind Spende	Ja, nur mit Geld	Nur mit Gold
+Was ist verdienstvoller: den Salam geben oder erwidern?	Zuerst den Salam geben	Den Salam erwidern	Keines von beiden
+Sollen wir für Gutes eine Gegenleistung erwarten?	Nein, wir tun es um Allahs Wohlgefallen willen	Ja, unbedingt	Wir wollen nur Geschenke
+Was sollen wir tun, wenn wir jemandem etwas versprechen?	Unser Wort halten	Es vergessen	Es an jemand anderen weitergeben
+Was sollen wir tun, wenn wir einen Fehler machen?	Uns entschuldigen und bereuen	Ihn verstecken	Jemand anderem die Schuld geben
+Wie behandeln wir einen Gast?	Wir bewirten ihn und begegnen ihm freundlich	Wir öffnen die Tür nicht	Wir werden wütend auf ihn
+Wie behandeln wir Ältere?	Wir zeigen Respekt	Wir machen uns über sie lustig	Wir hören ihnen nicht zu
+Wie behandeln wir Jüngere?	Wir zeigen Liebe und Zuneigung	Wir machen sie traurig	Wir schimpfen mit ihnen
+Was für ein Verhalten ist es, unsere Umgebung sauber zu halten?	Eine schöne und lohnende Tat	Unnötig	Nur Aufgabe der Reinigungskräfte
+Was für ein Verhalten ist Wasserverschwendung?	Es ist nicht richtig, wir verschwenden nicht	Es ist sehr gut	Es ist unwichtig
+Wie verwenden wir das Wasser beim Wudu?	Ohne zu verschwenden	Mit laufendem Wasserhahn	Gar nicht
+Wie wird das Pflanzen eines Baumes in unserer Religion gesehen?	Als fortdauernde Spende, eine schöne Tat	Als unnötig	Als verboten
+Wie behandeln wir den edlen Koran?	Mit Respekt und mit sauberen Händen	Wir werfen ihn auf den Boden	Wir setzen uns darauf
+Was sagen wir, wenn der Name unseres Propheten erwähnt wird?	Sallallahu alaihi wa sallam	Tschüss	Masha'Allah
+Was sagen wir, wenn die Namen anderer Propheten erwähnt werden?	Alaihis-salam	Guten Appetit	Tschüss
+Was sagen wir, wenn die Namen der Gefährten erwähnt werden?	Radiyallahu anhu	Viel Erfolg	Gute Besserung
+Was sagen wir über einen Verstorbenen?	Möge Allah ihm barmherzig sein	Guten Appetit	Viel Erfolg
+Was sagen wir beim Krankenbesuch?	Gute Besserung, möge Allah dir Heilung schenken	Guten Appetit	Herzlichen Glückwunsch
+Was sagen wir zu jemandem, der den Koran schön rezitiert?	Möge Allah mit dir zufrieden sein	Oh nein	Wie schade
+Was sagen wir einander, weil der Freitag gesegnet ist?	Gesegneten Freitag	Schöne Ferien	Frohes neues Jahr
+Was sagen wir einander im Ramadan?	Gesegneten Ramadan	Gute Reise	Frohes Schaffen
+Was tun wir am Fest bei unseren Älteren?	Wir küssen ihre Hände und wünschen ein frohes Fest	Wir besuchen sie nicht	Wir schließen die Tür
+Was tun wir in den gesegneten Nächten (Kandil)?	Wir beten, lesen Koran und verrichten Gottesdienst	Nichts	Wir streiten
+Wie viele Pflicht-Rakat haben die fünf täglichen Gebete zusammen?	17	20	10
+Wo kam die Arche Noahs nach der Flut zum Stehen?	Berg Dschudi	Berg Nur	Berg Uhud
+Mit dem Pharao welchen Landes kämpfte Musa?	Ägypten	Jemen	Irak
+Wie viele Sterne sah Yusuf in seinem Traum sich vor ihm niederwerfen?	11	7	40
+Wer ist der Vater von Sulaiman (Salomo)?	Dawud (David)	Musa (Mose)	Ibrahim (Abraham)
+Wer ist der Vater von Yahya (Johannes)?	Zakariyya	Ya'qub	Isma'il
+Wer ist der Vater von Yusuf (Josef)?	Ya'qub (Jakob)	Ishaq (Isaak)	Lut
+Wer sind die Söhne Ibrahims (Abrahams)?	Isma'il und Ishaq	Musa und Harun	Yahya und Isa
+Welcher Prophet war der Bruder Musas?	Harun (Aaron)	Hud	Schu'aib
+Was wurde dem Volk Salihs als Wunder gegeben?	Eine Kamelstute	Ein Schiff	Ein Stab
+Was ist das größte Wunder unseres Propheten?	Der edle Koran	Ein fliegender Teppich	Eine Wunderlampe
+Die Spaltung des Mondes ist das Wunder welches Propheten?	Muhammad (Friede sei mit ihm)	Nuh	Hud
+Was tat Isa (Jesus) in der Wiege?	Er sprach	Er flog	Er schwamm
+Wie viele Jahre brachte Dschibril unserem Propheten Offenbarung?	Etwa 23 Jahre	1 Jahr	100 Jahre
+Welche ist die einzige im Koran namentlich genannte Frau?	Maryam (Maria)	Chadidscha	Aischa
+Welcher Gefährte wird im Koran namentlich genannt?	Zaid	Umar	Ali
+Wer ist die Milchschwester unseres Propheten, die Tochter Halimas?	Schaima	Fatima	Zainab
+Wer war die erste Frau, die an unseren Propheten glaubte?	Chadidscha	Aischa	Fatima
+Wer war das erste Kind, das an unseren Propheten glaubte?	Ali	Hasan	Husain
+Was ist das erste Gebot des Korans?	Lies	Schlaf	Lauf

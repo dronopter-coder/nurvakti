@@ -101,3 +101,4 @@ window.DUALAR=[
  'Hapşıran: Elhamdülillâh. Duyan: Yerhamükallâh. Hapşıran cevap verir: Yehdîkümullâh.',
  'Hamd Allah\'a mahsustur. – Allah sana merhamet etsin. – Allah sizi doğru yola iletsin.','Buhârî']
 ];
+if(window.DV&&DV.DUA)DV.DUA.forEach((d,i)=>{const o=DUALAR[i];if(o){o[0]=d[0];o[1]=d[1];o[3]=d[2];o[4]=d[3];o[5]=d[4]}});

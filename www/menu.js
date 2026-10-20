@@ -16,16 +16,16 @@ m.querySelectorAll('button').forEach(b=>b.onclick=()=>{
 
 /* Paylaşım: yerli paylaşım penceresi (WhatsApp, SMS…); yoksa tarayıcı paylaşımı, o da yoksa WhatsApp bağlantısı */
 window.paylas=async(text,baslik)=>{
-  if(P.Share){try{await P.Share.share({title:baslik||'Nur Vakti',text,dialogTitle:baslik||'Paylaş'});return}catch(e){if(/cancel|iptal/i.test(String(e&&e.message||e)))return}}
+  if(P.Share){try{await P.Share.share({title:baslik||'Nur Vakti',text,dialogTitle:baslik||ceviri('Paylaş')});return}catch(e){if(/cancel|iptal/i.test(String(e&&e.message||e)))return}}
   if(navigator.share){try{await navigator.share({text});return}catch(e){if(e&&e.name==='AbortError')return}}
   window.open('https://wa.me/?text='+encodeURIComponent(text),'_blank');
 };
 const PLAY='https://play.google.com/store/apps/details?id=com.nurvakti.namazvekuran';
 /* Paylaşılan her metnin sonuna eklenen imza */
-window.IMZA=`\n\n— Nur Vakti Namaz Vakitleri\nUygulamayı ücretsiz olarak indirip kullanabilirsiniz:\n${PLAY}`;
-window.uygulamayiPaylas=()=>paylas(`Namaz vakitleri ve ezan bildirimi, kıble pusulası, sesli Kur'an-ı Kerim, yakındaki camiler, ibadet bilgileri, çocuklar için eğitici bölüm ve Cuma günü vefat eden yakınlarımız için Fâtiha–Yâsîn hatırlatması… Hepsi tek uygulamada: Nur Vakti 🌙\n\nÜcretsiz indir:\n${PLAY}`,'Nur Vakti uygulamasını paylaş');
+window.IMZA=tl({tr:`\n\n— Nur Vakti Namaz Vakitleri\nUygulamayı ücretsiz olarak indirip kullanabilirsiniz:\n${PLAY}`,en:`\n\n— Nur Vakti Prayer Times\nYou can download and use the app for free:\n${PLAY}`,ar:`\n\n— نور وقتي لمواقيت الصلاة\nيمكنك تنزيل التطبيق واستخدامه مجانًا:\n${PLAY}`,de:`\n\n— Nur Vakti Gebetszeiten\nDu kannst die App kostenlos herunterladen und nutzen:\n${PLAY}`});
+window.uygulamayiPaylas=()=>paylas(tl({en:`Prayer times with adhan notifications, Qibla compass, Quran with audio, nearby mosques, worship guides, a learning corner for children and Friday Fatiha–Ya-Sin reminders for our departed loved ones… All in one app: Nur Vakti 🌙\n\nDownload for free:\n${PLAY}`,ar:`مواقيت الصلاة مع تنبيه الأذان، وبوصلة القبلة، والقرآن الكريم مسموعًا، والمساجد القريبة، وأحكام العبادات، وركن تعليمي للأطفال، وتذكير بقراءة الفاتحة ويس يوم الجمعة لأحبابنا الراحلين… كلها في تطبيق واحد: نور وقتي 🌙\n\nنزّله مجانًا:\n${PLAY}`,de:`Gebetszeiten mit Adhan-Benachrichtigung, Qibla-Kompass, Koran mit Audio, Moscheen in der Nähe, Gottesdienst-Wissen, eine Lernecke für Kinder und freitägliche Fatiha–Ya-Sin-Erinnerungen für unsere Verstorbenen… Alles in einer App: Nur Vakti 🌙\n\nKostenlos herunterladen:\n${PLAY}`,tr:`Namaz vakitleri ve ezan bildirimi, kıble pusulası, sesli Kur'an-ı Kerim, yakındaki camiler, ibadet bilgileri, çocuklar için eğitici bölüm ve Cuma günü vefat eden yakınlarımız için Fâtiha–Yâsîn hatırlatması… Hepsi tek uygulamada: Nur Vakti 🌙\n\nÜcretsiz indir:\n${PLAY}`}),ceviri('Nur Vakti uygulamasını paylaş'));
 document.querySelector('#paylasBtn').onclick=uygulamayiPaylas;
-{const b=document.createElement('button');b.className='btn';b.textContent='Uygulamayı paylaş';b.onclick=()=>{document.querySelector('#setSheet').classList.remove('open');uygulamayiPaylas()};document.querySelector('#setSheet .box').appendChild(b)}
+{const b=document.createElement('button');b.className='btn';b.textContent=ceviri('Uygulamayı paylaş');b.onclick=()=>{document.querySelector('#setSheet').classList.remove('open');uygulamayiPaylas()};document.querySelector('#setSheet .box').appendChild(b)}
 
 /* Tam ekran sayfa: Sayfa.ac('Başlık') -> {el, govde, kapat}; üst üste açılabilir */
 window.Sayfa={

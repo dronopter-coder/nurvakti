@@ -1,0 +1,215 @@
+# Arayüz sözlüğü: Türkçe|English|العربية|Deutsch (i18n.js içindeki temel sözlüğe eklenir)
+Günün ayeti|Verse of the day|آية اليوم|Vers des Tages
+Günün hadisi|Hadith of the day|حديث اليوم|Hadith des Tages
+Ayet paylaş|Share verse|مشاركة الآية|Vers teilen
+Hadis paylaş|Share hadith|مشاركة الحديث|Hadith teilen
+Nur Vakti uygulamasını paylaş|Share the Nur Vakti app|شارك تطبيق نور وقتي|Nur Vakti App teilen
+Diyanet ilmihali esas alınmıştır. Özel durumlar için müftülüğe danışın.|Based on the Diyanet catechism. For special cases, consult a qualified scholar.|المعلومات مبنية على كتاب الفقه لرئاسة الشؤون الدينية التركية. في الحالات الخاصة استشر عالمًا موثوقًا.|Grundlage ist der Diyanet-Katechismus. In Sonderfällen wende dich an einen qualifizierten Gelehrten.
+Telefonu yere paralel tut; metal eşyalardan ve mıknatıslı kılıflardan uzak dur. Yön şaşarsa telefonu havada 8 çizerek birkaç kez salla.|Hold the phone flat; keep away from metal objects and magnetic cases. If the direction drifts, wave the phone in a figure 8 a few times.|أمسك الهاتف موازيًا للأرض، وابتعد عن الأشياء المعدنية والأغطية المغناطيسية. إذا اختل الاتجاه فحرّك الهاتف في الهواء على شكل 8 عدة مرات.|Halte das Telefon waagerecht; halte Abstand zu Metall und magnetischen Hüllen. Wenn die Richtung abweicht, bewege das Telefon einige Male in Form einer 8.
+Tarihler Diyanet İşleri Başkanlığı'nın yayımladığı dini günler listesine göredir (vakithesaplama.diyanet.gov.tr). Kandil tarihleri o günün akşamını gösterir.|Dates follow the list of religious days published by the Turkish Presidency of Religious Affairs (Diyanet). Dates of the blessed nights refer to the evening of that day.|التواريخ وفق قائمة المناسبات الدينية الصادرة عن رئاسة الشؤون الدينية التركية. وتواريخ الليالي المباركة تشير إلى مساء ذلك اليوم.|Die Daten folgen der Liste religiöser Tage des türkischen Diyanet. Die Daten der gesegneten Nächte beziehen sich auf den Abend des Tages.
+Mezarlığa gittiğinde mezar taşının fotoğrafını çek; isim ve tarihleri taştan okuyup kaydı oluşturalım.|When you visit the cemetery, take a photo of the gravestone; we will read the name and dates from it and create the record.|عند زيارة المقبرة التقط صورة لشاهد القبر، وسنقرأ الاسم والتواريخ منه وننشئ السجل.|Wenn du den Friedhof besuchst, fotografiere den Grabstein; wir lesen Name und Daten aus und legen den Eintrag an.
+Her Cuma ruhuna Fâtiha ve Yâsîn okuyalım.|Let us recite Fatiha and Ya-Sin for their souls every Friday.|لنقرأ الفاتحة ويس على أرواحهم كل جمعة.|Lasst uns jeden Freitag Fatiha und Ya-Sin für ihre Seelen rezitieren.
+Okuma hızı|Reading speed|سرعة القراءة|Lesegeschwindigkeit
+Fâtiha|Fatiha|الفاتحة|Fatiha
+Yâsîn|Ya-Sin|يس|Ya-Sin
+Fâtiha Sûresi|Surah Al-Fatiha|سورة الفاتحة|Sure Al-Fatiha
+Yâsîn Sûresi|Surah Ya-Sin|سورة يس|Sure Ya-Sin
+Mekkî|Meccan|مكية|Mekkanisch
+Medenî|Medinan|مدنية|Medinensisch
+Önceki sûre|Previous surah|السورة السابقة|Vorherige Sure
+Sonraki sûre|Next surah|السورة التالية|Nächste Sure
+Kur'an metni yüklenemedi.|The Quran text could not be loaded.|تعذّر تحميل نص القرآن.|Der Korantext konnte nicht geladen werden.
+Sonuç bulunamadı.|No results found.|لا توجد نتائج.|Keine Ergebnisse.
+Bir ayete dokunursanız dinleme oradan başlar. Ses, Mişari Raşid el-Afasi kaydıdır ve internet gerektirir.|Tap a verse to start listening from there. The recitation is by Mishary Rashid Alafasy and requires internet.|اضغط على آية ليبدأ الاستماع منها. التلاوة بصوت مشاري راشد العفاسي وتتطلب الاتصال بالإنترنت.|Tippe auf einen Vers, um ab dort zu hören. Die Rezitation stammt von Mishary Rashid Alafasy und benötigt Internet.
+Ses yüklenemedi. İnternet bağlantısını kontrol edin.|Audio could not be loaded. Check your internet connection.|تعذّر تحميل الصوت. تحقق من الاتصال بالإنترنت.|Audio konnte nicht geladen werden. Internetverbindung prüfen.
+Bilgiler Diyanet İşleri Başkanlığı'nın yaygın görüşüne göre (Hanefî mezhebi) özetlenmiştir. Özel durumlar için müftülüğe veya Diyanet Alo 190 Dinî Bilgi Hattı'na danışınız.|The information is summarised according to the prevailing view of the Turkish Presidency of Religious Affairs (Hanafi school). For special cases, consult a qualified scholar or your local mufti.|المعلومات ملخّصة وفق الرأي الشائع لرئاسة الشؤون الدينية التركية (المذهب الحنفي). في الحالات الخاصة استشر عالمًا موثوقًا أو دار الإفتاء.|Die Angaben sind nach der vorherrschenden Ansicht des türkischen Diyanet (hanafitische Schule) zusammengefasst. In Sonderfällen wende dich an einen qualifizierten Gelehrten oder Mufti.
+Altın, para, ticari mal ve borçlarınızı girin; ödeyeceğiniz zekât hesaplansın|Enter your gold, money, trade goods and debts to calculate the zakat you owe|أدخل ذهبك ونقودك وعروض تجارتك وديونك لحساب الزكاة الواجبة عليك|Gib Gold, Geld, Handelswaren und Schulden ein, um deine Zakat zu berechnen
+Bilgilerinizi girin; zekâtınız Diyanet İşleri Başkanlığı'nın açıklamalarına göre (Hanefî mezhebi) hesaplansın. Girdiler yalnızca bu cihazda saklanır.|Enter your details and your zakat will be calculated according to the rulings of the Turkish Presidency of Religious Affairs (Hanafi school). Your entries are stored only on this device.|أدخل بياناتك لتُحسب زكاتك وفق بيانات رئاسة الشؤون الدينية التركية (المذهب الحنفي). تُحفظ المدخلات على هذا الجهاز فقط.|Gib deine Angaben ein; die Zakat wird nach den Erläuterungen des türkischen Diyanet (hanafitische Schule) berechnet. Die Eingaben bleiben nur auf diesem Gerät.
+Altın|Gold|الذهب|Gold
+Gümüş|Silver|الفضة|Silber
+Para ve ticari varlıklar|Money and trade assets|النقود والأصول التجارية|Geld und Handelsvermögen
+Düşülecek borçlar|Debts to deduct|الديون المخصومة|Abzuziehende Schulden
+Hayvanlar (isteğe bağlı)|Livestock (optional)|الأنعام (اختياري)|Nutztiere (optional)
+Gram altın fiyatı (24 ayar, ₺)|Price of one gram of gold (24 carat)|سعر غرام الذهب (عيار 24)|Preis pro Gramm Gold (24 Karat)
+Kuyumcu veya bankadaki güncel alış fiyatını yazın.|Enter the current buying price at a jeweller or bank.|أدخل سعر الشراء الحالي لدى الصائغ أو البنك.|Gib den aktuellen Ankaufspreis beim Juwelier oder bei der Bank ein.
+24 ayar altın (gram)|24-carat gold (grams)|ذهب عيار 24 (غرام)|24-Karat-Gold (Gramm)
+Külçe, gram altın|Bullion, gold bars|سبائك، ذهب بالغرام|Barren, Goldgramm
+22 ayar altın (gram)|22-carat gold (grams)|ذهب عيار 22 (غرام)|22-Karat-Gold (Gramm)
+Bilezik, ziynet eşyası dahil|Including bracelets and jewellery|بما في ذلك الأساور والحلي|Einschließlich Armreifen und Schmuck
+14 ayar altın (gram)|14-carat gold (grams)|ذهب عيار 14 (غرام)|14-Karat-Gold (Gramm)
+Takı|Jewellery|الحلي|Schmuck
+Çeyrek altın (adet)|Quarter gold coins (count)|ربع ليرة ذهبية (عدد)|Viertel-Goldmünzen (Anzahl)
+Yarım altın (adet)|Half gold coins (count)|نصف ليرة ذهبية (عدد)|Halbe Goldmünzen (Anzahl)
+Tam altın (adet)|Full gold coins (count)|ليرة ذهبية كاملة (عدد)|Ganze Goldmünzen (Anzahl)
+Ata / Cumhuriyet altını (adet)|Republic (Ata) gold coins (count)|ليرة ذهبية جمهورية (عدد)|Republik-Goldmünzen (Anzahl)
+Gümüş (gram)|Silver (grams)|الفضة (غرام)|Silber (Gramm)
+Gram gümüş fiyatı (₺)|Price of one gram of silver|سعر غرام الفضة|Preis pro Gramm Silber
+Nakit ve banka hesapları (₺)|Cash and bank accounts|النقد والحسابات المصرفية|Bargeld und Bankkonten
+Vadeli/vadesiz hesaplar, kasadaki para|Savings and current accounts, cash at hand|الحسابات الجارية والادخارية، والنقد في اليد|Spar- und Girokonten, Bargeld
+Döviz (₺ karşılığı)|Foreign currency (value)|العملات الأجنبية (القيمة)|Devisen (Gegenwert)
+Dolar, avro vb. bugünkü değeri|Today's value of dollars, euros, etc.|القيمة الحالية للدولار واليورو ونحوهما|Heutiger Wert von Dollar, Euro usw.
+Ticaret malları (₺)|Trade goods|عروض التجارة|Handelswaren
+Satmak için elde tutulan mallar, maliyet değeri|Goods held for sale, at cost value|البضائع المعدّة للبيع، بقيمة التكلفة|Zum Verkauf gehaltene Waren, Einkaufswert
+Ticari amaçlı taşınmaz (₺)|Property held for trade|عقارات بغرض التجارة|Immobilien zum Handel
+Satmak için alınmış ev, arsa; piyasa değeri|Houses or land bought for resale; market value|بيوت أو أراضٍ اشتُريت للبيع؛ بقيمة السوق|Zum Weiterverkauf gekaufte Häuser, Grundstücke; Marktwert
+Al-sat amaçlı hisse senedi, fon (₺)|Shares and funds held for trading|أسهم وصناديق بغرض المتاجرة|Aktien und Fonds zum Handel
+Piyasa değeri|Market value|قيمة السوق|Marktwert
+Tahsili umulan alacaklar (₺)|Receivables expected to be repaid|الديون المرجوّ تحصيلها|Einbringliche Forderungen
+Borç verilen para, ticari alacaklar|Money lent, trade receivables|أموال مُقرضة، ديون تجارية|Verliehenes Geld, Handelsforderungen
+Bu yıl ödenecek borçlar (₺)|Debts due this year|ديون مستحقة هذا العام|In diesem Jahr fällige Schulden
+Birikmiş borçlar ve bu yıl vadesi dolan taksitler|Accumulated debts and instalments due this year|الديون المتراكمة والأقساط المستحقة هذا العام|Aufgelaufene Schulden und in diesem Jahr fällige Raten
+Koyun ve keçi (adet)|Sheep and goats (count)|الغنم والمعز (عدد)|Schafe und Ziegen (Anzahl)
+Yılın çoğunda merada otlayan|Grazing on pasture most of the year|السائمة أكثر الحول|Den Großteil des Jahres auf der Weide
+Sığır, manda (adet)|Cattle, buffalo (count)|البقر والجاموس (عدد)|Rinder, Büffel (Anzahl)
+Hesaplama için önce gram altın fiyatını girin.|To calculate, first enter the price of one gram of gold.|للحساب أدخل أولًا سعر غرام الذهب.|Gib zur Berechnung zuerst den Goldpreis pro Gramm ein.
+Hesaplamada nelere dikkat edildi?|What is taken into account?|ما الذي رُوعي في الحساب؟|Was wird berücksichtigt?
+Nisap, 24 ayar 80,18 gram altın (20 miskal) değeridir. Temel ihtiyaçlar ve bu yılın borçları çıktıktan sonra bu değere ulaşan ve üzerinden bir kamerî (hicri) yıl geçen mal zekâta tabidir.|The nisab is the value of 80.18 grams of 24-carat gold (20 mithqal). Wealth that reaches this value after basic needs and this year's debts, and over which a lunar (Hijri) year has passed, is subject to zakat.|النصاب قيمة 80.18 غرامًا من الذهب عيار 24 (عشرون مثقالًا). والمال الذي يبلغه بعد الحوائج الأصلية وديون هذا العام ويحول عليه حول قمري (هجري) تجب فيه الزكاة.|Der Nisab ist der Wert von 80,18 g 24-karätigem Gold (20 Mithqal). Vermögen, das ihn nach Grundbedürfnissen und diesjährigen Schulden erreicht und über das ein Mondjahr (Hidschri) vergangen ist, ist zakatpflichtig.
+Oturulan ev, binilen araba, ev eşyası, meslekte kullanılan alet ve makineler zekâta tabi değildir.|The home you live in, the car you use, household goods and the tools and machines of your profession are not subject to zakat.|لا زكاة في بيت السكن وسيارة الاستعمال وأثاث البيت وأدوات المهنة وآلاتها.|Das bewohnte Haus, das genutzte Auto, Hausrat sowie Berufswerkzeuge und Maschinen sind nicht zakatpflichtig.
+Farklı ayardaki altınlar nisap için birlikte tartılır; zekâtı ise her birinin kendi değerinden hesaplanır. Ziynet eşyası Hanefî mezhebine göre zekâta tabidir.|Gold of different carats is weighed together for the nisab; its zakat is calculated from the value of each. Jewellery is subject to zakat in the Hanafi school.|يُجمع الذهب من مختلف العيارات في النصاب، وتُحسب زكاته من قيمة كل منها. والحلي تجب فيه الزكاة عند الحنفية.|Gold verschiedener Karat wird für den Nisab zusammengewogen; die Zakat wird aus dem Wert jeder Sorte berechnet. Schmuck ist nach hanafitischer Schule zakatpflichtig.
+Ticaret mallarında satış kârı değil, zekât günündeki maliyet değeri esas alınır.|For trade goods, the cost value on the zakat day is used, not the sales profit.|في عروض التجارة تُعتبر قيمة التكلفة يوم الزكاة لا ربح البيع.|Bei Handelswaren zählt der Einkaufswert am Zakat-Tag, nicht der Verkaufsgewinn.
+Uzun vadeli kredi, konut ve kooperatif borçlarının tamamı değil, yalnız bu yıl ödenecek kısmı düşülür.|For long-term loans, mortgages and similar debts, only the part due this year is deducted, not the whole.|في القروض طويلة الأجل وديون السكن لا يُخصم إلا الجزء المستحق هذا العام.|Bei langfristigen Krediten und Wohnungsschulden wird nur der in diesem Jahr fällige Teil abgezogen.
+Kira gelirleri ve maaş birikimleri diğer mallarla birlikte nisaba ulaşırsa zekâta tabidir; kirada olan evin kendisi tabi değildir.|Rental income and saved salary are subject to zakat if together with other wealth they reach the nisab; the rented house itself is not.|تجب الزكاة في دخل الإيجار ومدخرات الراتب إذا بلغت مع غيرها النصاب، ولا زكاة في البيت المؤجَّر نفسه.|Mieteinnahmen und gesparter Lohn sind zakatpflichtig, wenn sie mit anderem Vermögen den Nisab erreichen; das vermietete Haus selbst nicht.
+Hayvanlar ayrı nisaba tabidir: koyun-keçide 40, sığırda 30 adet. Zekâtları hayvanın kendisiyle veya değeriyle ödenebilir.|Livestock has its own nisab: 40 for sheep and goats, 30 for cattle. Their zakat may be paid with the animals themselves or their value.|للأنعام نصاب مستقل: 40 في الغنم والمعز، و30 في البقر، وتُخرج زكاتها من عينها أو بقيمتها.|Nutztiere haben einen eigenen Nisab: 40 Schafe/Ziegen, 30 Rinder. Ihre Zakat kann mit Tieren oder deren Wert entrichtet werden.
+Zekât; anne-baba, dede-nine, çocuk ve torunlara, eşe ve zengine verilmez. Fakir kardeş ve akrabalara vermek daha sevaptır.|Zakat is not given to parents, grandparents, children, grandchildren, one's spouse or the wealthy. Giving it to poor siblings and relatives is more rewarding.|لا تُعطى الزكاة للوالدين والأجداد والأولاد والأحفاد والزوج والأغنياء، وإعطاؤها للإخوة والأقارب الفقراء أعظم أجرًا.|Zakat wird nicht an Eltern, Großeltern, Kinder, Enkel, den Ehepartner oder Reiche gegeben. Arme Geschwister und Verwandte zu bedenken ist lohnender.
+Kaynak: Diyanet İşleri Başkanlığı, Din İşleri Yüksek Kurulu açıklamaları. Özel durumlar için müftülüğe veya Alo 190'a danışınız.|Source: Turkish Presidency of Religious Affairs, High Board of Religious Affairs. For special cases, consult a qualified scholar.|المصدر: رئاسة الشؤون الدينية التركية، المجلس الأعلى للشؤون الدينية. في الحالات الخاصة استشر عالمًا موثوقًا.|Quelle: Türkisches Diyanet, Hoher Rat für Religionsangelegenheiten. In Sonderfällen wende dich an einen qualifizierten Gelehrten.
+Altın değeri|Gold value|قيمة الذهب|Goldwert
+Gümüş değeri|Silver value|قيمة الفضة|Silberwert
+Düşülen borçlar|Debts deducted|الديون المخصومة|Abgezogene Schulden
+Zekâta tabi net varlık|Net zakatable wealth|صافي المال الزكوي|Zakatpflichtiges Nettovermögen
+Nisap (80,18 gr altın)|Nisab (80.18 g gold)|النصاب (80.18 غ ذهب)|Nisab (80,18 g Gold)
+Net varlığın kırkta biri (%2,5)|One fortieth of net wealth (2.5%)|ربع عشر صافي المال (2.5%)|Ein Vierzigstel des Nettovermögens (2,5 %)
+Bu miktar, malınız nisaba ulaştığı günden itibaren üzerinden bir kamerî yıl geçmişse farzdır. Yıl dolmadan önce de verilebilir.|This amount is obligatory if a lunar year has passed since your wealth reached the nisab. It may also be paid before the year is complete.|يجب هذا المقدار إذا مرّ حول قمري منذ بلوغ مالك النصاب، ويجوز إخراجه قبل تمام الحول.|Dieser Betrag ist Pflicht, wenn seit Erreichen des Nisab ein Mondjahr vergangen ist. Er kann auch vorher gegeben werden.
+Sonuç|Result|النتيجة|Ergebnis
+Net varlığınız nisap miktarının altında|Your net wealth is below the nisab|صافي مالك أقل من النصاب|Dein Nettovermögen liegt unter dem Nisab
+Koyun-keçi zekâtı|Zakat on sheep and goats|زكاة الغنم والمعز|Zakat auf Schafe und Ziegen
+Sığır zekâtı|Zakat on cattle|زكاة البقر|Zakat auf Rinder
+koyun/keçi|sheep/goat|شاة|Schaf/Ziege
+Abdestli olmak, namaza hazırlanmanın ilk adımıdır. Temiz olmayı Allah sever!|Being in wudu is the first step in preparing for prayer. Allah loves those who are clean!|الوضوء أول خطوة في الاستعداد للصلاة. والله يحب المتطهرين!|Im Wudu zu sein ist der erste Schritt zur Vorbereitung auf das Gebet. Allah liebt die, die sich reinigen!
+Bir günde beş vakit namaz kılarız. Her vakitte kaç rekât kıldığımızı öğrenelim!|We pray five times a day. Let's learn how many rak'ahs we pray each time!|نصلي في اليوم خمس صلوات. لنتعلم كم ركعة نصلي في كل وقت!|Wir beten fünfmal am Tag. Lass uns lernen, wie viele Rakat wir jedes Mal beten!
+sünnet|sunnah|سنة|Sunna
+farz|fard|فرض|Fard
+vitir|witr|وتر|Witr
+ilk sünnet|first sunnah|السنة القبلية|erste Sunna
+son sünnet|last sunnah|السنة البعدية|letzte Sunna
+Farz:|Fard:|الفرض:|Fard:
+Sünnet:|Sunnah:|السنة:|Sunna:
+Vitir:|Witr:|الوتر:|Witr:
+Allah'ın kesin emri.|A definite command of Allah.|أمر الله القاطع.|Ein eindeutiges Gebot Allahs.
+Peygamberimizin kıldığı ve tavsiye ettiği.|What our Prophet prayed and recommended.|ما صلّاه النبي ﷺ وأوصى به.|Was unser Prophet betete und empfahl.
+Yatsıdan sonra kılınan 3 rekâtlık vacip namaz. Bir günde 17 rekât farz kılarız.|A wajib prayer of 3 rak'ahs prayed after Isha. We pray 17 fard rak'ahs a day.|صلاة واجبة من 3 ركعات تُصلّى بعد العشاء. ونصلي في اليوم 17 ركعة فرضًا.|Ein Wadschib-Gebet mit 3 Rakat nach Ischa. Wir beten 17 Pflicht-Rakat am Tag.
+Sırayla dinle, tekrar et, ezberle! Sûre yavaş (0,8×) okunur; hızı değiştirebilirsin. Ses için internet gerekir.|Listen, repeat and memorise! The surah is recited slowly (0.8×); you can change the speed. Audio needs internet.|استمع، كرّر، احفظ! تُقرأ السورة ببطء (0.8×) ويمكنك تغيير السرعة. يحتاج الصوت إلى الإنترنت.|Hören, wiederholen, auswendig lernen! Die Sure wird langsam (0,8×) rezitiert; du kannst die Geschwindigkeit ändern. Audio braucht Internet.
+Namazda okunan dualar ve her gün bilmemiz gereken dualar. Duaya dokun; Arapçası, okunuşu ve anlamı açılsın, "Dinle" ile sesli okunsun.|Prayers recited in salah and supplications we should know every day. Tap one to see the Arabic, transliteration and meaning; tap "Listen" to hear it.|الأدعية التي تُقرأ في الصلاة والأدعية اليومية. اضغط على الدعاء ليظهر نصه ومعناه، واضغط «استمع» لسماعه.|Gebete im Salah und Bittgebete für jeden Tag. Tippe darauf für Arabisch, Umschrift und Bedeutung; mit „Anhören“ wird es vorgelesen.
+Anlamı:|Meaning:|المعنى:|Bedeutung:
+Allah'ın doksan dokuz güzel ismi (Esmâ-i Hüsnâ). Bir isme dokun, anlamı altında açılsın; anlamına dokunursan TDV İslâm Ansiklopedisi'nde açıklamasını okursun.|The ninety-nine beautiful names of Allah (Asma al-Husna). Tap a name to see its meaning; tap the meaning to read more in the TDV Encyclopedia of Islam (Turkish).|أسماء الله الحسنى التسعة والتسعون. اضغط على الاسم ليظهر معناه، واضغط على المعنى لقراءة المزيد في موسوعة TDV الإسلامية (بالتركية).|Die neunundneunzig schönen Namen Allahs (Asma al-Husna). Tippe auf einen Namen für die Bedeutung; tippe auf die Bedeutung, um mehr in der TDV-Enzyklopädie des Islam (Türkisch) zu lesen.
+Anlamlar kısaca verilmiştir. Kaynak: TDV İslâm Ansiklopedisi, "Esmâ-i Hüsnâ" ve ilgili maddeler.|Meanings are given briefly. Source: TDV Encyclopedia of Islam, "Asma al-Husna" and related entries.|المعاني مختصرة. المصدر: موسوعة TDV الإسلامية، مادة «الأسماء الحسنى» والمواد ذات الصلة.|Die Bedeutungen sind kurz gefasst. Quelle: TDV-Enzyklopädie des Islam, „Asma al-Husna“ und verwandte Artikel.
+Esmâ-i Hüsnâ|Asma al-Husna|الأسماء الحسنى|Asma al-Husna
+Anlamlar kısaca verilmiştir; bağlantılar TDV İslâm Ansiklopedisi (islamansiklopedisi.org.tr) maddelerine gider.|Meanings are given briefly; links go to entries in the TDV Encyclopedia of Islam (islamansiklopedisi.org.tr).|المعاني مختصرة، والروابط تؤدي إلى مواد موسوعة TDV الإسلامية (islamansiklopedisi.org.tr).|Die Bedeutungen sind kurz gefasst; die Links führen zur TDV-Enzyklopädie des Islam (islamansiklopedisi.org.tr).
+Harikasın, maşallah!|You're amazing, masha'Allah!|رائع، ما شاء الله!|Super, masha'Allah!
+Çok güzel, biraz daha çalışalım!|Very good, let's practise a bit more!|جميل جدًا، لنتدرّب أكثر!|Sehr gut, lass uns noch etwas üben!
+Güzel başladın, tekrar deneyelim!|Good start, let's try again!|بداية جميلة، لنحاول مرة أخرى!|Guter Anfang, versuchen wir es noch einmal!
+Yükleniyor…|Loading…|جارٍ التحميل…|Wird geladen…
+Bu cihazda sesli okuma desteklenmiyor.|Reading aloud is not supported on this device.|القراءة الصوتية غير مدعومة على هذا الجهاز.|Vorlesen wird auf diesem Gerät nicht unterstützt.
+Namaz vakitleri, Kur'an-ı Kerim, kabir kaydı ve Cuma okuması, yakın camiler, ibadet bilgileri ve çocuklar için eğitici içerikler. Allah kabul etsin.|Prayer times, the Holy Quran, grave records with Friday recitation, nearby mosques, worship guides and educational content for children. May Allah accept it.|مواقيت الصلاة، والقرآن الكريم، وسجل القبور وقراءة الجمعة، والمساجد القريبة، وأحكام العبادات، ومحتوى تعليمي للأطفال. تقبّل الله.|Gebetszeiten, der edle Koran, Grabeinträge mit Freitagsrezitation, Moscheen in der Nähe, Gottesdienst-Wissen und Lerninhalte für Kinder. Möge Allah es annehmen.
+Ayetler anlam olarak özetlenmiştir; ayrıntı için meal ve tefsirlere bakınız. Dinî bilgiler genel bilgi amaçlıdır ve Diyanet İşleri Başkanlığı'nın yaygın görüşüne göre özetlenmiştir. Uygulama Diyanet İşleri Başkanlığı ile bağlantılı değildir. Özel durumlar için müftülüğe veya yetkili bir din görevlisine danışınız.|Verse translations are summarised by meaning; for details see translations and commentaries. Religious information is for general guidance and is summarised according to the prevailing view of the Turkish Presidency of Religious Affairs (Diyanet). The app is not affiliated with the Diyanet. For special cases, consult a qualified scholar.|معاني الآيات ملخّصة؛ ولمزيد من التفصيل راجع التفاسير. والمعلومات الدينية للإرشاد العام، ملخّصة وفق الرأي الشائع لرئاسة الشؤون الدينية التركية. والتطبيق غير تابع لها. في الحالات الخاصة استشر عالمًا موثوقًا.|Die Versübersetzungen sind sinngemäß zusammengefasst; Details in Übersetzungen und Kommentaren. Religiöse Angaben dienen der allgemeinen Orientierung und folgen der vorherrschenden Ansicht des türkischen Diyanet. Die App ist nicht mit dem Diyanet verbunden. In Sonderfällen wende dich an einen qualifizierten Gelehrten.
+Tanzil Projesi (tanzil.net) – Osmanlı imlası. Metin değiştirilmeden kullanılmıştır. Creative Commons Attribution 3.0 lisansı.|Tanzil Project (tanzil.net) – Uthmani script. The text is used unmodified. Creative Commons Attribution 3.0 licence.|مشروع تنزيل (tanzil.net) – الرسم العثماني. استُخدم النص دون تعديل. رخصة المشاع الإبداعي (CC BY 3.0).|Tanzil-Projekt (tanzil.net) – Uthmani-Schrift. Der Text wird unverändert verwendet. Creative-Commons-Lizenz BY 3.0.
+Mişari Raşid el-Afasi kayıtları; EveryAyah.com ve Islamic Network (cdn.islamic.network) üzerinden internetten çalınır.|Recitations by Mishary Rashid Alafasy, streamed from EveryAyah.com and Islamic Network (cdn.islamic.network).|تلاوات مشاري راشد العفاسي، تُشغَّل عبر الإنترنت من EveryAyah.com وIslamic Network.|Rezitationen von Mishary Rashid Alafasy, gestreamt von EveryAyah.com und Islamic Network (cdn.islamic.network).
+Diyanet İşleri Başkanlığı'nın ilçe bazında yayınladığı vakitler (ezanvakti.emushaf.net aracılığıyla). Bu kaynağa ulaşılamazsa Aladhan API (aladhan.com, Diyanet hesaplama yöntemi) kullanılır; bu durumda 1-2 dakikalık fark olabilir.|District-level times published by the Turkish Presidency of Religious Affairs (via ezanvakti.emushaf.net). If unavailable, the Aladhan API (aladhan.com, Diyanet method) is used; times may then differ by 1–2 minutes.|المواقيت التي تنشرها رئاسة الشؤون الدينية التركية لكل منطقة (عبر ezanvakti.emushaf.net). وإذا تعذّر الوصول إليها يُستخدم Aladhan API (طريقة ديانت)، وقد يكون الفرق دقيقة أو دقيقتين.|Bezirksgenaue Zeiten des türkischen Diyanet (über ezanvakti.emushaf.net). Ist diese Quelle nicht erreichbar, wird die Aladhan-API (Diyanet-Methode) genutzt; dann sind 1–2 Minuten Abweichung möglich.
+© OpenStreetMap katkıcıları (ODbL). Overpass API ve tile.openstreetmap.org. Harita kütüphanesi: Leaflet (BSD-2-Clause).|© OpenStreetMap contributors (ODbL). Overpass API and tile.openstreetmap.org. Map library: Leaflet (BSD-2-Clause).|© مساهمو OpenStreetMap (ODbL). Overpass API وtile.openstreetmap.org. مكتبة الخرائط: Leaflet (BSD-2-Clause).|© OpenStreetMap-Mitwirkende (ODbL). Overpass API und tile.openstreetmap.org. Kartenbibliothek: Leaflet (BSD-2-Clause).
+Yer adı ve il/ilçe listesi|Place names and province/district list|أسماء الأماكن وقائمة المحافظات والمناطق|Ortsnamen und Provinz-/Bezirksliste
+OpenStreetMap Nominatim, BigDataCloud, TürkiyeAPI.|OpenStreetMap Nominatim, BigDataCloud, TürkiyeAPI.|OpenStreetMap Nominatim، BigDataCloud، TürkiyeAPI.|OpenStreetMap Nominatim, BigDataCloud, TürkiyeAPI.
+Tesseract OCR ve Türkçe dil verisi (Apache-2.0); tamamen cihazda çalışır.|Tesseract OCR with Turkish language data (Apache-2.0); runs entirely on the device.|Tesseract OCR مع بيانات اللغة التركية (Apache-2.0)؛ يعمل بالكامل على الجهاز.|Tesseract OCR mit türkischen Sprachdaten (Apache-2.0); läuft vollständig auf dem Gerät.
+Android'de telefonun yön sensörü; manyetik sapma düzeltilerek gerçek kuzeye göre hesaplanır.|On Android, the phone's orientation sensor; calculated relative to true north with magnetic declination corrected.|مستشعر الاتجاه في هاتف أندرويد؛ ويُحسب بالنسبة إلى الشمال الحقيقي مع تصحيح الانحراف المغناطيسي.|Unter Android der Lagesensor des Telefons; berechnet nach geografisch Nord mit Korrektur der Missweisung.
+Amiri Quran, Aref Ruqaa, Cinzel Decorative – SIL Open Font License 1.1.|Amiri Quran, Aref Ruqaa, Cinzel Decorative – SIL Open Font License 1.1.|Amiri Quran، Aref Ruqaa، Cinzel Decorative – رخصة SIL Open Font 1.1.|Amiri Quran, Aref Ruqaa, Cinzel Decorative – SIL Open Font License 1.1.
+Capacitor (MIT), Google AdMob eklentisi.|Capacitor (MIT), Google AdMob plugin.|Capacitor (MIT)، إضافة Google AdMob.|Capacitor (MIT), Google-AdMob-Plugin.
+Vakit kaynağı: Diyanet İşleri Başkanlığı ilçe vakitleri ✓|Time source: Diyanet district times ✓|مصدر المواقيت: مواقيت ديانت للمنطقة ✓|Zeitquelle: Diyanet-Bezirkszeiten ✓
+Vakit kaynağı: hesaplama (Diyanet yöntemi). Diyanet verisine şu an ulaşılamadı; 1-2 dakika fark olabilir.|Time source: calculation (Diyanet method). Diyanet data is currently unavailable; times may differ by 1–2 minutes.|مصدر المواقيت: الحساب (طريقة ديانت). تعذّر الوصول إلى بيانات ديانت حاليًا؛ قد يكون الفرق دقيقة أو دقيقتين.|Zeitquelle: Berechnung (Diyanet-Methode). Diyanet-Daten derzeit nicht erreichbar; 1–2 Minuten Abweichung möglich.
+Açık · kapatmak için telefon ayarlarına gider|On · opens phone settings to turn off|مفعّل · يفتح إعدادات الهاتف للإيقاف|An · öffnet die Telefoneinstellungen zum Ausschalten
+Kapalı · açmak için telefon ayarlarına gider|Off · opens phone settings to turn on|متوقف · يفتح إعدادات الهاتف للتفعيل|Aus · öffnet die Telefoneinstellungen zum Einschalten
+Bildirimler açık|Notifications are on|الإشعارات مفعّلة|Benachrichtigungen sind an
+Telefon Ayarlar > Uygulamalar > Nur Vakti > Bildirimler bölümünden değiştirebilirsiniz|You can change this in phone Settings > Apps > Nur Vakti > Notifications|يمكنك التغيير من إعدادات الهاتف > التطبيقات > Nur Vakti > الإشعارات|Ändern unter Telefon-Einstellungen > Apps > Nur Vakti > Benachrichtigungen
+Bildirim izni verilmedi|Notification permission not granted|لم يُمنح إذن الإشعارات|Benachrichtigungsberechtigung nicht erteilt
+Bu bölüm yüklenemedi|This section could not be loaded|تعذّر تحميل هذا القسم|Dieser Bereich konnte nicht geladen werden
+Bu cihazda ek bir seçenek yok.|There are no further options on this device.|لا توجد خيارات إضافية على هذا الجهاز.|Auf diesem Gerät gibt es keine weiteren Optionen.
+Şu an gösterilecek bir seçenek yok.|No options to show right now.|لا توجد خيارات لعرضها الآن.|Derzeit keine Optionen verfügbar.
+Kıble için konum gerekli. Konumu seçip tekrar dene.|Location is needed for the Qibla. Choose a location and try again.|يلزم تحديد الموقع لمعرفة القبلة. اختر الموقع وحاول مجددًا.|Für die Qibla wird ein Standort benötigt. Wähle einen Ort und versuche es erneut.
+Kıble ➜|Qibla ➜|القبلة ➜|Qibla ➜
+Buradasınız|You are here|أنت هنا|Du bist hier
+Harita hazırlanıyor…|Preparing the map…|جارٍ تجهيز الخريطة…|Karte wird vorbereitet…
+Konumunuz alınıyor ve camiler aranıyor…|Getting your location and searching for mosques…|جارٍ تحديد موقعك والبحث عن المساجد…|Standort wird ermittelt und Moscheen werden gesucht…
+Camiler alınamadı. Konum ve internet bağlantısını kontrol edin.|Mosques could not be loaded. Check location and internet connection.|تعذّر جلب المساجد. تحقق من الموقع والاتصال بالإنترنت.|Moscheen konnten nicht geladen werden. Standort und Internet prüfen.
+Çevrenizde kayıtlı cami bulunamadı (10 km).|No mosques found nearby (10 km).|لم يُعثر على مساجد قريبة (10 كم).|Keine Moscheen in der Nähe gefunden (10 km).
+Çevrenizde kayıtlı cami bulunamadı.|No mosques found nearby.|لم يُعثر على مساجد قريبة.|Keine Moscheen in der Nähe gefunden.
+Cami bilgileri OpenStreetMap katkıcılarından alınır; Diyanet verisi değildir, eksik veya güncel olmayabilir.|Mosque data comes from OpenStreetMap contributors; it may be incomplete or out of date.|بيانات المساجد من مساهمي OpenStreetMap، وقد تكون ناقصة أو غير محدّثة.|Moscheedaten stammen von OpenStreetMap-Mitwirkenden und können unvollständig oder veraltet sein.
+İsimsiz cami|Unnamed mosque|مسجد بلا اسم|Moschee ohne Namen
+Konum izni verilmedi. Telefon ayarlarından konum iznini açın.|Location permission not granted. Enable it in the phone settings.|لم يُمنح إذن الموقع. فعّله من إعدادات الهاتف.|Standortberechtigung nicht erteilt. Aktiviere sie in den Telefoneinstellungen.
+Konum alınamadı|Location unavailable|تعذّر تحديد الموقع|Standort nicht verfügbar
+Eksi düğmesi, bir kaza namazı kıldığınızı düşer. Sayılar yalnızca sizin tuttuğunuz kayıttır; kaza hesabı için bir âlime veya müftülüğe danışabilirsiniz.|The minus button records that you made up one prayer. The numbers are only your own record; for calculating missed prayers you can consult a scholar.|زر الطرح يسجّل أنك قضيت صلاة. الأرقام سجلّك الخاص فقط؛ ولحساب القضاء يمكنك استشارة عالم.|Die Minus-Taste vermerkt ein nachgeholtes Gebet. Die Zahlen sind nur deine eigene Aufzeichnung; für die Berechnung kannst du einen Gelehrten fragen.
+Bir kaza kıldım|I made up one prayer|قضيت صلاة|Ein Gebet nachgeholt
+Bugün Cuma – hayırlı Cumalar|Today is Friday – Jumu'ah Mubarak|اليوم الجمعة – جمعة مباركة|Heute ist Freitag – gesegneten Freitag
+Cuma gecesi|Friday eve|ليلة الجمعة|Freitagnacht
+Cumaya hazırlık|Preparing for Friday|الاستعداد للجمعة|Vorbereitung auf Freitag
+Bu Cuma tüm kabirler için okundu. Allah kabul etsin.|Recited for all graves this Friday. May Allah accept it.|تمت القراءة لجميع القبور هذه الجمعة. تقبّل الله.|Diesen Freitag für alle Gräber rezitiert. Möge Allah es annehmen.
+Bir yıl|One year|سنة|Ein Jahr
+Altı ay|Six months|ستة أشهر|Sechs Monate
+Üç ay|Three months|ثلاثة أشهر|Drei Monate
+Bir ay|One month|شهر|Ein Monat
+Bilgi eklenmedi|No details added|لم تُضف معلومات|Keine Angaben
+İsimsiz kayıt|Unnamed record|سجل بلا اسم|Eintrag ohne Namen
+İsimsiz|Unnamed|بلا اسم|Ohne Namen
+Okundu|Recited|قُرئت|Rezitiert
+Bekliyor|Waiting|بانتظار|Ausstehend
+Kabir ekle|Add grave|إضافة قبر|Grab hinzufügen
+Mezar taşının yazılı yüzünü, ışık yansımadan ve dik açıyla çekin. Yazıyı cihazın kendisi okur; fotoğraf internete gönderilmez.|Photograph the inscribed side of the gravestone straight on, without glare. The device reads the text itself; the photo is not sent to the internet.|صوّر الوجه المكتوب من شاهد القبر بزاوية مستقيمة ودون انعكاس للضوء. يقرأ الجهاز النص بنفسه ولا تُرسل الصورة إلى الإنترنت.|Fotografiere die beschriftete Seite des Grabsteins gerade und ohne Spiegelung. Das Gerät liest den Text selbst; das Foto wird nicht ins Internet gesendet.
+📷 Fotoğraf çek|📷 Take photo|📷 التقط صورة|📷 Foto aufnehmen
+Galeriden seç|Choose from gallery|اختر من المعرض|Aus Galerie wählen
+Fotoğrafsız, elle gireceğim|Enter manually, without a photo|سأُدخل البيانات يدويًا دون صورة|Ohne Foto manuell eingeben
+Taş okunuyor…|Reading the stone…|جارٍ قراءة الشاهد…|Stein wird gelesen…
+Fotoğraf hazırlanıyor|Preparing photo|جارٍ تجهيز الصورة|Foto wird vorbereitet
+Yazı okunuyor…|Reading text…|جارٍ قراءة النص…|Text wird gelesen…
+İlk seferde okuma motoru yüklenirken birkaç saniye sürebilir.|The first time, loading the reading engine may take a few seconds.|في المرة الأولى قد يستغرق تحميل محرك القراءة بضع ثوانٍ.|Beim ersten Mal kann das Laden der Texterkennung einige Sekunden dauern.
+Kabir bilgileri|Grave details|بيانات القبر|Grabangaben
+Kaydı düzenle|Edit record|تعديل السجل|Eintrag bearbeiten
+Mezar taşı|Gravestone|شاهد القبر|Grabstein
+Yazı otomatik okunamadı; bilgileri elle girebilirsiniz.|The text could not be read automatically; you can enter the details manually.|تعذّرت قراءة النص تلقائيًا؛ يمكنك إدخال البيانات يدويًا.|Der Text konnte nicht automatisch gelesen werden; du kannst die Angaben manuell eingeben.
+Taştan okunan bilgiler aşağıya yazıldı. Okuma hatalı olabilir; lütfen fotoğrafla karşılaştırıp düzeltin.|The details read from the stone are filled in below. The reading may contain errors; please compare with the photo and correct them.|كُتبت البيانات المقروءة من الشاهد أدناه. قد تحتوي القراءة على أخطاء؛ يرجى مقارنتها بالصورة وتصحيحها.|Die vom Stein gelesenen Angaben stehen unten. Die Erkennung kann Fehler enthalten; bitte mit dem Foto vergleichen und korrigieren.
+Taştan anlamlı bir yazı çıkarılamadı (taş aşınmış veya yazı okunaksız olabilir). Bilgileri elle girin.|No meaningful text could be read from the stone (it may be worn or illegible). Please enter the details manually.|تعذّر استخراج نص مفهوم من الشاهد (قد يكون متآكلًا أو غير مقروء). أدخل البيانات يدويًا.|Es konnte kein sinnvoller Text gelesen werden (Stein verwittert oder unleserlich). Bitte Angaben manuell eingeben.
+Ad soyad|Full name|الاسم الكامل|Vor- und Nachname
+Doğum|Birth|الميلاد|Geburt
+Vefat|Death|الوفاة|Tod
+GG.AA.YYYY veya yıl|DD.MM.YYYY or year|يوم.شهر.سنة أو السنة|TT.MM.JJJJ oder Jahr
+Yakınlık (anne, baba, dede…)|Relation (mother, father, grandfather…)|صلة القرابة (أم، أب، جد…)|Verwandtschaft (Mutter, Vater, Großvater…)
+Yakınlık|Relation|صلة القرابة|Verwandtschaft
+Mezarlık|Cemetery|المقبرة|Friedhof
+Şehir / ilçe|City / district|المدينة / المنطقة|Stadt / Bezirk
+Şehir|City|المدينة|Stadt
+Not (ada/parsel, kabir sırası vb.)|Note (plot, row, etc.)|ملاحظة (القطعة، الصف ونحو ذلك)|Notiz (Feld, Reihe usw.)
+Not|Note|ملاحظة|Notiz
+📍 Konum kaydedildi|📍 Location saved|📍 تم حفظ الموقع|📍 Standort gespeichert
+📍 Bulunduğum konumu mezar konumu olarak kaydet|📍 Save my current location as the grave location|📍 احفظ موقعي الحالي كموقع للقبر|📍 Aktuellen Standort als Grabstandort speichern
+Vazgeç|Cancel|إلغاء|Abbrechen
+Kaydet|Save|حفظ|Speichern
+Fotoğraf açılamadı|The photo could not be opened|تعذّر فتح الصورة|Foto konnte nicht geöffnet werden
+En azından bir isim yazın|Please enter at least a name|اكتب اسمًا على الأقل|Bitte mindestens einen Namen eingeben
+Fotoğraf kaydedilemedi|The photo could not be saved|تعذّر حفظ الصورة|Foto konnte nicht gespeichert werden
+Kayıt oluşturuldu. Allah rahmet eylesin.|Record created. May Allah have mercy on them.|تم إنشاء السجل. رحمه الله.|Eintrag erstellt. Möge Allah barmherzig sein.
+📍 Mezar konumuna git|📍 Go to grave location|📍 الذهاب إلى موقع القبر|📍 Zum Grabstandort
+Okunma|Recitations|مرات القراءة|Rezitationen
+Ruhuna Fâtiha ve Yâsîn oku|Recite Fatiha and Ya-Sin for their soul|اقرأ الفاتحة ويس على روحه|Fatiha und Ya-Sin für die Seele rezitieren
+Düzenle|Edit|تعديل|Bearbeiten
+Sil|Delete|حذف|Löschen
+Bu kayıt ve fotoğrafı silinsin mi?|Delete this record and its photo?|هل تريد حذف هذا السجل وصورته؟|Diesen Eintrag und das Foto löschen?
+Okumanız kaydedildi. Allah kabul etsin.|Your recitation has been saved. May Allah accept it.|تم حفظ قراءتك. تقبّل الله.|Deine Rezitation wurde gespeichert. Möge Allah sie annehmen.
+Okuma bitti. Dilerseniz "Okudum" ile kaydedin.|Recitation finished. If you wish, save it with "I've read it".|انتهت القراءة. يمكنك حفظها بزر «قرأت».|Rezitation beendet. Speichere sie auf Wunsch mit „Gelesen“.
+Vefat yıldönümü|Death anniversary|ذكرى الوفاة|Todestag
+Sevdiğiniz kişi|Your loved one|من تحب|Dein geliebter Mensch
+Sevdiklerinize Fâtiha ve Yâsîn hediye etmek için hayırlı bir vakit.|A blessed time to gift Fatiha and Ya-Sin to your loved ones.|وقت مبارك لإهداء الفاتحة ويس لأحبابك.|Eine gesegnete Zeit, um deinen Lieben Fatiha und Ya-Sin zu schenken.
+Merhumlarınız için Fâtiha ve Yâsîn okuma zamanı.|Time to recite Fatiha and Ya-Sin for your departed.|حان وقت قراءة الفاتحة ويس لموتاكم.|Zeit, Fatiha und Ya-Sin für deine Verstorbenen zu rezitieren.
+Yarın Cuma. Sevdiklerinize Fâtiha ve Yâsîn hediye etmeyi unutmayın.|Tomorrow is Friday. Don't forget to gift Fatiha and Ya-Sin to your loved ones.|غدًا الجمعة. لا تنسَ إهداء الفاتحة ويس لأحبابك.|Morgen ist Freitag. Vergiss nicht, deinen Lieben Fatiha und Ya-Sin zu schenken.
+Cuma hatırlatması|Friday reminder|تذكير الجمعة|Freitags-Erinnerung
+Kabirler için Cuma okuması|Friday recitation for graves|قراءة الجمعة للقبور|Freitagsrezitation für Gräber
+Vakit bildirimleri|Prayer time notifications|إشعارات المواقيت|Gebetszeit-Benachrichtigungen
+Telefonda Arapça ses bulunamadı; okunuş Türkçe seslendiriliyor.|No Arabic voice found on the phone; the transliteration is being read instead.|لم يُعثر على صوت عربي في الهاتف؛ تُقرأ الكتابة الصوتية بدلًا منه.|Keine arabische Stimme auf dem Telefon; stattdessen wird die Umschrift vorgelesen.
+Allah razı olsun! 🌙|May Allah reward you! 🌙|جزاك الله خيرًا! 🌙|Möge Allah dich belohnen! 🌙
+Türkçe|Türkçe|Türkçe|Türkçe
+Başlık|Title|العنوان|Titel
+Kunut|Qunut|القنوت|Qunut

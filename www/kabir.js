@@ -177,7 +177,7 @@ async function konumYokla(){
 }
 function ozet(k){
   const y=((k.dogum||'').match(/\d{4}/)||[])[0],z=((k.vefat||'').match(/\d{4}/)||[])[0];
-  const yil=y&&z?`${y} – ${z}`:(z?`† ${z}`:(y?`D. ${y}`:''));
+  const yil=y&&z?`${y} – ${z}`:(z?`† ${z}`:(y?tl({tr:'D. ',en:'b. ',ar:'و. ',de:'* '})+y:''));
   return [yil,k.mezarlik,k.sehir].filter(Boolean).join(' · ')||'Bilgi eklenmedi';
 }
 async function cizKabir(){
@@ -186,8 +186,8 @@ async function cizKabir(){
   if(!n){cm.innerHTML=''}
   else{
     const bas=bugunCuma()?'Bugün Cuma – hayırlı Cumalar':cumaGecesi()?'Cuma gecesi':'Cumaya hazırlık';
-    const alt=bek.length?`${bek.length} kişi için bu Cuma Fâtiha ve Yâsîn okunmayı bekliyor.`:'Bu Cuma tüm kabirler için okundu. Allah kabul etsin.';
-    const sr=cumaSeri(),srt=sr?`<p class="kb-seri">🌙 ${sr} Cumadır aksatmadınız${rozet(sr)?' · '+rozet(sr):''}</p>`:'';
+    const alt=bek.length?tl({tr:`${bek.length} kişi için bu Cuma Fâtiha ve Yâsîn okunmayı bekliyor.`,en:`Fatiha and Ya-Sin are waiting to be recited for ${bek.length} people this Friday.`,ar:`الفاتحة ويس بانتظار القراءة لـ ${bek.length} من الأحبة هذه الجمعة.`,de:`Diesen Freitag warten Fatiha und Ya-Sin für ${bek.length} Personen.`}):'Bu Cuma tüm kabirler için okundu. Allah kabul etsin.';
+    const sr=cumaSeri(),srt=sr?`<p class="kb-seri">🌙 ${tl({tr:`${sr} Cumadır aksatmadınız`,en:`${sr} Fridays in a row`,ar:`${sr} جمعة متتالية دون انقطاع`,de:`${sr} Freitage in Folge`})}${rozet(sr)?' · '+rozet(sr):''}</p>`:'';
     cm.innerHTML=`<div class="kb-cuma${bek.length?'':' dim'}"><b>${bas}</b><p>${alt}</p>${srt}<div class="kb-btns"><button class="btn gold" id="kbOkuBtn">Fâtiha ve Yâsîn oku</button></div></div>`;
     $('#kbOkuBtn').onclick=()=>okuBaslat(bek.length?bek.map(k=>k.id):kayit.map(k=>k.id));
   }
@@ -278,7 +278,7 @@ async function detay(id){
   $('#dOku').onclick=()=>{kapat();okuBaslat([id])};
   $('#dDuz').onclick=()=>{const t={rec:k,blob:null,alan:{...k},yeni:false};form(t)};
   $('#dSil').onclick=()=>{
-    if(!confirm('Bu kayıt ve fotoğrafı silinsin mi?'))return;
+    if(!confirm(ceviri('Bu kayıt ve fotoğrafı silinsin mi?')))return;
     kayit=kayit.filter(x=>x.id!==id);kaydet();idb.del(id).catch(()=>{});idb.del(id+':t').catch(()=>{});dropUrl(id);kapat();cizKabir();
   };
 }
@@ -297,13 +297,19 @@ function okuBaslat(ids){
   okuIds=ids.filter(i=>kayit.some(k=>k.id===i));
   if(!okuIds.length)return;
   const isimler=okuIds.map(i=>kayit.find(k=>k.id===i).ad||'İsimsiz kayıt');
-  const liste=isimler.length>8?isimler.slice(0,8).map(esc).join(', ')+` ve ${isimler.length-8} kişi daha`:isimler.map(esc).join(', ');
+  const fazla=isimler.length-8,liste=isimler.length>8?isimler.slice(0,8).map(esc).join(', ')+tl({tr:` ve ${fazla} kişi daha`,en:` and ${fazla} more`,ar:` و${fazla} آخرين`,de:` und ${fazla} weitere`}):isimler.map(esc).join(', ');
   O.style.setProperty('--arpx',arpx+'px');
   $('#okBody').innerHTML=`
-  <div id="s-niyet" class="ok-niyet">Niyet ederim; okuyacağım Fâtiha-i Şerîf ve Yâsîn-i Şerîf'in sevabını Allah rızası için şu ruhlara hediye etmek üzere:<em>${liste}</em>Allah hepsine rahmet eylesin.<br><small style="color:var(--soluk)">Sıra ile: Besmele, Fâtiha, Yâsîn ve dua.</small></div>
+  <div id="s-niyet" class="ok-niyet">${tl({tr:`Niyet ederim; okuyacağım Fâtiha-i Şerîf ve Yâsîn-i Şerîf'in sevabını Allah rızası için şu ruhlara hediye etmek üzere:<em>${liste}</em>Allah hepsine rahmet eylesin.<br><small style="color:var(--soluk)">Sıra ile: Besmele, Fâtiha, Yâsîn ve dua.</small>`,
+   en:`I intend, for the sake of Allah, to gift the reward of the Fatiha and Ya-Sin I am about to recite to these souls:<em>${liste}</em>May Allah have mercy on them all.<br><small style="color:var(--soluk)">In order: Basmala, Fatiha, Ya-Sin and supplication.</small>`,
+   ar:`نويت أن أهدي ثواب ما سأقرؤه من الفاتحة الشريفة وسورة يس الشريفة ابتغاء مرضاة الله إلى أرواح:<em>${liste}</em>رحمهم الله جميعًا.<br><small style="color:var(--soluk)">بالترتيب: البسملة، الفاتحة، يس، ثم الدعاء.</small>`,
+   de:`Ich beabsichtige, um Allahs willen den Lohn der Fatiha und Ya-Sin, die ich rezitieren werde, diesen Seelen zu schenken:<em>${liste}</em>Möge Allah ihnen allen barmherzig sein.<br><small style="color:var(--soluk)">Reihenfolge: Basmala, Fatiha, Ya-Sin und Bittgebet.</small>`})}</div>
   <div id="s-fatiha"><div class="ok-baslik">Fâtiha Sûresi</div><div class="ok-ar">${ayetler(OKUMA.fatiha,'f')}</div></div>
   <div id="s-yasin"><div class="ok-baslik">Yâsîn Sûresi</div><div class="ok-ar"><span class="ay" data-k="yb">${BESMELE}</span></div><div class="ok-ar">${ayetler(OKUMA.yasin,'y')}</div></div>
-  <div id="s-dua"><div class="ok-baslik">Dua</div><div class="ok-dua">Allah'ım! Okuduğumuz Fâtiha ve Yâsîn-i Şerîf'in sevabını Nebîn Muhammed Mustafa'nın (s.a.v.) ruhuna, ardından ${liste} ve bütün mü'min kardeşlerimizin ruhlarına ulaştır.<br><br>Allah'ım! Onlara rahmetinle muamele et, kusurlarını bağışla, kabirlerini genişlet ve nurlandır, onları cennetinle şereflendir. Bizleri de imanla yaşat, imanla vefat ettir ve onlarla cennette buluştur.<br><br>Âmin.</div></div>`;
+  <div id="s-dua"><div class="ok-baslik">Dua</div><div class="ok-dua">${tl({tr:`Allah'ım! Okuduğumuz Fâtiha ve Yâsîn-i Şerîf'in sevabını Nebîn Muhammed Mustafa'nın (s.a.v.) ruhuna, ardından ${liste} ve bütün mü'min kardeşlerimizin ruhlarına ulaştır.<br><br>Allah'ım! Onlara rahmetinle muamele et, kusurlarını bağışla, kabirlerini genişlet ve nurlandır, onları cennetinle şereflendir. Bizleri de imanla yaşat, imanla vefat ettir ve onlarla cennette buluştur.<br><br>Âmin.`,
+   en:`O Allah! Let the reward of the Fatiha and Ya-Sin we have recited reach the soul of Your Prophet Muhammad Mustafa (peace be upon him), then the souls of ${liste} and all our believing brothers and sisters.<br><br>O Allah! Treat them with Your mercy, forgive their shortcomings, widen and illuminate their graves and honour them with Your Paradise. Let us live with faith, die with faith and meet them in Paradise.<br><br>Amin.`,
+   ar:`اللهم أوصل ثواب ما قرأناه من الفاتحة وسورة يس الشريفة إلى روح نبيك محمد المصطفى ﷺ، ثم إلى أرواح ${liste} وجميع إخواننا المؤمنين.<br><br>اللهم عاملهم برحمتك، واغفر لهم تقصيرهم، ووسّع قبورهم ونوّرها، وأكرمهم بجنتك. وأحينا على الإيمان، وتوفّنا على الإيمان، واجمعنا بهم في الجنة.<br><br>آمين.`,
+   de:`O Allah! Lass den Lohn der Fatiha und Ya-Sin, die wir rezitiert haben, die Seele Deines Propheten Muhammad Mustafa (Friede sei mit ihm) erreichen, dann die Seelen von ${liste} und all unserer gläubigen Geschwister.<br><br>O Allah! Behandle sie mit Deiner Barmherzigkeit, vergib ihre Fehler, mache ihre Gräber weit und hell und ehre sie mit Deinem Paradies. Lass uns im Glauben leben, im Glauben sterben und sie im Paradies wiedersehen.<br><br>Amin.`})}</div></div>`;
   O.querySelectorAll('.ok-steps button').forEach(b=>b.classList.remove('bit'));
   sesDur(true);O.classList.add('open');$('#okBody').scrollTop=0;stepOn('niyet');
 }
@@ -372,7 +378,7 @@ function duaOku(){
   stepOn('dua');if(d)d.scrollIntoView({block:'start',behavior:'smooth'});
   if(!ss||!window.SpeechSynthesisUtterance){sesBitti();return}
   const u=new SpeechSynthesisUtterance(d.querySelector('.ok-dua').innerText.replace(/\s+/g,' '));
-  u.lang='tr-TR';u.rate=.85;u.onend=u.onerror=()=>{if(duaKonus)sesBitti()};
+  u.lang=tl({tr:'tr-TR',en:'en-GB',ar:'ar-SA',de:'de-DE'});u.rate=.85;u.onend=u.onerror=()=>{if(duaKonus)sesBitti()};
   duaKonus=true;caliyor=true;calDurum();ss.cancel();ss.speak(u);
 }
 function sesBitti(){kuyruk=[];ki=0;duaKonus=false;caliyor=false;calDurum();kilitBirak();toast('Okuma bitti. Dilerseniz "Okudum" ile kaydedin.')}
@@ -426,18 +432,18 @@ async function planKabirNotif(ask){
     if(CS.yil){
       kayit.slice(0,PLAT==='ios'?12:90).forEach((k,i)=>{
         const m=(k.vefat||'').match(/^(\d{1,2})\.(\d{1,2})\.(?:18|19|20)\d{2}$/);if(!m)return;
-        liste.push({id:9100+i,title:'Vefat yıldönümü',body:(k.ad||'Sevdiğiniz kişi')+' için bugün vefat yıldönümü. Ruhuna Fâtiha okumayı unutmayın.',schedule:{on:{month:+m[2],day:+m[1],hour:9,minute:30},allowWhileIdle:true},channelId:'kabir',extra:{hedef:'kabir'}});
+        liste.push({id:9100+i,title:ceviri('Vefat yıldönümü'),body:(n=>tl({tr:n+' için bugün vefat yıldönümü. Ruhuna Fâtiha okumayı unutmayın.',en:`Today is the death anniversary of ${n}. Don't forget to recite Fatiha for their soul.`,ar:`اليوم ذكرى وفاة ${n}. لا تنسَ قراءة الفاتحة على روحه.`,de:`Heute ist der Todestag von ${n}. Vergiss nicht, die Fatiha für die Seele zu rezitieren.`}))(k.ad||ceviri('Sevdiğiniz kişi')),schedule:{on:{month:+m[2],day:+m[1],hour:9,minute:30},allowWhileIdle:true},channelId:'kabir',extra:{hedef:'kabir'}});
       });
       const simdi=new Date(),son=new Date(simdi.getTime()+400*864e5);let j=0;
       GUN.forEach(e=>{
         if(!(e[3]||/arefesi/.test(e[0]))||j>=(PLAT==='ios'?8:30))return;
         const d=new Date(e[1]+'T15:00');if(d<=simdi||d>son)return;
-        liste.push({id:9200+j++,title:e[0],body:'Sevdiklerinize Fâtiha ve Yâsîn hediye etmek için hayırlı bir vakit.',schedule:{at:d,allowWhileIdle:true},channelId:'kabir',extra:{hedef:'kabir'}});
+        liste.push({id:9200+j++,title:ceviri(e[0]),body:ceviri('Sevdiklerinize Fâtiha ve Yâsîn hediye etmek için hayırlı bir vakit.'),schedule:{at:d,allowWhileIdle:true},channelId:'kabir',extra:{hedef:'kabir'}});
       });
     }
     if(CS.on)liste.push(
-      {id:9001,title:'Hayırlı Cumalar',body:'Merhumlarınız için Fâtiha ve Yâsîn okuma zamanı.',schedule:{on:{weekday:6,hour:9,minute:0},allowWhileIdle:true},channelId:'kabir',extra:{hedef:'kabir'}},
-      {id:9002,title:'Cuma gecesi',body:'Yarın Cuma. Sevdiklerinize Fâtiha ve Yâsîn hediye etmeyi unutmayın.',schedule:{on:{weekday:5,hour:20,minute:0},allowWhileIdle:true},channelId:'kabir',extra:{hedef:'kabir'}});
+      {id:9001,title:ceviri('Hayırlı Cumalar'),body:ceviri('Merhumlarınız için Fâtiha ve Yâsîn okuma zamanı.'),schedule:{on:{weekday:6,hour:9,minute:0},allowWhileIdle:true},channelId:'kabir',extra:{hedef:'kabir'}},
+      {id:9002,title:ceviri('Cuma gecesi'),body:ceviri('Yarın Cuma. Sevdiklerinize Fâtiha ve Yâsîn hediye etmeyi unutmayın.'),schedule:{on:{weekday:5,hour:20,minute:0},allowWhileIdle:true},channelId:'kabir',extra:{hedef:'kabir'}});
     if(liste.length)await LN.schedule({notifications:liste});
   }catch(e){}
 }

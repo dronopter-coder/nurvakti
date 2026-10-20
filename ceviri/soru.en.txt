@@ -1,0 +1,302 @@
+How many times a day do we pray?	5	3	7
+What do we say when starting the prayer?	Allahu Akbar	Good morning	Goodbye
+Which direction do we face in prayer?	The qibla (the Kaaba)	The sun	The door
+What do we wash first in wudu?	Our hands	Our feet	Our hair
+Where does our forehead touch in sujud?	The ground	The wall	The table
+How do we finish the prayer?	By giving salam to the right and left	By standing up	By clapping
+Which worship do we do in Ramadan?	We fast	We make a sacrifice	We go on Hajj
+In which language was the Holy Quran revealed?	Arabic	Turkish	Persian
+What is our Prophet's name?	Muhammad (peace be upon him)	Musa (peace be upon him)	Isa (peace be upon him)
+How many fard rak'ahs does Fajr have?	2	4	3
+How many fard rak'ahs does Dhuhr have?	4	2	3
+How many fard rak'ahs does Asr have?	4	3	2
+How many fard rak'ahs does Maghrib have?	3	4	2
+How many fard rak'ahs does Isha have?	4	3	2
+How many rak'ahs is the witr prayer?	3	2	4
+How many rak'ahs is the sunnah of Fajr?	2	4	3
+What is the first surah of the Quran?	Al-Fatiha	Al-Baqarah	An-Nas
+What is the last surah of the Quran?	An-Nas	Al-Falaq	Al-Ikhlas
+How many surahs are in the Quran?	114	99	40
+What is the longest surah of the Quran?	Al-Baqarah	Ya-Sin	Al-Kawthar
+What is the shortest surah of the Quran?	Al-Kawthar	Al-Baqarah	Ya-Sin
+In which city was our Prophet born?	Mecca	Medina	Jerusalem
+To which city did our Prophet emigrate?	Medina	Damascus	Cairo
+What was the name of our Prophet's mother?	Amina	Khadija	Fatima
+What was the name of our Prophet's father?	Abdullah	Abu Talib	Abd al-Muttalib
+Who nursed our Prophet when he was a baby?	Halima	Aisha	Maryam
+What was the name of our Prophet's grandfather?	Abd al-Muttalib	Abu Lahab	Ali
+Who raised our Prophet after his grandfather?	His uncle Abu Talib	His neighbour	His teacher
+Who was our Prophet's first wife?	Khadija	Aisha	Zaynab
+Who is one of our Prophet's daughters?	Fatima	Maryam	Hajar
+In which cave did the first revelation come?	The Cave of Hira	The Cave of Thawr	The Cave of Uhud
+In which cave did our Prophet hide during the Hijra?	The Cave of Thawr	The Cave of Hira	The Cave of Kahf
+Who was our Prophet's companion on the Hijra?	Abu Bakr	Umar	Uthman
+Which angel brought the first revelation?	Jibril (Gabriel)	Mika'il (Michael)	Israfil
+With which word do the first revealed verses begin?	Read (Iqra)	Write	Run
+At what age did our Prophet become a prophet?	40	20	60
+What was our Prophet called because he was trustworthy?	Muhammad al-Amin	Muhammad al-Qawi	Muhammad al-Ghani
+In which city is the Kaaba?	Mecca	Medina	Istanbul
+Who rebuilt the Kaaba?	Ibrahim and his son Isma'il	Nuh	Yunus
+In which city is the Prophet's Mosque (Masjid an-Nabawi)?	Medina	Mecca	Jerusalem
+In which city is Masjid al-Aqsa?	Jerusalem	Mecca	Baghdad
+Which prophet built an ark and was saved from the flood?	Nuh (Noah)	Musa (Moses)	Adam
+Which prophet stayed in the belly of a fish?	Yunus (Jonah)	Yusuf (Joseph)	Salih
+Which prophet was not burned when thrown into the fire?	Ibrahim (Abraham)	Idris	Hud
+Who is the first human and the first prophet?	Adam	Nuh (Noah)	Shith (Seth)
+Who is the last prophet?	Muhammad (peace be upon him)	Isa (Jesus)	Musa (Moses)
+Which prophet was thrown into a well by his brothers?	Yusuf (Joseph)	Ya'qub (Jacob)	Ayyub (Job)
+Which prophet was very patient with his illnesses?	Ayyub (Job)	Dawud (David)	Lut (Lot)
+Whose staff turned into a snake?	Musa (Moses)	Harun (Aaron)	Zakariyya
+Which book was revealed to Musa (Moses)?	The Torah	The Gospel	The Psalms (Zabur)
+Which book was revealed to Dawud (David)?	The Psalms (Zabur)	The Torah	The Quran
+Which book was revealed to Isa (Jesus)?	The Gospel (Injil)	The Psalms (Zabur)	The Torah
+Which book was revealed to our Prophet?	The Holy Quran	The Gospel	The Psalms
+Who is the mother of Isa (Jesus)?	Maryam (Mary)	Asiya	Hajar
+Who is the mother of Isma'il?	Hajar	Sarah	Khadija
+In which city is the Zamzam water?	Mecca	Medina	Jerusalem
+Which prophet could speak with birds and animals?	Sulayman (Solomon)	Nuh (Noah)	Yunus (Jonah)
+Which prophet could soften iron with his hands?	Dawud (David)	Musa (Moses)	Adam
+How many prophets are mentioned by name in the Quran?	25	10	50
+Which angel will blow the trumpet on the Day of Judgement?	Israfil	Azra'il	Jibril
+Which angel is in charge of taking souls?	Azra'il	Mika'il	Israfil
+Which angel is in charge of rain and provision?	Mika'il	Jibril	Azra'il
+What are the angels who write our good and bad deeds called?	Kiraman Katibin	Hafaza	The bearers of the Throne
+What are the names of the angels who question in the grave?	Munkar and Nakir	Harut and Marut	Jibril and Mika'il
+How many articles of faith are there?	6	5	4
+How many pillars of Islam are there?	5	6	7
+Which one is a pillar of Islam?	Praying	Studying	Doing sports
+Which one is an article of faith?	Believing in angels	Getting up early	Reading books
+Which pillar of Islam is the declaration of faith (shahada)?	The first	The fifth	The third
+For whom is giving zakat obligatory?	Wealthy Muslims	Children	Everyone
+Where is the Hajj performed?	In and around Mecca	In Istanbul	In Cairo
+How many times in their life should those able go on Hajj?	Once	Every year	Never
+On which Eid is the sacrifice made?	Eid al-Adha	Eid al-Fitr	On a blessed night
+How many days is Eid al-Fitr?	3	4	1
+How many days is Eid al-Adha?	4	3	2
+Which Eid comes after the month of Ramadan?	Eid al-Fitr	Eid al-Adha	Nowruz
+What is the meal eaten before the fast begins called?	Suhur	Iftar	Breakfast
+What is the meal eaten when breaking the fast called?	Iftar	Suhur	Lunch
+When is the fast broken?	When the Maghrib adhan is called	When the Dhuhr adhan is called	In the morning
+When does the fast begin?	At imsak time	At noon	In the evening
+Does eating by forgetting break the fast?	No, it does not	Yes, it does	Only on Mondays
+On which night was the Quran revealed?	Laylat al-Qadr	Laylat al-Bara'ah	Laylat ar-Ragha'ib
+In which month is Laylat al-Qadr?	Ramadan	Rajab	Sha'ban
+Laylat al-Qadr is better than how many months?	A thousand months	Ten months	A hundred months
+On which night was our Prophet born?	Mawlid night	Mi'raj night	Bara'ah night
+Which is the first of the three holy months?	Rajab	Sha'ban	Ramadan
+Which are the three holy months?	Rajab, Sha'ban, Ramadan	Muharram, Safar, Rajab	Shawwal, Dhu al-Qa'dah, Dhu al-Hijjah
+On which night did our Prophet ascend to the heavens?	Mi'raj night	Laylat al-Qadr	Mawlid night
+Which worship was given to Muslims as a gift on the night of Mi'raj?	The five daily prayers	Fasting	Zakat
+What is the first month of the Hijri year?	Muharram	Ramadan	Rajab
+The day of Ashura is the 10th day of which month?	Muharram	Ramadan	Dhu al-Hijjah
+In which month is Eid al-Adha?	Dhu al-Hijjah	Ramadan	Shawwal
+What is the place where Muslims worship called?	Mosque	Library	Market
+What is the tall tower from which the adhan is called?	Minaret	Dome	Courtyard
+What is the place in the mosque where the imam leads the prayer?	Mihrab	Minbar	Lectern
+What is the stepped place where the Friday sermon is given?	Minbar	Mihrab	Ablution fountain
+What is the fountain for wudu at a mosque called?	Ablution fountain (shadirvan)	Minaret	Gallery
+What is the person who leads the congregation in prayer called?	Imam	Muezzin	Hafiz
+What is the person who calls the adhan called?	Muezzin	Imam	Preacher
+What is a person who has memorised the Quran called?	Hafiz	Muezzin	Caretaker
+On which day of the week is the Friday prayer prayed in congregation?	Friday	Monday	Sunday
+How many fard rak'ahs does the Friday prayer have?	2	4	3
+When is the Eid prayer prayed?	In the morning, after sunrise	At midnight	After Maghrib
+How many times a day is the adhan called?	5	3	7
+What does the adhan announce?	That the prayer time has begun	That it will rain	That school has opened
+Which extra phrase is said in the Fajr adhan?	Prayer is better than sleep	Good morning	Come to breakfast
+In wudu, do we wash the right or the left first?	The right	The left	It doesn't matter, always the left
+How many times do we rinse our mouth in wudu?	3	1	5
+Up to where do we wash our arms in wudu?	Including the elbows	Up to the wrists	Up to the shoulders
+Up to where do we wash our feet in wudu?	Including the ankles	Up to the toes	Up to the knees
+What do we do to our head in wudu?	We wipe it with a wet hand	We wash it with shampoo	Nothing
+How many fard acts does wudu have?	4	6	10
+If no water can be found, what is done instead of wudu?	Tayammum	Ghusl	Nothing
+With what is tayammum done?	With clean earth	By playing in sand	With oil
+Does sleeping break wudu?	Yes, sleeping while leaning breaks it	No, never	Only during the day
+What is standing in prayer called?	Qiyam	Ruku'	Sujud
+What is bowing in prayer called?	Ruku'	Qiyam	Jalsa
+What is sitting between the two prostrations called?	Jalsa	Qawma	Qiyam
+What is said in ruku'?	Subhana rabbiyal azim	Subhana rabbiyal a'la	Allahu Akbar
+What is said in sujud?	Subhana rabbiyal a'la	Subhana rabbiyal azim	Alhamdulillah
+Which surah is recited in every rak'ah?	Al-Fatiha	Ya-Sin	Al-Mulk
+Which prayer is recited first in the last sitting of the prayer?	At-Tahiyyat	Qunut	Subhanaka
+Which special prayers are recited in the witr prayer?	The Qunut prayers	Ya-Sin	Ayat al-Kursi
+What do we do in our heart before starting the prayer?	We make the intention	We sing	We sleep
+Does talking break the prayer?	Yes, it does	No, it doesn't	Only not when loud
+What do we say before eating?	Bismillah	Farewell	Masha'Allah
+What do we say when we finish eating?	Alhamdulillah	Bismillah	Goodbye
+When someone sneezes and says "Alhamdulillah", what do we say?	Yarhamukallah	Enjoy your meal	Bye-bye
+What do we say when we see something beautiful?	Masha'Allah	Oh no	Ugh
+What do we say when starting something?	Bismillah	Farewell	Oh no
+What do we add when we say we will do something?	In sha' Allah	Masha'Allah	Yarhamukallah
+What do Muslims say when they meet?	As-salamu alaykum	Goodbye	Be quiet
+How do we reply to "As-salamu alaykum"?	Wa alaykum as-salam	Bismillah	Amin
+What do we say when a du'a ends?	Amin	Bismillah	Masha'Allah
+What are the beautiful names of Allah called?	Asma al-Husna	Adhan	Qunut
+What does Ar-Rahman mean?	The Most Merciful	The very angry	The very distant
+What does Ar-Razzaq mean?	The Provider	The one who sleeps	The one who gets tired
+What does Al-Khaliq mean?	The Creator	The one who forgets	The one who gets tired
+What does As-Sami' mean?	The All-Hearing	The one who never hears	The one who only doesn't see
+What does Al-Basir mean?	The All-Seeing	The one who sometimes sees	The one who never sees
+What does Al-Alim mean?	The All-Knowing	The one who knows little	The one who forgets
+What does Al-Ghaffar mean?	The Ever-Forgiving	The one who never forgives	The one who gets very angry
+How many is Allah?	One	Two	Three
+Which surah tells that Allah is One?	Al-Ikhlas	Al-Fil	Al-Kawthar
+Which are the last two surahs in which we seek refuge in Allah from evil?	Al-Falaq and An-Nas	Al-Fatiha and Al-Baqarah	Al-Fil and Quraysh
+Which surah tells of the army of Abraha?	Al-Fil	Quraysh	Al-Asr
+Which short surah tells of the importance of time?	Al-Asr	An-Nasr	Al-Masad
+Which surah tells of the abundant blessing given to our Prophet?	Al-Kawthar	Al-Ma'un	Al-Kafirun
+Which surah is known as the heart of the Quran?	Ya-Sin	Al-Fatiha	An-Nas
+Which surah is recommended to be read on Friday?	Al-Kahf	Al-Fil	An-Nasr
+Which surah condemns mistreating orphans and neglecting prayer?	Al-Ma'un	Al-Kawthar	Al-Ikhlas
+In which surah is Ayat al-Kursi?	Al-Baqarah	Ya-Sin	Al-Mulk
+How many juz' are in the Quran?	30	10	114
+What is reading the Quran from beginning to end called?	Khatm	Mawlid	Prostration of recitation
+What do we say before reading the Quran?	A'udhu billah and Bismillah	Farewell	Yarhamukallah
+What are the rules of beautiful Quran recitation called?	Tajwid	Tafsir	Translation
+What is a translation of the meaning of the Quran called?	Translation of meaning (meal)	Khatm	Qira'ah
+What is the explanation of the Quran called?	Tafsir	Khatm	Adhan
+What are our Prophet's sayings called?	Hadith	Ayah	Surah
+What is each sentence in the Quran called?	Ayah (verse)	Hadith	Juz'
+What is our Prophet's way of life and practice called?	Sunnah	Fard	Haram
+What are the things Allah has definitely commanded called?	Fard	Makruh	Mubah
+What are the things Allah has definitely forbidden called?	Haram	Halal	Sunnah
+What are the things our religion permits called?	Halal	Haram	Makruh
+What kind of behaviour is lying?	It is a sin	It is a good deed	It is unimportant
+What kind of behaviour is being truthful?	It is good character	It is unnecessary	It is bad
+How should we treat our parents?	With respect and kindness	Rudely	Indifferently
+What did our Prophet say about smiling?	A smile is charity	Laughing is forbidden	Only laugh on Eid
+Do we go to bed full while our neighbour is hungry?	No, we help them	Yes, it's not our business	We close the door
+How should we treat animals?	With mercy	By hurting them	By scaring them
+What is keeping our word called?	Loyalty (wafa)	Jealousy	Laziness
+What is speaking badly about someone behind their back called?	Backbiting (ghibah)	Charity	Greeting
+What is a trustworthy person who does not betray a trust called?	Amin (trustworthy)	Traitor	Miser
+What is voluntary help given to the poor called?	Sadaqah (charity)	Interest	Debt
+What is the charity given before Eid al-Fitr called?	Fitrah (sadaqat al-fitr)	Sacrifice	Gift
+What did our Prophet say about cleanliness?	Cleanliness is part of faith	Cleanliness is unnecessary	Wash once a week
+Whom does Allah love?	Those who do good	The jealous	Liars
+Who is a Muslim?	One from whose hand and tongue people are safe	One who fights with everyone	One who doesn't keep their word
+By which title is Abu Bakr known?	As-Siddiq	Al-Faruq	Dhun-Nurayn
+By which title is Umar known?	Al-Faruq	As-Siddiq	Sayfullah
+By which title is Uthman known?	Dhun-Nurayn	Al-Faruq	Asadullah
+Who is the first caliph?	Abu Bakr	Ali	Umar
+Who is the fourth caliph?	Ali	Uthman	Umar
+Who is the first muezzin?	Bilal al-Habashi	Hamza	Ali
+Who is one of our Prophet's grandchildren?	Hasan	Musa	Yahya
+Who first compiled the Quran as a book?	It was compiled in the time of Abu Bakr	Nuh	Adam
+In which city did our Prophet pass away?	Medina	Mecca	Ta'if
+Where is our Prophet's grave?	In the Prophet's Mosque in Medina	In Jerusalem	In Istanbul
+In which year was the conquest of Mecca?	630	1453	1071
+Which sultan conquered Istanbul?	Mehmed the Conqueror	Suleiman the Magnificent	Selim I
+What was the first qibla of the Muslims?	Masjid al-Aqsa (Jerusalem)	The Kaaba	Medina
+With which event does the Hijri calendar begin?	The Hijra (emigration)	The birth of our Prophet	The conquest of Mecca
+What is the pilgrims' circling of the Kaaba called?	Tawaf	Sa'y	Wuquf
+What is walking between Safa and Marwa during Hajj called?	Sa'y	Tawaf	Ruku'
+On which mountain is the standing (wuquf) of Hajj performed?	Arafat	Uhud	Mount Nur
+What is the white garment pilgrims wear called?	Ihram	Robe	Cap
+To whom is part of the sacrificial meat given?	To the poor, relatives and neighbours	To no one	Only to guests
+Which animal can be sacrificed?	Sheep	Cat	Chicken
+How much of one's wealth is zakat?	One fortieth	Half	All of it
+Which one is not one of the five daily prayers?	Duha	Asr	Isha
+Which prayer is prayed before sunrise?	Fajr	Dhuhr	Maghrib
+Which prayer is prayed when the sun sets?	Maghrib	Asr	Fajr
+Which prayer is prayed in the middle of the day?	Dhuhr	Isha	Fajr
+Which is the last daily prayer before going to bed?	Isha	Asr	Dhuhr
+How many sunnah rak'ahs are prayed after Maghrib?	2	4	3
+How many rak'ahs is the first sunnah of Dhuhr?	4	2	3
+How many rak'ahs is the last sunnah of Isha?	2	4	3
+How many rak'ahs is the sunnah of Asr?	4	2	3
+How many rak'ahs is the Eid prayer?	2	4	3
+What is the prayer for a deceased Muslim called?	Funeral prayer	Tarawih prayer	Eid prayer
+Which prayer is prayed after Isha on the nights of Ramadan?	Tarawih	Witr	Duha
+Are there ruku' and sujud in the funeral prayer?	No, there are not	Yes, there are	Only sujud
+What can we use to find the qibla?	A compass	A clock	A thermometer
+What is the rug we pray on called?	Prayer rug	Bed sheet	Doormat
+What is the string of beads used for dhikr called?	Tasbih (prayer beads)	Necklace	Bracelet
+How many times do we say "Subhanallah" in the tasbihat?	33	10	100
+What does "Alhamdulillah" mean?	All praise is due to Allah	Allah is the Greatest	I seek refuge in Allah
+What does "Allahu Akbar" mean?	Allah is the Greatest	Allah knows everything	Allah is One
+What does "Subhanallah" mean?	Allah is free from all imperfection	Allah is very near	Thanks be to Allah
+What does "Bismillah" mean?	In the name of Allah	Praise be to Allah	Allah is great
+What does "In sha' Allah" mean?	If Allah wills	May Allah protect	May Allah be pleased
+What does "Masha'Allah" mean?	Allah has willed it, how beautiful	May Allah forgive	May Allah accept
+What does "Astaghfirullah" mean?	I ask Allah for forgiveness	Allah is great	If Allah wills
+What does "Amin" mean?	O Allah, accept it	Goodbye	Thank you
+Which one is the word of tawhid?	La ilaha illallah	Bismillah	Alhamdulillah
+Upon whom is salawat sent?	Our Prophet	The angels	Ourselves
+How does the salawat begin?	Allahumma salli ala Muhammad	Subhanaka	At-Tahiyyat
+Which name tells that Allah exists forever?	Al-Baqi	Al-Hadi	Al-Mujib
+Which name means "the One who answers prayers"?	Al-Mujib	Al-Qahhar	Al-Batin
+Which name means "the One who guides to the right path"?	Al-Hadi	Al-Mani'	Ad-Darr
+Which name means "the Most Loving"?	Al-Wadud	Al-Qabid	Al-Muntaqim
+Which name means "the Giver of peace and safety"?	As-Salam	Al-Jabbar	Al-Qahhar
+Who is the wife of Adam?	Hawwa (Eve)	Sarah	Hajar
+Who is the first human before whom Allah commanded the angels to prostrate?	Adam	Nuh	Ibrahim
+From what were the angels created?	From light	From earth	From water
+From what was man created?	From earth	From light	From fire
+From what were the jinn created?	From smokeless fire	From light	From earth
+What is being raised again after death called?	The Hereafter (Akhirah)	This world	A dream
+What is the end of the world called?	The Day of Judgement (Qiyamah)	Eid	Morning
+What is the beautiful place the good will go to called?	Paradise (Jannah)	Hell	Barzakh
+What is qadar (destiny)?	Allah knowing and decreeing everything in advance	A game of chance	The weather forecast
+Why is being patient beautiful?	Allah is with those who are patient	Because it is boring	Because it is compulsory
+How many years did our Prophet live?	63	40	100
+In which year was our Prophet born?	571	1071	1453
+What is the year of our Prophet's birth called?	The Year of the Elephant	The Year of Sorrow	The Year of Conquest
+What is the year in which our Prophet's uncle and his wife Khadija died called?	The Year of Sorrow	The Year of the Elephant	The Year of Conquest
+What are the Muslims of Medina who helped our Prophet called?	Ansar	Muhajir	Munafiq
+What are the Muslims who emigrated from Mecca to Medina called?	Muhajirun	Ansar	Mujahid
+What are our Prophet's companions called?	Sahabah	Tabi'un	Angels
+What are the ten companions given the glad tidings of Paradise called?	Al-Ashara al-Mubashshara	Ansar	Ahl al-Bayt
+What is our Prophet's family called?	Ahl al-Bayt	Ansar	Muhajir
+In which battle was Hamza martyred?	The Battle of Uhud	The Battle of Badr	Manzikert
+What was the Muslims' first great victory?	The Battle of Badr	The Battle of Uhud	The Battle of the Trench
+In which battle was a trench dug around Medina?	The Battle of the Trench	The Battle of Badr	The Battle of Uhud
+What is the black stone in the corner of the Kaaba called?	Al-Hajar al-Aswad	Maqam Ibrahim	Zamzam
+What is the cover of the Kaaba called?	Kiswah (cover)	Prayer rug	Carpet
+For how many days is the fast kept in Ramadan?	29 or 30	10	40
+What does a sick person do about the Ramadan fasts they could not keep?	Makes them up after recovering	Never keeps them	Keeps twice as many
+At what age did our Prophet advise teaching children to pray?	7	2	20
+Is charity given only with money?	No, a kind word and a smile are also charity	Yes, only money	Only with gold
+Which is more virtuous, giving salam or returning it?	Giving salam first	Returning salam	Neither
+When we do good, should we expect something in return?	No, we do it for Allah's pleasure	Yes, always	We only want gifts
+What should we do when we give someone our word?	Keep our word	Forget it	Pass it to someone else
+What should we do when we make a mistake?	Apologise and repent	Hide it	Blame someone else
+How do we treat a guest?	We offer hospitality and a smiling face	We don't open the door	We get angry at them
+How do we treat our elders?	We show respect	We make fun of them	We don't listen to them
+How do we treat those younger than us?	We show love and kindness	We upset them	We scold them
+What kind of behaviour is keeping our surroundings clean?	A beautiful and rewarding deed	Unnecessary	Only the cleaners' job
+What kind of behaviour is wasting water?	It is not right; we do not waste	It is very good	It is unimportant
+How do we use water when making wudu?	Without wasting it	Leaving the tap running	Not using it at all
+How is planting a tree viewed in our religion?	A continuous charity, a beautiful deed	Unnecessary	Forbidden
+How do we treat the Holy Quran?	We show respect and hold it with clean hands	We throw it on the floor	We sit on it
+What do we say when our Prophet's name is mentioned?	Sallallahu alayhi wa sallam	Goodbye	Masha'Allah
+What do we say when the names of other prophets are mentioned?	Alayhis-salam	Enjoy your meal	Bye-bye
+What do we say when the companions' names are mentioned?	Radiyallahu anhu	Good luck	Get well soon
+What do we say about someone who has passed away?	May Allah have mercy on them	Enjoy your meal	Good luck
+What do we say when visiting someone who is ill?	Get well soon, may Allah grant you healing	Enjoy your meal	Congratulations
+What do we say to someone who recites the Quran beautifully?	May Allah be pleased with you	Oh no	What a pity
+What do we say to each other because Friday is blessed?	Jumu'ah Mubarak	Happy holidays	Happy New Year
+What do we say to each other in Ramadan?	Ramadan Mubarak	Have a good trip	Good luck with your work
+What do we do with our elders on Eid?	We kiss their hands and exchange Eid greetings	We don't visit them	We close the door
+What do we do on the blessed nights (kandil)?	We pray, read the Quran and worship	Nothing	We quarrel
+How many fard rak'ahs do the five daily prayers have in total?	17	20	10
+Where did Noah's ark come to rest after the flood?	Mount Judi	Mount Nur	Mount Uhud
+With the Pharaoh of which country did Musa struggle?	Egypt	Yemen	Iraq
+How many stars did Yusuf see prostrating to him in his dream?	11	7	40
+Who is the father of Sulayman (Solomon)?	Dawud (David)	Musa (Moses)	Ibrahim (Abraham)
+Who is the father of Yahya (John)?	Zakariyya	Ya'qub	Isma'il
+Who is the father of Yusuf (Joseph)?	Ya'qub (Jacob)	Ishaq (Isaac)	Lut (Lot)
+Who are the sons of Ibrahim (Abraham)?	Isma'il and Ishaq	Musa and Harun	Yahya and Isa
+Which prophet was the brother of Musa?	Harun (Aaron)	Hud	Shu'ayb
+What was given to the people of Salih as a miracle?	A she-camel	A ship	A staff
+What is our Prophet's greatest miracle?	The Holy Quran	A flying carpet	A magic lamp
+The splitting of the moon is the miracle of which prophet?	Muhammad (peace be upon him)	Nuh	Hud
+What did Isa (Jesus) do while in the cradle?	He spoke	He flew	He swam
+For how many years did Jibril bring revelation to our Prophet?	About 23 years	1 year	100 years
+Who is the only woman named in the Quran?	Maryam (Mary)	Khadija	Aisha
+Which companion is mentioned by name in the Quran?	Zayd	Umar	Ali
+Who is our Prophet's foster sister, the daughter of Halima?	Shayma	Fatima	Zaynab
+Who was the first woman to believe in our Prophet?	Khadija	Aisha	Fatima
+Who was the first child to believe in our Prophet?	Ali	Hasan	Husayn
+What is the first command of the Quran?	Read	Sleep	Run
