@@ -75,7 +75,7 @@ function namaz(){
       if(o.s){Kuran.ac(o.s,{hiz:.8,cal:true});return}
       const d=o.d!=null?(window.DUALAR||[])[o.d]:[o.ad,'',...Z[o.z]];if(!d)return;
       s.govde.querySelectorAll('.cc-okunan button').forEach(x=>x.classList.toggle('on',x===b));
-      $('#ccOkPanel').innerHTML=`<p class="cc-dua-ar" lang="ar" dir="rtl">${d[2]}</p><p class="cc-dua-ok">${esc(d[3])}</p><button class="btn cc-dua-dinle" id="ccDinle">▶ Dinle</button><p class="cc-dua-an">${esc(d[4])}</p>`;
+      $('#ccOkPanel').innerHTML=`<p class="cc-dua-ar" lang="ar" dir="rtl">${d[2]}</p>${d[3]?`<p class="cc-dua-ok">${esc(d[3])}</p>`:''}<button class="btn cc-dua-dinle" id="ccDinle">▶ Dinle</button><p class="cc-dua-an">${esc(d[4])}</p>`;
       $('#ccDinle').onclick=e=>DuaSes.cal(o.d!=null?o.d:d,e.currentTarget);
     });
     $('#ccOn').onclick=()=>{i--;ciz()};$('#ccSn').onclick=()=>{i=(i+1)%ADIM.length;ciz()}};
@@ -100,6 +100,11 @@ const vakitler=()=>{const s=Sayfa.ac('Beş vakit namaz');s.govde.innerHTML='<p c
 const EZBER=[[1,'Fâtiha','Namazın her rekâtında okuruz; Kur\'an\'ın ilk sûresi.'],[2,'Bakara (1–5. ayetler)','"Elif Lâm Mîm" ile başlayan ilk sayfa; müttakilerin özellikleri.',1,5],
  [93,'Duhâ','Allah\'ın Peygamberimizi yalnız bırakmadığını müjdeler.'],[94,'İnşirâh','Her zorlukla beraber bir kolaylık vardır.'],[95,'Tîn','İnsanın en güzel biçimde yaratıldığını anlatır.'],[96,'Alak','İlk inen ayetler: "Oku!"'],[97,'Kadir','Bin aydan hayırlı Kadir Gecesi.'],[98,'Beyyine','Apaçık delil ve iyi insanların karşılığı.'],[99,'Zilzâl','Zerre kadar iyilik de kötülük de karşılık bulur.'],[100,'Âdiyât','Koşan atlar ve insanın nankörlüğü.'],[101,'Kâria','Kıyamet gününde amellerin tartılması.'],[102,'Tekâsür','Çoklukla övünmenin insanı oyalaması.'],[103,'Asr','Zamana yemin eder; iman, iyilik, hak ve sabrı tavsiye eder.'],[104,'Hümeze','Arkadan çekiştiren ve alay edenler.'],
  [105,'Fîl','Kâbe\'yi yıkmaya gelen fil ordusunun hikâyesi.'],[106,'Kureyş','Kureyş kabilesine verilen nimetler ve şükür.'],[107,'Mâûn','Yetime ve yoksula iyilik yapmayı öğretir.'],[108,'Kevser','Allah\'ın Peygamberimize verdiği bol nimet.'],[109,'Kâfirûn','Herkesin dini kendine; biz yalnız Allah\'a ibadet ederiz.'],[110,'Nasr','Allah\'ın yardımı ve zafer müjdesi.'],[111,'Tebbet','Peygamberimize düşmanlık edenin sonu.'],[112,'İhlâs','Allah\'ın bir olduğunu anlatır.'],[113,'Felak','Her türlü kötülükten Allah\'a sığınırız.'],[114,'Nâs','Kalbe vesvese verenlerden Allah\'a sığınırız.']];
+if(window.DV&&DV.COCUK){const C=DV.COCUK; // seçili dilin metinleri
+  Object.keys(C.Z).forEach(k=>{const z=Z[k],c=C.Z[k];if(!z)return;z[1]=c[0]&&!/^\(/.test(c[0])?c[0]:(z[0]+(c[0]?' '+c[0]:''));z[2]=c[1]});
+  C.ADIM.forEach((c,i)=>{const a=ADIM[i];a[1]=c[0];a[2]=c[1];a[3].filter(o=>o.ad).forEach((o,j)=>{if(c[2][j])o.ad=c[2][j]})});
+  C.ABD.forEach((c,i)=>{ABD[i][1]=c[0];ABD[i][2]=c[1]});C.VAKIT.forEach((c,i)=>{VAKIT[i][2]=c});C.EZBER.forEach((c,i)=>{EZBER[i][1]=c[0];EZBER[i][2]=c[1]});
+}
 /* Duaları sesli okuma: varsa dualar/<no>.mp3 kaydı, yoksa telefonun ses motoru (Arapça; Arapça ses yoksa Türkçe okunuş) */
 const DuaSes=(()=>{
   let aktif=null,ses=null,dinleyici=null;
@@ -109,7 +114,7 @@ const DuaSes=(()=>{
     const Y=P.NurYerli;
     if(Y&&Y.seslendir){
       if(!dinleyici)dinleyici=Y.addListener('seslendirmeBitti',()=>bitir());
-      try{const r=await Y.seslendir({metin:d[2].replace(/۝/g,' '),yedek:d[3],hiz:.8});if(r&&r.dil==='tr')toast('Telefonda Arapça ses bulunamadı; okunuş Türkçe seslendiriliyor.');return}catch(e){}
+      try{const r=await Y.seslendir({metin:d[2].replace(/۝/g,' '),yedek:d[3],hiz:.8});if(r&&r.dil==='tr'&&DIL==='tr')toast('Telefonda Arapça ses bulunamadı; okunuş Türkçe seslendiriliyor.');return}catch(e){}
     }
     if(window.speechSynthesis&&window.SpeechSynthesisUtterance){const u=new SpeechSynthesisUtterance(d[2]);u.lang='ar-SA';u.rate=.8;u.onend=bitir;speechSynthesis.speak(u);return}
     bitir();toast('Bu cihazda sesli okuma desteklenmiyor.');
@@ -135,8 +140,8 @@ const ezber=()=>{const s=Sayfa.ac('Ezber köşesi',{kapaninca:()=>DuaSes.dur()})
     const D=window.DUALAR||[];
     s.govde.innerHTML=`<div class="cc-sekme"><button data-s="sure" class="${ezSekme==='sure'?'on':''}">📖 Sûreler</button><button data-s="dua" class="${ezSekme==='dua'?'on':''}">🤲 Dualar</button></div>`+
     (ezSekme==='sure'
-     ?'<p class="note" style="margin:0 0 6px">Sırayla dinle, tekrar et, ezberle! Sûre yavaş (0,8×) okunur; hızı değiştirebilirsin. Ses için internet gerekir.</p>'+EZBER.map((e,i)=>`<button class="sf-satir" data-i="${i}"><div class="sf-no">${i+1}</div><div class="sf-ad"><b>${e[1]}${e[3]?'':' Sûresi'}</b><small>${e[2]}</small></div><div class="sf-no" style="font-size:17px">🎧</div></button>`).join('')
-     :'<p class="note" style="margin:0 0 6px">Namazda okunan dualar ve her gün bilmemiz gereken dualar. Duaya dokun; Arapçası, okunuşu ve anlamı açılsın, "Dinle" ile sesli okunsun.</p>'+D.map((d,i)=>`<div class="cc-dua" data-i="${i}"><button class="cc-dua-bas"><b>${esc(d[0])}</b><small>${esc(d[1])}</small><i>+</i></button><div class="cc-dua-ic"><div><p class="cc-dua-ar" lang="ar" dir="rtl">${d[2]}</p><p class="cc-dua-ok">${esc(d[3])}</p><button class="btn cc-dua-dinle" data-i="${i}">▶ Dinle</button><p class="cc-dua-an"><b>Anlamı:</b> ${esc(d[4])}</p>${d[5]?`<p class="note" style="margin:4px 0 0">Kaynak: ${esc(d[5])}</p>`:''}</div></div></div>`).join(''));
+     ?'<p class="note" style="margin:0 0 6px">Sırayla dinle, tekrar et, ezberle! Sûre yavaş (0,8×) okunur; hızı değiştirebilirsin. Ses için internet gerekir.</p>'+EZBER.map((e,i)=>`<button class="sf-satir" data-i="${i}"><div class="sf-no">${i+1}</div><div class="sf-ad"><b>${e[3]?e[1]:tl({tr:e[1]+' Sûresi',en:'Surah '+e[1],ar:'سورة '+e[1],de:'Sure '+e[1]})}</b><small>${e[2]}</small></div><div class="sf-no" style="font-size:17px">🎧</div></button>`).join('')
+     :'<p class="note" style="margin:0 0 6px">Namazda okunan dualar ve her gün bilmemiz gereken dualar. Duaya dokun; Arapçası, okunuşu ve anlamı açılsın, "Dinle" ile sesli okunsun.</p>'+D.map((d,i)=>`<div class="cc-dua" data-i="${i}"><button class="cc-dua-bas"><b>${esc(d[0])}</b><small>${esc(d[1])}</small><i>+</i></button><div class="cc-dua-ic"><div><p class="cc-dua-ar" lang="ar" dir="rtl">${d[2]}</p>${d[3]?`<p class="cc-dua-ok">${esc(d[3])}</p>`:''}<button class="btn cc-dua-dinle" data-i="${i}">▶ Dinle</button><p class="cc-dua-an"><b>Anlamı:</b> ${esc(d[4])}</p>${d[5]?`<p class="note" style="margin:4px 0 0">Kaynak: ${esc(d[5])}</p>`:''}</div></div></div>`).join(''));
     s.govde.querySelectorAll('.cc-sekme button').forEach(b=>b.onclick=()=>{DuaSes.dur();ezSekme=b.dataset.s;ciz()});
     s.govde.querySelectorAll('.sf-satir[data-i]').forEach(b=>b.onclick=()=>{const e=EZBER[+b.dataset.i];Kuran.ac(e[0],{hiz:.8,cal:true,bas:e[3],son:e[4]});ezReklam()});
     s.govde.querySelectorAll('.cc-dua-bas').forEach(b=>b.onclick=()=>{const k=b.parentNode;k.classList.toggle('ac');if(k.classList.contains('ac'))ezReklam()});

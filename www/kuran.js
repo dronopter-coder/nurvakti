@@ -1,8 +1,10 @@
 /* Kur'an-ı Kerim: sûre listesi, okuma ve kâri sesi */
 (function(){
-const AD=["Fâtiha","Bakara","Âl-i İmrân","Nisâ","Mâide","En'âm","A'râf","Enfâl","Tevbe","Yûnus","Hûd","Yûsuf","Ra'd","İbrâhîm","Hicr","Nahl","İsrâ","Kehf","Meryem","Tâhâ","Enbiyâ","Hac","Mü'minûn","Nûr","Furkân","Şuarâ","Neml","Kasas","Ankebût","Rûm","Lokmân","Secde","Ahzâb","Sebe'","Fâtır","Yâsîn","Sâffât","Sâd","Zümer","Mü'min","Fussilet","Şûrâ","Zuhruf","Duhân","Câsiye","Ahkâf","Muhammed","Fetih","Hucurât","Kâf","Zâriyât","Tûr","Necm","Kamer","Rahmân","Vâkıa","Hadîd","Mücâdele","Haşr","Mümtehine","Saff","Cuma","Münâfikûn","Teğâbün","Talâk","Tahrîm","Mülk","Kalem","Hâkka","Meâric","Nûh","Cin","Müzzemmil","Müddessir","Kıyâme","İnsan","Mürselât","Nebe'","Nâziât","Abese","Tekvîr","İnfitâr","Mutaffifîn","İnşikâk","Bürûc","Târık","A'lâ","Gâşiye","Fecr","Beled","Şems","Leyl","Duhâ","İnşirâh","Tîn","Alak","Kadir","Beyyine","Zilzâl","Âdiyât","Kâria","Tekâsür","Asr","Hümeze","Fîl","Kureyş","Mâûn","Kevser","Kâfirûn","Nasr","Tebbet","İhlâs","Felak","Nâs"];
+const AD=(window.DV&&DV.SURE)||["Fâtiha","Bakara","Âl-i İmrân","Nisâ","Mâide","En'âm","A'râf","Enfâl","Tevbe","Yûnus","Hûd","Yûsuf","Ra'd","İbrâhîm","Hicr","Nahl","İsrâ","Kehf","Meryem","Tâhâ","Enbiyâ","Hac","Mü'minûn","Nûr","Furkân","Şuarâ","Neml","Kasas","Ankebût","Rûm","Lokmân","Secde","Ahzâb","Sebe'","Fâtır","Yâsîn","Sâffât","Sâd","Zümer","Mü'min","Fussilet","Şûrâ","Zuhruf","Duhân","Câsiye","Ahkâf","Muhammed","Fetih","Hucurât","Kâf","Zâriyât","Tûr","Necm","Kamer","Rahmân","Vâkıa","Hadîd","Mücâdele","Haşr","Mümtehine","Saff","Cuma","Münâfikûn","Teğâbün","Talâk","Tahrîm","Mülk","Kalem","Hâkka","Meâric","Nûh","Cin","Müzzemmil","Müddessir","Kıyâme","İnsan","Mürselât","Nebe'","Nâziât","Abese","Tekvîr","İnfitâr","Mutaffifîn","İnşikâk","Bürûc","Târık","A'lâ","Gâşiye","Fecr","Beled","Şems","Leyl","Duhâ","İnşirâh","Tîn","Alak","Kadir","Beyyine","Zilzâl","Âdiyât","Kâria","Tekâsür","Asr","Hümeze","Fîl","Kureyş","Mâûn","Kevser","Kâfirûn","Nasr","Tebbet","İhlâs","Felak","Nâs"];
 const SES_A='https://everyayah.com/data/Alafasy_128kbps/',SES_B=n=>`https://cdn.islamic.network/quran/audio/128/ar.alafasy/${n}.mp3`;
 const p3=n=>String(n).padStart(3,'0');
+/* Sûre adı: SA(n) → "Bakara sûresi" / "Surah Al-Baqarah"; b=1 ise başlık biçimi ("Bakara Sûresi") */
+const SA=(n,b)=>tl({tr:AD[n-1]+(b?' Sûresi':' sûresi'),en:'Surah '+AD[n-1],ar:'سورة '+AD[n-1],de:'Sure '+AD[n-1]});
 const AR=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
 const esc=Sayfa.esc;
 let cum=null; // sûrelerin ilk ayetinin genel sırası (yedek ses kaynağı için)
@@ -16,12 +18,12 @@ function liste(){
 }
 function ciz(s){
   const son=ls.get('kuranSon',null);
-  s.govde.innerHTML=`${son?`<button class="sf-satir sf-oku" id="krDevam"><div class="sf-no">▶</div><div class="sf-ad"><b>Kaldığın yerden devam et</b><small>${esc(AD[son.n-1])} sûresi, ${son.a}. ayet</small></div></button>`:''}
+  s.govde.innerHTML=`${son?`<button class="sf-satir sf-oku" id="krDevam"><div class="sf-no">▶</div><div class="sf-ad"><b>Kaldığın yerden devam et</b><small>${esc(SA(son.n))}, ${tl({tr:son.a+'. ayet',en:'verse '+son.a,ar:'الآية '+son.a,de:'Vers '+son.a})}</small></div></button>`:''}
   <input class="sf-ara" id="krAra" type="search" placeholder="Sûre ara (ad veya numara)" autocomplete="off"><div id="krListe"></div>`;
   const yaz=q=>{
     q=(q||'').toLocaleLowerCase('tr').trim();
     $('#krListe').innerHTML=AD.map((a,i)=>({a,i})).filter(x=>!q||String(x.i+1)===q||x.a.toLocaleLowerCase('tr').includes(q)||x.a.toLocaleLowerCase('tr').normalize('NFD').replace(/[̀-ͯ]/g,'').includes(q.normalize('NFD').replace(/[̀-ͯ]/g,'')))
-      .map(x=>`<button class="sf-satir" data-n="${x.i+1}"><div class="sf-no">${x.i+1}</div><div class="sf-ad"><b>${esc(x.a)}</b><small>${KURAN[x.i][1]==='m'?'Mekkî':'Medenî'} · ${KURAN[x.i][2].length} ayet</small></div><div class="sf-ar">${KURAN[x.i][0]}</div></button>`).join('')||'<p class="note">Sonuç bulunamadı.</p>';
+      .map(x=>`<button class="sf-satir" data-n="${x.i+1}"><div class="sf-no">${x.i+1}</div><div class="sf-ad"><b>${esc(x.a)}</b><small>${ceviri(KURAN[x.i][1]==='m'?'Mekkî':'Medenî')} · ${KURAN[x.i][2].length} ${tl({tr:'ayet',en:'verses',ar:'آية',de:'Verse'})}</small></div><div class="sf-ar">${KURAN[x.i][0]}</div></button>`).join('')||'<p class="note">Sonuç bulunamadı.</p>';
     $('#krListe').querySelectorAll('.sf-satir').forEach(b=>b.onclick=()=>ac(+b.dataset.n));
   };
   yaz('');$('#krAra').oninput=e=>yaz(e.target.value);
@@ -38,7 +40,7 @@ function okuyucu(n,opt){
   const el=document.createElement('div');el.className='sf';el.style.zIndex=8;
   el.innerHTML=`<div class="ok-bar"><button class="kr-kapat">✕ Kapat</button><div class="kr-tem"><button class="kr-hiz" title="Okuma hızı"></button><button class="kr-k1">A−</button><button class="kr-k2">A+</button></div></div>
   <div class="kr-body" style="--arpx:${arpx}px">
-    <div class="ok-baslik">${esc(AD[n-1])} Sûresi${kisim?` <small style="display:block;font-size:13px;color:var(--soluk)">${bas}–${son}. ayetler</small>`:''}</div>
+    <div class="ok-baslik">${esc(SA(n,1))}${kisim?` <small style="display:block;font-size:13px;color:var(--soluk)">${tl({tr:`${bas}–${son}. ayetler`,en:`verses ${bas}–${son}`,ar:`الآيات ${bas}–${son}`,de:`Verse ${bas}–${son}`})}</small>`:''}</div>
     ${besmele?'<div class="ok-ar"><span class="ay" data-k="b">بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ</span></div>':''}
     <div class="ok-ar">${ay.map((t,i)=>i+1<bas||i+1>son?'':`<span class="ay" data-k="a${i+1}">${t}<span class="no">﴿${AR(i+1)}﴾</span></span>`).join(' ')}</div>
     <p class="note" style="text-align:center;margin-top:18px">Bir ayete dokunursanız dinleme oradan başlar. Ses, Mişari Raşid el-Afasi kaydıdır ve internet gerektirir.</p>
@@ -54,7 +56,7 @@ function okuyucu(n,opt){
   const ses=AyetSes({kuyruk,hiz,
     vurgu:k=>{body.querySelectorAll('.ay.cal').forEach(x=>x.classList.remove('cal'));const e=body.querySelector(`.ay[data-k="${k}"]`);if(e){e.classList.add('cal');e.scrollIntoView({block:'center',behavior:'smooth'});if(k[0]==='a')kaydet(+k.slice(1))}},
     durum:(c,i)=>{const it=kuyruk[i];btn.textContent=c?'⏸ '+(it&&it.k[0]==='a'?it.k.slice(1)+'/'+son:'Besmele'):'▶ '+(i?'Devam':'Dinle')},
-    bitti:()=>{body.querySelectorAll('.ay.cal').forEach(x=>x.classList.remove('cal'));toast(AD[n-1]+(kisim?` sûresinin ${bas}–${son}. ayetleri`:' sûresi')+' bitti. Allah kabul etsin.')},
+    bitti:()=>{body.querySelectorAll('.ay.cal').forEach(x=>x.classList.remove('cal'));toast(tl({tr:AD[n-1]+(kisim?` sûresinin ${bas}–${son}. ayetleri`:' sûresi')+' bitti. Allah kabul etsin.',en:`${SA(n)}${kisim?` (verses ${bas}–${son})`:''} finished. May Allah accept it.`,ar:`انتهت ${SA(n)}${kisim?` (الآيات ${bas}–${son})`:''}. تقبّل الله.`,de:`${SA(n)}${kisim?` (Verse ${bas}–${son})`:''} beendet. Möge Allah es annehmen.`}))},
     hata:()=>toast('Ses yüklenemedi. İnternet bağlantısını kontrol edin.')});
   const hizYaz=()=>{hb.textContent=String(hiz).replace('.',',')+'×';ses.hiz(hiz)};hizYaz();
   hb.onclick=()=>{const L=[.8,1,1.25,1.5];hiz=L[(L.indexOf(hiz)+1)%L.length];ls.set('okHiz',hiz);hizYaz()};

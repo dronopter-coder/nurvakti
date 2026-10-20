@@ -1,6 +1,7 @@
 /* Dil desteği: Türkçe (asıl), English, العربية, Deutsch.
    Arayüz yazıları ekranda bulunduğu anda sözlükten çevrilir (yeni açılan sayfalar dahil, MutationObserver ile).
-   Uzun dinî içerik (ayet/hadis meali, ilmihal, ibadet, çocuk içerikleri) şimdilik Türkçedir. */
+   Uzun içerik (ayet, hadis, ilmihal, cuma, ibadet, dualar, esma, çocuk bölümü) ve ek arayüz sözlüğü dil/<dil>.js
+   dosyasındadır (ceviri/olustur.js üretir); yalnızca seçili dil yüklenir ve modüller window.DV'den okur. */
 (function(){
 const DILLER={tr:'Türkçe',en:'English',ar:'العربية',de:'Deutsch'};
 let dil;try{dil=JSON.parse(localStorage.getItem('dil'))}catch(e){}
@@ -8,6 +9,7 @@ if(!DILLER[dil]){const n=(navigator.language||'tr').slice(0,2).toLowerCase();dil
 window.DIL=dil;window.DILLER=DILLER;
 const LOC={tr:'tr-TR',en:'en-GB',ar:'ar',de:'de-DE'}[dil];
 document.documentElement.lang=dil;
+if(dil!=='tr')document.write('<script src="dil/'+dil+'.js"><\/script>');
 // Tarihler seçilen dilde yazılsın (kodda 'tr-TR' verilen yerler dahil)
 if(dil!=='tr'){const o=Date.prototype.toLocaleDateString;Date.prototype.toLocaleDateString=function(l,p){return o.call(this,l==='tr-TR'?LOC:l,p)};
   const t=Date.prototype.toLocaleTimeString;Date.prototype.toLocaleTimeString=function(l,p){return t.call(this,l==='tr-TR'?LOC:l,p)}}
@@ -167,6 +169,8 @@ Daha sonra|Later|لاحقًا|Später
 ⭐ Puan ver|⭐ Rate the app|⭐ قيّم التطبيق|⭐ App bewerten`.split('\n').map(x=>x.split('|'));
 const IX={en:1,ar:2,de:3}[dil];
 const SOZ=new Map();if(IX)S.forEach(r=>{if(r[IX])SOZ.set(r[0],r[IX])});
+let ekli=false;const ekle=()=>{if(ekli||!window.DV)return;ekli=true;(DV.S||[]).forEach(([t,x])=>SOZ.set(t,x))};
+const [R_REKAT,R_SORU,R_ISIM,R_BASLIK]={en:['rak\'ahs','questions','names','topics'],ar:['ركعات','أسئلة','اسمًا','موضوعات'],de:['Rakat','Fragen','Namen','Themen']}[dil]||[];
 const ADLAR={İmsak:1,Güneş:1,Öğle:1,İkindi:1,Akşam:1,Yatsı:1,Sabah:1};
 const ad=x=>SOZ.get(x)||x;
 const AY={en:['Muharram','Safar','Rabi I','Rabi II','Jumada I','Jumada II','Rajab','Sha\'ban','Ramadan','Shawwal','Dhu al-Qadah','Dhu al-Hijjah'],ar:['محرم','صفر','ربيع الأول','ربيع الآخر','جمادى الأولى','جمادى الآخرة','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'],de:['Muharram','Safar','Rabi I','Rabi II','Dschumada I','Dschumada II','Radschab','Scha\'ban','Ramadan','Schawwal','Dhu l-Qa\'da','Dhu l-Hiddscha']}[dil];
@@ -179,15 +183,35 @@ const K={ // kalıplar
  de:[[/^(.+) vaktine kalan süre$/,m=>`Zeit bis ${ad(m[1])}`],[/^(.+) vaktine$/,m=>`bis ${ad(m[1])}`],[/^Güneşin doğmasına$/,()=>'bis Sonnenaufgang'],[/^(\d+) gün$/,m=>`${m[1]} Tage`],[/^Konum: (.+)$/,m=>`Standort: ${m[1]}`],
    [/^Bugün (\d)\/5 namaz( · Allah kabul etsin)?$/,m=>`Heute ${m[1]}/5 Gebete${m[2]?' · möge Allah annehmen':''}`],[/^(.+) vakti – kıldın mı\? \((\d)\/5\)$/,m=>`${ad(m[1])}-Zeit – gebetet? (${m[2]}/5)`],[/^(.+) vakti$/,m=>`${ad(m[1])}-Zeit`],[/^(.+) için (.+) vakti girdi$/,m=>`Es ist ${ad(m[2])}-Zeit in ${m[1]}`],[/^Kıble (\d+)° · Yönün (\d+)°(.*)$/,m=>`Qibla ${m[1]}° · Richtung ${m[2]}°`],[/^Kıbleye dönüksün(.*)$/,()=>'Du schaust zur Qibla']]
 }[dil]||[];
+// Birleşik metinler için ek kalıplar: [düzenli ifade, {en,ar,de} şablon işlevleri]
+const K2=[
+ [/^(\d+)\/(\d+) doğru!$/,{en:m=>`${m[1]}/${m[2]} correct!`,ar:m=>`${m[1]}/${m[2]} إجابة صحيحة!`,de:m=>`${m[1]}/${m[2]} richtig!`}],
+ [/^(?:Testteki )?[Ee]n iyi puanın: (.+)$/,{en:m=>`Your best score: ${m[1]}`,ar:m=>`أفضل نتيجة لك: ${m[1]}`,de:m=>`Deine Bestleistung: ${m[1]}`}],
+ [/^Soru (\d+)\/(\d+)$/,{en:m=>`Question ${m[1]}/${m[2]}`,ar:m=>`السؤال ${m[1]}/${m[2]}`,de:m=>`Frage ${m[1]}/${m[2]}`}],
+ [/^(\d+) sorudan her seferinde (\d+) soru$/,{en:m=>`${m[2]} questions each time from ${m[1]}`,ar:m=>`${m[2]} أسئلة في كل مرة من ${m[1]} سؤالًا`,de:m=>`Jedes Mal ${m[2]} Fragen aus ${m[1]}`}],
+ [/^(.+) akşamı$/,{en:m=>`${m[1]}, evening`,ar:m=>`مساء ${m[1]}`,de:m=>`${m[1]}, abends`}],
+ [/^(.+) · (\d+) gün$/,{en:m=>`${m[1]} · ${m[2]} days`,ar:m=>`${m[1]} · ${m[2]} أيام`,de:m=>`${m[1]} · ${m[2]} Tage`}],
+ [/^(.+) · hedef (\d+)$/,{en:m=>`${ad(m[1])} · goal ${m[2]}`,ar:m=>`${ad(m[1])} · الهدف ${m[2]}`,de:m=>`${ad(m[1])} · Ziel ${m[2]}`}],
+ [/^Tamamlandı: (.+)$/,{en:m=>`Completed: ${ad(m[1])}`,ar:m=>`اكتمل: ${ad(m[1])}`,de:m=>`Abgeschlossen: ${ad(m[1])}`}],
+ [/^Konum güncellendi: (.*)$/,{en:m=>`Location updated: ${m[1]}`,ar:m=>`تم تحديث الموقع: ${m[1]}`,de:m=>`Standort aktualisiert: ${m[1]}`}],
+ [/^Yakınınızda kayıtlı kabir var: (.+)\. Kabir sekmesinden Fâtiha okuyabilirsiniz\.$/,{en:m=>`A saved grave is nearby: ${m[1]}. You can recite Fatiha from the Graves tab.`,ar:m=>`يوجد قبر محفوظ بالقرب منك: ${m[1]}. يمكنك قراءة الفاتحة من تبويب القبور.`,de:m=>`Ein gespeichertes Grab ist in der Nähe: ${m[1]}. Du kannst im Tab „Gräber“ die Fatiha rezitieren.`}],
+ [/^Kaynak: (.+)$/,{en:m=>`Source: ${m[1]}`,ar:m=>`المصدر: ${m[1]}`,de:m=>`Quelle: ${m[1]}`}],
+ [/^(\d+) Cuma$/,{en:m=>`${m[1]} Fridays`,ar:m=>`${m[1]} جمعة`,de:m=>`${m[1]} Freitage`}],
+].map(([re,o])=>[re,o[dil]]).filter(x=>x[1]);
 function ceviri(t){
   if(!IX||t==null)return t;
+  ekle();
   const s=String(t),k=s.trim();if(!k)return s;
   let r=SOZ.get(k);
+  if(r==null){const m=k.match(/^(\d+)\. (.+)$/);if(m&&SOZ.has(m[2]))r=m[1]+'. '+SOZ.get(m[2])}
+  if(r==null){const m=k.match(/^(\d+) (rekât|soru|isim|başlık)$/);if(m)r=m[1]+' '+({rekât:R_REKAT,soru:R_SORU,isim:R_ISIM,başlık:R_BASLIK}[m[2]])}
   if(r==null){for(const [re,f] of K){const m=k.match(re);if(m&&(!/vakti|vaktine/.test(re.source)||ADLAR[m[1]]||/için/.test(re.source))){r=f(m);break}}}
+  if(r==null)for(const [re,f] of K2){const m=k.match(re);if(m){r=f(m);break}}
   if(r==null&&AY){const m=k.match(/^(\d+) (\S+) (\d{4})$/);if(m&&TRAY.includes(m[2]))r=`${m[1]} ${AY[TRAY.indexOf(m[2])]} ${m[3]}`}
   return r==null?s:s.replace(k,r);
 }
 window.ceviri=ceviri;
+window.tl=o=>o[dil]!=null?o[dil]:o.tr; // dile göre şablon seçimi: tl({tr:..,en:..,ar:..,de:..})
 if(!IX)return;
 const ATTR=['placeholder','aria-label','title'];
 function isle(kok){

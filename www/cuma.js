@@ -53,6 +53,7 @@ window.CUMA=[
 "Rabbimiz! Bizi, anne-babamızı ve müminleri hesap gününde bağışla. (İbrâhîm, 41)\nÂmin. Hayırlı Cumalar.",
 "Bir haftanın daha sonuna, bir Cuma'nın daha sabahına ulaştıran Rabbimize hamdolsun. Ömrümüz ibadetle, günlerimiz hayırla geçsin. Hayırlı Cumalar."
 ];
+if(window.DV&&DV.CUMA&&DV.CUMA.length===CUMA.length)window.CUMA=DV.CUMA;
 /* Bu haftanın mesajı: Cuma günü değişir (1 Ocak 1970 Perşembe olduğundan gün sayısından 1 çıkarılır) */
 window.cumaMesaji=(o=0)=>{
   const n=new Date(),g=Math.floor(Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())/864e5);
