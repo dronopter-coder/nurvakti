@@ -217,3 +217,4 @@ Kunut|Qunut|القنوت|Qunut
 Bu ülkenin şehir listesi alınamadı. İnternet bağlantısını kontrol edin.|Could not load the city list for this country. Check your internet connection.|تعذّر جلب قائمة مدن هذه الدولة. تحقق من الاتصال بالإنترنت.|Die Städteliste dieses Landes konnte nicht geladen werden. Internetverbindung prüfen.
 Lütfen bir şehir seçin.|Please choose a city.|يرجى اختيار مدينة.|Bitte wähle eine Stadt.
 Zekât hesaplama aracı|Zakat calculator|حاسبة الزكاة|Zakat-Rechner
+Hesapla|Calculate|احسب|Berechnen

@@ -137,11 +137,11 @@ public class VakitWidget extends AppWidgetProvider {
             String ad = (String) s[0];
             long t = (Long) s[1], once = (Long) s[5];
             String bas = (String) s[6];
-            r.setTextViewText(R.id.vw_baslik, dar ? ad + " " + saat(t) : bas.isEmpty() ? ("Güneş".equals(ad) ? "Güneşin doğmasına" : ad + " vaktine") : bas);
+            r.setTextViewText(R.id.vw_baslik, dar || kucuk ? ad + " " + saat(t) : bas.isEmpty() ? ("Güneş".equals(ad) ? "Güneşin doğmasına" : ad + " vaktine") : bas);
             long taban = SystemClock.elapsedRealtime() + (t - simdi);
             r.setChronometer(R.id.vw_sayac, taban, null, true);
             r.setChronometerCountDown(R.id.vw_sayac, true);
-            String alt = dar ? "" : kucuk ? saat(t) : ad + " " + saat(t) + (s[2] != null ? "  ·  " + s[2] + " " + saat((Long) s[3]) : "");
+            String alt = dar || kucuk ? "" : ad + " " + saat(t) + (s[2] != null ? "  ·  " + s[2] + " " + saat((Long) s[3]) : "");
             r.setTextViewText(R.id.vw_alt, alt);
             r.setTextViewText(R.id.vw_yer, (String) s[4]);
             float oran = t > once ? (float) (simdi - once) / (float) (t - once) : 0f;
