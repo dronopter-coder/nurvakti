@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tek satırlık (küçültülmüş) widget -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/vw_kok"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/vakit_widget_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="8dp"
+    android:paddingRight="14dp">
+
+    <ImageView
+        android:id="@+id/vw_halka"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:importantForAccessibility="no"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/vw_baslik"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:fontFamily="serif"
+        android:maxLines="1"
+        android:textColor="#C9A45C"
+        android:textSize="14sp" />
+
+    <Chronometer
+        android:id="@+id/vw_sayac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:fontFamily="serif"
+        android:textColor="#EDE4CF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/vw_alt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="#9AA1BD"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/vw_yer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+</LinearLayout>

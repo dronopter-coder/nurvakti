@@ -117,12 +117,19 @@ const GUN=[
 ['Hicri yılbaşı','2027-06-06'],['Aşure günü','2027-06-15'],['Mevlid Kandili','2027-08-13',0,1],['Üç ayların başlangıcı','2027-11-29'],['Regaib Kandili','2027-12-02',0,1],['Miraç Kandili','2027-12-24',0,1],
 ['Berat Kandili','2028-01-11',0,1],['Ramazan başlangıcı','2028-01-28'],['Kadir Gecesi','2028-02-22',0,1],['Ramazan Bayramı arefesi','2028-02-25'],['Ramazan Bayramı','2028-02-26','2028-02-28'],
 ['Kurban Bayramı arefesi','2028-05-04'],['Kurban Bayramı','2028-05-05','2028-05-08'],['Hicri yılbaşı','2028-05-25'],['Aşure günü','2028-06-03'],['Mevlid Kandili','2028-08-02',0,1],
-['Üç ayların başlangıcı','2028-11-17'],['Regaib Kandili','2028-11-23',0,1],['Miraç Kandili','2028-12-12',0,1],['Şaban ayının başlangıcı','2028-12-17'],['Berat Kandili','2028-12-30',0,1]];
+['Üç ayların başlangıcı','2028-11-18'],['Regaib Kandili','2028-11-23',0,1],['Miraç Kandili','2028-12-13',0,1],['Şaban ayının başlangıcı','2028-12-17'],['Berat Kandili','2028-12-30',0,1],
+['Ramazan başlangıcı','2029-01-16'],['Kadir Gecesi','2029-02-10',0,1],['Ramazan Bayramı arefesi','2029-02-13'],['Ramazan Bayramı','2029-02-14','2029-02-16'],['Kurban Bayramı arefesi','2029-04-23'],['Kurban Bayramı','2029-04-24','2029-04-27'],
+['Hicri yılbaşı','2029-05-14'],['Aşure günü','2029-05-23'],['Mevlid Kandili','2029-07-23',0,1],['Üç ayların başlangıcı','2029-11-07'],['Regaib Kandili','2029-11-08',0,1],['Miraç Kandili','2029-12-02',0,1],['Şaban ayının başlangıcı','2029-12-07'],['Berat Kandili','2029-12-20',0,1],
+['Ramazan başlangıcı','2030-01-05'],['Kadir Gecesi','2030-01-30',0,1],['Ramazan Bayramı arefesi','2030-02-03'],['Ramazan Bayramı','2030-02-04','2030-02-06'],['Kurban Bayramı arefesi','2030-04-12'],['Kurban Bayramı','2030-04-13','2030-04-16'],
+['Hicri yılbaşı','2030-05-03'],['Aşure günü','2030-05-12'],['Mevlid Kandili','2030-07-12',0,1],['Üç ayların başlangıcı','2030-10-28'],['Regaib Kandili','2030-10-31',0,1],['Miraç Kandili','2030-11-22',0,1],['Şaban ayının başlangıcı','2030-11-26'],['Berat Kandili','2030-12-09',0,1],['Ramazan başlangıcı','2030-12-26'],
+['Kadir Gecesi','2031-01-20',0,1],['Ramazan Bayramı arefesi','2031-01-23'],['Ramazan Bayramı','2031-01-24','2031-01-26'],['Kurban Bayramı arefesi','2031-04-01'],['Kurban Bayramı','2031-04-02','2031-04-05'],
+['Hicri yılbaşı','2031-04-23'],['Aşure günü','2031-05-02'],['Mevlid Kandili','2031-07-01',0,1],['Regaib Kandili','2031-10-16',0,1],['Üç ayların başlangıcı','2031-10-17'],['Miraç Kandili','2031-11-11',0,1],['Şaban ayının başlangıcı','2031-11-16'],['Berat Kandili','2031-11-29',0,1],['Ramazan başlangıcı','2031-12-15']];
+const GYIL=[2026,2027,2028,2029,2030,2031];
 let gy=0;
 function drawGunler(){
   const n0=new Date(),today=new Date(n0.getFullYear(),n0.getMonth(),n0.getDate());
-  if(!gy)gy=[2026,2027,2028].includes(n0.getFullYear())?n0.getFullYear():2026;
-  $('#gYear').innerHTML=[2026,2027,2028].map(y=>`<button data-y="${y}" class="${y===gy?'on':''}">${y}</button>`).join('');
+  if(!gy)gy=GYIL.includes(n0.getFullYear())?n0.getFullYear():GYIL[0];
+  $('#gYear').innerHTML=GYIL.map(y=>`<button data-y="${y}" class="${y===gy?'on':''}">${y}</button>`).join('');
   document.querySelectorAll('#gYear button').forEach(b=>b.onclick=()=>{gy=+b.dataset.y;drawGunler()});
   let nx=false;
   $('#gList').innerHTML=GUN.filter(e=>e[1].startsWith(gy)).map(e=>{
@@ -141,6 +148,11 @@ function setDraw(){
 }
 $('#gear').onclick=()=>{setDraw();sistemDurum();$('#setSheet').classList.add('open')};
 /* Konum ayarlardan da değiştirilebilir */
+/* Dil seçimi: seçilince uygulama yeni dille yeniden yüklenir */
+{const d=$('#stDil');d.innerHTML=Object.entries(window.DILLER||{tr:'Türkçe'}).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');d.value=window.DIL||'tr';
+ d.setAttribute('data-cevirme','');
+ $('#stDilNot').textContent={en:'Verses, hadiths and fiqh texts are currently in Turkish.',ar:'نصوص الآيات والأحاديث والفقه باللغة التركية حاليًا.',de:'Verse, Hadithe und Fiqh-Texte sind derzeit auf Türkisch.'}[window.DIL]||'';
+ d.onchange=()=>{ls.set('dil',d.value);location.reload()}}
 $('#stKonum').onclick=()=>{$('#setSheet').classList.remove('open');$('#locBtn').click()};
 /* Uygulama bildirimleri: telefonun bu uygulamaya ait bildirim ayarları ekranını açar */
 async function sistemDurum(){
@@ -176,7 +188,7 @@ async function planNotifs(ask){
       VAK.forEach(([key,name],i)=>{
         if(!S.vk.includes(i))return;
         const w=at(d,x.t[key]);
-        if(w>now)list.push({id:100+k*10+i,title:name+' vakti',body:locLabel()+' için '+name+' vakti girdi',schedule:{at:w,allowWhileIdle:true},channelId:'vakit4',sound:PLAT==='ios'?undefined:'vakit.mp3',extra:{hedef:'vakit'}});
+        if(w>now)list.push({id:100+k*10+i,title:ceviri(name+' vakti'),body:ceviri(locLabel()+' için '+name+' vakti girdi'),schedule:{at:w,allowWhileIdle:true},channelId:'vakit4',sound:PLAT==='ios'?undefined:'vakit.mp3',extra:{hedef:'vakit'}});
       });
     }
     if(PLAT==='ios')list.splice(40); // iOS en çok 64 bekleyen yerel bildirime izin verir
@@ -191,7 +203,7 @@ async function vidjetGuncelle(){
     for(let k=0;k<7;k++){
       const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+k,12);let x;
       try{x=await fetchDay(d)}catch(e){break}
-      VAK.forEach(([key,name])=>L.push({a:name,t:at(d,x.t[key]).getTime()}));
+      VAK.forEach(([key,name])=>L.push({a:ceviri(name),b:ceviri(name==='Güneş'?'Güneşin doğmasına':name+' vaktine'),t:at(d,x.t[key]).getTime()}));
     }
     if(L.length)await Y.vidjetKaydet({veri:JSON.stringify({yer:locLabel(),v:L})});
   }catch(e){}

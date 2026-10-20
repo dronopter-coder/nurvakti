@@ -1,35 +1,83 @@
 /* Çocuklar: namazı ve dini sevdirmeye yönelik çizimli içerikler */
 (function(){
 const esc=Sayfa.esc;
-/* ---- Namaz figürleri (yandan görünüş, sağa yani kıbleye bakıyor) ---- */
-const SK='#f2c7a1',GV='#2e9d8f',PT='#4a5fa8',KP='#f0c24b';
-const ln=(a,b,c,d,w,k)=>`<path d="M${a} ${b}L${c} ${d}" stroke="${k}" stroke-width="${w}" stroke-linecap="round" fill="none"/>`;
+/* ---- Namaz figürleri: ışık-gölgeli (3B görünümlü) sevimli çocuk, yandan görünüş, kıbleye (sağa) bakıyor ---- */
+const G={ten:'url(#nTen)',elb:'url(#nElb)',pan:'url(#nPan)'};
+const ln=(a,b,c,d,w,k)=>`<path d="M${a} ${b}L${c} ${d}" stroke="${k}" stroke-width="${w}" stroke-linecap="round" fill="none"/>`+
+  `<path d="M${a-w*.18} ${b-w*.12}L${c-w*.18} ${d-w*.12}" stroke="#fff" stroke-opacity=".22" stroke-width="${w*.3}" stroke-linecap="round" fill="none"/>`;
 const pl=(pts,w,k)=>`<path d="M${pts.map(p=>p.join(' ')).join('L')}" stroke="${k}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`;
-const bas=(x,y)=>`<circle cx="${x}" cy="${y}" r="19" fill="${SK}"/><path d="M${x-19} ${y-3}a19 19 0 0 1 38 0z" fill="${KP}"/><circle cx="${x+5}" cy="${y+2}" r="2.2" fill="#3b2a1e"/><circle cx="${x+10}" cy="${y+10}" r="3.2" fill="#ec9a8c" opacity=".7"/><path d="M${x+2} ${y+9}q5 5 10 0" stroke="#3b2a1e" stroke-width="1.8" fill="none" stroke-linecap="round"/>`;
+const el=(x,y)=>`<circle cx="${x}" cy="${y}" r="7" fill="${G.ten}"/><circle cx="${x-2}" cy="${y-2.4}" r="2.2" fill="#fff" opacity=".35"/>`;
+const bas=(x,y)=>`<g>
+ <circle cx="${x-7}" cy="${y+4}" r="5.5" fill="${G.ten}"/>
+ <circle cx="${x}" cy="${y}" r="21" fill="${G.ten}"/>
+ <path d="M${x-21.5} ${y-2}a21.5 21.5 0 0 1 43 0z" fill="url(#nTakke)"/><path d="M${x-21.5} ${y-2}h43" stroke="#cfd6e4" stroke-width="2.4" stroke-linecap="round"/>
+ <path d="M${x-12} ${y-14}q10 -7 22 -2" stroke="#fff" stroke-width="3" stroke-opacity=".7" fill="none" stroke-linecap="round"/>
+ <path d="M${x+4} ${y-1}q4 -3 8 0" stroke="#5a3b26" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+ <ellipse cx="${x+8}" cy="${y+5}" rx="3.3" ry="4" fill="#2b1d14"/><circle cx="${x+9.2}" cy="${y+3.4}" r="1.4" fill="#fff"/>
+ <ellipse cx="${x+13}" cy="${y+12}" rx="4.2" ry="2.6" fill="#ff7f86" opacity=".45"/>
+ <path d="M${x+19.5} ${y+5}q3 2 0 5" stroke="#d98f6c" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+ <path d="M${x+5} ${y+13}q5 5 11 0" stroke="#7a3b2a" stroke-width="2" fill="none" stroke-linecap="round"/>
+ <ellipse cx="${x-6}" cy="${y+8}" rx="6" ry="4" fill="#fff" opacity=".12"/></g>`;
 const POZ={
- tekbir:()=>ln(100,172,100,122,15,PT)+ln(100,124,100,76,25,GV)+pl([[100,82],[120,70],[115,46]],10,GV)+`<circle cx="115" cy="44" r="6" fill="${SK}"/>`+bas(100,52),
- kiyam:()=>ln(100,172,100,122,15,PT)+ln(100,124,100,76,25,GV)+pl([[100,88],[112,102],[94,94]],10,GV)+`<circle cx="92" cy="93" r="6" fill="${SK}"/>`+bas(100,52),
- ruku:()=>ln(68,172,68,122,15,PT)+ln(68,120,132,112,25,GV)+ln(132,114,74,152,10,GV)+`<circle cx="72" cy="153" r="6" fill="${SK}"/>`+bas(156,108),
- kavme:()=>ln(100,172,100,122,15,PT)+ln(100,124,100,76,25,GV)+ln(100,84,104,128,10,GV)+`<circle cx="104" cy="131" r="6" fill="${SK}"/>`+bas(100,52),
- secde:()=>ln(24,170,68,168,14,PT)+ln(68,166,64,124,17,PT)+ln(64,122,122,150,24,GV)+ln(122,152,140,170,10,GV)+`<circle cx="142" cy="172" r="6" fill="${SK}"/>`+bas(150,156),
- celse:()=>ln(28,170,88,168,16,PT)+ln(64,158,68,100,25,GV)+ln(70,100,96,138,10,GV)+`<circle cx="98" cy="140" r="6" fill="${SK}"/>`+bas(72,68),
- selam:()=>ln(28,170,88,168,16,PT)+ln(64,158,68,100,25,GV)+ln(70,100,96,138,10,GV)+`<circle cx="98" cy="140" r="6" fill="${SK}"/>`+bas(72,68)+`<path d="M104 52q22 -16 44 0" stroke="#e07a5f" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M144 44l6 8-10 2" stroke="#e07a5f" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`
+ tekbir:()=>ln(100,172,100,122,16,G.pan)+ln(100,124,100,76,27,G.elb)+pl([[100,82],[120,70],[115,46]],11,G.elb)+el(115,44)+bas(100,50),
+ kiyam:()=>ln(100,172,100,122,16,G.pan)+ln(100,124,100,76,27,G.elb)+pl([[100,88],[112,102],[94,94]],11,G.elb)+el(92,93)+bas(100,50),
+ ruku:()=>ln(68,172,68,122,16,G.pan)+ln(68,120,132,112,27,G.elb)+ln(132,114,74,152,11,G.elb)+el(72,153)+bas(156,106),
+ kavme:()=>ln(100,172,100,122,16,G.pan)+ln(100,124,100,76,27,G.elb)+ln(100,84,104,128,11,G.elb)+el(104,131)+bas(100,50),
+ secde:()=>ln(24,170,68,168,15,G.pan)+ln(68,166,64,124,18,G.pan)+ln(64,122,122,150,26,G.elb)+ln(122,152,140,170,11,G.elb)+el(142,171)+bas(150,153),
+ celse:()=>ln(28,170,88,168,17,G.pan)+ln(64,158,68,100,27,G.elb)+ln(70,100,96,138,11,G.elb)+el(98,140)+bas(72,66),
+ selam:()=>ln(28,170,88,168,17,G.pan)+ln(64,158,68,100,27,G.elb)+ln(70,100,96,138,11,G.elb)+el(98,140)+bas(72,66)+`<path d="M104 50q22 -16 44 0" stroke="#e07a5f" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M144 42l6 8-10 2" stroke="#e07a5f" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`
 };
-const figur=k=>`<svg viewBox="0 0 200 200" class="cc-fig" aria-hidden="true"><rect width="200" height="200" rx="18" fill="url(#cg)"/><defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6dd"/><stop offset="1" stop-color="#ffe6b0"/></linearGradient></defs><rect x="8" y="172" width="184" height="14" rx="5" fill="#2f8f83"/><path d="M16 179h168" stroke="#e8c468" stroke-width="2" stroke-dasharray="5 5"/>${POZ[k]()}<text x="190" y="26" text-anchor="end" font-size="12" font-family="system-ui,sans-serif" fill="#9a7b2e">Kıble ➜</text></svg>`;
+const DEFS=`<defs>
+ <linearGradient id="nDuvar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff8e6"/><stop offset="1" stop-color="#ffe2a8"/></linearGradient>
+ <radialGradient id="nTen" cx=".36" cy=".32" r=".75"><stop offset="0" stop-color="#ffe9d6"/><stop offset=".6" stop-color="#f7c9a3"/><stop offset="1" stop-color="#df9f74"/></radialGradient>
+ <linearGradient id="nElb" gradientUnits="userSpaceOnUse" x1="40" y1="40" x2="160" y2="175"><stop offset="0" stop-color="#5fd1bd"/><stop offset=".55" stop-color="#2ea492"/><stop offset="1" stop-color="#1b6f63"/></linearGradient>
+ <linearGradient id="nPan" gradientUnits="userSpaceOnUse" x1="20" y1="110" x2="110" y2="175"><stop offset="0" stop-color="#7d93e6"/><stop offset="1" stop-color="#3a4f9e"/></linearGradient>
+ <linearGradient id="nTakke" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dfe5ef"/></linearGradient>
+ <linearGradient id="nHali" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c0504d"/><stop offset="1" stop-color="#8e2f2c"/></linearGradient>
+ <filter id="nGol" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="1.5" dy="3" stdDeviation="2.2" flood-color="#5a3b10" flood-opacity=".28"/></filter>
+ <filter id="nBul"><feGaussianBlur stdDeviation="3"/></filter></defs>`;
+const figur=k=>`<svg viewBox="0 0 200 200" class="cc-fig" aria-hidden="true">${DEFS}
+ <rect width="200" height="200" rx="18" fill="url(#nDuvar)"/>
+ <path d="M150 168V70a22 22 0 0 1 44 0v98z" fill="#f3cf86" opacity=".55"/><path d="M158 168V76a14 14 0 0 1 28 0v92z" fill="#e8b866" opacity=".5"/>
+ <rect x="8" y="168" width="184" height="18" rx="6" fill="url(#nHali)"/><rect x="8" y="182" width="184" height="4" rx="2" fill="#6e2220" opacity=".6"/>
+ <path d="M16 175h168" stroke="#f2d27a" stroke-width="2" stroke-dasharray="6 5"/>
+ <ellipse cx="${k==='secde'?96:k==='ruku'?100:k==='celse'||k==='selam'?62:100}" cy="171" rx="${k==='secde'?62:k==='celse'||k==='selam'?44:30}" ry="5" fill="#000" opacity=".18" filter="url(#nBul)"/>
+ <g filter="url(#nGol)">${POZ[k]()}</g>
+ <text x="190" y="24" text-anchor="end" font-size="12" font-family="system-ui,sans-serif" fill="#9a7b2e">Kıble ➜</text></svg>`;
+/* Adımlarda okunanlar: d = Dualar listesindeki sıra, s = sûre no, z = kısa zikir [Arapça, okunuş, anlam] */
+const Z={
+ tekbir:['اَللّٰهُ اَكْبَرُ','Allâhu Ekber','Allah en büyüktür.'],
+ ruku:['سُبْحَانَ رَبِّيَ الْعَظِيمِ','Sübhâne rabbiye\'l-azîm (3 kez)','Yüce Rabbimi her türlü eksiklikten uzak tutarım.'],
+ semi:['سَمِعَ اللّٰهُ لِمَنْ حَمِدَهُ','Semiallâhü limen hamideh','Allah, kendisine hamd edeni işitir.'],
+ hamd:['رَبَّنَا لَكَ الْحَمْدُ','Rabbenâ leke\'l-hamd','Rabbimiz, hamd yalnız sanadır.'],
+ secde:['سُبْحَانَ رَبِّيَ الْاَعْلٰى','Sübhâne rabbiye\'l-a\'lâ (3 kez)','En yüce Rabbimi her türlü eksiklikten uzak tutarım.'],
+ selam:['اَلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللّٰهِ','Esselâmü aleyküm ve rahmetullâh','Allah\'ın selamı ve rahmeti üzerinize olsun.']};
 const ADIM=[
- ['tekbir','1. Niyet ve tekbir','Kıbleye dönüp hangi namazı kılacağımızı içimizden düşünürüz. Ellerimizi kulaklarımıza kaldırıp "Allahu Ekber" deriz.'],
- ['kiyam','2. Kıyam','Ellerimizi bağlarız ve ayakta dururuz. Fâtiha Sûresi ile kısa bir sûre okuruz.'],
- ['ruku','3. Rükû','"Allahu Ekber" diyerek eğiliriz. Ellerimiz dizlerimizde, sırtımız dümdüz. Üç kez "Sübhâne rabbiyel azîm" deriz.'],
- ['kavme','4. Doğrulma','"Semiallahü limen hamideh" diyerek doğruluruz. Sonra "Rabbenâ lekel hamd" deriz.'],
- ['secde','5. Secde','"Allahu Ekber" diyerek secdeye gideriz. Alnımız ve burnumuz yere değer. Üç kez "Sübhâne rabbiyel a\'lâ" deriz.'],
- ['celse','6. Oturuş','Kısa bir süre oturur, sonra ikinci secdeye gideriz. Allah\'a en yakın olduğumuz an secdedir!'],
- ['selam','7. Selam','Son oturuşta dualarımızı okuruz. Önce sağımıza, sonra soluma "Esselâmü aleyküm ve rahmetullah" diyerek selam veririz. Namaz bitti, Allah kabul etsin!']
+ ['tekbir','1. Niyet ve iftitah tekbiri','Kıbleye döneriz, hangi namazı kılacağımızı içimizden düşünürüz. Ellerimizi kulaklarımıza kaldırıp "Allahu Ekber" deriz.',[{z:'tekbir'}]],
+ ['kiyam','2. Kıyam (ayakta duruş)','Ellerimizi bağlarız. Önce Sübhâneke, sonra Eûzü-Besmele, Fâtiha ve kısa bir sûre okuruz.',[{d:0,ad:'Sübhâneke'},{d:1,ad:'Eûzü – Besmele'},{s:1,ad:'Fâtiha'},{s:112,ad:'Bir sûre: İhlâs'}]],
+ ['ruku','3. Rükû','"Allahu Ekber" diyerek eğiliriz. Ellerimiz dizlerimizde, sırtımız dümdüz.',[{z:'ruku'}]],
+ ['kavme','4. Doğrulma (kavme)','Doğrulurken "Semiallâhü limen hamideh", dik durunca "Rabbenâ leke\'l-hamd" deriz.',[{z:'semi'},{z:'hamd'}]],
+ ['secde','5. Secde','"Allahu Ekber" diyerek secdeye gideriz. Alnımız ve burnumuz yere değer. Allah\'a en yakın olduğumuz an secdedir!',[{z:'secde'}]],
+ ['celse','6. İki secde arası oturuş','"Allahu Ekber" diyerek kısa bir süre otururuz, sonra yine "Allahu Ekber" diyerek ikinci secdeye gideriz.',[{z:'tekbir'},{z:'secde'}]],
+ ['kiyam','7. İkinci rekât','"Allahu Ekber" diyerek ayağa kalkarız. Sübhâneke okumadan Besmele, Fâtiha ve bir sûre okuruz; sonra rükû ve secdeleri aynı şekilde yaparız.',[{s:1,ad:'Fâtiha'},{s:108,ad:'Bir sûre: Kevser'}]],
+ ['celse','8. Oturuş (tahiyyat)','İkinci rekâtın secdelerinden sonra otururuz. İlk oturuşta yalnız Ettehiyyâtü okunur. Son oturuşta Ettehiyyâtü\'den sonra Salli, Bârik ve Rabbenâ duaları da okunur.',[{d:2,ad:'Ettehiyyâtü'},{d:3,ad:'Allâhümme Salli'},{d:4,ad:'Allâhümme Bârik'},{d:5,ad:'Rabbenâ Âtinâ'},{d:6,ad:'Rabbenağfirlî'}]],
+ ['selam','9. Selam','Önce sağımıza, sonra solumuza başımızı çevirerek selam veririz. Namaz bitti, Allah kabul etsin!',[{z:'selam'}]]
 ];
 function namaz(){
-  const s=Sayfa.ac('Namaz nasıl kılınır?');let i=0;
-  const ciz=()=>{const a=ADIM[i];s.govde.innerHTML=`<div class="cc-kart">${figur(a[0])}<h3>${a[1]}</h3><p>${esc(a[2])}</p></div>
-  <div class="cc-nokta">${ADIM.map((_,j)=>`<i class="${j===i?'on':''}"></i>`).join('')}</div>
-  <div class="kb-btns"><button class="btn" id="ccOn" ${i?'':'disabled'}>‹ Geri</button><button class="btn gold" id="ccSn">${i===ADIM.length-1?'Baştan başla':'İleri ›'}</button></div>`;
+  const s=Sayfa.ac('Namaz nasıl kılınır?',{kapaninca:()=>DuaSes.dur()});let i=0;
+  const ciz=()=>{const a=ADIM[i];DuaSes.dur();
+    s.govde.innerHTML=`<div class="cc-kart">${figur(a[0])}<h3>${a[1]}</h3><p>${esc(a[2])}</p>
+    <div class="cc-okunan"><small>Bu adımda okunanlar</small><div>${a[3].map((o,j)=>`<button data-j="${j}">${o.s?'📖 ':o.d!=null?'🤲 ':'🔊 '}${esc(o.ad||(Z[o.z]&&Z[o.z][1])||'')}</button>`).join('')}</div><div id="ccOkPanel"></div></div></div>
+    <div class="cc-nokta">${ADIM.map((_,j)=>`<i class="${j===i?'on':''}"></i>`).join('')}</div>
+    <div class="kb-btns"><button class="btn" id="ccOn" ${i?'':'disabled'}>‹ Geri</button><button class="btn gold" id="ccSn">${i===ADIM.length-1?'Baştan başla':'İleri ›'}</button></div>`;
+    s.govde.querySelectorAll('.cc-okunan button').forEach(b=>b.onclick=()=>{
+      const o=a[3][+b.dataset.j];
+      if(o.s){Kuran.ac(o.s,{hiz:.8,cal:true});return}
+      const d=o.d!=null?(window.DUALAR||[])[o.d]:[o.ad,'',...Z[o.z]];if(!d)return;
+      s.govde.querySelectorAll('.cc-okunan button').forEach(x=>x.classList.toggle('on',x===b));
+      $('#ccOkPanel').innerHTML=`<p class="cc-dua-ar" lang="ar" dir="rtl">${d[2]}</p><p class="cc-dua-ok">${esc(d[3])}</p><button class="btn cc-dua-dinle" id="ccDinle">▶ Dinle</button><p class="cc-dua-an">${esc(d[4])}</p>`;
+      $('#ccDinle').onclick=e=>DuaSes.cal(o.d!=null?o.d:d,e.currentTarget);
+    });
     $('#ccOn').onclick=()=>{i--;ciz()};$('#ccSn').onclick=()=>{i=(i+1)%ADIM.length;ciz()}};
   ciz();
 }
@@ -52,20 +100,47 @@ const vakitler=()=>{const s=Sayfa.ac('Beş vakit namaz');s.govde.innerHTML='<p c
 const EZBER=[[1,'Fâtiha','Namazın her rekâtında okuruz; Kur\'an\'ın ilk sûresi.'],[2,'Bakara (1–5. ayetler)','"Elif Lâm Mîm" ile başlayan ilk sayfa; müttakilerin özellikleri.',1,5],
  [93,'Duhâ','Allah\'ın Peygamberimizi yalnız bırakmadığını müjdeler.'],[94,'İnşirâh','Her zorlukla beraber bir kolaylık vardır.'],[95,'Tîn','İnsanın en güzel biçimde yaratıldığını anlatır.'],[96,'Alak','İlk inen ayetler: "Oku!"'],[97,'Kadir','Bin aydan hayırlı Kadir Gecesi.'],[98,'Beyyine','Apaçık delil ve iyi insanların karşılığı.'],[99,'Zilzâl','Zerre kadar iyilik de kötülük de karşılık bulur.'],[100,'Âdiyât','Koşan atlar ve insanın nankörlüğü.'],[101,'Kâria','Kıyamet gününde amellerin tartılması.'],[102,'Tekâsür','Çoklukla övünmenin insanı oyalaması.'],[103,'Asr','Zamana yemin eder; iman, iyilik, hak ve sabrı tavsiye eder.'],[104,'Hümeze','Arkadan çekiştiren ve alay edenler.'],
  [105,'Fîl','Kâbe\'yi yıkmaya gelen fil ordusunun hikâyesi.'],[106,'Kureyş','Kureyş kabilesine verilen nimetler ve şükür.'],[107,'Mâûn','Yetime ve yoksula iyilik yapmayı öğretir.'],[108,'Kevser','Allah\'ın Peygamberimize verdiği bol nimet.'],[109,'Kâfirûn','Herkesin dini kendine; biz yalnız Allah\'a ibadet ederiz.'],[110,'Nasr','Allah\'ın yardımı ve zafer müjdesi.'],[111,'Tebbet','Peygamberimize düşmanlık edenin sonu.'],[112,'İhlâs','Allah\'ın bir olduğunu anlatır.'],[113,'Felak','Her türlü kötülükten Allah\'a sığınırız.'],[114,'Nâs','Kalbe vesvese verenlerden Allah\'a sığınırız.']];
+/* Duaları sesli okuma: varsa dualar/<no>.mp3 kaydı, yoksa telefonun ses motoru (Arapça; Arapça ses yoksa Türkçe okunuş) */
+const DuaSes=(()=>{
+  let aktif=null,ses=null,dinleyici=null;
+  const bitir=()=>{if(aktif){aktif.classList.remove('cal');aktif.textContent='▶ Dinle'}aktif=null};
+  const dur=()=>{try{ses&&ses.pause()}catch(e){}ses=null;try{P.NurYerli&&P.NurYerli.sesiDurdur()}catch(e){}try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}bitir()};
+  const tts=async(d,btn)=>{
+    const Y=P.NurYerli;
+    if(Y&&Y.seslendir){
+      if(!dinleyici)dinleyici=Y.addListener('seslendirmeBitti',()=>bitir());
+      try{const r=await Y.seslendir({metin:d[2].replace(/۝/g,' '),yedek:d[3],hiz:.8});if(r&&r.dil==='tr')toast('Telefonda Arapça ses bulunamadı; okunuş Türkçe seslendiriliyor.');return}catch(e){}
+    }
+    if(window.speechSynthesis&&window.SpeechSynthesisUtterance){const u=new SpeechSynthesisUtterance(d[2]);u.lang='ar-SA';u.rate=.8;u.onend=bitir;speechSynthesis.speak(u);return}
+    bitir();toast('Bu cihazda sesli okuma desteklenmiyor.');
+  };
+  const cal=(i,btn)=>{
+    const d=typeof i==='object'?i:(window.DUALAR||[])[i];if(!d)return;
+    if(aktif===btn){dur();return}
+    dur();aktif=btn;btn.classList.add('cal');btn.textContent='⏸ Durdur';
+    if(typeof i==='object'){tts(d,btn);return}
+    const a=new Audio('dualar/'+(i+1)+'.mp3');ses=a;
+    a.onended=()=>{if(ses===a)bitir()};
+    a.play().catch(()=>{if(ses===a){ses=null;tts(d,btn)}});
+  };
+  return{cal,dur};
+})();
+window.DuaSes=DuaSes;
 /* İki sûre/dua açılışında bir geçiş reklamı (iki reklam arasında en az 1 dakika) */
 let ezAcilan=0,ezSonReklam=0;
 const ezReklam=()=>{if(++ezAcilan<2||Date.now()-ezSonReklam<60e3)return;ezAcilan=0;ezSonReklam=Date.now();if(typeof showInter==='function')showInter()};
 let ezSekme='sure';
-const ezber=()=>{const s=Sayfa.ac('Ezber köşesi');
+const ezber=()=>{const s=Sayfa.ac('Ezber köşesi',{kapaninca:()=>DuaSes.dur()});
   const ciz=()=>{
     const D=window.DUALAR||[];
     s.govde.innerHTML=`<div class="cc-sekme"><button data-s="sure" class="${ezSekme==='sure'?'on':''}">📖 Sûreler</button><button data-s="dua" class="${ezSekme==='dua'?'on':''}">🤲 Dualar</button></div>`+
     (ezSekme==='sure'
      ?'<p class="note" style="margin:0 0 6px">Sırayla dinle, tekrar et, ezberle! Sûre yavaş (0,8×) okunur; hızı değiştirebilirsin. Ses için internet gerekir.</p>'+EZBER.map((e,i)=>`<button class="sf-satir" data-i="${i}"><div class="sf-no">${i+1}</div><div class="sf-ad"><b>${e[1]}${e[3]?'':' Sûresi'}</b><small>${e[2]}</small></div><div class="sf-no" style="font-size:17px">🎧</div></button>`).join('')
-     :'<p class="note" style="margin:0 0 6px">Namazda okunan dualar ve her gün bilmemiz gereken dualar. Duaya dokun; Arapçası, okunuşu ve anlamı açılsın.</p>'+D.map((d,i)=>`<div class="cc-dua" data-i="${i}"><button class="cc-dua-bas"><b>${esc(d[0])}</b><small>${esc(d[1])}</small><i>+</i></button><div class="cc-dua-ic"><div><p class="cc-dua-ar" lang="ar" dir="rtl">${d[2]}</p><p class="cc-dua-ok">${esc(d[3])}</p><p class="cc-dua-an"><b>Anlamı:</b> ${esc(d[4])}</p>${d[5]?`<p class="note" style="margin:4px 0 0">Kaynak: ${esc(d[5])}</p>`:''}</div></div></div>`).join(''));
-    s.govde.querySelectorAll('.cc-sekme button').forEach(b=>b.onclick=()=>{ezSekme=b.dataset.s;ciz()});
+     :'<p class="note" style="margin:0 0 6px">Namazda okunan dualar ve her gün bilmemiz gereken dualar. Duaya dokun; Arapçası, okunuşu ve anlamı açılsın, "Dinle" ile sesli okunsun.</p>'+D.map((d,i)=>`<div class="cc-dua" data-i="${i}"><button class="cc-dua-bas"><b>${esc(d[0])}</b><small>${esc(d[1])}</small><i>+</i></button><div class="cc-dua-ic"><div><p class="cc-dua-ar" lang="ar" dir="rtl">${d[2]}</p><p class="cc-dua-ok">${esc(d[3])}</p><button class="btn cc-dua-dinle" data-i="${i}">▶ Dinle</button><p class="cc-dua-an"><b>Anlamı:</b> ${esc(d[4])}</p>${d[5]?`<p class="note" style="margin:4px 0 0">Kaynak: ${esc(d[5])}</p>`:''}</div></div></div>`).join(''));
+    s.govde.querySelectorAll('.cc-sekme button').forEach(b=>b.onclick=()=>{DuaSes.dur();ezSekme=b.dataset.s;ciz()});
     s.govde.querySelectorAll('.sf-satir[data-i]').forEach(b=>b.onclick=()=>{const e=EZBER[+b.dataset.i];Kuran.ac(e[0],{hiz:.8,cal:true,bas:e[3],son:e[4]});ezReklam()});
     s.govde.querySelectorAll('.cc-dua-bas').forEach(b=>b.onclick=()=>{const k=b.parentNode;k.classList.toggle('ac');if(k.classList.contains('ac'))ezReklam()});
+    s.govde.querySelectorAll('.cc-dua-dinle').forEach(b=>b.onclick=()=>DuaSes.cal(+b.dataset.i,b));
   };
   ciz();
 };
@@ -93,7 +168,7 @@ function oyunSesi(tur){
     const nota=(f,bas,sure,tip,vol,f2)=>{const o=SAC.createOscillator(),g=SAC.createGain();o.type=tip||'triangle';o.frequency.setValueAtTime(f,t+bas);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+bas+sure);
       g.gain.setValueAtTime(0,t+bas);g.gain.linearRampToValueAtTime(vol||.22,t+bas+.02);g.gain.exponentialRampToValueAtTime(.001,t+bas+sure);o.connect(g);g.connect(SAC.destination);o.start(t+bas);o.stop(t+bas+sure+.05)};
     if(tur==='dogru'){nota(784,0,.16);nota(1047,.09,.18);nota(1568,.18,.4,'sine',.18)}                       // ding-ding-ding
-    else if(tur==='yanlis'){nota(392,0,.28,'sawtooth',.07,330);nota(311,.3,.5,'sawtooth',.07,233)}             // "ıı-ıı"
+    else if(tur==='yanlis'){nota(330,0,.32,'sine',.16,294);nota(262,.26,.55,'sine',.15,220)}                 // yumuşak "bım-bım"
     else{[523,659,784,1047].forEach((f,k)=>nota(f,k*.13,.22));[523,659,784,1047].forEach(f=>nota(f,.6,1.1,'triangle',.12));nota(1568,.6,1.1,'sine',.08)} // tada!
   }catch(e){}
 }
