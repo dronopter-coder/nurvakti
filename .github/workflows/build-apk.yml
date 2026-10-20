@@ -40,7 +40,7 @@ jobs:
               full.resize((a,a),Image.LANCZOS).save(p+'ic_launcher_round.png')  # uyarlanabilir simgeyi kullanmayan ana ekranlar kendi şekliyle keser
               fg.resize((b,b),Image.LANCZOS).save(p+'ic_launcher_foreground.png')
           os.makedirs(R+'/mipmap-anydpi-v26',exist_ok=True); os.makedirs(R+'/values',exist_ok=True)
-          x='<?xml version="1.0" encoding="utf-8"?><adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android"><background android:drawable="@color/nur_bg"/><foreground android:drawable="@mipmap/ic_launcher_foreground"/></adaptive-icon>'
+          x='<?xml version="1.0" encoding="utf-8"?><adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android"><background android:drawable="@color/nur_bg"/><foreground android:drawable="@mipmap/ic_launcher_foreground"/><monochrome android:drawable="@drawable/ic_launcher_mono"/></adaptive-icon>'
           open(R+'/mipmap-anydpi-v26/ic_launcher.xml','w').write(x); open(R+'/mipmap-anydpi-v26/ic_launcher_round.xml','w').write(x)
           open(R+'/values/nur_colors.xml','w').write('<?xml version="1.0" encoding="utf-8"?><resources><color name="nur_bg">#01081D</color></resources>')
           PY
