@@ -138,6 +138,9 @@ function drawGunler(){
     const dt=e[2]?`${s.getDate()}–${en.toLocaleDateString('tr-TR',{day:'numeric',month:'long'})} · ${Math.round((en-s)/864e5)+1} gün`:s.toLocaleDateString('tr-TR',{day:'numeric',month:'long',weekday:'long'})+(e[3]?' akşamı':'');
     const ay=s.toLocaleDateString('tr-TR',{month:'short'}).replace('.','');
     return `<div class="gr${past?' past':''}${nxt?' nx':''}"><div class="gtar"><b>${s.getDate()}</b><small>${ay}</small></div><div class="gbil"><div class="gn">${e[0]}</div><div class="gd">${dt}</div></div><div class="gk">${past?'Geçti':n<=0?'Şimdi':n===1?'Yarın':n+' gün'}</div></div>`}).join('');
+  // Geçmiş günleri atlayıp sıradaki güne kaydır (yalnız sıradaki gün bu yıl içindeyse)
+  const L=$('#gList');L.scrollTop=0;
+  requestAnimationFrame(()=>{const x=L.querySelector('.gr.nx');if(x)L.scrollTop=Math.max(0,x.getBoundingClientRect().top-L.getBoundingClientRect().top+L.scrollTop-8)});
 }
 
 /* ---- Ayarlar ve bildirimler ---- */
