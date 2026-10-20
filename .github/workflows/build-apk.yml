@@ -32,13 +32,13 @@ jobs:
           from PIL import Image, ImageDraw
           import os
           R='android/app/src/main/res'
-          fg=Image.open('www/icon-fg.png').convert('RGBA'); full=Image.open('www/icon-full.png').convert('RGB')
+          fg=Image.open('www/icon-fg.png').convert('RGBA'); full=Image.open('www/icon-full.png').convert('RGBA')  # yumuşak köşeli, köşeler saydam
           for d,a,b in [('mdpi',48,108),('hdpi',72,162),('xhdpi',96,216),('xxhdpi',144,324),('xxxhdpi',192,432)]:
               p=f'{R}/mipmap-{d}/'
               os.makedirs(p,exist_ok=True)
               full.resize((a,a),Image.LANCZOS).save(p+'ic_launcher.png')
               m=Image.new('L',(a*4,a*4),0); ImageDraw.Draw(m).ellipse([0,0,a*4-1,a*4-1],fill=255)
-              r=full.resize((a,a),Image.LANCZOS).convert('RGBA'); r.putalpha(m.resize((a,a),Image.LANCZOS)); r.save(p+'ic_launcher_round.png')
+              r=Image.open('www/icon-fg.png').convert('RGBA').resize((a,a),Image.LANCZOS); r.putalpha(m.resize((a,a),Image.LANCZOS)); r.save(p+'ic_launcher_round.png')
               fg.resize((b,b),Image.LANCZOS).save(p+'ic_launcher_foreground.png')
           os.makedirs(R+'/mipmap-anydpi-v26',exist_ok=True); os.makedirs(R+'/values',exist_ok=True)
           x='<?xml version="1.0" encoding="utf-8"?><adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android"><background android:drawable="@color/nur_bg"/><foreground android:drawable="@mipmap/ic_launcher_foreground"/></adaptive-icon>'
