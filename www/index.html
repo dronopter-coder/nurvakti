@@ -27,7 +27,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:10p
 #sub{font-size:11.5px;color:var(--soluk)}
 .strip{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:8px 0 10px;flex:none}
 .chip{background:var(--lacivert);border:1px solid transparent;border-radius:12px;padding:9px 0;text-align:center}
-.chip b{display:block;font-weight:400;font-size:11.5px;color:var(--soluk);margin-bottom:3px}
+.chip{min-width:0}
+.chip b{display:block;font-weight:400;font-size:11px;letter-spacing:-.2px;color:var(--soluk);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 1px}
 .chip span{font-size:17px;font-weight:500;font-variant-numeric:tabular-nums;letter-spacing:-.3px}
 .chip.cur{background:var(--lacivert2);border-color:var(--altin)}
 .chip.cur b{color:var(--altin)}
@@ -348,7 +349,7 @@ async function load(){
     VAK.forEach(([k],i)=>evs.push({i,d:at(tm,b.t[k]),tm:true}));
     days=a; hijri=a.h;
     $('#hijri').innerHTML=(hijri&&AYLAR[(+hijri.month.number)-1]?`${hijri.day} ${AYLAR[(+hijri.month.number)-1]} ${hijri.year}<br>`:'')+now.toLocaleDateString('tr-TR',{weekday:'long',day:'numeric',month:'long'});
-    const s=$('#strip'); s.innerHTML=VAK.map(([k,n],i)=>`<div class="chip" id="c${i}"><b>${n}</b><span>${a.t[k]}</span></div>`).join('');
+    const s=$('#strip'); s.innerHTML=VAK.map(([k,n],i)=>`<div class="chip" id="c${i}"><b>${n==='Güneş'&&DIL!=='tr'?ceviri('Güneş (şerit)'):n}</b><span>${a.t[k]}</span></div>`).join('');
     lastCur=-2; tick();
     if(loc.type==='gps'&&(!loc.name||!loc.il))geoName();
   }catch(e){ toast('Vakitler alınamadı. İnternet bağlantısını kontrol et.'); }

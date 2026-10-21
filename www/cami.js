@@ -70,9 +70,9 @@ async function liste(){
       const {k,liste}=await getir(z);
       if(!liste.length){s.govde.innerHTML='<p class="note" style="text-align:center;padding:30px 0">Çevrenizde kayıtlı cami bulunamadı (10 km).</p>'+kaynak;return}
       const c0=liste[0];
-      s.govde.innerHTML=`<div class="sf-satir sf-oku" style="flex-direction:column;align-items:stretch;gap:8px"><small style="color:var(--altin)">EN YAKIN CAMİ · ${mYaz(c0.m)}</small><b style="font-family:Georgia,serif;font-weight:400;font-size:19px">${esc(c0.ad)}</b><a class="btn gold" style="text-align:center;text-decoration:none;display:block" target="_blank" rel="noopener" href="${tarif(c0)}">📍 Yol tarifi al</a></div>
-      ${liste.slice(1).map(c=>`<div class="sf-satir"><div class="sf-no">🕌</div><div class="sf-ad"><b>${esc(c.ad)}</b><small>${c.tur} · ${mYaz(c.m)}</small></div><a class="cm-git" target="_blank" rel="noopener" href="${tarif(c)}">Yol tarifi</a></div>`).join('')}
-      <button class="btn" id="cmYenile" style="margin-top:12px">↻ Yenile</button>${kaynak}`;
+      s.govde.innerHTML=`<div class="sf-satir sf-oku" style="flex-direction:column;align-items:stretch;gap:8px"><small style="color:var(--altin)">${ceviri('EN YAKIN CAMİ')} · <span dir="ltr">${mYaz(c0.m)}</span></small><b style="font-family:Georgia,serif;font-weight:400;font-size:19px">${esc(c0.ad)}</b><a class="btn gold" style="text-align:center;text-decoration:none;display:block" target="_blank" rel="noopener" href="${tarif(c0)}">📍 ${ceviri('Yol tarifi al')}</a></div>
+      ${liste.slice(1).map(c=>`<div class="sf-satir"><div class="sf-no">🕌</div><div class="sf-ad"><b>${esc(c.ad)}</b><small>${ceviri(c.tur)} · <span dir="ltr">${mYaz(c.m)}</span></small></div><a class="cm-git" target="_blank" rel="noopener" href="${tarif(c)}">${ceviri('Yol tarifi')}</a></div>`).join('')}
+      <button class="btn" id="cmYenile" style="margin-top:12px">↻ ${ceviri('Yenile')}</button>${kaynak}`;
       $('#cmYenile').onclick=()=>yukle(true);
     }catch(e){
       s.govde.innerHTML=`<p class="note" style="text-align:center;padding:30px 10px">${hataYaz(e)}</p><button class="btn" id="cmTekrar">Tekrar dene</button>`;
@@ -100,7 +100,7 @@ async function harita(){
       L.circleMarker([c.lat,c.lon],{radius:i?8:11,color:'#fff',weight:2,fillColor:i?'#3E8577':'#C9A45C',fillOpacity:1}).addTo(map)
         .on('click',()=>alt(c));
     });
-    const alt=c=>{$('#cmAlt').innerHTML=`<div class="cm-alt"><div><b>${esc(c.ad)}</b><small>${c.tur} · ${mYaz(c.m)}</small></div><a class="btn gold" target="_blank" rel="noopener" href="${tarif(c)}">Yol tarifi</a></div>`};
+    const alt=c=>{$('#cmAlt').innerHTML=`<div class="cm-alt"><div><b>${esc(c.ad)}</b><small>${ceviri(c.tur)} · <span dir="ltr">${mYaz(c.m)}</span></small></div><a class="btn gold" target="_blank" rel="noopener" href="${tarif(c)}">${ceviri('Yol tarifi')}</a></div>`};
     if(gosterilen.length){alt(gosterilen[0]);map.fitBounds(pts.slice(0,7),{padding:[30,30],maxZoom:17})}
     else $('#cmAlt').innerHTML='<p class="note" style="padding:12px;text-align:center">Çevrenizde kayıtlı cami bulunamadı.</p>';
     setTimeout(()=>map.invalidateSize(),200);

@@ -1,45 +1,42 @@
-Nur Vakti; namaz vakitlerinizi, Kur’an-ı Kerim’i, yakınlarınızın kabirlerini ve dinî bilgilerinizi tek bir sade uygulamada bir araya getirir.
+Nur Vakti ile ezan vakti ve namaz vakitleri her zaman elinizin altında. Nur Vakti; namaz vakitlerinizi, Kur’an-ı Kerim’i, yakınlarınızın kabirlerini ve dinî bilgilerinizi tek bir sade uygulamada bir araya getirir. Türkçe, İngilizce, Arapça ve Almanca kullanılabilir.
 
 🕌 NAMAZ VAKİTLERİ
-• İl/ilçe seçerek veya konumunuzla günlük vakitler, sıradaki vakte kalan süre
-• Diyanet hesaplama yöntemine göre vakit bilgisi
-• Vakit girdiğinde hatırlatma bildirimi (istediğiniz vakitleri seçebilirsiniz)
-• Kıble pusulası
-• Dijital tesbih (sesli ve titreşimli)
-• Gün içinde kıldığınız namazları işaretleme ve kaza sayacı
-• Kandiller, bayramlar ve dinî günler takvimi
+• Diyanet İşleri Başkanlığı’nın ilçe bazında yayımladığı vakitler; sıradaki vakte kalan süre
+• Yurt dışında yaşayanlar için ülke, şehir ve ilçe seçimi (Diyanet’in yurt dışı vakitleri) veya konumla otomatik vakit
+• Vakit girdiğinde ezan sesli hatırlatma (istediğiniz vakitleri seçebilirsiniz)
+• Ana ekran widget’ı: sıradaki vakit ve geri sayım
+• Kıble pusulası, dijital tesbih (sesli ve titreşimli)
+• Namaz takibi ve kaza sayacı
+• Kandiller, bayramlar ve dinî günler takvimi (2031’e kadar)
 
 📖 KUR’AN-I KERİM
 • 114 sûrenin tamamı, Arapça metinle
 • Ayet ayet kâri sesiyle dinleme; okunan ayet ekranda vurgulanır
-• 0,8×, 1×, 1,25× ve 1,5× dinleme hızı
-• Bir ayete dokunup oradan dinlemeye başlama
-• Kaldığınız yerden devam etme
+• Dinleme hızı seçimi, bir ayete dokunup oradan dinleme, kaldığınız yerden devam
 (Dinleme için internet bağlantısı gerekir.)
 
 🪦 KABİR KAYDI VE CUMA OKUMASI
-• Mezarlığa gittiğinizde mezar taşının fotoğrafını çekin; isim ve tarihler cihazda okunup kayıt formunu doldurur, siz doğrulayıp kaydedersiniz
+• Mezar taşının fotoğrafını çekin; isim ve tarihler cihazda okunup kayıt formunu doldurur
 • Fotoğraflar ve kayıtlar yalnızca telefonunuzda kalır
-• İsterseniz mezar konumunu kaydedip yol tarifi alabilirsiniz
-• Her Cuma ruhlarına Fâtiha ve Yâsîn okuma: niyet, Arapça metin, kâri sesi ve dua
-• Hafta hafta okuma takibi, Cuma hatırlatması, vefat yıldönümü ve kandil geceleri hatırlatmaları
-• “Hayırlı Cumalar” mesajını sevdiklerinizle paylaşma
+• Her Cuma ruhlarına Fâtiha ve Yâsîn: niyet, Arapça metin, kâri sesi ve dua
+• Cuma, vefat yıldönümü ve kandil hatırlatmaları
+• Haftanın Cuma mesajını sevdiklerinizle paylaşma
 
 📍 YAKINIMDAKİ CAMİLER
-• Konumunuza göre yakındaki camileri liste veya harita üzerinde görün
-• En yakın camiye yol tarifi alın
-(Cami bilgileri OpenStreetMap katkıcılarından gelir; eksik veya güncel olmayan kayıtlar olabilir.)
+Konumunuza göre yakındaki camileri liste veya harita üzerinde görün, en yakın camiye yol tarifi alın.
+(Cami bilgileri OpenStreetMap katkıcılarından gelir.)
 
-📚 İBADET
-Namaz, abdest, gusül ve teyemmüm, oruç, zekât, hac ve umre, kurban konularında başlık başlık, sade bir dille ilmihal özetleri.
+📚 İBADET VE ZEKÂT
+• Namaz, abdest, gusül ve teyemmüm, oruç, zekât, hac ve umre, kurban konularında soru soru ilmihal bilgileri
+• Zekât hesaplama aracı: altın, para, ticari mal ve borçlarınızı girin, ödemeniz gereken zekâtı görün
 
 🧒 ÇOCUKLAR
-Çocuklara namazı ve dini sevdirmek için hazırlanmış bölüm: resimlerle adım adım namaz, abdest adımları, beş vakit, ezber köşesi (kısa sûreleri dinleyerek), Allah’ın güzel isimleri ve küçük bir bilgi testi.
+Resimlerle adım adım namaz, abdest adımları, beş vakit, sesli ezber köşesi (sûreler ve dualar), Allah’ın 99 güzel ismi ve 300’ü aşkın soruluk bilgi oyunu.
 
 🔒 GİZLİLİK
 • Hesap açmanız gerekmez
 • Kabir kayıtlarınız, fotoğraflarınız ve namaz takibiniz yalnızca cihazınızda durur
-• Konum iznini vermeden de il/ilçe seçerek kullanabilirsiniz
+• Konum izni vermeden de il/ilçe seçerek kullanabilirsiniz
 
 ℹ️ BİLGİLENDİRME
 Uygulamadaki dinî bilgiler genel bilgi amaçlıdır ve Diyanet İşleri Başkanlığı’nın yaygın görüşüne göre özetlenmiştir. Uygulama Diyanet İşleri Başkanlığı ile bağlantılı değildir. Özel durumlar için müftülüğe veya yetkili bir din görevlisine danışınız. Uygulama reklam içerir.

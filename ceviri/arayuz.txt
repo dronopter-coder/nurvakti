@@ -219,3 +219,10 @@ Lütfen bir şehir seçin.|Please choose a city.|يرجى اختيار مدين�
 Zekât hesaplama aracı|Zakat calculator|حاسبة الزكاة|Zakat-Rechner
 Hesapla|Calculate|احسب|Berechnen
 Temizle|Clear|مسح|Leeren
+EN YAKIN CAMİ|NEAREST MOSQUE|أقرب مسجد|NÄCHSTE MOSCHEE
+Yol tarifi al|Get directions|احصل على الاتجاهات|Route anzeigen
+Yol tarifi|Directions|الاتجاهات|Route
+Cami|Mosque|مسجد|Moschee
+Mescit|Prayer room|مصلى|Gebetsraum
+Yenile|Refresh|تحديث|Aktualisieren
+Güneş (şerit)|Sunrise|الشروق|Sonne
