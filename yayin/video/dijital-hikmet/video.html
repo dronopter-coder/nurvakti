@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Cinzel;src:url(cinzel.woff2)}
+@font-face{font-family:Amiri;src:url(amiri.woff2)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#060b1c}
+#sahne{position:relative;width:1080px;height:1920px;overflow:hidden;
+  background:radial-gradient(120% 70% at 50% 38%,#1b2a5c 0%,#0e1636 45%,#060b1c 100%);font-family:"Liberation Serif",Georgia,serif;color:#EDE4CF}
+#yildiz{position:absolute;left:50%;top:44%;width:1500px;height:1500px;margin:-750px 0 0 -750px;opacity:.14}
+.parca{position:absolute;border-radius:50%;background:#f3d999;box-shadow:0 0 12px 3px rgba(243,217,153,.5)}
+.kat{position:absolute;inset:0;display:none}
+#sahneler{display:block}
+/* başlık */
+#baslik{position:absolute;left:0;right:0;top:120px;text-align:center}
+#baslik h2{font-weight:400;font-size:78px;color:#E6C77E;text-shadow:0 4px 26px rgba(0,0,0,.5);white-space:nowrap}
+#baslik .ust{font-family:"DejaVu Sans",sans-serif;font-size:28px;letter-spacing:7px;color:#C9A45C;margin-bottom:14px}
+/* telefon */
+.tel{position:absolute;left:50%;top:330px;width:620px;height:1240px;margin-left:-310px;border-radius:68px;padding:15px;
+  background:linear-gradient(145deg,#2c3561,#0b1026);box-shadow:0 50px 120px rgba(0,0,0,.6),0 0 0 2px rgba(201,164,92,.45) inset}
+.ekran{position:relative;width:100%;height:100%;border-radius:54px;overflow:hidden;background:#0e1636}
+.ekran .g{position:absolute;inset:0;background-size:cover;background-position:top center}
+/* altyazı */
+#alt{position:absolute;left:40px;right:40px;top:1440px;height:250px;display:flex;align-items:center;justify-content:center;pointer-events:none}
+#alt .kutu{position:relative;max-width:960px;padding:20px 30px 22px;border-radius:30px;text-align:center;
+  background:linear-gradient(135deg,#f3d999 0%,#e2bd6b 55%,#c99a45 100%);box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 0 4px rgba(14,20,30,.9),0 0 0 7px rgba(230,199,126,.55);
+  font-family:"DejaVu Sans",sans-serif;font-weight:700;font-size:54px;line-height:1.22;letter-spacing:.5px;color:#0E141E;transform-origin:50% 50%}
+#alt .kutu::before{content:"";position:absolute;left:50%;top:-16px;width:30px;height:30px;margin-left:-15px;background:#f0d48f;transform:rotate(45deg);border-radius:6px;box-shadow:-4px -4px 0 0 rgba(14,20,30,.9)}
+#alt .k{display:inline-block;padding:2px 10px;margin:3px 1px;border-radius:14px;transition:none}
+#alt .k.on{background:#0E141E;color:#F3D999;box-shadow:0 6px 18px rgba(14,20,30,.45)}
+#alt .k.gel{opacity:.42}
+#kapanis{padding-bottom:170px}#giris{padding-bottom:90px}
+#imza{position:absolute;left:0;right:0;bottom:46px;text-align:center;font-family:Cinzel;font-size:34px;color:#C9A45C;letter-spacing:3px;opacity:.8}
+/* giriş / kapanış */
+.merkez{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.logo{border-radius:24%;background:url(logo.png) center/cover;box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 0 3px rgba(201,164,92,.55),0 0 120px rgba(201,164,92,.25)}
+.marka{font-family:Cinzel;color:#E6C77E;letter-spacing:4px;text-shadow:0 4px 30px rgba(201,164,92,.35)}
+.cizgi{height:3px;background:linear-gradient(90deg,transparent,#C9A45C,transparent)}
+.dro{width:600px;height:600px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 5px rgba(230,199,126,.85),0 0 0 12px rgba(14,20,30,.8),0 0 110px rgba(110,190,255,.45),0 40px 100px rgba(0,0,0,.6)}
+.dro img{width:600px;height:600px;border-radius:50%}
+.rozet{display:inline-flex;align-items:center;gap:20px;padding:22px 46px;border-radius:999px;font-family:"DejaVu Sans",sans-serif;font-weight:700;font-size:40px}
+.r-play{background:linear-gradient(180deg,#e9cc86,#c9a45c);color:#141a33;box-shadow:0 16px 50px rgba(201,164,92,.35)}
+.r-ios{border:2px solid rgba(237,228,207,.55);color:#EDE4CF;font-weight:400}
+.destek{display:flex;gap:26px;font-family:"DejaVu Sans",sans-serif;font-size:36px}
+.destek span{padding:16px 28px;border-radius:22px;background:rgba(255,255,255,.07);border:1px solid rgba(201,164,92,.4)}
+/* bildirim ve widget */
+.bildirim{position:absolute;left:18px;right:18px;top:18px;border-radius:30px;background:rgba(30,36,64,.96);box-shadow:0 18px 40px rgba(0,0,0,.5);padding:20px 22px;display:flex;gap:18px;align-items:center;font-family:"DejaVu Sans",sans-serif}
+.bildirim i{width:62px;height:62px;border-radius:16px;background:url(logo.png) center/cover;flex:none}
+.bildirim b{display:block;font-size:22px;color:#E6C77E;font-weight:600}.bildirim span{font-size:24px;color:#EDE4CF}
+.anaekran{position:absolute;inset:0;background:linear-gradient(170deg,#36507e 0%,#20335e 35%,#14203f 70%,#0b1430 100%)}
+.anaekran .saat{position:absolute;top:70px;left:0;right:0;text-align:center;font-family:"DejaVu Sans",sans-serif;font-weight:200;font-size:110px;color:#fff;letter-spacing:-2px}
+.anaekran .tarih{position:absolute;top:205px;left:0;right:0;text-align:center;font-family:"DejaVu Sans",sans-serif;font-size:26px;color:#dfe6f7}
+.wb{position:absolute;left:34px;right:34px;top:300px;height:380px;border-radius:34px;background:linear-gradient(160deg,#1c2a5a,#0d1636);border:2px solid #C9A45C;overflow:hidden}
+.wb svg{position:absolute;left:50%;top:50%;width:330px;height:330px;margin:-165px 0 0 -165px}
+.wb .ic{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:"DejaVu Sans",sans-serif}
+.wb .ic small{font-family:"Liberation Serif",serif;font-size:26px;color:#C9A45C}.wb .ic b{font-family:"Liberation Serif",serif;font-weight:400;font-size:62px;color:#EDE4CF}
+.wb .ic em{font-style:normal;font-size:19px;color:#9AA1BD}
+.wb .mk{position:absolute;left:18px;top:12px;font-family:"Liberation Serif",serif;font-size:19px;color:#C9A45C}
+.wk{position:absolute;left:34px;right:34px;top:710px;height:130px;border-radius:30px;background:linear-gradient(160deg,#1c2a5a,#0d1636);border:2px solid #C9A45C;display:flex;align-items:center;padding:0 22px;gap:18px}
+.wk svg{width:96px;height:96px;flex:none}
+.wk .ic{flex:1;text-align:center;font-family:"DejaVu Sans",sans-serif}
+.wk .ic small{display:block;font-family:"Liberation Serif",serif;font-size:22px;color:#C9A45C}.wk .ic b{display:block;font-family:"Liberation Serif",serif;font-weight:400;font-size:44px;color:#EDE4CF;line-height:1.1}.wk .ic em{font-style:normal;font-size:17px;color:#9AA1BD}
+.ikonlar{position:absolute;left:30px;right:30px;top:890px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px 10px;text-align:center;font-family:"DejaVu Sans",sans-serif;font-size:19px;color:#fff}
+.ikonlar i{display:block;width:104px;height:104px;margin:0 auto 10px;border-radius:30px;background:rgba(255,255,255,.18)}
+.ikonlar .nv i{background:url(logo.png) center/cover;box-shadow:0 0 0 2px rgba(230,199,126,.7),0 0 30px rgba(230,199,126,.5)}
+</style></head><body>
+<div id="sahne">
+  <svg id="yildiz" viewBox="-100 -100 200 200"><g fill="none" stroke="#E6C77E" stroke-width=".7">
+    <rect x="-60" y="-60" width="120" height="120"/><rect x="-60" y="-60" width="120" height="120" transform="rotate(45)"/>
+    <circle r="36"/><circle r="92"/><circle r="97" stroke-dasharray="1 3"/></g></svg>
+  <div id="parcalar"></div>
+
+  <!-- giriş -->
+  <div class="kat merkez" id="giris"><div class="logo" style="width:500px;height:500px"></div><div class="marka" style="font-size:110px;margin-top:64px">Nur Vakti</div><div class="cizgi" style="margin-top:30px;width:0"></div><div style="font-size:54px;margin-top:22px">Ezan ve Namaz Vakti</div></div>
+
+  <!-- uygulama sahneleri -->
+  <div class="kat" id="sahneler">
+    <div id="baslik"><div class="ust"></div><h2></h2></div>
+    <div class="tel" id="t1"><div class="ekran"><div class="g" id="g1a"></div><div class="g" id="g1b"></div>
+      <div class="bildirim" id="bild"><i></i><div><b>Nur Vakti · şimdi</b><span>Akşam vakti girdi · İstanbul</span></div></div>
+      <div class="anaekran" id="ana">
+        <div class="saat">18:26</div><div class="tarih">22 Ekim Perşembe</div>
+        <div class="wb"><div class="mk">☾ Nur Vakti</div><svg viewBox="0 0 200 200" id="wbs"><g fill="none" stroke="#C9A45C" stroke-width="1.6" opacity=".55" id="wbg"><rect x="38" y="38" width="124" height="124"/><rect x="38" y="38" width="124" height="124" transform="rotate(45 100 100)"/><circle cx="100" cy="100" r="49"/></g><circle cx="100" cy="100" r="95" fill="none" stroke="#2C386C" stroke-width="2.4"/><circle id="wbo" cx="100" cy="100" r="95" fill="none" stroke="#C9A45C" stroke-width="3.6" stroke-linecap="round" transform="rotate(-90 100 100)" stroke-dasharray="597" stroke-dashoffset="150"/></svg>
+          <div class="ic"><small>Akşam vaktine</small><b id="wsay">00:23:41</b><em>Akşam 18:49 · Yatsı 20:09</em><em style="margin-top:26px">İstanbul</em></div></div>
+        <div class="wk"><svg viewBox="0 0 200 200"><g fill="none" stroke="#C9A45C" stroke-width="2" opacity=".55" id="wkg"><rect x="38" y="38" width="124" height="124"/><rect x="38" y="38" width="124" height="124" transform="rotate(45 100 100)"/></g><circle cx="100" cy="100" r="92" fill="none" stroke="#2C386C" stroke-width="5"/><circle cx="100" cy="100" r="92" fill="none" stroke="#C9A45C" stroke-width="8" stroke-linecap="round" transform="rotate(-90 100 100)" stroke-dasharray="578" stroke-dashoffset="145"/></svg>
+          <div class="ic"><small>Akşam 18:49</small><b id="wksay">00:23:41</b><em>İstanbul</em></div></div>
+        <div class="ikonlar"><div class="nv"><i></i>Nur Vakti</div><div><i></i>Takvim</div><div><i></i>Kamera</div><div><i></i>Mesajlar</div></div>
+      </div></div></div>
+    <div class="tel" id="t2"><div class="ekran"><div class="g" id="g2"></div></div></div>
+    <div class="tel" id="t3"><div class="ekran"><div class="g" id="g3"></div></div></div>
+    <div class="tel" id="t4"><div class="ekran"><div class="g" id="g4"></div></div></div>
+  </div>
+
+  <!-- kapanış -->
+  <div class="kat merkez" id="kapanis">
+    <div class="dro" id="dro"><img src="dh.png"></div>
+    <div id="kp" style="display:flex;flex-direction:column;align-items:center;gap:30px;margin-top:40px">
+      <div class="rozet r-play" id="rplay"><svg viewBox="0 0 24 24" width="46" height="46"><path fill="#141a33" d="M4 2.8v18.4c0 .7.8 1.1 1.4.7L21 12.7c.6-.4.6-1.2 0-1.5L5.4 2.1C4.8 1.7 4 2.1 4 2.8z"/></svg>Google Play'de ücretsiz</div>
+      <div class="rozet r-ios" id="rios"> App Store · Yakında</div>
+      <div class="destek" id="destek"><span>⭐ Puan ver</span><span>💬 Yorum yaz</span><span>➦ Paylaş</span></div>
+    </div>
+  </div>
+  <div class="kat merkez" id="final"><div class="logo" style="width:420px;height:420px"></div><div class="marka" style="font-size:100px;margin-top:56px">Nur Vakti</div><div style="font-size:50px;margin-top:22px;color:#E6C77E">Allah kabul etsin</div></div>
+
+  <div id="alt"><div class="kutu"></div></div>
+  <div id="imza">NUR VAKTI</div>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+// --- zaman çizelgesi (saniye; ses dosyasındaki duraklamalara göre) ---
+const ALT=[
+ [0.3,5.35,"Namaz vakitleri, Kur'an-ı Kerim ve çok daha fazlası, tek bir uygulamada: Nur Vakti."],
+ [5.6,13.6,"Diyanet'in ilçe ilçe yayımladığı namaz vakitleri, sıradaki vakte geri sayım ve vakitlerde huzur verici bir bildirim; hepsi ana ekranda."],
+ [13.8,15.85,"Kıble pusulası, dijital tesbih."],
+ [16.0,19.6,"Kandiller, bayramlar ve mübarek gecelerin tamamı takvimde."],
+ [19.8,22.45,"Kabir bölümüne kaybettiğiniz sevdiklerinizi kaydedin."],
+ [22.7,27.7,"Her Cuma ve mübarek gecelerde, Fâtiha ve Yâsîn okumayı uygulama size hatırlatsın."],
+ [27.9,32.3,"Kur'an-ı Kerim'in yüz on dört sûresini; ayet ayet, huzurlu bir sesle dinleyin."],
+ [32.5,37.6,"Yakınınızdaki camileri liste ya da harita üzerinde görün, tek dokunuşla yol tarifi alın."],
+ [37.8,42.45,"Namazdan oruca, hacdan kurbana; ibadet bilgileri, sade bir dille."],
+ [42.7,48.35,"Zekât hesaplama aracına altınınızı, paranızı ve borçlarınızı girin; zekâtınızı hemen görün."],
+ [48.6,54.05,"Çocuklar için resimli namaz anlatımı, sesli ezber köşesi ve eğlenceli bir bilgi yarışması."],
+ [54.25,58.3,"Nur Vakti; Türkçe, İngilizce, Arapça ve Almanca kullanılabilir."],
+ [58.55,61.25,"Yurt dışında yaşayan tanıdıklarınıza da gönderebilirsiniz."],
+ [61.55,63.65,"Bu uygulamayı Dijital Hikmet olarak geliştirdik."],
+ [63.9,65.6,"Google Play'den ücretsiz indirin."],
+ [65.85,67.05,"App Store yakında geliyor."],
+ [67.4,71.85,"Beğendiyseniz puan verip yorum yazarak ve sevdiklerinizle paylaşarak bana destek olun."],
+ [72.05,73.6,"Allah kabul etsin."]];
+// altyazı: kelime kelime zamanlanan, büyük harf parçalar
+const CH=[];ALT.forEach(([a,b,m])=>{const w=m.split(' '),ag=w.map(x=>x.length+2+(/[,;:.]$/.test(x)?5:0)),top=ag.reduce((x,y)=>x+y,0);let c=a,ks=[];
+  w.forEach((x,i)=>{const d=(b-a)*ag[i]/top;ks.push({w:x.toLocaleUpperCase('tr'),s:c,e:c+d});c+=d});
+  let p=[],n=0;ks.forEach((k,i)=>{p.push(k);n+=k.w.length+1;const son=i===ks.length-1,dur=/[,;:.]$/.test(k.w)&&n>9;
+    if(son||n>=24||dur){CH.push({s:p[0].s,e:son?b:p[p.length-1].e,k:p});p=[];n=0}})});
+let akt=-1;
+// sahneler: [başlangıç, bitiş, üst yazı, başlık, düzen, görseller/geçişler]
+const SAH=[
+ [5.35,13.65,'01','Namaz Vakitleri','vakit'],
+ [13.65,15.95,'02','Kıble ve Tesbih','cift',['k-kible','k-tesbih']],
+ [15.95,19.75,'03','Dini Günler','tek',[['k-gunler',0]]],
+ [19.75,27.8,'04','Kabir ve Cuma','tek',[['k-kabir',0],['04-kabir-cuma',22.55]]],
+ [27.8,32.4,'05','Kur\'an-ı Kerim','tek',[['02-kuran',0],['03-kuran-okuma',30.0]]],
+ [32.4,37.7,'06','Yakın Camiler','tek',[['05-camiler',0]]],
+ [37.7,42.55,'07','İbadet Rehberi','tek',[['06-ibadet',0]]],
+ [42.55,48.45,'08','Zekât Hesaplama','tek',[['07-zekat',0]]],
+ [48.45,54.15,'09','Çocuklar İçin','tek',[['08-cocuklar',0]]],
+ [54.15,61.45,'10','4 Dil · Yurt Dışı','dort',['01-ana-ekran','en-ana','ar-ana','de-ana']]];
+// parıltılar
+let tohum=11;const rnd=()=>(tohum=(tohum*16807)%2147483647)/2147483647;
+const P=Array.from({length:50},()=>({x:rnd()*1080,y:rnd()*1920,r:2+rnd()*4,f:.4+rnd()*1.2,ph:rnd()*6.28,v:6+rnd()*18}));
+$('#parcalar').innerHTML=P.map(()=>'<div class="parca"></div>').join('');const parca=[...document.querySelectorAll('.parca')];
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)),io=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,oc=t=>1-Math.pow(1-t,3),
+  ob=t=>{const c=1.70158,c3=c+1;return 1+c3*Math.pow(t-1,3)+c*Math.pow(t-1,2)},ara=(t,a,b)=>cl((t-a)/(b-a));
+const goster=(el,v)=>{el.style.display=v?'':'none'};
+const resim=(el,ad)=>{const u=`url(${ad}.png)`;if(el.dataset.r!==ad){el.style.backgroundImage=u;el.dataset.r=ad}};
+const t1=$('#t1'),t2=$('#t2'),t3=$('#t3'),t4=$('#t4'),g1a=$('#g1a'),g1b=$('#g1b');
+function telYerlestir(el,x,y,s,r,o,ry){el.style.transform=`translate(${x}px,${y}px) perspective(2200px) rotateY(${ry||0}deg) rotate(${r||0}deg) scale(${s})`;el.style.opacity=o}
+window.ciz=t=>{
+  $('#yildiz').style.transform=`rotate(${t*5}deg) scale(${1+.04*Math.sin(t*.7)})`;
+  P.forEach((p,i)=>{const y=(p.y-t*p.v+1920)%1920;parca[i].style.cssText=`left:${p.x}px;top:${y}px;width:${p.r}px;height:${p.r}px;opacity:${.2+.7*Math.abs(Math.sin(t*p.f+p.ph))}`});
+  // altyazı
+  const ci=CH.findIndex((c,i)=>t>=c.s-.08&&t<(CH[i+1]&&CH[i+1].s-c.e<.5?CH[i+1].s-.08:c.e+.25)),kt=$('#alt .kutu');
+  if(ci!==akt){akt=ci;kt.innerHTML=ci<0?'':CH[ci].k.map(k=>`<span class="k">${k.w}</span>`).join(' ')}
+  if(ci>=0){const c=CH[ci],g=ara(t,c.s-.08,c.s+.22),ck=ara(t,c.e+.05,c.e+.25)*(CH[ci+1]&&CH[ci+1].s-c.e<.5?0:1);
+    kt.style.opacity=Math.min(oc(g)*1.3,1-ck);kt.style.transform=`translateY(${(1-oc(g))*50}px) scale(${.82+.18*ob(g)}) rotate(${(ci%2?1:-1)*(1-oc(g))*4}deg)`;
+    [...kt.children].forEach((el,i)=>{const k=c.k[i],on=t>=k.s&&t<k.e;el.className='k'+(on?' on':t<k.s?' gel':'');
+      const v=on?ara(t,k.s,k.s+.15):0;el.style.transform=on?`scale(${1+.1*ob(v)}) translateY(${-4*oc(v)}px)`:''})}
+  else kt.style.opacity=0;
+  $('#alt').style.display=t<77?'flex':'none';
+  // giriş
+  const g=$('#giris');goster(g,t<5.9);
+  if(t<5.9){const [gl,gm,gc,gs]=g.children,out=ara(t,5.0,5.8);g.style.opacity=1-out;g.style.transform=`scale(${1+out*.12})`;
+    const a1=ara(t,0,1.1);gl.style.transform=`scale(${.3+.7*ob(a1)}) rotate(${(1-oc(a1))*-25}deg)`;gl.style.opacity=oc(a1);
+    const m=ara(t,.7,1.6);gm.style.opacity=m;gm.style.transform=`translateY(${(1-oc(m))*60}px)`;gm.style.letterSpacing=(4+(1-oc(m))*30)+'px';
+    gc.style.width=oc(ara(t,1.3,2.2))*620+'px';const s=ara(t,1.6,2.5);gs.style.opacity=s;gs.style.transform=`translateY(${(1-oc(s))*40}px)`}
+  // uygulama sahneleri
+  const sh=SAH.find(x=>t>=x[0]-.4&&t<x[1]+.4);const sd=$('#sahneler');goster(sd,!!sh);
+  if(sh){
+    const [b0,b1,no,bas,duz,gor]=sh,gir=ara(t,b0-.4,b0+.45),cik=ara(t,b1-.35,b1+.4),idx=SAH.indexOf(sh),yon=idx%2?-1:1;
+    // başlık
+    const hb=$('#baslik');if(hb.dataset.b!==bas){hb.querySelector('.ust').textContent=no+' / 10';hb.querySelector('h2').textContent=bas;hb.dataset.b=bas}
+    const ho=ara(t,b0-.1,b0+.5);hb.style.opacity=ho*(1-cik);hb.querySelector('h2').style.filter=`blur(${(1-ho)*8}px)`;hb.style.transform=`translateY(${(1-oc(ho))*40-io(cik)*24}px)`;
+    const gx=(1-io(gir))*900*yon,cx=-io(cik)*900*yon,ry=(1-io(gir))*-26*yon+io(cik)*26*yon,o=Math.min(oc(gir)*1.4,1-io(cik));
+    [t2,t3,t4].forEach(e=>goster(e,false));goster(t1,true);goster($('#ana'),false);goster($('#bild'),false);
+    if(duz==='vakit'){
+      // ana ekran → bildirim → telefonun ana ekranında widget'lar
+      resim(g1a,'01-ana-ekran');goster(g1b,false);
+      const yuz=1+.03*Math.sin((t-b0)*.8);telYerlestir(t1,gx+cx,0,(.86+.14*oc(gir))*yuz,0,o,ry);
+      const bl=$('#bild');const bv=ara(t,8.7,9.2),bk=ara(t,10.6,11.0);goster(bl,t>8.6&&t<11.1);bl.style.transform=`translateY(${(1-oc(bv))*-160+io(bk)*-160}px)`;bl.style.opacity=oc(bv)*(1-bk);
+      const an=$('#ana'),av=ara(t,10.9,11.6);goster(an,t>10.85);an.style.opacity=av;an.style.transform=`scale(${1.08-.08*oc(av)})`;
+      $('#wbg').setAttribute('transform',`rotate(${t*12} 100 100)`);$('#wkg').setAttribute('transform',`rotate(${t*12} 100 100)`);
+      const kal=23*60+41-Math.floor(t-10.9),hh=s=>String(s).padStart(2,'0'),z=`00:${hh(Math.floor(kal/60))}:${hh(kal%60)}`;$('#wsay').textContent=z;$('#wksay').textContent=z;
+      $('#wbo').setAttribute('stroke-dashoffset',150-(t-10.9)*1.2);
+      if(t>10.85)hb.querySelector('h2').textContent='Ana Ekran Widget\'ı';else hb.querySelector('h2').textContent=bas;
+    }else if(duz==='tek'){
+      // birden çok görsel: yumuşak geçişle değişir
+      let cur=gor[0][0],prev=null,pg=1;
+      for(let i=1;i<gor.length;i++)if(t>=gor[i][1]){prev=gor[i-1][0];cur=gor[i][0];pg=ara(t,gor[i][1],gor[i][1]+.6)}
+      resim(g1a,cur);g1a.style.opacity=1;g1a.style.transform=`translateY(${(1-oc(pg))*60}px)`;
+      if(prev&&pg<1){goster(g1b,true);resim(g1b,prev);g1b.style.opacity=1-pg;g1b.style.transform=`translateY(${-oc(pg)*60}px)`;g1a.style.opacity=pg}else goster(g1b,false);
+      // uzun ekranlarda içerik yavaşça kayar
+      g1a.style.backgroundPosition=`center ${Math.round(cl((t-b0-.6)/Math.max(1,b1-b0-1.2))*10)}%`;
+      const yuz=1+.03*Math.sin((t-b0)*.8);telYerlestir(t1,gx+cx,0,(.86+.14*oc(gir))*yuz,0,o,ry);
+    }else if(duz==='cift'){
+      goster(t1,false);goster(t2,true);goster(t3,true);resim($('#g2'),gor[0]);resim($('#g3'),gor[1]);
+      const a2=ara(t,b0-.3,b0+.5),a3=ara(t,b0+.4,b0+1.1);
+      telYerlestir(t2,-215-(1-oc(a2))*700+cx,30,.74,-5*oc(a2),Math.min(oc(a2)*1.4,1-io(cik)));
+      telYerlestir(t3,215+(1-oc(a3))*700+cx,30,.74,5*oc(a3),Math.min(oc(a3)*1.4,1-io(cik)));
+    }else if(duz==='dort'){
+      goster(t1,false);[t1,t2,t3,t4].forEach(e=>goster(e,true));goster($('#ana'),false);goster($('#bild'),false);goster(g1b,false);
+      gor.forEach((r,i)=>{const el=[t1,t2,t3,t4][i],gg=[g1a,$('#g2'),$('#g3'),$('#g4')][i];resim(gg,r);gg.style.opacity=1;gg.style.transform='';gg.style.backgroundPosition='center top';
+        const ai=ara(t,b0-.2+i*.35,b0+.55+i*.35),acil=(i-1.5)*14*oc(ai),x=(i-1.5)*170*oc(ai);
+        telYerlestir(el,x+cx,60+Math.abs(i-1.5)*40*oc(ai),.62,acil,Math.min(oc(ai)*1.4,1-io(cik)));el.style.zIndex=i===0?5:4-i});
+      // ikinci cümle: telefonlar hafifçe toplanır
+      const top=ara(t,58.5,59.4);if(top>0)gor.forEach((r,i)=>{const el=[t1,t2,t3,t4][i];el.style.transform+=` translateY(${-30*oc(top)}px)`});
+    }
+  }
+  // kapanış: Dijital Hikmet
+  const k=$('#kapanis');goster(k,t>61.2&&t<72.4);
+  if(t>61.2){const dv=ara(t,61.3,62.2),kout=ara(t,71.6,72.3);k.style.opacity=1-kout;
+    $('#dro').style.transform=`scale(${.4+.6*ob(dv)}) rotate(${(1-oc(dv))*-20}deg)`;$('#dro').style.opacity=oc(dv);
+    const pl=ara(t,63.8,64.4),io2=ara(t,65.8,66.4),de=ara(t,67.4,68.1);
+    $('#rplay').style.opacity=pl;$('#rplay').style.transform=`scale(${.6+.4*ob(pl)})`;
+    $('#rios').style.opacity=io2;$('#rios').style.transform=`translateY(${(1-oc(io2))*30}px)`;
+    [...$('#destek').children].forEach((s,i)=>{const v=ara(t,67.4+i*.45,68.0+i*.45);s.style.opacity=v;s.style.transform=`translateY(${(1-oc(v))*40}px) scale(${.8+.2*ob(v)})`});
+  }
+  // final: logo + hayyy
+  const f=$('#final');goster(f,t>71.9);
+  if(t>71.9){const fv=ara(t,72,72.9),[fl,fm,fa]=f.children;fl.style.transform=`scale(${.5+.5*ob(fv)})`;fl.style.opacity=oc(fv);
+    const m=ara(t,72.4,73.2);fm.style.opacity=m;fm.style.transform=`translateY(${(1-oc(m))*40}px)`;fa.style.opacity=ara(t,72.8,73.5);
+    const hay=ara(t,73.7,74.4),nb=Math.sin(Math.PI*cl((t-73.7)/1.6));fl.style.boxShadow=`0 30px 90px rgba(0,0,0,.55),0 0 0 3px rgba(201,164,92,.55),0 0 ${120+60*nb}px rgba(230,199,126,${.25+.35*nb})`;f.style.background=`radial-gradient(circle at 50% 41%,rgba(230,199,126,${.32*nb}) 0,rgba(230,199,126,${.12*nb}) 22%,transparent 46%)`;
+    fl.style.transform+=` scale(${1+.06*nb})`}
+  $('#imza').style.opacity=t>5.5&&t<61.3?.8:0;
+  const son=ara(t,76.2,77);$('#sahne').style.filter=`brightness(${1-son})`;
+};
+// yeni seslendirmenin cümle başlarını sahne zaman çizelgesine eşler
+const ES=[[0,0],[5.53,5.6],[13.44,13.8],[15.75,16.0],[19.52,19.8],[22.32,22.7],[27.51,27.9],[32.15,32.5],[37.23,37.8],[41.95,42.7],[47.59,48.6],
+ [53.10,54.25],[57.61,58.55],[60.52,61.55],[63.30,63.9],[65.26,65.85],[66.91,67.4],[71.58,72.05],[72.83,72.98],[100,100.15]];
+window.cizY=t=>{let i=0;while(t>ES[i+1][0])i++;const [a,b]=ES[i],[c,d]=ES[i+1];ciz(b+(t-a)*(d-b)/(c-a))};
+ciz(0);
+</script></body></html>

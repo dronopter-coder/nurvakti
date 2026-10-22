@@ -19,30 +19,77 @@ async function konumAl(){
 }
 /* Overpass: dört sunucuya aynı anda sorulur, ilk gelen yanıt kullanılır (yoğun sunucuyu beklemez) */
 async function overpass(q){
-  const ac=new AbortController(),t=setTimeout(()=>ac.abort(),16000);
+  const ac=new AbortController(),t=setTimeout(()=>ac.abort(),25000);
   try{
     return await Promise.any(OVP.map(u=>fetch(u,{method:'POST',body:'data='+encodeURIComponent(q),headers:{'Content-Type':'application/x-www-form-urlencoded'},signal:ac.signal})
       .then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(j=>{if(!j||!Array.isArray(j.elements))throw new Error('yanıt');return j})));
   }catch(e){throw (e&&e.errors&&e.errors[0])||e}finally{clearTimeout(t);ac.abort()}
 }
+/* Yakından uzağa sıralar; aynı yapının düğüm + alan kayıtlarını tekler */
+function sirala(liste,k){
+  liste.forEach(c=>c.m=mesafe(k.lat,k.lon,c.lat,c.lon));
+  liste.sort((a,b)=>a.m-b.m);
+  return liste.filter((c,i)=>!liste.slice(0,i).some(o=>o.ad===c.ad&&mesafe(o.lat,o.lon,c.lat,c.lon)<60)).slice(0,40);
+}
+const turu=ad=>/mescit|mescid/i.test(ad)?'Mescit':'Cami';
 function ayikla(j,k){
   const liste=[];
   (j.elements||[]).forEach(e=>{
     const lat=e.lat??(e.center&&e.center.lat),lon=e.lon??(e.center&&e.center.lon);
     if(lat==null||lon==null)return;
-    const t=e.tags||{},ad=t['name:tr']||t.name||t['name:en']||'',tur=/mescit|mescid/i.test(ad)?'Mescit':'Cami';
-    liste.push({ad:ad||'İsimsiz cami',tur,lat,lon,m:mesafe(k.lat,k.lon,lat,lon)});
+    const t=e.tags||{},ad=t['name:tr']||t.name||t['name:en']||'';
+    liste.push({ad:ad||'İsimsiz cami',tur:turu(ad),lat,lon});
   });
-  liste.sort((a,b)=>a.m-b.m);
-  return liste.filter((c,i)=>!liste.slice(0,i).some(o=>o.ad===c.ad&&mesafe(o.lat,o.lon,c.lat,c.lon)<60)).slice(0,40); // aynı yapının düğüm + alan kayıtlarını tekle
+  return sirala(liste,k);
+}
+async function overpassListe(k){
+  let liste=[];
+  for(const r of [3000,10000]){
+    liste=ayikla(await overpass(`[out:json][timeout:20];nwr["amenity"="place_of_worship"]["religion"="muslim"](around:${r},${k.lat},${k.lon});out center tags 150;`),k);
+    if(liste.length>=3)break;
+  }
+  return liste;
+}
+/* Yedek kaynak: Photon (OpenStreetMap verisi, ayrı sunucu). Din etiketi gelmediği için isimden ayıklanır:
+   cami adı geçenler alınır, kilise/sinagog vb. atılır; adı belirsiz olanlar yalnızca Türkiye'de alınır. */
+const CAMI_AD=/cami|mescit|mescid|mosque|moschee|mosqu[ée]e|moskee|mosk[ée]|meczet|masjid|mesjid|d[žz]amij|xhami|islam|ditib|igmg|vikz|atib|diyanet|جامع|مسجد|مصلى/i;
+const DIGER_AD=/kilise|church|kirche|chapel|kapelle|kapel|cathedral|kathedrale|dom\b|münster|synagog|sinagog|temple|tapınak|gurdwara|cemevi|kingdom hall|gemeinde|chiesa|église|eglise|basilica|bazilika|monastery|kloster|manastır|gereja|meeting|katholisch|evangel/i;
+const turkiyede=k=>k.lat>35.8&&k.lat<42.2&&k.lon>25.6&&k.lon<44.9;
+async function photonListe(k){
+  let liste=[];
+  for(const r of [3,10]){
+    const ac=new AbortController(),t=setTimeout(()=>ac.abort(),15000);
+    try{
+      const res=await fetch(`https://photon.komoot.io/reverse?lat=${k.lat}&lon=${k.lon}&radius=${r}&limit=50&osm_tag=amenity:place_of_worship`,{signal:ac.signal});
+      if(!res.ok)throw new Error(res.status);
+      const j=await res.json(),tr=turkiyede(k);
+      liste=sirala((j.features||[]).filter(f=>{const ad=(f.properties&&f.properties.name)||'';return CAMI_AD.test(ad)||(!DIGER_AD.test(ad)&&tr)})
+        .map(f=>{const ad=f.properties.name||'';return{ad:ad||'İsimsiz cami',tur:turu(ad),lat:f.geometry.coordinates[1],lon:f.geometry.coordinates[0]}}),k);
+    }finally{clearTimeout(t)}
+    if(liste.length>=3)break;
+  }
+  return liste;
+}
+/* İki kaynak birlikte sorulur. Overpass (din etiketli, daha doğru) ilk 5 sn içinde gelirse o kullanılır;
+   gelmezse hangisi önce dolu liste verirse o. İkisi de olmazsa son kayıtlı liste gösterilir. */
+const bekle=ms=>new Promise(r=>setTimeout(r,ms));
+function ilkDolu(sozler){
+  return new Promise((ok,hata)=>{let kalan=sozler.length,son=null,bos=null;
+    sozler.forEach(p=>p.then(l=>{if(l.length)ok(l);else bos=l}).catch(e=>{son=e}).finally(()=>{if(--kalan===0){bos?ok(bos):hata(son)}}))});
 }
 async function getir(zorla){
   const k=await konumAl(),on=ls.get('camiOn',null);
-  if(!zorla&&on&&Date.now()-on.t<25*60e3&&mesafe(on.k.lat,on.k.lon,k.lat,k.lon)<300)return{k,liste:on.liste.map(c=>({...c,m:mesafe(k.lat,k.lon,c.lat,c.lon)})).sort((a,b)=>a.m-b.m)};
-  let liste=[];
-  for(const r of [3000,10000]){
-    const j=await overpass(`[out:json][timeout:14];nwr["amenity"="place_of_worship"]["religion"="muslim"](around:${r},${k.lat},${k.lon});out center tags 150;`);
-    liste=ayikla(j,k);if(liste.length>=3)break;
+  const yakin=on&&on.k&&mesafe(on.k.lat,on.k.lon,k.lat,k.lon);
+  const eski=()=>({k,liste:sirala(on.liste.map(c=>({...c})),k)});
+  if(!zorla&&on&&Date.now()-on.t<25*60e3&&yakin<300)return eski();
+  const op=overpassListe(k),ph=photonListe(k);op.catch(()=>{});ph.catch(()=>{});
+  let liste;
+  try{
+    liste=await Promise.race([op,bekle(5000).then(()=>null)]).catch(()=>null);
+    if(!liste)liste=await ilkDolu([op,ph]);
+  }catch(e){
+    if(on&&on.liste&&on.liste.length&&yakin<2000)return eski();
+    throw e;
   }
   ls.set('camiOn',{k,t:Date.now(),liste});
   return{k,liste};
@@ -106,7 +153,8 @@ async function harita(){
     setTimeout(()=>map.invalidateSize(),200);
   }catch(e){
     s.govde.style.padding='12px 14px';
-    s.govde.innerHTML=`<p class="note" style="text-align:center;padding:30px 10px">${hataYaz(e)}</p>`;
+    s.govde.innerHTML=`<p class="note" style="text-align:center;padding:30px 10px">${hataYaz(e)}</p><button class="btn" id="cmTekrar">Tekrar dene</button>`;
+    $('#cmTekrar').onclick=()=>{s.kapat();harita()};
   }
 }
 window.Cami={ac};

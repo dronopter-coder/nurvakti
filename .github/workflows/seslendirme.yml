@@ -1,0 +1,59 @@
+# Tanıtım videosu seslendirmesi: yayin/video/metin.json değişince her bölüm için MP3 üretir ve yayin/video/ses/ klasörüne kaydeder.
+# Önce Microsoft Edge doğal sesi (edge-tts) denenir; ulaşılamazsa açık kaynak Piper Türkçe sesine geçilir.
+# Uygulama derlemesini tetiklemez.
+name: Seslendirme üret
+on:
+  push:
+    paths: ['yayin/video/metin.json', '.github/workflows/seslendirme.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  ses:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install --upgrade edge-tts piper-tts gTTS && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - name: Bölüm seslerini üret
+        run: |
+          python3 - <<'PY'
+          import json, subprocess, os, urllib.request
+          m=json.load(open('yayin/video/metin.json',encoding='utf-8'))
+          os.makedirs('yayin/video/ses',exist_ok=True)
+          def edge(ad,metin):
+              subprocess.run(['edge-tts','--voice',m['ses'],'--rate='+m['hiz'],'--text',metin,'--write-media',f'yayin/video/ses/{ad}.mp3'],check=True)
+          piper_hazir=None
+          def piper(ad,metin):
+              global piper_hazir
+              if piper_hazir is None:
+                  for ses in ('tr/tr_TR/fahrettin/medium/tr_TR-fahrettin-medium','tr/tr_TR/fettah/medium/tr_TR-fettah-medium','tr/tr_TR/dfki/medium/tr_TR-dfki-medium'):
+                      base='https://huggingface.co/rhasspy/piper-voices/resolve/main/'+ses
+                      try:
+                          for u in ('.onnx','.onnx.json'):urllib.request.urlretrieve(base+u,'ses'+u)
+                          piper_hazir=ses;print('Piper sesi:',ses);break
+                      except Exception as e: print('yok',ses,e)
+                  if piper_hazir is None: raise RuntimeError('Piper sesi bulunamadı')
+              subprocess.run(['piper','-m','ses.onnx','--length_scale','1.08','-f',f'/tmp/{ad}.wav'],input=metin.encode(),check=True)
+              subprocess.run(['ffmpeg','-y','-loglevel','error','-i',f'/tmp/{ad}.wav','-b:a','160k',f'yayin/video/ses/{ad}.mp3'],check=True)
+          def gtts(ad,metin):
+              subprocess.run(['gtts-cli','-l','tr','-o',f'yayin/video/ses/{ad}.mp3',metin],check=True)
+          kaynak='edge'
+          for ad,metin in m['bolumler']:
+              if kaynak=='edge':
+                  try: edge(ad,metin)
+                  except Exception as e: print('edge-tts olmadı, Piper:',e); kaynak='piper'
+              if kaynak=='piper':
+                  try: piper(ad,metin)
+                  except Exception as e: print('Piper olmadı, gTTS:',e); kaynak='gtts'
+              if kaynak=='gtts': gtts(ad,metin)
+              print('tamam',ad,kaynak)
+          open('yayin/video/ses/kaynak.txt','w').write(kaynak+'\n')
+          PY
+          ls -la yayin/video/ses
+      - name: Sesleri depoya kaydet
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add yayin/video/ses
+          git commit -m "Seslendirme: bölüm sesleri üretildi" || exit 0
+          git pull --rebase -q && git push

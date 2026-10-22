@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Cinzel;src:url(cinzel.woff2)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#070d1f}
+#sahne{position:relative;width:1080px;height:1920px;overflow:hidden;
+  background:radial-gradient(120% 70% at 50% 35%,#1b2a5c 0%,#0e1636 45%,#060b1c 100%);font-family:"Liberation Serif",Georgia,serif;color:#EDE4CF}
+#yildiz{position:absolute;left:50%;top:44%;width:1500px;height:1500px;margin:-750px 0 0 -750px;opacity:.16}
+.parca{position:absolute;border-radius:50%;background:#f3d999;box-shadow:0 0 12px 3px rgba(243,217,153,.55)}
+/* giriş / kapanış */
+#giris,#kapanis{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.logo{width:520px;height:520px;border-radius:118px;box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 0 3px rgba(201,164,92,.55),0 0 120px rgba(201,164,92,.25);background:url(logo.png) center/cover}
+.marka{font-family:Cinzel;font-size:112px;color:#E6C77E;letter-spacing:4px;margin-top:70px;text-shadow:0 4px 30px rgba(201,164,92,.35)}
+.slogan{font-size:58px;color:#EDE4CF;margin-top:18px;letter-spacing:1px}
+.cizgi{height:3px;background:linear-gradient(90deg,transparent,#C9A45C,transparent);margin-top:34px}
+.besmele{font-family:"Amiri","DejaVu Sans",serif;font-size:46px;color:#C9A45C;margin-top:30px}
+/* bölümler */
+.bolum{position:absolute;inset:0}
+.baslik{position:absolute;left:0;right:0;top:150px;text-align:center}
+.baslik h2{font-weight:400;font-size:86px;color:#E6C77E;letter-spacing:1px;text-shadow:0 4px 26px rgba(0,0,0,.5)}
+.baslik p{font-family:"DejaVu Sans",sans-serif;font-size:40px;color:#d9d2c2;margin-top:22px;line-height:1.35}
+.baslik .no{font-family:"DejaVu Sans",sans-serif;font-size:30px;letter-spacing:6px;color:#C9A45C;margin-bottom:18px}
+.tel{position:absolute;left:50%;top:560px;width:640px;height:1280px;margin-left:-320px;border-radius:70px;padding:16px;
+  background:linear-gradient(145deg,#2c3561,#0b1026);box-shadow:0 50px 120px rgba(0,0,0,.6),0 0 0 2px rgba(201,164,92,.45) inset}
+.tel div{width:100%;height:100%;border-radius:56px;background-size:cover;background-position:top center}
+.kenar{position:absolute;left:0;right:0;bottom:0;height:420px;background:linear-gradient(transparent,#060b1c 85%)}
+#noktalar{position:absolute;left:0;right:0;bottom:120px;display:flex;justify-content:center;gap:16px}
+#noktalar i{width:14px;height:14px;border-radius:50%;background:#3a4788}
+#noktalar i.on{background:#E6C77E;box-shadow:0 0 14px #E6C77E}
+.alt{position:absolute;left:0;right:0;bottom:46px;text-align:center;font-family:Cinzel;font-size:40px;color:#C9A45C;letter-spacing:3px}
+.play{display:inline-flex;align-items:center;gap:22px;margin-top:54px;padding:26px 54px;border-radius:999px;background:linear-gradient(180deg,#e9cc86,#c9a45c);color:#141a33;font-family:"DejaVu Sans",sans-serif;font-weight:700;font-size:46px;box-shadow:0 16px 50px rgba(201,164,92,.35)}
+.play svg{width:52px;height:52px}
+.diller{font-family:"DejaVu Sans",sans-serif;font-size:36px;color:#d9d2c2;margin-top:44px;letter-spacing:1px}
+</style></head><body>
+<div id="sahne">
+  <svg id="yildiz" viewBox="-100 -100 200 200"><g fill="none" stroke="#E6C77E" stroke-width=".7">
+    <rect x="-60" y="-60" width="120" height="120"/><rect x="-60" y="-60" width="120" height="120" transform="rotate(45)"/>
+    <circle r="36"/><circle r="92"/><circle r="97" stroke-dasharray="1 3"/></g></svg>
+  <div id="parcalar"></div>
+
+  <div id="giris"><div class="logo"></div><div class="marka">Nur Vakti</div><div class="cizgi" style="width:0"></div><div class="slogan">Ezan ve Namaz Vakti</div></div>
+  <div id="bolumler"></div>
+  <div id="kapanis"><div class="logo" style="width:380px;height:380px;border-radius:86px"></div><div class="marka" style="font-size:96px;margin-top:50px">Nur Vakti</div>
+    <div class="slogan" style="font-size:50px">Namaz vakitleri, Kur'an ve dahası</div>
+    <div class="play"><svg viewBox="0 0 24 24"><path fill="#141a33" d="M4 2.8v18.4c0 .7.8 1.1 1.4.7L21 12.7c.6-.4.6-1.2 0-1.5L5.4 2.1C4.8 1.7 4 2.1 4 2.8z"/></svg>Google Play'de ücretsiz</div>
+    <div class="diller"><bdi>Türkçe</bdi> · <bdi>English</bdi> · <bdi>العربية</bdi> · <bdi>Deutsch</bdi></div></div>
+  <div class="kenar" id="kenar"></div>
+  <div id="noktalar"></div>
+  <div class="alt" id="alt">NUR VAKTI</div>
+</div>
+<script>
+const B=[
+ ['01-ana-ekran','Namaz Vakitleri','Diyanet vakitleri, ezan bildirimi ve geri sayım'],
+ ['02-kuran','Kur\'an-ı Kerim','114 sûre, Arapça metin ve kâri sesi'],
+ ['03-kuran-okuma','Ayet Ayet Dinle','Okunan ayet vurgulanır, hızı sen seç'],
+ ['04-kabir-cuma','Kabir ve Cuma','Sevdiklerin için Fâtiha ve Yâsîn'],
+ ['05-camiler','Yakın Camiler','Liste ya da harita, tek dokunuşla yol tarifi'],
+ ['06-ibadet','İbadet Rehberi','Namazdan kurbana, soru soru ilmihal'],
+ ['07-zekat','Zekât Hesaplama','Altın, para ve borçlarını gir, zekâtını gör'],
+ ['08-cocuklar','Çocuklar İçin','Adım adım namaz, ezber ve bilgi oyunu']];
+const $=s=>document.querySelector(s);
+$('#bolumler').innerHTML=B.map((b,i)=>`<div class="bolum" id="b${i}"><div class="baslik"><div class="no">${String(i+1).padStart(2,'0')} / 08</div><h2>${b[1]}</h2><p>${b[2]}</p></div><div class="tel"><div style="background-image:url(${b[0]}.png)"></div></div></div>`).join('');
+$('#noktalar').innerHTML=B.map(()=>'<i></i>').join('');
+// parıltılar (sabit tohumla)
+let tohum=7;const rnd=()=>(tohum=(tohum*16807)%2147483647)/2147483647;
+const P=Array.from({length:46},()=>({x:rnd()*1080,y:rnd()*1920,r:2+rnd()*4,f:.4+rnd()*1.2,ph:rnd()*6.28,v:8+rnd()*22}));
+$('#parcalar').innerHTML=P.map(()=>'<div class="parca"></div>').join('');
+const parca=[...document.querySelectorAll('.parca')];
+const cl=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const io=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;        // easeInOutCubic
+const oc=t=>1-Math.pow(1-t,3);                           // easeOutCubic
+const ob=t=>{const c=1.70158,c3=c+1;return 1+c3*Math.pow(t-1,3)+c*Math.pow(t-1,2)}; // easeOutBack
+const ara=(t,a,b)=>cl((t-a)/(b-a));
+const GIRIS=3,BOL=3,KAP=27;
+window.ciz=t=>{
+  $('#yildiz').style.transform=`rotate(${t*6}deg) scale(${1+.04*Math.sin(t*.8)})`;
+  P.forEach((p,i)=>{const e=parca[i],y=(p.y-t*p.v+1920)%1920;e.style.cssText=`left:${p.x}px;top:${y}px;width:${p.r}px;height:${p.r}px;opacity:${.25+.75*Math.abs(Math.sin(t*p.f+p.ph))}`});
+  // giriş
+  const g=$('#giris'),gl=g.querySelector('.logo'),gm=g.querySelector('.marka'),gs=g.querySelector('.slogan'),gc=g.querySelector('.cizgi');
+  const gOut=ara(t,2.55,3.05);
+  g.style.opacity=1-gOut;g.style.transform=`scale(${1+gOut*.15})`;g.style.display=t<3.1?'flex':'none';
+  const a=ara(t,0,.9);gl.style.transform=`scale(${.3+.7*ob(a)}) rotate(${(1-oc(a))*-25}deg)`;gl.style.opacity=oc(a);
+  const m=ara(t,.55,1.3);gm.style.opacity=m;gm.style.transform=`translateY(${(1-oc(m))*60}px)`;gm.style.letterSpacing=(4+(1-oc(m))*30)+'px';
+  gc.style.width=(oc(ara(t,1,1.7))*620)+'px';
+  const s=ara(t,1.2,1.9);gs.style.opacity=s;gs.style.transform=`translateY(${(1-oc(s))*40}px)`;
+  // bölümler
+  B.forEach((b,i)=>{
+    const e=document.getElementById('b'+i),t0=GIRIS+i*BOL,t1=t0+BOL;
+    if(t<t0-.5||t>t1+.5){e.style.display='none';return}
+    e.style.display='block';
+    const gir=ara(t,t0-.35,t0+.45),cik=ara(t,t1-.35,t1+.25);
+    const tel=e.querySelector('.tel'),bas=e.querySelector('.baslik'),h=bas.querySelector('h2'),p=bas.querySelector('p'),no=bas.querySelector('.no');
+    const yon=i%2?-1:1; // giriş yönü sırayla değişir
+    const gx=(1-io(gir))*900*yon, cx=-io(cik)*900*yon;
+    const don=(1-io(gir))*-28*yon + io(cik)*28*yon;
+    const yuz=1+.035*Math.sin((t-t0)/BOL*Math.PI);              // hafif nefes alma
+    tel.style.transform=`perspective(2200px) translateX(${gx+cx}px) rotateY(${don}deg) scale(${(.86+.14*oc(gir))*yuz*(1-.12*io(cik))})`;
+    tel.style.opacity=Math.min(oc(gir)*1.4,1-io(cik));
+    // ekran içinde yavaş kaydırma (uzun ekranlarda daha fazlasını göstermek için)
+    tel.firstElementChild.style.backgroundPosition=`center ${Math.round(cl((t-t0-.4)/(BOL-.8))*12)}%`;
+    const hb=ara(t,t0+.05,t0+.65),pb=ara(t,t0+.25,t0+.9);
+    no.style.opacity=hb*(1-cik);
+    h.style.opacity=hb*(1-cik);h.style.transform=`translateY(${(1-oc(hb))*50-io(cik)*30}px)`;h.style.filter=`blur(${(1-hb)*8}px)`;
+    p.style.opacity=pb*(1-cik);p.style.transform=`translateY(${(1-oc(pb))*40-io(cik)*20}px)`;
+  });
+  // noktalar
+  const aktif=Math.floor((t-GIRIS)/BOL);
+  const nv=t>GIRIS-.3&&t<KAP+.2;$('#noktalar').style.opacity=nv?1:0;
+  document.querySelectorAll('#noktalar i').forEach((e,i)=>e.className=i===aktif?'on':'');
+  $('#alt').style.opacity=nv?.85:0;$('#kenar').style.opacity=nv?1:0;
+  // kapanış
+  const k=$('#kapanis'),kv=ara(t,KAP-.1,KAP+.7);
+  k.style.display=t>KAP-.2?'flex':'none';
+  const [kl,km,ks,kp,kd]=k.children;
+  kl.style.opacity=oc(kv);kl.style.transform=`scale(${.4+.6*ob(kv)})`;
+  const m2=ara(t,KAP+.4,KAP+1.1);km.style.opacity=m2;km.style.transform=`translateY(${(1-oc(m2))*50}px)`;
+  const s2=ara(t,KAP+.7,KAP+1.4);ks.style.opacity=s2;ks.style.transform=`translateY(${(1-oc(s2))*40}px)`;
+  const p2=ara(t,KAP+1,KAP+1.6);kp.style.opacity=p2;kp.style.transform=`scale(${.7+.3*ob(p2)})`;
+  const d2=ara(t,KAP+1.3,KAP+1.9);kd.style.opacity=d2;
+  const son=ara(t,29.55,30);document.getElementById('sahne').style.filter=`brightness(${1-son*.35})`;
+};
+ciz(0);
+</script></body></html>
