@@ -21,9 +21,15 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#060b1c}
 .ekran{position:relative;width:100%;height:100%;border-radius:54px;overflow:hidden;background:#0e1636}
 .ekran .g{position:absolute;inset:0;background-size:cover;background-position:top center}
 /* altyazı */
-#alt{position:absolute;left:60px;right:60px;bottom:120px;min-height:150px;display:flex;align-items:center;justify-content:center}
-#alt div{background:rgba(6,11,28,.78);border:1px solid rgba(201,164,92,.35);border-radius:28px;padding:22px 34px;text-align:center;
-  font-family:"DejaVu Sans",sans-serif;font-size:38px;line-height:1.38;color:#f3ecdc;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+#alt{position:absolute;left:40px;right:40px;top:1440px;height:250px;display:flex;align-items:center;justify-content:center;pointer-events:none}
+#alt .kutu{position:relative;max-width:960px;padding:20px 30px 22px;border-radius:30px;text-align:center;
+  background:linear-gradient(135deg,#f3d999 0%,#e2bd6b 55%,#c99a45 100%);box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 0 4px rgba(14,20,30,.9),0 0 0 7px rgba(230,199,126,.55);
+  font-family:"DejaVu Sans",sans-serif;font-weight:700;font-size:54px;line-height:1.22;letter-spacing:.5px;color:#0E141E;transform-origin:50% 50%}
+#alt .kutu::before{content:"";position:absolute;left:50%;top:-16px;width:30px;height:30px;margin-left:-15px;background:#f0d48f;transform:rotate(45deg);border-radius:6px;box-shadow:-4px -4px 0 0 rgba(14,20,30,.9)}
+#alt .k{display:inline-block;padding:2px 10px;margin:3px 1px;border-radius:14px;transition:none}
+#alt .k.on{background:#0E141E;color:#F3D999;box-shadow:0 6px 18px rgba(14,20,30,.45)}
+#alt .k.gel{opacity:.42}
+#kapanis{padding-bottom:170px}#giris{padding-bottom:90px}
 #imza{position:absolute;left:0;right:0;bottom:46px;text-align:center;font-family:Cinzel;font-size:34px;color:#C9A45C;letter-spacing:3px;opacity:.8}
 /* giriş / kapanış */
 .merkez{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -96,7 +102,7 @@ html,body{width:1080px;height:1920px;overflow:hidden;background:#060b1c}
   </div>
   <div class="kat merkez" id="final"><div class="logo" style="width:420px;height:420px"></div><div class="marka" style="font-size:100px;margin-top:56px">Nur Vakti</div><div style="font-size:50px;margin-top:22px;color:#E6C77E">Allah kabul etsin</div></div>
 
-  <div id="alt"><div></div></div>
+  <div id="alt"><div class="kutu"></div></div>
   <div id="imza">NUR VAKTI</div>
 </div>
 <script>
@@ -121,6 +127,12 @@ const ALT=[
  [65.85,67.05,"App Store yakında geliyor."],
  [67.4,71.85,"Beğendiyseniz puan verip yorum yazarak ve sevdiklerinizle paylaşarak bana destek olun."],
  [72.05,73.6,"Allah kabul etsin."]];
+// altyazı: kelime kelime zamanlanan, büyük harf parçalar
+const CH=[];ALT.forEach(([a,b,m])=>{const w=m.split(' '),ag=w.map(x=>x.length+2+(/[,;:.]$/.test(x)?5:0)),top=ag.reduce((x,y)=>x+y,0);let c=a,ks=[];
+  w.forEach((x,i)=>{const d=(b-a)*ag[i]/top;ks.push({w:x.toLocaleUpperCase('tr'),s:c,e:c+d});c+=d});
+  let p=[],n=0;ks.forEach((k,i)=>{p.push(k);n+=k.w.length+1;const son=i===ks.length-1,dur=/[,;:.]$/.test(k.w)&&n>9;
+    if(son||n>=24||dur){CH.push({s:p[0].s,e:son?b:p[p.length-1].e,k:p});p=[];n=0}})});
+let akt=-1;
 // sahneler: [başlangıç, bitiş, üst yazı, başlık, düzen, görseller/geçişler]
 const SAH=[
  [5.35,13.65,'01','Namaz Vakitleri','vakit'],
@@ -147,8 +159,13 @@ window.ciz=t=>{
   $('#yildiz').style.transform=`rotate(${t*5}deg) scale(${1+.04*Math.sin(t*.7)})`;
   P.forEach((p,i)=>{const y=(p.y-t*p.v+1920)%1920;parca[i].style.cssText=`left:${p.x}px;top:${y}px;width:${p.r}px;height:${p.r}px;opacity:${.2+.7*Math.abs(Math.sin(t*p.f+p.ph))}`});
   // altyazı
-  const a=ALT.find(x=>t>=x[0]-.15&&t<=x[1]+.15),ad=$('#alt div');
-  if(a){if(ad.textContent!==a[2])ad.textContent=a[2];const o=Math.min(ara(t,a[0]-.15,a[0]+.15),1-ara(t,a[1]-.15,a[1]+.15));ad.style.opacity=o;ad.style.transform=`translateY(${(1-oc(o))*16}px)`}else ad.style.opacity=0;
+  const ci=CH.findIndex((c,i)=>t>=c.s-.08&&t<(CH[i+1]&&CH[i+1].s-c.e<.5?CH[i+1].s-.08:c.e+.25)),kt=$('#alt .kutu');
+  if(ci!==akt){akt=ci;kt.innerHTML=ci<0?'':CH[ci].k.map(k=>`<span class="k">${k.w}</span>`).join(' ')}
+  if(ci>=0){const c=CH[ci],g=ara(t,c.s-.08,c.s+.22),ck=ara(t,c.e+.05,c.e+.25)*(CH[ci+1]&&CH[ci+1].s-c.e<.5?0:1);
+    kt.style.opacity=Math.min(oc(g)*1.3,1-ck);kt.style.transform=`translateY(${(1-oc(g))*50}px) scale(${.82+.18*ob(g)}) rotate(${(ci%2?1:-1)*(1-oc(g))*4}deg)`;
+    [...kt.children].forEach((el,i)=>{const k=c.k[i],on=t>=k.s&&t<k.e;el.className='k'+(on?' on':t<k.s?' gel':'');
+      const v=on?ara(t,k.s,k.s+.15):0;el.style.transform=on?`scale(${1+.1*ob(v)}) translateY(${-4*oc(v)}px)`:''})}
+  else kt.style.opacity=0;
   $('#alt').style.display=t<77?'flex':'none';
   // giriş
   const g=$('#giris');goster(g,t<5.9);
