@@ -3,7 +3,7 @@
 name: Seslendirme üret
 on:
   push:
-    paths: ['yayin/video/metin.json']
+    paths: ['yayin/video/metin.json', '.github/workflows/seslendirme.yml']
   workflow_dispatch:
 permissions:
   contents: write
@@ -20,7 +20,7 @@ jobs:
           m=json.load(open('yayin/video/metin.json',encoding='utf-8'))
           os.makedirs('yayin/video/ses',exist_ok=True)
           for ad,metin in m['bolumler']:
-              subprocess.run(['edge-tts','--voice',m['ses'],'--rate',m['hiz'],'--text',metin,
+              subprocess.run(['edge-tts','--voice',m['ses'],'--rate='+m['hiz'],'--text',metin,
                               '--write-media',f'yayin/video/ses/{ad}.mp3'],check=True)
               print('tamam',ad)
           PY
