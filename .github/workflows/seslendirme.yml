@@ -1,5 +1,6 @@
-# Tanıtım videosu seslendirmesi: yayin/video/metin.json değişince her bölüm için Microsoft Edge doğal sesiyle MP3 üretir
-# ve yayin/video/ses/ klasörüne geri kaydeder (bu işlem uygulama derlemesini tetiklemez).
+# Tanıtım videosu seslendirmesi: yayin/video/metin.json değişince her bölüm için MP3 üretir ve yayin/video/ses/ klasörüne kaydeder.
+# Önce Microsoft Edge doğal sesi (edge-tts) denenir; ulaşılamazsa açık kaynak Piper Türkçe sesine geçilir.
+# Uygulama derlemesini tetiklemez.
 name: Seslendirme üret
 on:
   push:
@@ -12,17 +13,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pip install edge-tts==7.0.2
+      - run: pip install --upgrade edge-tts piper-tts && sudo apt-get install -y -qq ffmpeg >/dev/null
       - name: Bölüm seslerini üret
         run: |
           python3 - <<'PY'
-          import json, subprocess, os
+          import json, subprocess, os, urllib.request
           m=json.load(open('yayin/video/metin.json',encoding='utf-8'))
           os.makedirs('yayin/video/ses',exist_ok=True)
+          def edge(ad,metin):
+              subprocess.run(['edge-tts','--voice',m['ses'],'--rate='+m['hiz'],'--text',metin,'--write-media',f'yayin/video/ses/{ad}.mp3'],check=True)
+          piper_hazir=False
+          def piper(ad,metin):
+              global piper_hazir
+              base='https://huggingface.co/rhasspy/piper-voices/resolve/main/tr/tr_TR/fahrettin/medium/tr_TR-fahrettin-medium'
+              if not piper_hazir:
+                  for u in ('.onnx','.onnx.json'):urllib.request.urlretrieve(base+u,'ses'+u)
+                  piper_hazir=True
+              subprocess.run(['piper','-m','ses.onnx','--length_scale','1.08','-f',f'/tmp/{ad}.wav'],input=metin.encode(),check=True)
+              subprocess.run(['ffmpeg','-y','-loglevel','error','-i',f'/tmp/{ad}.wav','-b:a','160k',f'yayin/video/ses/{ad}.mp3'],check=True)
+          kaynak='edge'
           for ad,metin in m['bolumler']:
-              subprocess.run(['edge-tts','--voice',m['ses'],'--rate='+m['hiz'],'--text',metin,
-                              '--write-media',f'yayin/video/ses/{ad}.mp3'],check=True)
-              print('tamam',ad)
+              if kaynak=='edge':
+                  try: edge(ad,metin)
+                  except Exception as e: print('edge-tts olmadı, Piper:',e); kaynak='piper'
+              if kaynak=='piper': piper(ad,metin)
+              print('tamam',ad,kaynak)
+          open('yayin/video/ses/kaynak.txt','w').write(kaynak+'\n')
           PY
           ls -la yayin/video/ses
       - name: Sesleri depoya kaydet
@@ -31,4 +47,4 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add yayin/video/ses
           git commit -m "Seslendirme: bölüm sesleri üretildi" || exit 0
-          git push
+          git pull --rebase -q && git push
