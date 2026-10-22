@@ -9,13 +9,17 @@ jobs:
     steps:
       - run: |
           Q='[out:json][timeout:14];nwr["amenity"="place_of_worship"]["religion"="muslim"](around:3000,41.0082,28.9784);out center tags 150;'
-          for tur in 1 2 3; do echo "##### tur $tur"
+          set +e; for tur in 1 2; do echo "##### tur $tur"
           for u in https://overpass-api.de/api/interpreter https://z.overpass-api.de/api/interpreter https://lz4.overpass-api.de/api/interpreter \
                    https://overpass.private.coffee/api/interpreter https://overpass.kumi.systems/api/interpreter \
                    https://maps.mail.ru/osm/tools/overpass/api/interpreter https://overpass.osm.ch/api/interpreter \
                    https://overpass.openstreetmap.ru/api/interpreter https://overpass.osm.jp/api/interpreter; do
-            r=$(curl -s -m 20 -D h.txt -o o.json -w "%{http_code} %{time_total}s %{size_download}B" -X POST -H 'Origin: https://localhost' --data-urlencode "data=$Q" $u)
+            for ua in "curl" "Mozilla/5.0 (Linux; Android 14; SM-S918B Build/UP1A; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/129.0 Mobile Safari/537.36"; do
+            rm -f o.json h.txt
+            r=$(curl -s -m 25 -D h.txt -o o.json -w "%{http_code} %{time_total}s %{size_download}B" -X POST -A "$ua" -H 'Accept: */*' -H 'Origin: https://localhost' -H 'X-Requested-With: com.nurvakti.namazvekuran' --data-urlencode "data=$Q" $u || echo "zaman aşımı/bağlantı hatası")
             n=$(python3 -c "import json;print(len(json.load(open('o.json'))['elements']))" 2>/dev/null || echo "-")
             c=$(grep -i '^access-control-allow-origin' h.txt | tr -d '\r')
-            echo "$u | $r | eleman=$n | $c"
-          done; sleep 20; done
+            echo "$u | ${ua:0:8} | $r | eleman=$n | $c"
+            [ "$n" = "-" ] && head -c 300 o.json 2>/dev/null && echo
+            done
+          done; sleep 15; done
