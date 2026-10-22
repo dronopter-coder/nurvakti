@@ -1,0 +1,34 @@
+# Tanıtım videosu seslendirmesi: yayin/video/metin.json değişince her bölüm için Microsoft Edge doğal sesiyle MP3 üretir
+# ve yayin/video/ses/ klasörüne geri kaydeder (bu işlem uygulama derlemesini tetiklemez).
+name: Seslendirme üret
+on:
+  push:
+    paths: ['yayin/video/metin.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  ses:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install edge-tts==7.0.2
+      - name: Bölüm seslerini üret
+        run: |
+          python3 - <<'PY'
+          import json, subprocess, os
+          m=json.load(open('yayin/video/metin.json',encoding='utf-8'))
+          os.makedirs('yayin/video/ses',exist_ok=True)
+          for ad,metin in m['bolumler']:
+              subprocess.run(['edge-tts','--voice',m['ses'],'--rate',m['hiz'],'--text',metin,
+                              '--write-media',f'yayin/video/ses/{ad}.mp3'],check=True)
+              print('tamam',ad)
+          PY
+          ls -la yayin/video/ses
+      - name: Sesleri depoya kaydet
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add yayin/video/ses
+          git commit -m "Seslendirme: bölüm sesleri üretildi" || exit 0
+          git push
