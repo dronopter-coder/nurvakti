@@ -1,4 +1,4 @@
-# Cami verisi için Overpass sunucularını dener (yalnızca teşhis; uygulama derlemesini tetiklemez)
+# Cami verisi için yedek kaynakları dener (yalnızca teşhis; uygulama derlemesini tetiklemez)
 name: Overpass testi
 on:
   push:
@@ -8,18 +8,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          Q='[out:json][timeout:14];nwr["amenity"="place_of_worship"]["religion"="muslim"](around:3000,41.0082,28.9784);out center tags 150;'
-          set +e; for tur in 1 2; do echo "##### tur $tur"
-          for u in https://overpass-api.de/api/interpreter https://z.overpass-api.de/api/interpreter https://lz4.overpass-api.de/api/interpreter \
-                   https://overpass.private.coffee/api/interpreter https://overpass.kumi.systems/api/interpreter \
-                   https://maps.mail.ru/osm/tools/overpass/api/interpreter https://overpass.osm.ch/api/interpreter \
-                   https://overpass.openstreetmap.ru/api/interpreter https://overpass.osm.jp/api/interpreter; do
-            for ua in "curl" "Mozilla/5.0 (Linux; Android 14; SM-S918B Build/UP1A; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/129.0 Mobile Safari/537.36"; do
-            rm -f o.json h.txt
-            r=$(curl -s -m 25 -D h.txt -o o.json -w "%{http_code} %{time_total}s %{size_download}B" -X POST -A "$ua" -H 'Accept: */*' -H 'Origin: https://localhost' -H 'X-Requested-With: com.nurvakti.namazvekuran' --data-urlencode "data=$Q" $u || echo "zaman aşımı/bağlantı hatası")
-            n=$(python3 -c "import json;print(len(json.load(open('o.json'))['elements']))" 2>/dev/null || echo "-")
-            c=$(grep -i '^access-control-allow-origin' h.txt | tr -d '\r')
-            echo "$u | ${ua:0:8} | $r | eleman=$n | $c"
-            [ "$n" = "-" ] && head -c 300 o.json 2>/dev/null && echo
-            done
-          done; sleep 15; done
+          set +e
+          UA="Mozilla/5.0 (Linux; Android 14; wv) AppleWebKit/537.36 Chrome/129.0 Mobile Safari/537.36"
+          t(){ echo "=== $1"; curl -s -m 25 -A "$UA" -H 'Origin: https://localhost' -D h.txt -o o.json -w "%{http_code} %{time_total}s %{size_download}B\n" "$2"; grep -i '^access-control-allow-origin' h.txt; python3 - <<'P'
+          import json
+          try:
+            j=json.load(open('o.json'))
+            f=j.get('features') if isinstance(j,dict) else j
+            print('adet',len(f))
+            for x in f[:12]:
+              p=x.get('properties',x); print('  ',p.get('name') or p.get('display_name','')[:60], '|', p.get('osm_key',p.get('category')), p.get('osm_value',p.get('type')))
+          except Exception as e: print('HATA',e, open('o.json').read()[:200])
+          P
+          }
+          for yer in "41.0082,28.9784" "52.52,13.405" "39.93,32.86"; do
+            la=${yer%,*}; lo=${yer#*,}
+            t "photon reverse $yer" "https://photon.komoot.io/reverse?lat=$la&lon=$lo&radius=3&limit=50&osm_tag=amenity:place_of_worship"
+            t "photon api $yer" "https://photon.komoot.io/api/?q=mosque&lat=$la&lon=$lo&limit=30&osm_tag=amenity:place_of_worship&location_bias_scale=0.1&zoom=14"
+            b=$(python3 -c "la,lo=$la,$lo;d=0.03;print(f'{lo-d},{la+d},{lo+d},{la-d}')")
+            t "nominatim mosque $yer" "https://nominatim.openstreetmap.org/search?format=jsonv2&q=mosque&viewbox=$b&bounded=1&limit=40"
+            t "nominatim cami $yer" "https://nominatim.openstreetmap.org/search?format=jsonv2&q=cami&viewbox=$b&bounded=1&limit=40"
+            sleep 2
+          done
