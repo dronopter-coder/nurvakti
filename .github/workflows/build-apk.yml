@@ -56,7 +56,7 @@ jobs:
           sed -i 's#</manifest>#<queries><intent><action android:name="android.intent.action.TTS_SERVICE"/></intent></queries></manifest>#' $M
           grep -q '<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"' $M || sed -i 's#</manifest>#<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/></manifest>#' $M
           grep -c VakitWidget $M
-          sed -i -E 's/versionName "[^"]*"/versionName "1.5"/' android/app/build.gradle
+          sed -i -E 's/versionName "[^"]*"/versionName "1.5.1"/' android/app/build.gradle
           grep -n "versionName" android/app/build.gradle
       - run: npx cap sync android
       - name: Sabit debug imzası (güncellemenin eskisinin üzerine kurulabilmesi için)

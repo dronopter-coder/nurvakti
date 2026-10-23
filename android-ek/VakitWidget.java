@@ -119,10 +119,13 @@ public class VakitWidget extends AppWidgetProvider {
 
     private static void ciz(Context c, AppWidgetManager m, int id) {
         Bundle op = m.getAppWidgetOptions(id);
-        int yuk = op == null ? 0 : op.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 0);
+        // Dikey ekrandaki boyut: genişlik MIN_WIDTH, yükseklik MAX_HEIGHT'tır. MIN_HEIGHT yatay ekranın (daha kısa)
+        // yüksekliği olduğundan 2 satırlık widget birçok telefonda "tek satır" sanılıyordu.
+        int yuk = op == null ? 0 : op.getInt(AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT, 0);
+        if (yuk <= 0 && op != null) yuk = op.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 0);
         int gen = op == null ? 0 : op.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH, 0);
         boolean dar = gen > 0 && gen < 150;           // 2 sütun: alt alta yazı
-        boolean kucuk = !dar && yuk > 0 && yuk < 100; // tek satır, geniş
+        boolean kucuk = !dar && yuk > 0 && yuk < 125; // tek satır, geniş
         RemoteViews r = new RemoteViews(c.getPackageName(), dar ? R.layout.vakit_widget_dar : kucuk ? R.layout.vakit_widget_kucuk : R.layout.vakit_widget);
         Object[] s = siradaki(c);
         long simdi = System.currentTimeMillis();
