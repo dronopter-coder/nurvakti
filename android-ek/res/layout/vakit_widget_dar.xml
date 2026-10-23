@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Dar (2 sütunluk) widget: vakit adı ve saati üstte, geri sayım altta; halka arkada soluk -->
+<!-- Dar (2 sütunluk) widget: vakit adı ve saati üstte, geri sayım altta; halka arkada, büyük widget ile aynı belirginlikte -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/vw_kok"
     android:layout_width="match_parent"
@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        android:alpha="0.45"
         android:importantForAccessibility="no"
         android:scaleType="fitCenter" />
 
