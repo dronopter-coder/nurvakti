@@ -313,29 +313,49 @@ async function fetchDy(d){
     h:hk.length===3&&hk[2]?{day:hk[0],month:{number:hk[1]},year:hk[2]}:null,kaynak:'diyanet'};
 }
 async function fetchAl(d){
-  const key='ta|'+locKey()+'|'+dstr(d);
+  const key='ta2|'+locKey()+'|'+dstr(d);
   const c=ls.get(key,null); if(c) return c;
   let url;
   if(loc.type==='gps') url=`https://api.aladhan.com/v1/timings/${dstr(d)}?latitude=${loc.lat}&longitude=${loc.lon}&method=13`;
   else{
-    const adr=(loc.ilce==='Merkez'||loc.ilce===loc.il?loc.il:loc.ilce+', '+loc.il)+', '+(loc.ulke?loc.ulke.en||loc.ulke.ad:'Turkey');
-    url=`https://api.aladhan.com/v1/timingsByAddress/${dstr(d)}?address=${encodeURIComponent(adr)}&method=13`;
+    // Aladhan'ın adres çözümlemesine güvenilmez (her adres için aynı sahte noktayı döndürebiliyor); koordinatla sorulur
+    const k=await koord();
+    url=`https://api.aladhan.com/v1/timings/${dstr(d)}?latitude=${k.lat}&longitude=${k.lon}&method=13`;
   }
   const r=await fetch(url); const j=await r.json();
   if(j.code!==200) throw new Error('API');
   const out={t:{},h:j.data.date.hijri,lat:j.data.meta.latitude,lon:j.data.meta.longitude,kaynak:'aladhan'};
   VAK.forEach(([k])=>out.t[k]=j.data.timings[k].slice(0,5));
-  if(loc.type!=='gps')ls.set('koord|'+locKey(),{lat:+out.lat,lon:+out.lon});
   ls.set(key,out); return out;
 }
 async function fetchDay(d){
   try{return await fetchDy(d)}catch(e){return fetchAl(d)}
 }
-/* Kıble için konumun koordinatı */
+/* Kıble için konumun koordinatı. Şehir seçiminde Photon, olmazsa Nominatim (OpenStreetMap) ile bulunur.
+   Aladhan'ın adres çözümlemesi her adres için aynı sahte noktayı (8.8888888, 7.7777777) döndürebildiğinden kullanılmaz;
+   eski sürümün bu yoldan kaydettiği koordinatlar ("koord|") da bu yüzden okunmaz. */
+const sahteKoord=k=>!k||!isFinite(k.lat)||!isFinite(k.lon)||(k.lat===0&&k.lon===0)||(Math.abs(k.lat-8.8888888)<1e-3&&Math.abs(k.lon-7.7777777)<1e-3);
+async function geoBul(q){
+  const ac=new AbortController(),t=setTimeout(()=>ac.abort(),12000),e=encodeURIComponent(q);
+  try{
+    try{
+      const j=await (await fetch(`https://photon.komoot.io/api/?q=${e}&limit=1`,{signal:ac.signal})).json();
+      const f=j&&j.features&&j.features[0];
+      if(f)return{lat:+f.geometry.coordinates[1],lon:+f.geometry.coordinates[0]};
+    }catch(err){if(ac.signal.aborted)throw err}
+    const j=await (await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${e}`,{signal:ac.signal})).json();
+    return j&&j[0]?{lat:+j[0].lat,lon:+j[0].lon}:null;
+  }finally{clearTimeout(t)}
+}
 async function koord(){
   if(loc.type==='gps')return{lat:loc.lat,lon:loc.lon};
-  const c=ls.get('koord|'+locKey(),null);if(c&&c.lat)return c;
-  const x=await fetchAl(new Date());return{lat:+x.lat,lon:+x.lon};
+  const key='koord2|'+locKey(),c=ls.get(key,null);if(!sahteKoord(c))return c;
+  const tr=!loc.ulke,ulke=tr?'Türkiye':(loc.ulke.en||loc.ulke.ad),ilce=loc.ilce&&loc.ilce!=='Merkez'&&loc.ilce!==loc.il?loc.ilce:null;
+  const icinde=k=>!tr||(k.lat>35.8&&k.lat<42.2&&k.lon>25.6&&k.lon<44.9);
+  for(const q of [ilce&&`${ilce}, ${loc.il}, ${ulke}`,`${loc.il}, ${ulke}`].filter(Boolean)){
+    try{const k=await geoBul(q);if(!sahteKoord(k)&&icinde(k)){ls.set(key,k);return k}}catch(e){}
+  }
+  throw new Error('koordinat');
 }
 const at=(base,hm)=>{const [h,m]=hm.split(':').map(Number);return new Date(base.getFullYear(),base.getMonth(),base.getDate(),h,m,0)};
 
