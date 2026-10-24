@@ -1,16 +1,12 @@
-# Kıble koordinatı teşhisi: Aladhan adres çözümlemesinin döndürdüğü enlem/boylamı yazdırır (yalnızca teşhis)
+# Kıble koordinatı teşhisi (yalnızca teşhis; uygulama derlemesini tetiklemez)
 name: Koordinat testi
 on:
   push:
-    paths: ['.github/workflows/koord-test.yml']
+    paths: ['.github/workflows/koord-test.yml', '.github/teshis/koord.js', 'www/index.html']
+    branches-ignore: [main]
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          set +e
-          for a in "Mamak, Ankara, Turkey" "Ankara, Turkey" "İzmit, Kocaeli, Turkey" "Çankaya, Ankara, Turkey" "Keçiören, Ankara, Turkey" "Kadıköy, İstanbul, Turkey" "Ümraniye, İstanbul, Turkey" "Selçuklu, Konya, Turkey" "Osmangazi, Bursa, Turkey" "Merkez, Berlin, Germany" "Berlin, Germany"; do
-            u="https://api.aladhan.com/v1/timingsByAddress/24-10-2026?address=$(python3 -c "import urllib.parse,sys;print(urllib.parse.quote(sys.argv[1]))" "$a")&method=13"
-            r=$(curl -s -m 20 "$u")
-            echo "$a => $(echo "$r" | python3 -c "import json,sys;j=json.load(sys.stdin);m=j.get('data',{}).get('meta',{}) if isinstance(j.get('data'),dict) else {};print(j.get('code'),m.get('latitude'),m.get('longitude'),str(j.get('data'))[:80] if j.get('code')!=200 else '')" 2>&1)"
-          done
+      - uses: actions/checkout@v4
+      - run: node .github/teshis/koord.js
