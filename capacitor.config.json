@@ -13,6 +13,10 @@
   "plugins": {
     "StatusBar": {
       "style": "DARK"
+    },
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_secdem",
+      "iconColor": "#E8862A"
     }
   }
 }

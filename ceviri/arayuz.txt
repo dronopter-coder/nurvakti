@@ -226,3 +226,6 @@ Cami|Mosque|مسجد|Moschee
 Mescit|Prayer room|مصلى|Gebetsraum
 Yenile|Refresh|تحديث|Aktualisieren
 Güneş (şerit)|Sunrise|الشروق|Sonne
+Bildirim çubuğunda günlük vakitler|Daily times in the notification bar|أوقات اليوم في شريط الإشعارات|Tägliche Zeiten in der Benachrichtigungsleiste
+Ekranı aşağı kaydırınca sıradaki vakit ve günün vakitleri|The next prayer and today's times when you swipe down|الصلاة القادمة وأوقات اليوم عند السحب للأسفل|Nächstes Gebet und heutige Zeiten beim Herunterwischen
+Günlük vakitler|Daily prayer times|أوقات الصلاة اليومية|Tägliche Gebetszeiten
