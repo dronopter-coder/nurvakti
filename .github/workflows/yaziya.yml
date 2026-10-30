@@ -1,0 +1,13 @@
+# Tanıtım videosu seslendirmesini kelime zamanlarıyla yazıya döker (yalnızca teşhis; derleme tetiklemez)
+name: Seslendirme yazıya dökümü
+on:
+  push:
+    paths: ['yayin/video/secdem/seslendirme.mp3', '.github/teshis/yaziya.py', '.github/workflows/yaziya.yml']
+    branches-ignore: [main]
+jobs:
+  yazi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q faster-whisper
+      - run: python .github/teshis/yaziya.py yayin/video/secdem/seslendirme.mp3
