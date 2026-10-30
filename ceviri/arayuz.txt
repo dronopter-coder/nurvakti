@@ -3,7 +3,7 @@ Günün ayeti|Verse of the day|آية اليوم|Vers des Tages
 Günün hadisi|Hadith of the day|حديث اليوم|Hadith des Tages
 Ayet paylaş|Share verse|مشاركة الآية|Vers teilen
 Hadis paylaş|Share hadith|مشاركة الحديث|Hadith teilen
-Nur Vakti uygulamasını paylaş|Share the Nur Vakti app|شارك تطبيق نور وقتي|Nur Vakti App teilen
+Secdem uygulamasını paylaş|Share the Secdem app|شارك تطبيق Secdem|Secdem App teilen
 Diyanet ilmihali esas alınmıştır. Özel durumlar için müftülüğe danışın.|Based on the Diyanet catechism. For special cases, consult a qualified scholar.|المعلومات مبنية على كتاب الفقه لرئاسة الشؤون الدينية التركية. في الحالات الخاصة استشر عالمًا موثوقًا.|Grundlage ist der Diyanet-Katechismus. In Sonderfällen wende dich an einen qualifizierten Gelehrten.
 Telefonu yere paralel tut; metal eşyalardan ve mıknatıslı kılıflardan uzak dur. Yön şaşarsa telefonu havada 8 çizerek birkaç kez salla.|Hold the phone flat; keep away from metal objects and magnetic cases. If the direction drifts, wave the phone in a figure 8 a few times.|أمسك الهاتف موازيًا للأرض، وابتعد عن الأشياء المعدنية والأغطية المغناطيسية. إذا اختل الاتجاه فحرّك الهاتف في الهواء على شكل 8 عدة مرات.|Halte das Telefon waagerecht; halte Abstand zu Metall und magnetischen Hüllen. Wenn die Richtung abweicht, bewege das Telefon einige Male in Form einer 8.
 Tarihler Diyanet İşleri Başkanlığı'nın yayımladığı dini günler listesine göredir (vakithesaplama.diyanet.gov.tr). Kandil tarihleri o günün akşamını gösterir.|Dates follow the list of religious days published by the Turkish Presidency of Religious Affairs (Diyanet). Dates of the blessed nights refer to the evening of that day.|التواريخ وفق قائمة المناسبات الدينية الصادرة عن رئاسة الشؤون الدينية التركية. وتواريخ الليالي المباركة تشير إلى مساء ذلك اليوم.|Die Daten folgen der Liste religiöser Tage des türkischen Diyanet. Die Daten der gesegneten Nächte beziehen sich auf den Abend des Tages.
@@ -126,7 +126,7 @@ Vakit kaynağı: hesaplama (Diyanet yöntemi). Diyanet verisine şu an ulaşıla
 Açık · kapatmak için telefon ayarlarına gider|On · opens phone settings to turn off|مفعّل · يفتح إعدادات الهاتف للإيقاف|An · öffnet die Telefoneinstellungen zum Ausschalten
 Kapalı · açmak için telefon ayarlarına gider|Off · opens phone settings to turn on|متوقف · يفتح إعدادات الهاتف للتفعيل|Aus · öffnet die Telefoneinstellungen zum Einschalten
 Bildirimler açık|Notifications are on|الإشعارات مفعّلة|Benachrichtigungen sind an
-Telefon Ayarlar > Uygulamalar > Nur Vakti > Bildirimler bölümünden değiştirebilirsiniz|You can change this in phone Settings > Apps > Nur Vakti > Notifications|يمكنك التغيير من إعدادات الهاتف > التطبيقات > Nur Vakti > الإشعارات|Ändern unter Telefon-Einstellungen > Apps > Nur Vakti > Benachrichtigungen
+Telefon Ayarlar > Uygulamalar > Secdem > Bildirimler bölümünden değiştirebilirsiniz|You can change this in phone Settings > Apps > Secdem > Notifications|يمكنك التغيير من إعدادات الهاتف > التطبيقات > Secdem > الإشعارات|Ändern unter Telefon-Einstellungen > Apps > Secdem > Benachrichtigungen
 Bildirim izni verilmedi|Notification permission not granted|لم يُمنح إذن الإشعارات|Benachrichtigungsberechtigung nicht erteilt
 Bu bölüm yüklenemedi|This section could not be loaded|تعذّر تحميل هذا القسم|Dieser Bereich konnte nicht geladen werden
 Bu cihazda ek bir seçenek yok.|There are no further options on this device.|لا توجد خيارات إضافية على هذا الجهاز.|Auf diesem Gerät gibt es keine weiteren Optionen.
@@ -226,3 +226,6 @@ Cami|Mosque|مسجد|Moschee
 Mescit|Prayer room|مصلى|Gebetsraum
 Yenile|Refresh|تحديث|Aktualisieren
 Güneş (şerit)|Sunrise|الشروق|Sonne
+Bildirim çubuğunda günlük vakitler|Daily times in the notification bar|أوقات اليوم في شريط الإشعارات|Tägliche Zeiten in der Benachrichtigungsleiste
+Ekranı aşağı kaydırınca sıradaki vakit ve günün vakitleri|The next prayer and today's times when you swipe down|الصلاة القادمة وأوقات اليوم عند السحب للأسفل|Nächstes Gebet und heutige Zeiten beim Herunterwischen
+Günlük vakitler|Daily prayer times|أوقات الصلاة اليومية|Tägliche Gebetszeiten

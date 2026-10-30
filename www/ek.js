@@ -1,5 +1,5 @@
-/* Nur Vakti ek modüller: gezinme, kıble, tesbih, dini günler, ayarlar, bildirim */
-const S=Object.assign({bild:true,vk:[0,2,3,4,5],tsSes:true,tsTit:true,tsHedef:33,tsSay:0,tsTur:0,tsZikir:'Sübhanallah'},ls.get('S',{}));
+/* Secdem ek modüller: gezinme, kıble, tesbih, dini günler, ayarlar, bildirim */
+const S=Object.assign({bild:true,kalici:true,vk:[0,2,3,4,5],tsSes:true,tsTit:true,tsHedef:33,tsSay:0,tsTur:0,tsZikir:'Sübhanallah'},ls.get('S',{}));
 const saveS=()=>ls.set('S',S);
 const hap=(k)=>{try{if(P.Haptics)k==='ok'?P.Haptics.vibrate({duration:250}):P.Haptics.impact({style:'LIGHT'});else navigator.vibrate&&navigator.vibrate(k==='ok'?250:12)}catch(e){}};
 
@@ -34,7 +34,7 @@ function onOri(e){
 }
 async function kStart(){
   kOn=true;
-  try{if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==='function'){const r=await DeviceOrientationEvent.requestPermission();if(r!=='granted')$('#kInfo').textContent='Pusula için hareket sensörü izni gerekli (Ayarlar > Nur Vakti).'}}catch(e){}
+  try{if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==='function'){const r=await DeviceOrientationEvent.requestPermission();if(r!=='granted')$('#kInfo').textContent='Pusula için hareket sensörü izni gerekli (Ayarlar > Secdem).'}}catch(e){}
   try{kKoord=await koord();qb=qibla(+kKoord.lat,+kKoord.lon)}catch(e){$('#kInfo').textContent='Kıble için konum gerekli. Konumu seçip tekrar dene.'}
   if(!kOn)return;
   const Pu=P.Pusula;
@@ -146,6 +146,7 @@ function drawGunler(){
 /* ---- Ayarlar ve bildirimler ---- */
 function setDraw(){
   $('#stBild').checked=S.bild;
+  $('#stKalici').checked=S.kalici;$('#stKaliciSatir').style.display=P.NurYerli&&P.NurYerli.kaliciAyarla?'':'none';
   $('#stVak').innerHTML=VAK.map(([k,n],i)=>`<button data-i="${i}" class="${S.vk.includes(i)?'on':''}">${n}</button>`).join('');
   document.querySelectorAll('#stVak button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;S.vk=S.vk.includes(i)?S.vk.filter(x=>x!==i):[...S.vk,i];saveS();setDraw();planNotifs()});
 }
@@ -170,11 +171,12 @@ $('#stSistem').onclick=async e=>{
   e.preventDefault();
   try{if(P.NurYerli){await P.NurYerli.bildirimAyari();return}}catch(_){}
   try{if(P.LocalNotifications){const r=await P.LocalNotifications.requestPermissions();if(r.display==='granted')toast('Bildirimler açık');sistemDurum();return}}catch(_){}
-  toast('Telefon Ayarlar > Uygulamalar > Nur Vakti > Bildirimler bölümünden değiştirebilirsiniz');
+  toast('Telefon Ayarlar > Uygulamalar > Secdem > Bildirimler bölümünden değiştirebilirsiniz');
 };
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('#setSheet').classList.contains('open'))sistemDurum()});
 $('#setSheet').onclick=e=>{if(e.target.id==='setSheet')e.target.classList.remove('open')};
 $('#stBild').onchange=async e=>{S.bild=e.target.checked;saveS();S.bild?await planNotifs(true):clearNotifs()};
+$('#stKalici').onchange=e=>{S.kalici=e.target.checked;saveS();kaliciGonder()};
 $('#stTest').onclick=()=>{try{const a=new Audio('vakit.mp3');a.play()}catch(e){}};
 async function clearNotifs(){const LN=P.LocalNotifications;if(!LN)return;try{const p=await LN.getPending();const n=p.notifications.filter(x=>x.id<9000);if(n.length)await LN.cancel({notifications:n})}catch(e){}}
 async function planNotifs(ask){
@@ -211,8 +213,12 @@ async function vidjetGuncelle(){
     if(L.length)await Y.vidjetKaydet({veri:JSON.stringify({yer:locLabel(),v:L})});
   }catch(e){}
 }
+/* Bildirim çubuğundaki kalıcı vakit bildirimi (yerli taraf, widget verisini kullanır) */
+async function kaliciGonder(){
+  try{const Y=P.NurYerli;if(Y&&Y.kaliciAyarla)await Y.kaliciAyarla({acik:!!S.kalici,kanal:ceviri('Günlük vakitler')})}catch(e){}
+}
 const _load=load;
-load=async function(){await _load();await planNotifs(false);vidjetGuncelle()};
+load=async function(){await _load();await planNotifs(false);await vidjetGuncelle();kaliciGonder()};
 
 tsDraw();
-setTimeout(()=>planNotifs(false).then(vidjetGuncelle),4000);
+setTimeout(()=>planNotifs(false).then(vidjetGuncelle).then(kaliciGonder),4000);

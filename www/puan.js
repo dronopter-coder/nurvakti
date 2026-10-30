@@ -6,10 +6,10 @@ K.acilis++;ls.set('puanRica',K);
 const GUN=864e5;
 const uygun=()=>!K.puanlandi&&K.acilis>=5&&Date.now()-K.ilk>=3*GUN&&Date.now()-K.son>=30*GUN;
 const METIN={
- tr:['Allah razı olsun! 🌙','Nur Vakti\'ni kullandığınız için çok teşekkür ederiz. Daha fazla kişinin bu hayırdan istifade edebilmesi için Play Store\'da uygulamayı puanlayıp kısa bir yorum yazar mısınız?','⭐ Puan ver','Daha sonra'],
- en:['May Allah reward you! 🌙','Thank you for using Nur Vakti. To help more people benefit from it, would you rate the app and write a short review on the Play Store?','⭐ Rate the app','Later'],
- ar:['جزاك الله خيرًا! 🌙','شكرًا لاستخدامك نور وقتي. لكي يستفيد المزيد من الناس من هذا الخير، هل تقيّم التطبيق وتكتب تعليقًا قصيرًا في متجر Play؟','⭐ قيّم التطبيق','لاحقًا'],
- de:['Möge Allah dich belohnen! 🌙','Danke, dass du Nur Vakti nutzt. Damit mehr Menschen davon profitieren, würdest du die App im Play Store bewerten und einen kurzen Kommentar schreiben?','⭐ App bewerten','Später']};
+ tr:['Allah razı olsun! 🌙','Secdem\'i kullandığınız için çok teşekkür ederiz. Daha fazla kişinin bu hayırdan istifade edebilmesi için Play Store\'da uygulamayı puanlayıp kısa bir yorum yazar mısınız?','⭐ Puan ver','Daha sonra'],
+ en:['May Allah reward you! 🌙','Thank you for using Secdem. To help more people benefit from it, would you rate the app and write a short review on the Play Store?','⭐ Rate the app','Later'],
+ ar:['جزاك الله خيرًا! 🌙','شكرًا لاستخدامك Secdem. لكي يستفيد المزيد من الناس من هذا الخير، هل تقيّم التطبيق وتكتب تعليقًا قصيرًا في متجر Play؟','⭐ قيّم التطبيق','لاحقًا'],
+ de:['Möge Allah dich belohnen! 🌙','Danke, dass du Secdem nutzt. Damit mehr Menschen davon profitieren, würdest du die App im Play Store bewerten und einen kurzen Kommentar schreiben?','⭐ App bewerten','Später']};
 function goster(){
   const m=METIN[window.DIL]||METIN.tr;
   const ov=document.createElement('div');ov.className='kb-ov open';ov.id='puanOv';

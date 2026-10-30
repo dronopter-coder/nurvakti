@@ -1,4 +1,4 @@
-# Nur Vakti – mağaza çevirileri ve 1.4 sürüm notu
+# Secdem – mağaza çevirileri ve 1.6 sürüm notu
 
 Play Console > **Ana mağaza girişi** > **Çevirileri yönet** > **Kendi çevirilerinizi ekleyin**: English (United States) – en-US, Arabic – ar, German – de-DE.
 Her dil için aşağıdaki **Uygulama adı**, **Kısa açıklama** ve **Tam açıklama**'yı yapıştırın. Görseller (simge, tanıtım görseli, ekran görüntüleri) varsayılan Türkçe girişten kullanılır.
@@ -8,11 +8,11 @@ Türkçe tam açıklama: `yayin/uzun-aciklama.txt` (güncellendi).
 
 ## Türkçe (varsayılan giriş) – yeni başlık ve kısa açıklama
 
-İnsanlar Play'de en çok "ezan vakti" ve "namaz vakti" diye arıyor; başlıktaki kelimeler aramada en etkili yer olduğu için bu ifadeler başlığa alındı. Telefonda simgenin altında yine yalnızca **Nur Vakti** yazar.
+İnsanlar Play'de en çok "ezan vakti" ve "namaz vakti" diye arıyor; başlıktaki kelimeler aramada en etkili yer olduğu için bu ifadeler başlığa alındı. Telefonda simgenin altında yine yalnızca **Secdem** yazar.
 
 **Uygulama adı (≤30):**
 ```
-Nur Vakti: Ezan ve Namaz Vakti
+Secdem: Ezan ve Namaz Vakti
 ```
 
 **Kısa açıklama (≤80):**
@@ -24,36 +24,32 @@ Ezan Vakti, Namaz Vakti, Kıble, Kur'an dinle, yakın cami ve zekât hesaplama.
 
 ---
 
-## 1.4 sürüm notu ("Bu sürümdeki yenilikler" kutusuna olduğu gibi yapıştırın)
+## 1.6 sürüm notu ("Bu sürümdeki yenilikler" kutusuna olduğu gibi yapıştırın)
 
 ```
 <tr-TR>
-• Uygulama artık İngilizce, Arapça ve Almanca da kullanılabilir
-• Yurt dışında yaşayanlar için ülke ve şehir seçimi (Diyanet yurt dışı vakitleri)
-• Zekât hesaplama aracı
-• Ana ekran widget'ı daha küçük boyutlarda da kullanılabilir
-• Yeni uygulama simgesi ve çeşitli iyileştirmeler
+• Uygulamamızın yeni adı Secdem! Yeni simgesiyle aynı uygulama; tüm kayıtlarınız yerinde
+• Kıble yönü, il/ilçe seçen kullanıcılar için düzeltildi
+• Yakın camiler daha hızlı ve güvenilir yükleniyor
+• Ana ekran widget'ı her telefonda doğru görünüyor
 </tr-TR>
 <en-US>
-• The app is now available in English, Arabic and German
-• Country and city selection for Muslims living abroad
-• Zakat calculator
-• Home screen widget now works in smaller sizes
-• New app icon and various improvements
+• Our app has a new name: Secdem! Same app with a new icon; all your records are kept
+• Fixed Qibla direction for users who selected their city manually
+• Nearby mosques load faster and more reliably
+• Home screen widget displays correctly on all phones
 </en-US>
 <ar>
-• التطبيق متاح الآن بالإنجليزية والعربية والألمانية
-• اختيار الدولة والمدينة للمقيمين خارج تركيا
-• حاسبة الزكاة
-• أداة الشاشة الرئيسية تعمل الآن بأحجام أصغر
-• أيقونة جديدة وتحسينات متنوعة
+• اسم تطبيقنا الجديد Secdem! نفس التطبيق بأيقونة جديدة، وجميع سجلاتك محفوظة
+• تصحيح اتجاه القبلة للمستخدمين الذين اختاروا مدينتهم يدويًا
+• تحميل المساجد القريبة أسرع وأكثر موثوقية
+• أداة الشاشة الرئيسية تظهر بشكل صحيح على جميع الهواتف
 </ar>
 <de-DE>
-• Die App ist jetzt auch auf Englisch, Arabisch und Deutsch verfügbar
-• Länder- und Städteauswahl für Muslime im Ausland
-• Zakat-Rechner
-• Das Startbildschirm-Widget funktioniert jetzt auch in kleineren Größen
-• Neues App-Symbol und diverse Verbesserungen
+• Unsere App heißt jetzt Secdem! Gleiche App mit neuem Symbol; alle deine Einträge bleiben erhalten
+• Qibla-Richtung für Nutzer mit manuell gewählter Stadt korrigiert
+• Moscheen in der Nähe laden schneller und zuverlässiger
+• Startbildschirm-Widget wird auf allen Handys korrekt angezeigt
 </de-DE>
 ```
 
@@ -63,7 +59,7 @@ Ezan Vakti, Namaz Vakti, Kıble, Kur'an dinle, yakın cami ve zekât hesaplama.
 
 **App name (≤30):**
 ```
-Nur Vakti: Prayer Times & Azan
+Secdem: Prayer Times & Azan
 ```
 
 **Short description (≤80):**
@@ -73,7 +69,7 @@ Prayer times, Qibla, Quran audio, nearby mosques, zakat calculator & reminders.
 
 **Full description:**
 ```
-Nur Vakti brings your prayer times, the Holy Quran, the graves of your loved ones and essential religious knowledge together in one simple app. Available in English, Turkish, Arabic and German.
+Secdem brings your prayer times, the Holy Quran, the graves of your loved ones and essential religious knowledge together in one simple app. Available in English, Turkish, Arabic and German.
 
 🕌 PRAYER TIMES
 • Prayer times published by the Turkish Presidency of Religious Affairs (Diyanet), with a countdown to the next prayer
@@ -122,7 +118,7 @@ Religious information is for general guidance and is summarised according to the
 
 **اسم التطبيق (≤30):**
 ```
-نور وقتي: أوقات الصلاة والأذان
+Secdem: أوقات الصلاة والأذان
 ```
 
 **الوصف المختصر (≤80):**
@@ -132,7 +128,7 @@ Religious information is for general guidance and is summarised according to the
 
 **الوصف الكامل:**
 ```
-يجمع «نور وقتي» مواقيت صلاتك، والقرآن الكريم، وقبور أحبابك، والمعلومات الدينية الأساسية في تطبيق واحد بسيط. متاح بالعربية والتركية والإنجليزية والألمانية.
+يجمع «Secdem» مواقيت صلاتك، والقرآن الكريم، وقبور أحبابك، والمعلومات الدينية الأساسية في تطبيق واحد بسيط. متاح بالعربية والتركية والإنجليزية والألمانية.
 
 🕌 مواقيت الصلاة
 • المواقيت التي تنشرها رئاسة الشؤون الدينية التركية (ديانت)، مع العد التنازلي للصلاة القادمة
@@ -181,7 +177,7 @@ Religious information is for general guidance and is summarised according to the
 
 **App-Name (≤30):**
 ```
-Nur Vakti: Gebetszeiten, Koran
+Secdem: Gebetszeiten & Koran
 ```
 
 **Kurzbeschreibung (≤80):**
@@ -191,7 +187,7 @@ Gebetszeiten, Qibla, Koran-Audio, Moscheen in der Nähe, Zakat-Rechner & mehr.
 
 **Vollständige Beschreibung:**
 ```
-Nur Vakti vereint deine Gebetszeiten, den edlen Koran, die Gräber deiner Lieben und wichtiges religiöses Wissen in einer einfachen App. Verfügbar auf Deutsch, Türkisch, Englisch und Arabisch.
+Secdem vereint deine Gebetszeiten, den edlen Koran, die Gräber deiner Lieben und wichtiges religiöses Wissen in einer einfachen App. Verfügbar auf Deutsch, Türkisch, Englisch und Arabisch.
 
 🕌 GEBETSZEITEN
 • Gebetszeiten des türkischen Präsidiums für Religionsangelegenheiten (Diyanet) mit Countdown zum nächsten Gebet

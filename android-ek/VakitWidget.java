@@ -26,7 +26,7 @@ public class VakitWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context c, AppWidgetManager m, int[] ids) {
         for (int id : ids) ciz(c, m, id);
-        alarmKur(c);
+        alarmKur(c, true);
     }
 
     @Override
@@ -37,7 +37,10 @@ public class VakitWidget extends AppWidgetProvider {
     @Override
     public void onDisabled(Context c) {
         AlarmManager am = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
-        if (am != null) { am.cancel(pi(c, 7)); am.cancel(pi(c, 8)); }
+        if (am != null) {
+            am.cancel(pi(c, 8));
+            if (!VakitBildirim.acik(c)) am.cancel(pi(c, 7)); // kalıcı bildirim açıksa vakit alarmı sürer
+        }
     }
 
     @Override
@@ -54,7 +57,8 @@ public class VakitWidget extends AppWidgetProvider {
         AppWidgetManager m = AppWidgetManager.getInstance(c);
         int[] ids = m.getAppWidgetIds(new ComponentName(c, VakitWidget.class));
         for (int id : ids) ciz(c, m, id);
-        if (ids.length > 0) alarmKur(c);
+        VakitBildirim.guncelle(c);
+        if (ids.length > 0 || VakitBildirim.acik(c)) alarmKur(c, ids.length > 0);
     }
 
     /** Sıradaki vakit: [ad, zaman(ms), sonrakininAdı, sonrakininZamanı, yer, öncekininZamanı] */
@@ -162,14 +166,14 @@ public class VakitWidget extends AppWidgetProvider {
         return PendingIntent.getBroadcast(c, kod, i, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
-    /** Vakit girdiği anda widget'ı bir sonraki vakte geçirmek için alarm kurar. */
-    private static void alarmKur(Context c) {
+    /** Vakit girdiği anda widget'ı ve kalıcı bildirimi bir sonraki vakte geçirmek için alarm kurar; widget varsa halka için dakikalık alarm da. */
+    private static void alarmKur(Context c, boolean dakika) {
         Object[] s = siradaki(c);
         AlarmManager am = (AlarmManager) c.getSystemService(Context.ALARM_SERVICE);
         if (am == null) return;
         PendingIntent dk = pi(c, 8);
         am.cancel(dk);
-        am.setRepeating(AlarmManager.RTC, System.currentTimeMillis() + 60000L, 60000L, dk); // halka dönsün, ibre dolsun
+        if (dakika) am.setRepeating(AlarmManager.RTC, System.currentTimeMillis() + 60000L, 60000L, dk); // halka dönsün, ibre dolsun
         PendingIntent pi = pi(c, 7);
         am.cancel(pi);
         if (s == null) return;

@@ -1,6 +1,6 @@
 {
   "appId": "com.nurvakti.namazvekuran",
-  "appName": "Nur Vakti",
+  "appName": "Secdem",
   "webDir": "www",
   "backgroundColor": "#12162A",
   "android": {
@@ -13,6 +13,10 @@
   "plugins": {
     "StatusBar": {
       "style": "DARK"
+    },
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_secdem",
+      "iconColor": "#E8862A"
     }
   }
 }
