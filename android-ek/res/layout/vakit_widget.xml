@@ -23,7 +23,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:fontFamily="serif"
-        android:text="☾ Nur Vakti"
+        android:text="☾ Secdem"
         android:textColor="#C9A45C"
         android:textSize="11sp" />
 

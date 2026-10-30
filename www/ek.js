@@ -1,4 +1,4 @@
-/* Nur Vakti ek modüller: gezinme, kıble, tesbih, dini günler, ayarlar, bildirim */
+/* Secdem ek modüller: gezinme, kıble, tesbih, dini günler, ayarlar, bildirim */
 const S=Object.assign({bild:true,vk:[0,2,3,4,5],tsSes:true,tsTit:true,tsHedef:33,tsSay:0,tsTur:0,tsZikir:'Sübhanallah'},ls.get('S',{}));
 const saveS=()=>ls.set('S',S);
 const hap=(k)=>{try{if(P.Haptics)k==='ok'?P.Haptics.vibrate({duration:250}):P.Haptics.impact({style:'LIGHT'});else navigator.vibrate&&navigator.vibrate(k==='ok'?250:12)}catch(e){}};
@@ -34,7 +34,7 @@ function onOri(e){
 }
 async function kStart(){
   kOn=true;
-  try{if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==='function'){const r=await DeviceOrientationEvent.requestPermission();if(r!=='granted')$('#kInfo').textContent='Pusula için hareket sensörü izni gerekli (Ayarlar > Nur Vakti).'}}catch(e){}
+  try{if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==='function'){const r=await DeviceOrientationEvent.requestPermission();if(r!=='granted')$('#kInfo').textContent='Pusula için hareket sensörü izni gerekli (Ayarlar > Secdem).'}}catch(e){}
   try{kKoord=await koord();qb=qibla(+kKoord.lat,+kKoord.lon)}catch(e){$('#kInfo').textContent='Kıble için konum gerekli. Konumu seçip tekrar dene.'}
   if(!kOn)return;
   const Pu=P.Pusula;
@@ -170,7 +170,7 @@ $('#stSistem').onclick=async e=>{
   e.preventDefault();
   try{if(P.NurYerli){await P.NurYerli.bildirimAyari();return}}catch(_){}
   try{if(P.LocalNotifications){const r=await P.LocalNotifications.requestPermissions();if(r.display==='granted')toast('Bildirimler açık');sistemDurum();return}}catch(_){}
-  toast('Telefon Ayarlar > Uygulamalar > Nur Vakti > Bildirimler bölümünden değiştirebilirsiniz');
+  toast('Telefon Ayarlar > Uygulamalar > Secdem > Bildirimler bölümünden değiştirebilirsiniz');
 };
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('#setSheet').classList.contains('open'))sistemDurum()});
 $('#setSheet').onclick=e=>{if(e.target.id==='setSheet')e.target.classList.remove('open')};

@@ -1,4 +1,4 @@
-/* Nur Vakti – Kabir modülü: mezar fotoğrafı, taştan bilgi okuma (OCR), kayıtlar, Cuma Fâtiha/Yâsîn okuması */
+/* Secdem – Kabir modülü: mezar fotoğrafı, taştan bilgi okuma (OCR), kayıtlar, Cuma Fâtiha/Yâsîn okuması */
 (function(){
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $$=s=>document.querySelectorAll(s);
