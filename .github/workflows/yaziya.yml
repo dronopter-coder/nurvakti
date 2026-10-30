@@ -2,7 +2,7 @@
 name: Seslendirme yazıya dökümü
 on:
   push:
-    paths: ['yayin/video/secdem/seslendirme.mp3', '.github/teshis/yaziya.py', '.github/workflows/yaziya.yml']
+    paths: ['.github/teshis/ses16k.wav', '.github/teshis/yaziya.py', '.github/workflows/yaziya.yml']
     branches-ignore: [main]
 jobs:
   yazi:
@@ -10,4 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: pip install -q faster-whisper
-      - run: python .github/teshis/yaziya.py yayin/video/secdem/seslendirme.mp3
+      - run: python .github/teshis/yaziya.py .github/teshis/ses16k.wav

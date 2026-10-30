@@ -1,9 +1,9 @@
 # Seslendirmeyi kelime zamanlarıyla yazıya döker (video altyazısı ve sahne geçişleri için; yalnızca teşhis)
-import json, sys, subprocess
+import json, sys, wave
 import numpy as np
 from faster_whisper import WhisperModel
 m = WhisperModel("small", device="cpu", compute_type="int8")
-ham = subprocess.run(["ffmpeg", "-v", "error", "-i", sys.argv[1], "-f", "s16le", "-ac", "1", "-ar", "16000", "-"], capture_output=True, check=True).stdout
+ham = wave.open(sys.argv[1]).readframes(10**9)  # 16 kHz tek kanal 16 bit WAV
 ses = np.frombuffer(ham, np.int16).astype(np.float32) / 32768.0
 seg, info = m.transcribe(ses, language="tr", word_timestamps=True, vad_filter=False, beam_size=5)
 out = []
