@@ -27,3 +27,35 @@ function goster(){
 setTimeout(()=>{if(uygun()&&!document.querySelector('.sf,.kb-ov.open'))goster()},25000);
 window.PuanRica={goster};
 })();
+
+/* Play'de yeni sürüm varsa açılışta "Güncelle" penceresi; düğme Play'in uygulama içi güncellemesini başlatır */
+(function(){
+const Y=()=>P.NurYerli;
+const METIN=tl({tr:['Güncelleme var','Uygulamada güncelleme var, lütfen güncelleyiniz.','⬇ Güncelle','Sonra'],
+  en:['Update available','A new version of the app is available. Please update.','⬇ Update','Later'],
+  ar:['يتوفر تحديث','يتوفر تحديث للتطبيق، يرجى التحديث.','⬇ تحديث','لاحقًا'],
+  de:['Update verfügbar','Eine neue Version der App ist verfügbar. Bitte aktualisieren.','⬇ Aktualisieren','Später']});
+let gosterildi=false;
+async function guncelle(){
+  try{await Y().guncelle();return}catch(e){}
+  try{if(Y().magazayiAc){await Y().magazayiAc();return}}catch(e){} // uygulama içi güncelleme olmazsa Play sayfası
+}
+function goster(){
+  if(document.getElementById('gnOv'))return;
+  const ov=document.createElement('div');ov.className='kb-ov open';ov.id='gnOv';ov.style.zIndex=20;
+  ov.innerHTML=`<div class="kb-box" style="text-align:center"><div style="font-size:40px;line-height:1">🔄</div><h3>${METIN[0]}</h3><p style="line-height:1.6;font-size:15px">${METIN[1]}</p>
+    <div class="kb-btns" style="flex-direction:column"><button class="btn gold" id="gnGuncelle">${METIN[2]}</button><button class="btn" id="gnSonra">${METIN[3]}</button></div></div>`;
+  document.body.appendChild(ov);
+  ov.querySelector('#gnGuncelle').onclick=()=>{ov.remove();guncelle()};
+  ov.querySelector('#gnSonra').onclick=()=>ov.remove();
+}
+async function denetle(){
+  if(!Y()||!Y().guncellemeDurumu)return;
+  try{const d=await Y().guncellemeDurumu();
+    if(d.suruyor){guncelle();return} // yarıda kalan güncelleme sürdürülür
+    if(d.var&&!gosterildi){gosterildi=true;goster()}
+  }catch(e){}
+}
+setTimeout(denetle,3000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)denetle()});
+})();
