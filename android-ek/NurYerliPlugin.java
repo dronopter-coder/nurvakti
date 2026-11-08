@@ -14,8 +14,14 @@ import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.appupdate.AppUpdateOptions;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
 
-/** Uygulamaya özel yerli işler: bildirim ayarları ekranı ve ana ekran widget'ının verisi. */
+/** Uygulamaya özel yerli işler: bildirim ayarları ekranı, ana ekran widget'ının verisi ve Play'den uygulama içi güncelleme. */
 @CapacitorPlugin(name = "NurYerli")
 public class NurYerliPlugin extends Plugin {
     private TextToSpeech tts;
@@ -139,5 +145,47 @@ public class NurYerliPlugin extends Plugin {
             VakitWidget.hepsiniGuncelle(getContext());
         }
         call.resolve();
+    }
+
+    /* ---------- Google Play uygulama içi güncelleme ---------- */
+    private AppUpdateManager guncelleyici() {
+        return AppUpdateManagerFactory.create(getContext());
+    }
+
+    private static boolean hazir(AppUpdateInfo i) {
+        int a = i.updateAvailability();
+        return (a == UpdateAvailability.UPDATE_AVAILABLE && i.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE))
+                || a == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS;
+    }
+
+    /** Play'de yeni sürüm var mı? {var, suruyor (yarıda kalmış güncelleme), surum} */
+    @PluginMethod
+    public void guncellemeDurumu(PluginCall call) {
+        guncelleyici().getAppUpdateInfo().addOnSuccessListener(i -> {
+            JSObject r = new JSObject();
+            r.put("var", hazir(i));
+            r.put("suruyor", i.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS);
+            r.put("surum", i.availableVersionCode());
+            call.resolve(r);
+        }).addOnFailureListener(e -> {
+            JSObject r = new JSObject();
+            r.put("var", false);
+            call.resolve(r);
+        });
+    }
+
+    /** Play'in tam ekran güncellemesini başlatır: indirir, kurar ve uygulamayı yeniden açar. */
+    @PluginMethod
+    public void guncelle(PluginCall call) {
+        AppUpdateManager m = guncelleyici();
+        m.getAppUpdateInfo().addOnSuccessListener(i -> {
+            if (!hazir(i)) { call.reject("Güncelleme yok"); return; }
+            try {
+                m.startUpdateFlowForResult(i, getActivity(), AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build(), 7701);
+                call.resolve();
+            } catch (Exception e) {
+                call.reject(String.valueOf(e.getMessage()));
+            }
+        }).addOnFailureListener(e -> call.reject(String.valueOf(e.getMessage())));
     }
 }
