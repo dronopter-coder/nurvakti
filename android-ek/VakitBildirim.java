@@ -46,6 +46,20 @@ public class VakitBildirim {
         return k.get(Calendar.YEAR) * 1000 + k.get(Calendar.DAY_OF_YEAR);
     }
 
+    /** Vakit bildirimleri (kimlik 100–199) üst üste birikmesin: yalnızca en son gelen kalır, öncekiler kaldırılır. */
+    static void eskileriTemizle(Context c) {
+        if (Build.VERSION.SDK_INT < 23) return;
+        try {
+            NotificationManager m = c.getSystemService(NotificationManager.class);
+            android.service.notification.StatusBarNotification[] a = m.getActiveNotifications();
+            android.service.notification.StatusBarNotification son = null;
+            for (android.service.notification.StatusBarNotification n : a)
+                if (n.getId() >= 100 && n.getId() < 200 && (son == null || n.getPostTime() > son.getPostTime())) son = n;
+            for (android.service.notification.StatusBarNotification n : a)
+                if (n.getId() >= 100 && n.getId() < 200 && n != son) m.cancel(n.getTag(), n.getId());
+        } catch (Exception ignored) {}
+    }
+
     static void guncelle(Context c) {
         NotificationManagerCompat nm = NotificationManagerCompat.from(c);
         String s = tercih(c).getString("veri", null);
