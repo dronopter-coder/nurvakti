@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Vakte yaklaştıkça dolan altın çubuk -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape><solid android:color="#2C386C" /><corners android:radius="3dp" /></shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip><shape><gradient android:angle="0" android:startColor="#C9A45C" android:endColor="#F3D999" /><corners android:radius="3dp" /></shape></clip>
+    </item>
+</layer-list>

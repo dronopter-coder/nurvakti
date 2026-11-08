@@ -57,8 +57,11 @@ public class VakitWidget extends AppWidgetProvider {
         AppWidgetManager m = AppWidgetManager.getInstance(c);
         int[] ids = m.getAppWidgetIds(new ComponentName(c, VakitWidget.class));
         for (int id : ids) ciz(c, m, id);
+        VakitBildirim.eskileriTemizle(c);
         VakitBildirim.guncelle(c);
-        if (ids.length > 0 || VakitBildirim.acik(c)) alarmKur(c, ids.length > 0);
+        // vakit alarmı her zaman kurulur (vakit girince eski vakit bildirimi kaldırılır);
+        // dakikalık alarm yalnızca widget ya da kalıcı bildirim varsa
+        alarmKur(c, ids.length > 0 || VakitBildirim.acik(c));
     }
 
     /** Sıradaki vakit: [ad, zaman(ms), sonrakininAdı, sonrakininZamanı, yer, öncekininZamanı] */
