@@ -106,6 +106,7 @@ public class VakitBildirim {
                 r.setTextViewText(R.id.nb_vakit, vakit);
                 r.setTextViewText(R.id.nb_yer, yer);
             }
+            kucuk.setViewVisibility(R.id.nb_yer, android.view.View.GONE); // kapalı halde dar alan: konum yalnız açık halde
             buyuk.setProgressBar(R.id.nb_ilerleme, 1000, Math.round(oran * 1000), false);
             for (int i = 0; i < HUCRE.length; i++) {
                 if (i >= gunluk.size()) { buyuk.setViewVisibility(HUCRE[i], android.view.View.GONE); continue; }

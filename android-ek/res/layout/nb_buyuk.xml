@@ -5,7 +5,10 @@
     android:layout_height="wrap_content"
     android:background="@drawable/nb_bg"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:paddingStart="8dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="8dp"
+    android:paddingBottom="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,15 +18,15 @@
 
         <ImageView
             android:id="@+id/nb_halka"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:importantForAccessibility="no"
             android:scaleType="fitCenter" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -44,7 +47,8 @@
                 android:fontFamily="serif"
                 android:includeFontPadding="false"
                 android:textColor="#F4EEDD"
-                android:textSize="24sp" />
+                android:maxLines="1"
+                android:textSize="22sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,8 +62,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="serif"
+                android:maxLines="1"
                 android:textColor="#F4EEDD"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/nb_yer"
@@ -67,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:maxWidth="130dp"
+                android:maxWidth="120dp"
                 android:textColor="#9AA1BD"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -85,7 +90,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="7dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -97,8 +102,10 @@
             android:background="@drawable/nb_hucre"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="6dp">
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/nb_a0"
@@ -107,15 +114,17 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="#9AA1BD"
-                android:textSize="10sp" />
+                android:textSize="9.5sp" />
 
             <TextView
                 android:id="@+id/nb_s0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="serif"
+                android:includeFontPadding="false"
+                android:maxLines="1"
                 android:textColor="#F4EEDD"
-                android:textSize="14sp"
+                android:textSize="12.5sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -124,12 +133,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="3dp"
             android:background="@drawable/nb_hucre"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="6dp">
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/nb_a1"
@@ -138,15 +149,17 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="#9AA1BD"
-                android:textSize="10sp" />
+                android:textSize="9.5sp" />
 
             <TextView
                 android:id="@+id/nb_s1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="serif"
+                android:includeFontPadding="false"
+                android:maxLines="1"
                 android:textColor="#F4EEDD"
-                android:textSize="14sp"
+                android:textSize="12.5sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -155,12 +168,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="3dp"
             android:background="@drawable/nb_hucre"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="6dp">
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/nb_a2"
@@ -169,15 +184,17 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="#9AA1BD"
-                android:textSize="10sp" />
+                android:textSize="9.5sp" />
 
             <TextView
                 android:id="@+id/nb_s2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="serif"
+                android:includeFontPadding="false"
+                android:maxLines="1"
                 android:textColor="#F4EEDD"
-                android:textSize="14sp"
+                android:textSize="12.5sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -186,12 +203,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="3dp"
             android:background="@drawable/nb_hucre"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="6dp">
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/nb_a3"
@@ -200,15 +219,17 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="#9AA1BD"
-                android:textSize="10sp" />
+                android:textSize="9.5sp" />
 
             <TextView
                 android:id="@+id/nb_s3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="serif"
+                android:includeFontPadding="false"
+                android:maxLines="1"
                 android:textColor="#F4EEDD"
-                android:textSize="14sp"
+                android:textSize="12.5sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -217,12 +238,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="3dp"
             android:background="@drawable/nb_hucre"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="6dp">
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/nb_a4"
@@ -231,15 +254,17 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="#9AA1BD"
-                android:textSize="10sp" />
+                android:textSize="9.5sp" />
 
             <TextView
                 android:id="@+id/nb_s4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="serif"
+                android:includeFontPadding="false"
+                android:maxLines="1"
                 android:textColor="#F4EEDD"
-                android:textSize="14sp"
+                android:textSize="12.5sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -248,12 +273,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="3dp"
             android:background="@drawable/nb_hucre"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="6dp">
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/nb_a5"
@@ -262,15 +289,17 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="#9AA1BD"
-                android:textSize="10sp" />
+                android:textSize="9.5sp" />
 
             <TextView
                 android:id="@+id/nb_s5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="serif"
+                android:includeFontPadding="false"
+                android:maxLines="1"
                 android:textColor="#F4EEDD"
-                android:textSize="14sp"
+                android:textSize="12.5sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
