@@ -58,7 +58,8 @@ public class VakitWidget extends AppWidgetProvider {
         int[] ids = m.getAppWidgetIds(new ComponentName(c, VakitWidget.class));
         for (int id : ids) ciz(c, m, id);
         VakitBildirim.guncelle(c);
-        if (ids.length > 0 || VakitBildirim.acik(c)) alarmKur(c, ids.length > 0);
+        boolean kalici = VakitBildirim.acik(c);
+        if (ids.length > 0 || kalici) alarmKur(c, true); // dakikalık: widget halkası ve bildirimdeki ilerleme
     }
 
     /** Sıradaki vakit: [ad, zaman(ms), sonrakininAdı, sonrakininZamanı, yer, öncekininZamanı] */

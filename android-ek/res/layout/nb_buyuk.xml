@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Kalıcı vakit bildirimi (açık): üst satır, vakte kalan süre çubuğu ve günün altı vakti -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/nb_bg"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/nb_halka"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nb_baslik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="serif"
+                android:maxLines="1"
+                android:textColor="#E6C77E"
+                android:textSize="13sp" />
+
+            <Chronometer
+                android:id="@+id/nb_sayac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:includeFontPadding="false"
+                android:textColor="#F4EEDD"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nb_vakit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:textColor="#F4EEDD"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/nb_yer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:maxWidth="130dp"
+                android:textColor="#9AA1BD"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/nb_ilerleme"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="8dp"
+        android:max="1000"
+        android:progressDrawable="@drawable/nb_ilerleme" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/nb_h0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            
+            android:background="@drawable/nb_hucre"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="6dp">
+
+            <TextView
+                android:id="@+id/nb_a0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#9AA1BD"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/nb_s0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:textColor="#F4EEDD"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nb_h1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/nb_hucre"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="6dp">
+
+            <TextView
+                android:id="@+id/nb_a1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#9AA1BD"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/nb_s1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:textColor="#F4EEDD"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nb_h2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/nb_hucre"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="6dp">
+
+            <TextView
+                android:id="@+id/nb_a2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#9AA1BD"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/nb_s2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:textColor="#F4EEDD"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nb_h3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/nb_hucre"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="6dp">
+
+            <TextView
+                android:id="@+id/nb_a3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#9AA1BD"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/nb_s3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:textColor="#F4EEDD"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nb_h4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/nb_hucre"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="6dp">
+
+            <TextView
+                android:id="@+id/nb_a4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#9AA1BD"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/nb_s4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:textColor="#F4EEDD"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nb_h5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/nb_hucre"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="6dp">
+
+            <TextView
+                android:id="@+id/nb_a5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#9AA1BD"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/nb_s5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:textColor="#F4EEDD"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
