@@ -75,9 +75,20 @@ jobs:
           open(p,'w').write(s)
           PY
           grep -n "versionCode\|storeFile" android/app/build.gradle
+      - name: Gradle dağıtımı önbelleği
+        uses: actions/cache@v4
+        with:
+          path: ~/.gradle/wrapper/dists
+          key: gradle-dagitim-${{ hashFiles('android/gradle/wrapper/gradle-wrapper.properties') }}
+      - name: Gradle'ı indir (sunucu geçici hata verirse birkaç kez dener)
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          for i in 1 2 3 4 5 6; do ./gradlew --version && exit 0; echo "Gradle indirilemedi, ${i}. deneme; 30 sn sonra yeniden"; sleep 30; done
+          exit 1
       - name: Debug APK ve release AAB derle
         working-directory: android
-        run: chmod +x gradlew && ./gradlew assembleDebug bundleRelease
+        run: ./gradlew assembleDebug bundleRelease
       - name: APK imzasını doğrula (sabit anahtarla imzalanmış olmalı)
         run: |
           APKSIGNER=$(ls $ANDROID_HOME/build-tools/*/apksigner | sort -V | tail -1)
