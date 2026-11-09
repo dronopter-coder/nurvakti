@@ -148,7 +148,7 @@ function setDraw(){
   $('#stBild').checked=S.bild;
   $('#stKalici').checked=S.kalici;$('#stKaliciSatir').style.display=P.NurYerli&&P.NurYerli.kaliciAyarla?'':'none';
   $('#stVak').innerHTML=VAK.map(([k,n],i)=>`<button data-i="${i}" class="${S.vk.includes(i)?'on':''}">${n}</button>`).join('');
-  document.querySelectorAll('#stVak button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;S.vk=S.vk.includes(i)?S.vk.filter(x=>x!==i):[...S.vk,i];saveS();setDraw();planNotifs()});
+  document.querySelectorAll('#stVak button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;S.vk=S.vk.includes(i)?S.vk.filter(x=>x!==i):[...S.vk,i];saveS();setDraw();planNotifs();kaliciGonder()});
 }
 $('#gear').onclick=()=>{setDraw();sistemDurum();$('#setSheet').classList.add('open')};
 /* Konum ayarlardan da değiştirilebilir */
@@ -175,8 +175,8 @@ $('#stSistem').onclick=async e=>{
 };
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('#setSheet').classList.contains('open'))sistemDurum()});
 $('#setSheet').onclick=e=>{if(e.target.id==='setSheet')e.target.classList.remove('open')};
-$('#stBild').onchange=async e=>{S.bild=e.target.checked;saveS();S.bild?await planNotifs(true):clearNotifs()};
-$('#stKalici').onchange=e=>{S.kalici=e.target.checked;saveS();kaliciGonder()};
+$('#stBild').onchange=async e=>{S.bild=e.target.checked;saveS();S.bild?await planNotifs(true):clearNotifs();kaliciGonder()};
+$('#stKalici').onchange=async e=>{S.kalici=e.target.checked;saveS();await kaliciGonder();if(S.bild)planNotifs(false)};
 $('#stTest').onclick=()=>{try{const a=new Audio('vakit.mp3');a.play()}catch(e){}};
 async function clearNotifs(){const LN=P.LocalNotifications;if(!LN)return;try{const p=await LN.getPending();const n=p.notifications.filter(x=>x.id<9000);if(n.length)await LN.cancel({notifications:n})}catch(e){}}
 async function planNotifs(ask){
@@ -187,6 +187,7 @@ async function planNotifs(ask){
     try{const ex=await LN.checkExactNotificationSetting();if(ex.exact_alarm!=='granted'&&ask)await LN.changeExactNotificationSetting()}catch(e){}
     if(PLAT==='android'){await LN.createChannel({id:'vakit4',name:'Vakit bildirimleri',description:'Namaz vakitleri',importance:5,sound:'vakit.mp3',vibration:true,visibility:1});LN.deleteChannel&&LN.deleteChannel({id:'vakit3'}).catch(()=>{})} // kanal sesi sonradan değiştirilemediği için yeni kanal
     await clearNotifs();
+    if(kaliciYerli())return; // kalıcı vakit kartı varken ayrı vakit bildirimi kurulmaz; sesi telefon vakit girince kendisi çalar
     const list=[],now=new Date();
     for(let k=0;k<7;k++){
       const d=new Date(now.getTime()+k*864e5),x=await fetchDay(d);
@@ -208,14 +209,15 @@ async function vidjetGuncelle(){
     for(let k=0;k<7;k++){
       const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+k,12);let x;
       try{x=await fetchDay(d)}catch(e){break}
-      VAK.forEach(([key,name])=>L.push({a:ceviri(name),b:ceviri(name==='Güneş'?'Güneşin doğmasına':name+' vaktine'),t:at(d,x.t[key]).getTime()}));
+      VAK.forEach(([key,name],i)=>L.push({i,a:ceviri(name),b:ceviri(name==='Güneş'?'Güneşin doğmasına':name+' vaktine'),t:at(d,x.t[key]).getTime()}));
     }
     if(L.length)await Y.vidjetKaydet({veri:JSON.stringify({yer:locLabel(),v:L})});
   }catch(e){}
 }
 /* Bildirim çubuğundaki kalıcı vakit bildirimi (yerli taraf, widget verisini kullanır) */
+const kaliciYerli=()=>PLAT==='android'&&!!(P.NurYerli&&P.NurYerli.kaliciAyarla)&&!!S.kalici;
 async function kaliciGonder(){
-  try{const Y=P.NurYerli;if(Y&&Y.kaliciAyarla)await Y.kaliciAyarla({acik:!!S.kalici,kanal:ceviri('Günlük vakitler')})}catch(e){}
+  try{const Y=P.NurYerli;if(Y&&Y.kaliciAyarla)await Y.kaliciAyarla({acik:!!S.kalici,kanal:ceviri('Günlük vakitler'),ses:!!S.bild,vk:S.vk})}catch(e){}
 }
 const _load=load;
 load=async function(){await _load();await planNotifs(false);await vidjetGuncelle();kaliciGonder()};

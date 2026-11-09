@@ -47,6 +47,7 @@ public class VakitWidget extends AppWidgetProvider {
     public void onReceive(Context c, Intent i) {
         super.onReceive(c, i);
         String a = i.getAction();
+        if (TAZELE.equals(a) && i.getBooleanExtra("vakit", false)) VakitBildirim.vakitSesi(c, goAsync());
         if (TAZELE.equals(a) || Intent.ACTION_TIME_CHANGED.equals(a) || Intent.ACTION_TIMEZONE_CHANGED.equals(a)
                 || Intent.ACTION_BOOT_COMPLETED.equals(a) || Intent.ACTION_MY_PACKAGE_REPLACED.equals(a)) {
             hepsiniGuncelle(c);
@@ -166,6 +167,7 @@ public class VakitWidget extends AppWidgetProvider {
 
     private static PendingIntent pi(Context c, int kod) {
         Intent i = new Intent(c, VakitWidget.class).setAction(TAZELE);
+        if (kod == 7) i.putExtra("vakit", true); // vakit girdiği an (ses için)
         return PendingIntent.getBroadcast(c, kod, i, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
     }
 

@@ -56,7 +56,7 @@ jobs:
           sed -i 's#</manifest>#<queries><intent><action android:name="android.intent.action.TTS_SERVICE"/></intent></queries></manifest>#' $M
           grep -q '<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"' $M || sed -i 's#</manifest>#<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/></manifest>#' $M
           grep -c VakitWidget $M
-          sed -i -E 's/versionName "[^"]*"/versionName "1.9"/' android/app/build.gradle
+          sed -i -E 's/versionName "[^"]*"/versionName "2.0"/' android/app/build.gradle
           grep -n "versionName" android/app/build.gradle
           grep -q "app-update" android/app/build.gradle || sed -i '0,/^dependencies {/s//dependencies {\n    implementation "com.google.android.play:app-update:2.1.0" \/\/ uygulama içi güncelleme/' android/app/build.gradle
           grep -n "app-update" android/app/build.gradle
@@ -75,9 +75,20 @@ jobs:
           open(p,'w').write(s)
           PY
           grep -n "versionCode\|storeFile" android/app/build.gradle
+      - name: Gradle dağıtımı önbelleği
+        uses: actions/cache@v4
+        with:
+          path: ~/.gradle/wrapper/dists
+          key: gradle-dagitim-${{ hashFiles('android/gradle/wrapper/gradle-wrapper.properties') }}
+      - name: Gradle'ı indir (sunucu geçici hata verirse birkaç kez dener)
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          for i in 1 2 3 4 5 6; do ./gradlew --version && exit 0; echo "Gradle indirilemedi, ${i}. deneme; 30 sn sonra yeniden"; sleep 30; done
+          exit 1
       - name: Debug APK ve release AAB derle
         working-directory: android
-        run: chmod +x gradlew && ./gradlew assembleDebug bundleRelease
+        run: ./gradlew assembleDebug bundleRelease
       - name: APK imzasını doğrula (sabit anahtarla imzalanmış olmalı)
         run: |
           APKSIGNER=$(ls $ANDROID_HOME/build-tools/*/apksigner | sort -V | tail -1)

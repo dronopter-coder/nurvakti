@@ -60,6 +60,59 @@ public class VakitBildirim {
         } catch (Exception ignored) {}
     }
 
+    /**
+     * Kalıcı kart açıkken ayrı vakit bildirimi kurulmaz; vakit girdiğinde sesi burada çalınır.
+     * Sessiz modda çalmaz, titreşimde yalnızca titrer; yalnızca ayarlarda seçili vakitler için.
+     */
+    static void vakitSesi(Context c, android.content.BroadcastReceiver.PendingResult pr) {
+        boolean bekle = false;
+        try {
+            SharedPreferences t = tercih(c);
+            String s = t.getString("veri", null);
+            if (!acik(c) || !t.getBoolean("ses", true) || s == null) return;
+            JSONArray vk = new JSONArray(t.getString("vk", "[0,2,3,4,5]"));
+            JSONArray v = new JSONObject(s).getJSONArray("v");
+            long simdi = System.currentTimeMillis();
+            int giren = -1;
+            for (int j = 0; j < v.length(); j++) {
+                JSONObject y = v.getJSONObject(j);
+                long ty = y.getLong("t");
+                if (ty <= simdi && simdi - ty < 180000L) giren = y.optInt("i", j % 6);
+            }
+            boolean secili = false;
+            for (int j = 0; j < vk.length(); j++) if (vk.getInt(j) == giren) secili = true;
+            if (giren < 0 || !secili) return;
+            android.media.AudioManager am = (android.media.AudioManager) c.getSystemService(Context.AUDIO_SERVICE);
+            int mod = am == null ? android.media.AudioManager.RINGER_MODE_NORMAL : am.getRingerMode();
+            if (mod == android.media.AudioManager.RINGER_MODE_SILENT) return;
+            titret(c);
+            if (mod != android.media.AudioManager.RINGER_MODE_NORMAL) return;
+            android.media.MediaPlayer mp = new android.media.MediaPlayer();
+            mp.setAudioAttributes(new android.media.AudioAttributes.Builder()
+                    .setUsage(android.media.AudioAttributes.USAGE_NOTIFICATION_EVENT)
+                    .setContentType(android.media.AudioAttributes.CONTENT_TYPE_SONIFICATION).build());
+            mp.setDataSource(c, android.net.Uri.parse("android.resource://" + c.getPackageName() + "/" + R.raw.vakit));
+            mp.setOnCompletionListener(p -> { p.release(); pr.finish(); });
+            mp.setOnErrorListener((p, w, e) -> { p.release(); pr.finish(); return true; });
+            mp.prepare();
+            mp.start();
+            bekle = true;
+        } catch (Exception ignored) {
+        } finally {
+            if (!bekle) pr.finish();
+        }
+    }
+
+    private static void titret(Context c) {
+        try {
+            android.os.Vibrator vb = (android.os.Vibrator) c.getSystemService(Context.VIBRATOR_SERVICE);
+            if (vb == null) return;
+            long[] desen = {0, 250, 150, 250};
+            if (Build.VERSION.SDK_INT >= 26) vb.vibrate(android.os.VibrationEffect.createWaveform(desen, -1));
+            else vb.vibrate(desen, -1);
+        } catch (Exception ignored) {}
+    }
+
     static void guncelle(Context c) {
         NotificationManagerCompat nm = NotificationManagerCompat.from(c);
         String s = tercih(c).getString("veri", null);
