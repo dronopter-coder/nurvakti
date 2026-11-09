@@ -126,12 +126,15 @@ public class NurYerliPlugin extends Plugin {
         call.resolve(r);
     }
 
-    /** Bildirim çubuğundaki kalıcı vakit bildirimini açar/kapatır. kanal: bildirim kanalının telefonun dilindeki adı */
+    /** Bildirim çubuğundaki kalıcı vakit bildirimini açar/kapatır. kanal: bildirim kanalının telefonun dilindeki adı;
+     *  ses/vk: kalıcı kart açıkken vakit girince çalınacak ses ve hangi vakitlerde (VAK sırası) */
     @PluginMethod
     public void kaliciAyarla(PluginCall call) {
         getContext().getSharedPreferences(VakitWidget.TERCIH, Context.MODE_PRIVATE).edit()
                 .putBoolean("kalici", call.getBoolean("acik", true))
-                .putString("kanal", call.getString("kanal", "Günlük vakitler")).apply();
+                .putString("kanal", call.getString("kanal", "Günlük vakitler"))
+                .putBoolean("ses", call.getBoolean("ses", true))
+                .putString("vk", call.getArray("vk") != null ? call.getArray("vk").toString() : "[0,2,3,4,5]").apply();
         VakitWidget.hepsiniGuncelle(getContext());
         call.resolve();
     }
