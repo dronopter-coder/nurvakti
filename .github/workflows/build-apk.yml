@@ -56,7 +56,7 @@ jobs:
           sed -i 's#</manifest>#<queries><intent><action android:name="android.intent.action.TTS_SERVICE"/></intent></queries></manifest>#' $M
           grep -q '<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"' $M || sed -i 's#</manifest>#<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/></manifest>#' $M
           grep -c VakitWidget $M
-          sed -i -E 's/versionName "[^"]*"/versionName "2.0"/' android/app/build.gradle
+          sed -i -E 's/versionName "[^"]*"/versionName "2.1"/' android/app/build.gradle
           grep -n "versionName" android/app/build.gradle
           grep -q "app-update" android/app/build.gradle || sed -i '0,/^dependencies {/s//dependencies {\n    implementation "com.google.android.play:app-update:2.1.0" \/\/ uygulama içi güncelleme/' android/app/build.gradle
           grep -n "app-update" android/app/build.gradle
@@ -72,9 +72,13 @@ jobs:
           blok = "android {\n    signingConfigs {\n        debug {\n            storeFile file('debug.keystore')\n            storePassword 'android'\n            keyAlias 'androiddebugkey'\n            keyPassword 'android'\n        }\n    }\n"
           assert re.search(r'^android \{\s*$', s, re.M), 'android blogu bulunamadi'
           s=re.sub(r'^android \{\s*\n', blok, s, count=1, flags=re.M)
+          # yayın sürümünde R8 kod küçültme ve karartma (Play: DEX kodu optimizasyonu)
+          assert 'minifyEnabled false' in s, 'minifyEnabled bulunamadi'
+          s=s.replace('minifyEnabled false','minifyEnabled true',1).replace("getDefaultProguardFile('proguard-android.txt')","getDefaultProguardFile('proguard-android-optimize.txt')")
           open(p,'w').write(s)
+          open('android/app/proguard-rules.pro','a').write('\n'+open('android-ek/proguard-ekle.pro').read())
           PY
-          grep -n "versionCode\|storeFile" android/app/build.gradle
+          grep -n "versionCode\|storeFile\|minifyEnabled\|proguardFiles" android/app/build.gradle
       - name: Gradle dağıtımı önbelleği
         uses: actions/cache@v4
         with:
@@ -88,7 +92,7 @@ jobs:
           exit 1
       - name: Debug APK ve release AAB derle
         working-directory: android
-        run: ./gradlew assembleDebug bundleRelease
+        run: ./gradlew assembleDebug assembleRelease bundleRelease
       - name: APK imzasını doğrula (sabit anahtarla imzalanmış olmalı)
         run: |
           APKSIGNER=$(ls $ANDROID_HOME/build-tools/*/apksigner | sort -V | tail -1)
@@ -105,6 +109,36 @@ jobs:
           $AAPT2 dump badging $APK | grep -i "icon" || true
           $AAPT2 dump resources $APK | grep -B1 -A8 "mipmap/ic_launcher" || true
           for f in $(unzip -Z1 $APK | grep "anydpi"); do echo "== $f"; $AAPT2 dump xmltree --file $f $APK || true; done
+      - name: Yayın APK'sını deneme için imzala (sabit debug anahtarıyla)
+        run: |
+          BT=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -1)
+          R=android/app/build/outputs/apk/release
+          $BT/zipalign -p -f 4 $R/app-release-unsigned.apk $R/hizali.apk
+          $BT/apksigner sign --ks keystore/debug.keystore --ks-pass pass:android --out $R/app-release-imzali.apk $R/hizali.apk
+          ls -la $R
+      - name: KVM (emülatör için)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+      - name: Yayın sürümü açılış testi (emülatör; yalnızca elle başlatılan derlemede)
+        if: github.event_name == 'workflow_dispatch'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: bash .github/betik/acilis-testi.sh
+      - uses: actions/upload-artifact@v4
+        if: always() && github.event_name == 'workflow_dispatch'
+        with:
+          name: acilis-testi
+          path: |
+            acilis-*.png
+            logcat.txt
+          if-no-files-found: ignore
       - uses: actions/upload-artifact@v4
         with:
           name: NurVakti-APK
