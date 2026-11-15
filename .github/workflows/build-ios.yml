@@ -19,6 +19,10 @@ jobs:
           npm install -D @capacitor/cli@8
       - run: npx cap add ios
       - name: Info.plist, simge, ses, sürüm
+        env:
+          ADMOB_APP: ${{ vars.IOS_ADMOB_APP_ID }}
+          ADMOB_BAN: ${{ vars.IOS_ADMOB_BANNER }}
+          ADMOB_GEC: ${{ vars.IOS_ADMOB_INTERSTITIAL }}
         run: |
           PL=ios/App/App/Info.plist
           B=/usr/libexec/PlistBuddy
@@ -28,7 +32,18 @@ jobs:
           ekle NSPhotoLibraryUsageDescription string "Mezar taşı fotoğrafını galeriden seçmek için fotoğraflarınıza erişilir."
           ekle NSMotionUsageDescription string "Kıble pusulası için hareket ve yön sensörleri kullanılır."
           ekle NSUserTrackingUsageDescription string "Size daha uygun reklamlar gösterebilmek için kullanılır."
-          ekle GADApplicationIdentifier string "ca-app-pub-3940256099942544~1458002511"
+          # AdMob iOS kimlikleri GitHub → Settings → Variables (IOS_ADMOB_APP_ID / _BANNER / _INTERSTITIAL)
+          # üçü de tanımlıysa gerçek reklamlar, değilse Google test reklamları kullanılır
+          if [ -n "$ADMOB_APP" ] && [ -n "$ADMOB_BAN" ] && [ -n "$ADMOB_GEC" ]; then
+            ekle GADApplicationIdentifier string "$ADMOB_APP"
+            perl -0pi -e "s#testing: true,\n  banner: 'ca-app-pub-3940256099942544/2934735716',\n  interstitial: 'ca-app-pub-3940256099942544/4411468910'#testing: false,\n  banner: '$ADMOB_BAN',\n  interstitial: '$ADMOB_GEC'#" www/index.html
+            grep -c "$ADMOB_BAN" www/index.html
+            echo "Gerçek iOS reklam kimlikleri kullanılıyor"
+          else
+            ekle GADApplicationIdentifier string "ca-app-pub-3940256099942544~1458002511"
+            echo "::warning::iOS AdMob kimlikleri tanımlı değil; test reklamları kullanılıyor"
+          fi
+          ekle CFBundleDisplayName string "Secdem"
           ekle ITSAppUsesNonExemptEncryption bool false
           $B -c "Add :SKAdNetworkItems array" "$PL" || true
           $B -c "Add :SKAdNetworkItems:0 dict" "$PL" || true
@@ -40,9 +55,13 @@ jobs:
           PBX=ios/App/App.xcodeproj/project.pbxproj
           sed -i '' 's/TARGETED_DEVICE_FAMILY = "1,2";/TARGETED_DEVICE_FAMILY = 1;/' "$PBX"
           sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9]*;/CURRENT_PROJECT_VERSION = ${{ github.run_number }};/" "$PBX"
+          sed -i '' "s/MARKETING_VERSION = [0-9.]*;/MARKETING_VERSION = 2.2;/" "$PBX"
           # Uygulama simgesi (1024x1024, saydamlık yok)
           cp www/icon-full.png ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png
-          # Bildirim sesi: iOS mp3 bildirim sesini desteklemez; varsayılan ses kullanılır
+          # Bildirim sesi: iOS mp3 bildirim sesini desteklemez; .caf'a çevrilip pakete eklenir (6 sn, sınır 30 sn)
+          afconvert -f caff -d LEI16 www/vakit.mp3 ios/App/App/vakit.caf
+          gem list -i xcodeproj >/dev/null || sudo gem install xcodeproj --no-document || true
+          ruby -e 'require "xcodeproj"; p=Xcodeproj::Project.open("ios/App/App.xcodeproj"); t=p.targets.find{|x|x.name=="App"}; g=p.main_group.find_subpath("App"); r=g.new_reference("vakit.caf"); t.resources_build_phase.add_file_reference(r); p.save; puts "vakit.caf eklendi"' || echo "::warning::bildirim sesi eklenemedi; varsayılan ses kullanılır"
           rm -f www/icon-fg.png www/icon-full.png
           grep -n "TARGETED_DEVICE_FAMILY\|CURRENT_PROJECT_VERSION\|MARKETING_VERSION" "$PBX" | head -8
       - run: npx cap sync ios
@@ -97,7 +116,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ env.P12_B64 != '' }}
         with:
-          name: NurVakti-IPA
+          name: Secdem-IPA
           path: build/export/*.ipa
       - name: TestFlight'a yükle
         if: ${{ env.P12_B64 != '' }}

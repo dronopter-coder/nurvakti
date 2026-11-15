@@ -555,6 +555,7 @@ document.querySelectorAll('.tabs button').forEach(x=>x.onclick=()=>{tab=x.datase
 async function initAds(){
   const A=P.AdMob;
   if(!A){ $('#adph').style.display='flex'; return; }
+  adh('0px'); // ana sayfa reklamsız açılır
   try{
     // iOS: izleme izni (App Tracking Transparency)
     if(PLAT==='ios'){try{const t=await A.trackingAuthorizationStatus();if(t&&t.status==='notDetermined')await A.requestTrackingAuthorization()}catch(e){}}
@@ -565,11 +566,34 @@ async function initAds(){
       if(ci&&ci.canRequestAds===false){window.__canAds=false;$('#adph').style.display='none';document.documentElement.style.setProperty('--adh','0px');return}
     }catch(e){}
     await A.initialize({initializeForTesting:AD.testing});
-    A.addListener('bannerAdSizeChanged',s=>{window.__adh=((s.height||50)+8)+'px';document.documentElement.style.setProperty('--adh',window.__adh)});
-    A.addListener('bannerAdLoaded',()=>{$('#adph').style.display='none';document.documentElement.style.setProperty('--adh',window.__adh||'60px')});
-    A.addListener('bannerAdFailedToLoad',e=>{$('#adph').style.display='none';document.documentElement.style.setProperty('--adh','0px')});
-    await A.showBanner({adId:AD.banner,adSize:'ADAPTIVE_BANNER',position:'BOTTOM_CENTER',margin:0,isTesting:AD.testing});
+    A.addListener('bannerAdSizeChanged',s=>{window.__adh=((s.height||50)+8)+'px';if(banner.acik)adh(window.__adh)});
+    A.addListener('bannerAdLoaded',()=>{$('#adph').style.display='none';if(banner.acik)adh(window.__adh||'60px')});
+    A.addListener('bannerAdFailedToLoad',e=>{$('#adph').style.display='none';banner.hata=true;adh('0px')});
+    banner.hazir=true;reklamDurum();
+    // sekme değişince ve iç sayfa açılıp kapanınca banner gösterilir/gizlenir
+    let zm=null;const izle=()=>{clearTimeout(zm);zm=setTimeout(reklamDurum,120)};
+    new MutationObserver(izle).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class','style']});
   }catch(e){}
+}
+/* Banner yalnızca iç sayfalarda: ana sayfa (Vakit sekmesi, üstünde açık sayfa yokken) reklamsız */
+const banner={hazir:false,acik:false,gosterildi:false,hata:false,mesgul:false};
+const adh=v=>document.documentElement.style.setProperty('--adh',v);
+function icSayfa(){
+  if(document.querySelector('.sf,.kb-ov.open'))return true;
+  const o=document.getElementById('kbOku');if(o&&getComputedStyle(o).display!=='none')return true;
+  return typeof view!=='undefined'&&view!=='vakit';
+}
+async function reklamDurum(){
+  const A=P.AdMob;if(!A||!banner.hazir||banner.mesgul||window.__canAds===false)return;
+  const iste=icSayfa();if(iste===banner.acik)return;
+  banner.mesgul=true;banner.acik=iste;
+  try{
+    if(iste){if(!banner.gosterildi){banner.gosterildi=true;await A.showBanner({adId:AD.banner,adSize:'ADAPTIVE_BANNER',position:'BOTTOM_CENTER',margin:0,isTesting:AD.testing})}else await A.resumeBanner();
+      if(!banner.hata)adh(window.__adh||'60px')}
+    else{if(banner.gosterildi)await A.hideBanner();adh('0px')}
+  }catch(e){}
+  banner.mesgul=false;
+  if(icSayfa()!==banner.acik)reklamDurum(); // beklerken durum değiştiyse
 }
 async function showInter(){
   const A=P.AdMob; if(!A||window.__canAds===false) return;

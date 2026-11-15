@@ -5,11 +5,23 @@ Uygulamanın iOS sürümü, Android ile **aynı kod tabanından** (Capacitor) ü
 ## 1. Sizin yapmanız gerekenler (Apple hesabı zorunlu)
 1. **Apple Developer Program** üyeliği: yıllık 99 USD, kimlik doğrulaması (bireysel için birkaç gün sürebilir). developer.apple.com/programs
 2. **Bundle ID** oluşturun: Certificates, Identifiers & Profiles → Identifiers → `com.nurvakti.namazvekuran` (Capabilities: *Push Notifications gerekmez*; yerel bildirim için ek yetki gerekmez).
-3. **App Store Connect’te uygulamayı oluşturun**: appstoreconnect.apple.com → Apps → + → Yeni uygulama (Ad: *Secdem: Namaz ve Kur'an*, Dil: Türkçe, Bundle ID: `com.nurvakti.namazvekuran`, SKU: `nurvakti`).
+3. **App Store Connect’te uygulamayı oluşturun**: appstoreconnect.apple.com → Apps → + → Yeni uygulama (Ad: *Secdem: Ezan ve Namaz Vakti*, Dil: Türkçe, Bundle ID: `com.nurvakti.namazvekuran`, SKU: `secdem-ios`). Tüm metinler: `yayin/app-store-metinleri.md`.
 4. **Dağıtım sertifikası (Apple Distribution)**: Mac olmadan da üretilebilir (aşağıda “Mac’siz sertifika”).
 5. **Provisioning profile**: Profiles → + → *App Store Connect* → Bundle ID’yi seçin → sertifikayı seçin → indirin (`.mobileprovision`).
 6. **App Store Connect API anahtarı**: Users and Access → Integrations → App Store Connect API → anahtar oluşturun (rol: *App Manager*). `.p8` dosyasını, *Key ID*’yi ve *Issuer ID*’yi kaydedin.
-7. **AdMob’da iOS uygulaması**: AdMob → Uygulamalar → iOS uygulaması ekleyin; iOS için banner ve geçiş reklamı birimi oluşturun. O zamana kadar uygulama Google’ın **test reklamlarını** gösterir (`www/index.html` içindeki `AD` bloğu). Gerçek kimlikleri bana verirseniz kodu güncellerim.
+7. **AdMob’da iOS uygulaması** (aynı AdMob hesabı kullanılır, ama Android kimlikleri iOS’ta çalışmaz):
+   - AdMob → Uygulamalar → *Uygulama ekle* → Platform: **iOS** → App Store’da yayında mı: önce *Hayır* (yayınlandıktan sonra mağazaya bağlarsınız).
+   - Oluşan **Uygulama kimliği** `ca-app-pub-…~…` biçimindedir.
+   - Bu uygulamada iki reklam birimi açın: **Banner** ve **Geçiş (Interstitial)**. Kimlikleri `ca-app-pub-…/…` biçimindedir.
+   - Gizlilik ve mesajlaşma → iOS uygulaması için GDPR mesajını ve **IDFA açıklama mesajını** (ATT öncesi) yayınlayın.
+   - Üç kimliği GitHub → Settings → Secrets and variables → Actions → **Variables** sekmesine girin (bunlar gizli değildir):
+     | Değişken | Örnek biçim |
+     |---|---|
+     | `IOS_ADMOB_APP_ID` | `ca-app-pub-3204109869365538~XXXXXXXXXX` |
+     | `IOS_ADMOB_BANNER` | `ca-app-pub-3204109869365538/XXXXXXXXXX` |
+     | `IOS_ADMOB_INTERSTITIAL` | `ca-app-pub-3204109869365538/XXXXXXXXXX` |
+   - Üçü de tanımlı değilse iOS derlemesi Google’ın **test reklamlarını** kullanır (derleme günlüğünde uyarı çıkar). Test reklamlı sürümü App Store’a göndermeyin.
+   - `app-ads.txt`: dronopter.com.tr kök dizininde Android için koyduğunuz satır iOS’u da kapsar; App Store’daki “Pazarlama URL’si” olarak dronopter.com.tr girilmelidir.
 
 ### GitHub gizli anahtarları (Settings → Secrets and variables → Actions)
 | Ad | Değer |
@@ -39,13 +51,13 @@ openssl pkcs12 -export -inkey dagitim.key -in distribution.pem -out dagitim.p12
 ## 2. Derleme akışı
 GitHub → Actions → **iOS derle** → *Run workflow*.
 - **Gizli anahtarlar yokken:** yalnızca imzasız *simülatör* derlemesi yapılır. Bu, kodun iOS’ta derlendiğini doğrular; telefona kurulabilir bir dosya üretmez.
-- **Gizli anahtarlar tanımlıyken:** imzalı arşiv ve IPA üretilir (`NurVakti-IPA` çıktısı), ardından **TestFlight**’a yüklenir. Yükleme sonrası uygulama, App Store Connect → TestFlight bölümünde (işleme için 10-30 dk sonra) görünür.
+- **Gizli anahtarlar tanımlıyken:** imzalı arşiv ve IPA üretilir (`Secdem-IPA` çıktısı), ardından **TestFlight**’a yüklenir. Yükleme sonrası uygulama, App Store Connect → TestFlight bölümünde (işleme için 10-30 dk sonra) görünür.
 - Telefonda denemek için **TestFlight** uygulamasını kurup kendinizi dahili test kullanıcısı olarak ekleyin; Apple incelemesi gerekmez.
 
 ## 3. App Store için gerekenler
-- **Ekran görüntüleri:** 6,9 inç iPhone (1320×2868) ve 6,5 inç iPhone (1284×2778) zorunlu. Mevcut görsellerden üretilebilir; isterseniz hazırlarım.
+- **Ekran görüntüleri:** hazır: `yayin/gorseller/app-store/6.9-inch/{tr,en,ar,de}` (1320×2868) ve `6.5-inch/` (1284×2778), her dilde 8 adet.
 - **Simge:** 1024×1024, saydamlık yok (derlemede otomatik yerleştirilir).
-- **Metinler:** `yayin/magaza-metinleri.md` ve `yayin/uzun-aciklama.txt` (ad en çok 30 karakter; alt başlık 30 karakter: ör. “Namaz, Kur'an, Kabir ve Cuma”).
+- **Metinler:** `yayin/app-store-metinleri.md` (4 dilde ad, alt başlık, anahtar kelimeler, açıklama, gizlilik cevapları, inceleme notu).
 - **Gizlilik politikası URL’si:** Android’dekiyle aynı.
 - **Uygulama gizlilik (Privacy Nutrition Labels):** Konum (uygulama işlevi, kullanıcıya bağlı değil), Reklam kimliği ve kullanım verisi (AdMob – reklam amaçlı). Fotoğraflar cihazda kalır, toplanmaz.
 - **Yaş derecelendirmesi:** Android’deki anket cevaplarıyla aynı (tüm yaşlara uygun). “Reklam gösteriyor: Evet”.
@@ -56,7 +68,10 @@ GitHub → Actions → **iOS derle** → *Run workflow*.
 - Kıble pusulası için iOS’ta **hareket sensörü izni** istenir.
 - Reklamlar için **App Tracking Transparency** penceresi ve AdMob onay (UMP) penceresi gösterilir.
 - iPhone ve dikey yön ile sınırlıdır (iPad desteği yok; istenirse ayrıca tasarlanır).
-- Bildirim sesi (`ezan.wav`) pakete eklenir (iOS’ta en çok 30 saniye olabilir; dosya 4,6 sn).
+- Vakit bildirim sesi derlemede `vakit.mp3` → `vakit.caf` çevrilip pakete eklenir (6 sn; iOS sınırı 30 sn).
+- Android’e özgü olanlar iOS’ta yok: ana ekran widget’ı, bildirim çubuğundaki kalıcı vakit kartı, uygulama içi güncelleme penceresi. iOS’ta her vakit için ayrı bildirim gelir.
+- Reklam: ana sayfada reklam yok; banner yalnızca iç sayfalarda görünür (Android ile aynı).
+- Sürüm: `MARKETING_VERSION` derlemede Android sürümüyle (şu an 2.2) eşitlenir; derleme numarası GitHub çalıştırma numarasıdır.
 
 ## 5. Bilinen riskler
 - iOS derlemesini bu ortamda (Linux) çalıştıramıyorum; ilk gerçek doğrulama GitHub macOS makinesindeki derlemedir. Hata çıkarsa düzeltilir.

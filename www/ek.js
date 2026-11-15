@@ -194,7 +194,7 @@ async function planNotifs(ask){
       VAK.forEach(([key,name],i)=>{
         if(!S.vk.includes(i))return;
         const w=at(d,x.t[key]);
-        if(w>now)list.push({id:100+k*10+i,title:ceviri(name+' vakti'),body:ceviri(locLabel()+' için '+name+' vakti girdi'),schedule:{at:w,allowWhileIdle:true},channelId:'vakit4',sound:PLAT==='ios'?undefined:'vakit.mp3',extra:{hedef:'vakit'}});
+        if(w>now)list.push({id:100+k*10+i,title:ceviri(name+' vakti'),body:ceviri(locLabel()+' için '+name+' vakti girdi'),schedule:{at:w,allowWhileIdle:true},channelId:'vakit4',sound:PLAT==='ios'?'vakit.caf':'vakit.mp3',extra:{hedef:'vakit'}});
       });
     }
     if(PLAT==='ios')list.splice(40); // iOS en çok 64 bekleyen yerel bildirime izin verir
