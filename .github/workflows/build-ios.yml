@@ -55,7 +55,7 @@ jobs:
           PBX=ios/App/App.xcodeproj/project.pbxproj
           sed -i '' 's/TARGETED_DEVICE_FAMILY = "1,2";/TARGETED_DEVICE_FAMILY = 1;/' "$PBX"
           sed -i '' "s/CURRENT_PROJECT_VERSION = [0-9]*;/CURRENT_PROJECT_VERSION = ${{ github.run_number }};/" "$PBX"
-          sed -i '' "s/MARKETING_VERSION = [0-9.]*;/MARKETING_VERSION = 2.2;/" "$PBX"
+          sed -i '' "s/MARKETING_VERSION = [0-9.]*;/MARKETING_VERSION = 2.3;/" "$PBX"
           # Uygulama simgesi (1024x1024, saydamlık yok)
           cp www/icon-full.png ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png
           # Bildirim sesi: iOS mp3 bildirim sesini desteklemez; .caf'a çevrilip pakete eklenir (6 sn, sınır 30 sn)
