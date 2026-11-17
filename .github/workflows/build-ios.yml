@@ -117,6 +117,7 @@ jobs:
         if: ${{ env.P12_B64 != '' }}
         with:
           name: Secdem-IPA
+          retention-days: 14
           path: build/export/*.ipa
       - name: TestFlight'a yükle
         if: ${{ env.P12_B64 != '' }}

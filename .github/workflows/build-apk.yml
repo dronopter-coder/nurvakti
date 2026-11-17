@@ -135,6 +135,7 @@ jobs:
         if: always() && github.event_name == 'workflow_dispatch'
         with:
           name: acilis-testi
+          retention-days: 3
           path: |
             acilis-*.png
             logcat.txt
@@ -142,6 +143,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: NurVakti-APK
+          retention-days: 3
           path: android/app/build/outputs/apk/debug/app-debug.apk
       - name: AAB imzala (KEYSTORE_BASE64 sırrı tanımlıysa)
         if: ${{ env.KS_B64 != '' }}
@@ -157,4 +159,5 @@ jobs:
         if: ${{ env.KS_B64 != '' }}
         with:
           name: NurVakti-AAB
+          retention-days: 14
           path: android/app/build/outputs/bundle/release/app-release.aab
